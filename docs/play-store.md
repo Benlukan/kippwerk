@@ -37,6 +37,7 @@ Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile d
 ENDLOS-MODUS
 Spiele, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker und mehr Tempo.
 
+• Bestenliste mit Top 10 und Tages-Serie 🔥
 • Keine Werbung, kein Konto, keine Datensammlung
 • Komplett offline spielbar
 • Farbsymbole für Spieler mit Farbsehschwäche

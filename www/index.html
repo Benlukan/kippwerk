@@ -84,6 +84,21 @@ h1 span{color:var(--c3)}
 .share{margin:0;background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font:13px/1.45 ui-monospace,monospace;
   color:var(--text);text-align:left;white-space:pre-wrap;user-select:text;max-width:100%}
 .mode-tag{font-size:10px;letter-spacing:.12em;color:var(--c1);text-transform:uppercase;margin-left:8px;vertical-align:middle}
+.namerow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.namerow input{background:#0d1020;border:1px solid var(--c1);border-radius:12px;color:var(--text);padding:10px 14px;
+  font:600 16px "Space Grotesk",sans-serif;width:170px;outline:none;user-select:text}
+.namerow .btn{margin-top:0;background:var(--c1)}
+.tabs{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tabs button{background:none;border:0;color:var(--muted);font:700 14px "Space Grotesk",sans-serif;padding:8px 14px;border-radius:9px;cursor:pointer}
+.tabs button.on{background:var(--line);color:var(--text)}
+.scores{border-collapse:collapse;width:min(100%,380px);font-size:15px;font-variant-numeric:tabular-nums}
+.scores td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left}
+.scores td.r{text-align:right}.scores td.m{color:var(--muted);font-size:12px}
+.scores tr.me td{color:var(--c1);font-weight:700}
+.scores td.rank{width:34px;color:var(--muted)}
+.statsrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:min(100%,380px)}
+.statsrow div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 4px}
+.statsrow b{display:block;font-size:20px}.statsrow small{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -97,6 +112,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
     <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
     <div class="icons">
       <button class="icon-btn" id="soundBtn" title="Ton an/aus">🔊</button>
+      <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
       <button class="icon-btn" id="helpBtn" title="Anleitung">?</button>
     </div>
   </header>
@@ -132,19 +148,32 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       <h2 id="overTitle">FELD VOLL</h2>
       <div class="big" id="finalScore">0</div>
       <p id="overText"></p>
+      <div class="namerow" id="nameRow" style="display:none">
+        <input id="nameInput" maxlength="12" placeholder="Dein Name" autocomplete="nickname" enterkeyhint="done">
+        <button class="btn" id="saveName">EINTRAGEN</button>
+      </div>
       <pre class="share" id="shareBox" style="display:none"></pre>
       <button class="btn" id="shareBtn" style="display:none">ERGEBNIS TEILEN</button>
       <div class="modes">
         <button class="btn alt" id="againBtn">NOCHMAL</button>
         <button class="btn alt" id="menuBtn">MENÜ</button>
+        <button class="btn alt" id="overScoresBtn">🏆</button>
       </div>
       <p class="hint" id="countdown"></p>
+    </div>
+    <div class="overlay hidden" id="scoresOv">
+      <h2>🏆 BESTENLISTE</h2>
+      <div class="tabs"><button id="tabEndless" class="on">∞ Endlos</button><button id="tabDaily">📅 Tagesrätsel</button></div>
+      <div id="dailyStats" class="statsrow" style="display:none"></div>
+      <table class="scores" id="scoresTable"></table>
+      <p class="hint" id="scoresEmpty" style="display:none"></p>
+      <button class="btn alt" id="closeScores">SCHLIESSEN</button>
     </div>
   </div>
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.1.1 · Build 3 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
+  <footer>KIPPWERK v1.2.0 · Build 4 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
 </div>
 <script>
 (()=>{
@@ -171,7 +200,30 @@ let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen
 function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null')}catch(e){return null}}
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
-try{best=+localStorage.getItem('kippwerk_best')||0;sound=localStorage.getItem('kippwerk_sound')!=='0'}catch(e){}
+try{sound=localStorage.getItem('kippwerk_sound')!=='0'}catch(e){}
+// ---------- Bestenliste ----------
+const TOP=10;
+function loadScores(){let d=null;try{d=JSON.parse(localStorage.getItem('kippwerk_scores')||'null')}catch(e){}
+  d=d||{endless:[],daily:[]};
+  if(!d.endless.length){let old=0;try{old=+localStorage.getItem('kippwerk_best')||0}catch(e){}  // Rekord aus v1.x übernehmen
+    if(old>0)d.endless.push({name:'Rekord',score:old,level:0,date:''})}
+  return d}
+function saveScores(){try{localStorage.setItem('kippwerk_scores',JSON.stringify(scores))}catch(e){}}
+let scores=loadScores(), lastEntry=null;
+let playerName='';try{playerName=localStorage.getItem('kippwerk_name')||''}catch(e){}
+const fmtDate=()=>new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});
+best=scores.endless.length?scores.endless[0].score:0;
+function addScore(list,entry,key='score'){
+  scores[list].push(entry);scores[list].sort((a,b)=>b[key]-a[key]);
+  if(list==='endless')scores[list]=scores[list].slice(0,TOP);
+  saveScores();const i=scores[list].indexOf(entry);return i<0?0:i+1}
+function dailyStats(){
+  const keys=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))keys.push(k.slice(15))}}catch(e){}
+  const set=new Set(keys);let streak=0;const d=new Date();
+  if(!set.has(todayKey()))d.setDate(d.getDate()-1);
+  while(true){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!set.has(k))break;streak++;d.setDate(d.getDate()-1)}
+  const sc=scores.daily.map(x=>x.score);
+  return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 
 for(let i=0;i<N*N;i++)$('cells').appendChild(document.createElement('div'));
 
@@ -367,14 +419,21 @@ function gameOver(reason){
   if(daily){
     $('overTitle').textContent=reason==='full'?'FELD VOLL':'GESCHAFFT';
     let official=loadDaily();
-    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official)}
+    $('nameRow').style.display='none';
+    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);
+      addScore('daily',{no:dailyNo(),score,chain:bestChain,date:fmtDate()})}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString('de-DE')}`:`Tagesrätsel #${dailyNo()} · ${cleared} Steine abgeräumt`;
     $('shareBox').textContent=shareText(official);
   }else{
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;
-    if(isBest){best=score;try{localStorage.setItem('kippwerk_best',best)}catch(e){}}
-    $('overText').textContent=isBest?'🏆 Neuer Rekord! Level '+level+' · '+cleared+' Steine abgeräumt.':'Level '+level+' · '+cleared+' Steine abgeräumt. Rekord: '+best.toLocaleString('de-DE');
+    const qualifies=score>0&&(scores.endless.length<TOP||score>scores.endless[scores.endless.length-1].score);
+    let rank=0;lastEntry=null;
+    if(qualifies){lastEntry={name:playerName||'Spieler',score,level,date:fmtDate()};rank=addScore('endless',lastEntry)}
+    best=scores.endless.length?scores.endless[0].score:0;
+    $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt.'+(!isBest?' Rekord: '+best.toLocaleString('de-DE'):'');
+    $('nameRow').style.display=rank?'':'none';
+    $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
   }
   setTimeout(()=>$('overOv').classList.remove('hidden'),500);
 }
@@ -401,11 +460,13 @@ function newGame(){
 // ---------- Input ----------
 const keys={ArrowLeft:'L',ArrowRight:'R',ArrowUp:'U',ArrowDown:'D',a:'L',d:'R',w:'U',s:'D',A:'L',D:'R',W:'U',S:'D'};
 document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();$('saveName').click()}return}
+  if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
   else if((e.key==='Enter'||e.key===' ')&&over){e.preventDefault();start(mode)}
 });
 let sx=0,sy=0,tracking=false;
-document.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;sx=e.clientX;sy=e.clientY;tracking=true});
+document.addEventListener('pointerdown',e=>{if(e.target.closest('button,input,.overlay:not(.hidden)'))return;sx=e.clientX;sy=e.clientY;tracking=true});
 document.addEventListener('pointerup',e=>{
   if(!tracking)return;tracking=false;
   const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;
@@ -435,6 +496,37 @@ $('shareBtn').onclick=async()=>{
   catch(e){const r=document.createRange();r.selectNodeContents($('shareBox'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='TEXT MARKIERT – KOPIEREN'}
   setTimeout(()=>b.textContent='ERGEBNIS TEILEN',2000);
 };
+$('saveName').onclick=()=>{
+  const n=$('nameInput').value.trim().slice(0,12)||'Spieler';playerName=n;
+  try{localStorage.setItem('kippwerk_name',n)}catch(e){}
+  if(lastEntry){lastEntry.name=n;saveScores()}
+  $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT'};
+let scoresTab='endless',scoresReturn=null;
+function renderScores(){
+  $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
+  const t=$('scoresTable'),esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const list=scores[scoresTab].slice(0,TOP);
+  $('dailyStats').style.display=scoresTab==='daily'?'':'none';
+  if(scoresTab==='daily'){const st=dailyStats();
+    $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString('de-DE')}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString('de-DE')}</b><small>Schnitt</small></div>`}
+  t.innerHTML=list.map((x,i)=>{const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
+    return scoresTab==='endless'
+      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`
+      :`<tr><td class="rank">${medal}</td><td>Rätsel #${x.no}</td><td class="m">${x.chain>1?'×'+x.chain:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`}).join('');
+  $('scoresEmpty').style.display=list.length?'none':'';
+  $('scoresEmpty').textContent=scoresTab==='endless'?'Noch keine Einträge – spiel eine Runde Endlos!':'Noch kein Tagesrätsel gespielt.';
+}
+function openScores(tab){
+  scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;
+  if(started&&!over){paused=true;started=false;scoresReturn='pause'}
+  $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
+  scoresTab=tab||scoresTab;renderScores();$('scoresOv').classList.remove('hidden')}
+$('scoresBtn').onclick=()=>{if(busy)return;openScores(mode)};
+$('overScoresBtn').onclick=()=>openScores(mode);
+$('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
+$('tabDaily').onclick=()=>{scoresTab='daily';renderScores()};
+$('closeScores').onclick=()=>{$('scoresOv').classList.add('hidden');
+  if(scoresReturn==='over')$('overOv').classList.remove('hidden');else if(scoresReturn==='start'||scoresReturn==='pause')showMenu()};
 $('helpBtn').onclick=()=>{if(over||busy)return;
   if(started){paused=true;started=false}
   showMenu()};

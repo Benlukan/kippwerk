@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.0 (Build 4) – 30.10.2026
+- Neu: **Bestenliste** (🏆 oben rechts und im Game-Over-Bildschirm)
+  - Endlos: Top 10 mit Name, Level und Datum; Namenseingabe bei Platzierung, Name wird gemerkt
+  - Tagesrätsel: alle gewerteten Ergebnisse plus Statistik (Gespielt, Serie 🔥, Bester, Schnitt)
+- Bisheriger Rekord wird automatisch in die Bestenliste übernommen
+- Öffnen der Bestenliste pausiert ein laufendes Spiel
+
 ## v1.1.1 (Build 3) – 30.10.2026
 - Play-Store-Vorbereitung: Release-Signatur über GitHub-Secrets, AAB-Build
 - Datenschutzerklärung (`datenschutz.html`), im Spiel verlinkt

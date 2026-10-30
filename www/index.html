@@ -25,11 +25,11 @@
 html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 50% -10%,#1d2240 0%,var(--bg) 60%);color:var(--text);
   font-family:"Space Grotesk",system-ui,sans-serif;overflow:hidden;touch-action:none;user-select:none}
 .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:14px}
-header{width:min(92vw,440px);display:flex;align-items:flex-end;justify-content:space-between}
-h1{margin:0;font-size:26px;letter-spacing:.18em;font-weight:700}
+header{width:min(92vw,440px);display:flex;align-items:center;justify-content:space-between;gap:6px}
+h1{margin:0;font-size:clamp(19px,6vw,26px);letter-spacing:.15em;font-weight:700;white-space:nowrap}
 h1 span{color:var(--c3)}
-.icons{display:flex;gap:8px}
-.icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;width:38px;height:38px;font-size:17px;cursor:pointer}
+.icons{display:flex;gap:6px;flex:none}
+.icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;width:clamp(32px,9.5vw,38px);height:clamp(32px,9.5vw,38px);font-size:16px;cursor:pointer;padding:0}
 .icon-btn:hover{color:var(--text)}
 .hud{width:min(92vw,440px);display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:8px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
@@ -83,7 +83,7 @@ h1 span{color:var(--c3)}
 .btn.alt:hover{border-color:var(--c3)}
 .share{margin:0;background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font:13px/1.45 ui-monospace,monospace;
   color:var(--text);text-align:left;white-space:pre-wrap;user-select:text;max-width:100%}
-.mode-tag{font-size:10px;letter-spacing:.12em;color:var(--c1);text-transform:uppercase;margin-left:8px;vertical-align:middle}
+.mode-tag{font-size:10px;letter-spacing:.1em;color:var(--c1);text-transform:uppercase;margin-left:6px;vertical-align:middle;white-space:nowrap}
 .namerow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .namerow input{background:#0d1020;border:1px solid var(--c1);border-radius:12px;color:var(--text);padding:10px 14px;
   font:600 16px "Space Grotesk",sans-serif;width:170px;outline:none;user-select:text}
@@ -101,6 +101,41 @@ h1 span{color:var(--c3)}
 .statsrow b{display:block;font-size:20px}.statsrow small{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
 .linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;font:500 12px "Space Grotesk",sans-serif;cursor:pointer;margin-top:4px}
 .btn:disabled{opacity:.6;cursor:wait}
+.btn.lvl{background:var(--c2)}
+.goalline{display:flex;flex-direction:column;gap:1px;font-size:13px;font-weight:700;margin-top:2px;line-height:1.25}
+.goalline .ok{color:var(--c2)}
+.chip{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:4px;font-size:9px;color:#0008;vertical-align:-2px;margin-right:3px}
+.chip.rock{background:repeating-linear-gradient(135deg,#5b6079 0 4px,#4a4e66 4px 8px)}
+.lvgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(100%,380px)}
+.lvbtn{background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:8px 0 6px;cursor:pointer;
+  font:700 18px "Space Grotesk",sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px}
+.lvbtn small{font-size:10px;letter-spacing:1px;color:var(--c1)}
+.lvbtn.next{border-color:var(--c2);box-shadow:0 0 14px #3ddc9744}
+.lvbtn.locked{opacity:.35;cursor:not-allowed}
+.stars{font-size:34px;letter-spacing:6px;color:var(--c1);text-shadow:0 0 18px #ffc14566}
+.stars .off{color:var(--line);text-shadow:none}
+.goals{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;min-width:240px}
+.goals div{display:flex;align-items:center;gap:8px;font-size:15px}
+.goals .ok{color:var(--c2)}
+.settings{display:flex;flex-direction:column;width:min(100%,360px);background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.set{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:0;border-bottom:1px solid var(--line);
+  background:none;color:var(--text);font:500 15px "Space Grotesk",sans-serif;text-align:left;text-decoration:none;cursor:pointer}
+.set:last-child{border-bottom:0}
+.set.danger{color:#ff8a9a}
+.set input[type=checkbox]{appearance:none;-webkit-appearance:none;width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;cursor:pointer;transition:background .2s;flex:none}
+.set input[type=checkbox]::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
+.set input[type=checkbox]:checked{background:var(--c2)}
+.set input[type=checkbox]:checked::after{transform:translateX(18px)}
+.seg{display:flex;background:#0d1020;border-radius:9px;padding:3px;gap:2px}
+.seg button{background:none;border:0;color:var(--muted);font:700 12px "Space Grotesk",sans-serif;padding:6px 9px;border-radius:7px;cursor:pointer}
+.seg button.on{background:var(--line);color:var(--text)}
+.tile.rock .in{background:repeating-linear-gradient(135deg,#5b6079 0 7px,#4a4e66 7px 14px);box-shadow:inset 0 -5px 0 rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.15)}
+body.nosym .tile:not(.wild) .in,body.nosym .mini:not(.w),body.nosym .chip{color:transparent!important}
+body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7}
+body.fast .tile{transition-duration:.08s}
+body.pad-on .pad{display:flex!important}
+body.pad-off .pad{display:none!important}
+.menurow{display:flex;gap:14px;justify-content:center}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -113,14 +148,14 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
   <header>
     <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
     <div class="icons">
-      <button class="icon-btn" id="soundBtn" title="Ton an/aus">🔊</button>
       <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
-      <button class="icon-btn" id="helpBtn" title="Anleitung">?</button>
+      <button class="icon-btn" id="settingsBtn" title="Einstellungen">⚙</button>
+      <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
     </div>
   </header>
   <div class="hud">
     <div class="stat"><small>Punkte</small><b id="score">0</b></div>
-    <div class="stat"><small>Rekord</small><b id="best">0</b></div>
+    <div class="stat"><small id="bestLabel">Rekord</small><b id="best">0</b><div class="goalline" id="goalHud" style="display:none"></div></div>
     <div class="stat"><small id="levelLabel">Level</small><b id="level">1</b><div class="levelbar"><i id="lvlbar"></i></div></div>
     <div class="stat"><small>Als Nächstes</small><div class="next" id="next"></div></div>
   </div>
@@ -142,9 +177,11 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       <button class="btn" id="resumeBtn" style="display:none">WEITER</button>
       <div class="modes">
         <button class="btn" id="dailyBtn">📅 TAGESRÄTSEL</button>
+        <button class="btn lvl" id="levelBtn">🗺 LEVEL</button>
         <button class="btn alt" id="endlessBtn">∞ ENDLOS</button>
       </div>
       <p class="hint" id="dailyHint">Jeden Tag dieselben Steine für alle · 40 Züge</p>
+      <div class="menurow"><button class="linkbtn" id="menuSettings">⚙ Einstellungen</button><button class="linkbtn" id="menuScores">🏆 Bestenliste</button></div>
       <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
     </div>
     <div class="overlay hidden" id="overOv">
@@ -165,12 +202,45 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       <p class="hint" id="countdown"></p>
     </div>
     <div class="overlay hidden" id="rescueOv">
-      <h2>FELD VOLL</h2>
+      <h2 id="rescueTitle">FELD VOLL</h2>
       <div class="big" id="rescueScore">0</div>
-      <p>Noch eine Chance? Schau ein kurzes Video – dafür verschwinden <b id="rescueN">6</b> Steine und du spielst weiter.</p>
+      <p id="rescueText"></p>
       <button class="btn" id="rescueBtn">🎬 VIDEO ANSEHEN &amp; WEITER</button>
       <button class="btn alt" id="noRescueBtn">NEIN DANKE</button>
       <p class="hint">Eine Rettung pro Runde · freiwillig</p>
+    </div>
+    <div class="overlay hidden" id="levelsOv">
+      <h2>🗺 LEVEL</h2>
+      <p id="levelsTotal"></p>
+      <div class="lvgrid" id="lvGrid"></div>
+      <button class="btn alt" id="closeLevels">ZURÜCK</button>
+    </div>
+    <div class="overlay hidden" id="lvlOv">
+      <p class="hint" id="lvlKicker">LEVEL</p>
+      <h2 id="lvlTitle">LEVEL 1</h2>
+      <div class="stars" id="lvlStars"></div>
+      <div class="goals" id="lvlGoals"></div>
+      <p id="lvlText"></p>
+      <button class="btn" id="lvlMain">START</button>
+      <div class="modes"><button class="btn alt" id="lvlRetry">NOCHMAL</button><button class="btn alt" id="lvlMap">🗺 KARTE</button></div>
+    </div>
+    <div class="overlay hidden" id="settingsOv">
+      <h2>⚙ EINSTELLUNGEN</h2>
+      <div class="settings">
+        <label class="set"><span>🔊 Ton</span><input type="checkbox" id="setSound"></label>
+        <label class="set"><span>📳 Vibration</span><input type="checkbox" id="setVibe"></label>
+        <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
+        <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
+        <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
+        <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
+      </div>
+      <div class="settings">
+        <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
+        <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
+        <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
+        <a class="set" href="datenschutz.html">📄 Datenschutzerklärung</a>
+      </div>
+      <button class="btn alt" id="closeSettings">FERTIG</button>
     </div>
     <div class="overlay hidden" id="scoresOv">
       <h2>🏆 BESTENLISTE</h2>
@@ -184,15 +254,15 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.3.0 · Build 5 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
+  <footer>KIPPWERK v1.4.0 · Build 6 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
 </div>
 <script>
 (()=>{
 const N=6;
 const COLORS=['var(--c0)','var(--c1)','var(--c2)','var(--c3)','var(--c4)'];
-const GLOWS=['#ff5d7366','#ffc14566','#3ddc9766','#4cc9f066','#b57bff66'];
 const SYMBOLS=['●','▲','■','◆','✚'];
-const WILD=9;
+const WILD=9, ROCK=8;
+const LEVELS=[{"moves":8,"colors":3,"spawn":2,"goals":[{"t":"score","n":300}],"stars":[4,5]},{"moves":18,"colors":3,"spawn":2,"goals":[{"t":"color","c":0,"n":9}],"stars":[7,10]},{"moves":14,"colors":4,"spawn":2,"goals":[{"t":"score","n":800}],"stars":[3,4]},{"moves":12,"colors":3,"spawn":2,"goals":[{"t":"chain","n":2}],"stars":[7,10]},{"moves":8,"colors":3,"spawn":2,"rocks":[[2,2],[2,3],[3,2],[3,3]],"goals":[{"t":"rocks"}],"stars":[3,5]},{"moves":27,"colors":4,"spawn":2,"goals":[{"t":"color","c":1,"n":8},{"t":"color","c":3,"n":8}],"stars":[6,10]},{"moves":23,"colors":4,"spawn":2,"goals":[{"t":"clear","n":40}],"stars":[1,2]},{"moves":10,"colors":4,"spawn":2,"rocks":[[0,0],[0,5],[5,0],[5,5],[2,2],[3,3]],"goals":[{"t":"rocks"}],"stars":[3,5]},{"moves":30,"colors":4,"spawn":2,"wild":0.06,"goals":[{"t":"score","n":2000}],"stars":[3,5]},{"moves":17,"colors":4,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"score","n":1000}],"stars":[2,4]},{"moves":17,"colors":4,"spawn":2,"rocks":[[1,1],[1,4],[4,1],[4,4],[2,2],[2,3],[3,2],[3,3]],"goals":[{"t":"rocks"},{"t":"score","n":1000}],"stars":[2,4]},{"moves":24,"colors":5,"spawn":2,"goals":[{"t":"score","n":1500}],"stars":[2,4]},{"moves":33,"colors":4,"spawn":3,"goals":[{"t":"color","c":2,"n":20}],"stars":[5,9]},{"moves":34,"colors":5,"spawn":2,"wild":0.05,"goals":[{"t":"clear","n":60}],"stars":[1,3]},{"moves":11,"colors":4,"spawn":2,"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"goals":[{"t":"rocks"}],"stars":[3,5]},{"moves":26,"colors":5,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"clear","n":45}],"stars":[1,2]},{"moves":33,"colors":4,"spawn":3,"goals":[{"t":"score","n":3500}],"stars":[2,4]},{"moves":37,"colors":5,"spawn":2,"goals":[{"t":"color","c":0,"n":10},{"t":"color","c":4,"n":10}],"stars":[5,10]},{"moves":16,"colors":5,"spawn":2,"wild":0.05,"rocks":[[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5]],"goals":[{"t":"rocks"}],"stars":[3,5]},{"moves":29,"colors":4,"spawn":3,"goals":[{"t":"clear","n":80}],"stars":[1,1]},{"moves":29,"colors":5,"spawn":3,"wild":0.04,"goals":[{"t":"score","n":3000}],"stars":[2,4]},{"moves":18,"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"chain","n":2}],"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"stars":[3,6]},{"moves":18,"colors":5,"spawn":3,"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"goals":[{"t":"rocks"},{"t":"score","n":1500}],"stars":[2,4]},{"moves":33,"colors":5,"spawn":3,"goals":[{"t":"color","c":1,"n":13},{"t":"color","c":2,"n":13},{"t":"color","c":3,"n":13}],"stars":[4,8]},{"moves":36,"colors":5,"spawn":3,"wild":0.05,"goals":[{"t":"score","n":4000}],"stars":[2,3]},{"moves":15,"colors":5,"spawn":3,"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"goals":[{"t":"rocks"}],"stars":[2,4]},{"moves":34,"colors":5,"spawn":3,"goals":[{"t":"clear","n":90},{"t":"chain","n":2}],"stars":[1,2]},{"moves":37,"colors":5,"spawn":3,"wild":0.03,"goals":[{"t":"color","c":4,"n":20},{"t":"score","n":3000}],"stars":[5,8]},{"moves":23,"colors":5,"spawn":3,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"goals":[{"t":"rocks"},{"t":"chain","n":3}],"stars":[7,11]},{"moves":40,"colors":5,"spawn":3,"goals":[{"t":"score","n":4500}],"stars":[1,4]}];
 const $=id=>document.getElementById(id);
 const tilesEl=$('tiles'), boardEl=$('board');
 
@@ -210,7 +280,8 @@ const ADS_CONFIG={
   rewarded:{android:'ca-app-pub-3940256099942544/5224354917',ios:'ca-app-pub-3940256099942544/1712485313'},
   interstitial:{android:'ca-app-pub-3940256099942544/1033173712',ios:'ca-app-pub-3940256099942544/4411468910'},
   interstitialEvery:3,  // Vollbild-Werbung nach jeder n-ten Endlos-Runde (0 = aus)
-  rescueTiles:6         // so viele Steine entfernt die Rettung
+  rescueTiles:6,        // so viele Steine entfernt die Rettung
+  rescueMoves:5         // so viele Extra-Züge gibt es im Level-Modus
 };
 const Ads=(()=>{
   const C=window.Capacitor;
@@ -253,7 +324,8 @@ const Ads=(()=>{
     get privacyRequired(){return privacyRequired},
     privacy(){if(P)P.showPrivacyOptionsForm().catch(()=>{})}};
 })();
-let rescued=false,endlessDone=0,pendingInter=false;
+let rescued=false,gamesDone=0,pendingInter=false,rescueKind='full';
+let lvNo=1,LV=null,prog=null;
 
 // ---------- Seeded RNG (Tagesrätsel) ----------
 function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -264,7 +336,31 @@ let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen
 function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null')}catch(e){return null}}
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
-try{sound=localStorage.getItem('kippwerk_sound')!=='0'}catch(e){}
+// ---------- Einstellungen ----------
+const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto'};
+let settings={...DEF_SETTINGS};
+try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
+  if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
+function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings))}catch(e){}}
+function applySettings(){
+  sound=settings.sound;const b=document.body.classList;
+  b.toggle('nosym',!settings.symbols);b.toggle('pal-cb',settings.palette==='cb');b.toggle('fast',settings.speed==='fast');
+  b.toggle('pad-on',settings.pad==='on');b.toggle('pad-off',settings.pad==='off');
+}
+function haptic(kind){
+  if(!settings.vibe)return;
+  const C=window.Capacitor,H=C&&C.isNativePlatform&&C.isNativePlatform()&&((C.Plugins&&C.Plugins.Haptics)||(C.registerPlugin&&C.registerPlugin('Haptics')));
+  try{
+    if(H){kind==='win'?H.notification({type:'SUCCESS'}):H.impact({style:kind==='heavy'?'HEAVY':kind==='medium'?'MEDIUM':'LIGHT'});return}
+    if(navigator.vibrate)navigator.vibrate(kind==='heavy'?[60,40,60]:kind==='win'?[30,50,30,50,60]:kind==='medium'?25:12);
+  }catch(e){}
+}
+// ---------- Level-Fortschritt ----------
+function loadLP(){try{return JSON.parse(localStorage.getItem('kippwerk_levels')||'{}')}catch(e){return{}}}
+let LP=loadLP();
+function saveLP(){try{localStorage.setItem('kippwerk_levels',JSON.stringify(LP))}catch(e){}}
+const unlocked=()=>{let n=1;while(LP[n]&&n<LEVELS.length)n++;return LP[n]?LEVELS.length:n};
+const totalStars=()=>Object.values(LP).reduce((a,b)=>a+b,0);
 // ---------- Bestenliste ----------
 const TOP=10;
 function loadScores(){let d=null;try{d=JSON.parse(localStorage.getItem('kippwerk_scores')||'null')}catch(e){}
@@ -312,9 +408,9 @@ const sfx={
 };
 
 // ---------- Rules ----------
-const numColors=()=>level>=3?5:4;
-const spawnCount=()=>2+(level>=4?1:0)+(level>=10?1:0);
-const wildChance=()=>level>=2?.05:0;
+const numColors=()=>mode==='level'?LV.colors:level>=3?5:4;
+const spawnCount=()=>mode==='level'?LV.spawn:2+(level>=4?1:0)+(level>=10?1:0);
+const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();return w<wildChance()?WILD:Math.floor(c*numColors())}
 function fillQueue(){while(nextQ.length<3)nextQ.push(randColor())}
 const idx=(r,c)=>r*N+c;
@@ -386,12 +482,12 @@ function spawn(dir){
 // ---------- Render ----------
 function place(el,t){el.style.transform=`translate(calc(${t.c} * (100% + var(--gap))), calc(${t.r} * (100% + var(--gap))))`}
 function makeEl(t){
-  const el=document.createElement('div');el.className='tile spawn'+(t.color===WILD?' wild':'');
+  const el=document.createElement('div');el.className='tile spawn'+(t.color===WILD?' wild':'')+(t.color===ROCK?' rock':'');
   const inner=document.createElement('div');inner.className='in';
-  if(t.color===WILD){inner.textContent='✦'}
+  if(t.color===WILD){inner.textContent='✦';el.style.setProperty('--glow','#ffffff55')}
+  else if(t.color===ROCK){el.style.setProperty('--glow','transparent')}
   else{inner.style.background=`linear-gradient(160deg, ${COLORS[t.color]}, color-mix(in srgb, ${COLORS[t.color]} 70%, #000))`;
-    el.style.setProperty('--glow',GLOWS[t.color]);inner.textContent=SYMBOLS[t.color]}
-  if(t.color===WILD)el.style.setProperty('--glow','#ffffff55');
+    el.style.setProperty('--glow',`color-mix(in srgb, ${COLORS[t.color]} 40%, transparent)`);inner.textContent=SYMBOLS[t.color]}
   el.appendChild(inner);
   el.style.transition='none';place(el,t);tilesEl.appendChild(el);
   el.offsetWidth;el.style.transition='';
@@ -404,13 +500,17 @@ function render(){
     if(!el){el=makeEl(t);els.set(t.id,el)}else place(el,t);
   }
   $('score').textContent=score.toLocaleString('de-DE');
-  $('best').textContent=Math.max(best,mode==='endless'?score:0).toLocaleString('de-DE');
-  if(mode==='daily'){$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=(movesLeft/DAILY_MOVES*100)+'%'}
+  const isLv=mode==='level';
+  $('best').style.display=isLv?'none':'';$('goalHud').style.display=isLv?'':'none';
+  $('bestLabel').textContent=isLv?'Ziel':'Rekord';
+  if(isLv)$('goalHud').innerHTML=goalHud();
+  else $('best').textContent=Math.max(best,mode==='endless'?score:0).toLocaleString('de-DE');
+  if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
   else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%30)/30*100)+'%'}
   const nx=$('next');nx.innerHTML='';
   nextQ.slice(0,spawnCount()).forEach(c=>{
     const m=document.createElement('div');m.className='mini';
-    if(c===WILD){m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0))';m.textContent='✦';m.style.color='#fff'}
+    if(c===WILD){m.classList.add('w');m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0))';m.textContent='✦';m.style.color='#fff'}
     else{m.style.background=COLORS[c];m.textContent=SYMBOLS[c]}
     nx.appendChild(m);
   });
@@ -421,7 +521,31 @@ function floatText(txt,r,c,color){
   boardEl.appendChild(f);setTimeout(()=>f.remove(),950);
 }
 function banner(txt){const b=document.createElement('div');b.className='banner';b.textContent=txt;boardEl.appendChild(b);setTimeout(()=>b.remove(),1150)}
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms*(settings.speed==='fast'?.55:1)));
+
+// ---------- Level-Ziele ----------
+const fmt=n=>n.toLocaleString('de-DE');
+const chip=c=>c===ROCK?'<span class="chip rock"></span>':`<span class="chip" style="background:${COLORS[c]}">${SYMBOLS[c]}</span>`;
+function goalState(g){
+  switch(g.t){
+    case 'score':return{cur:score,n:g.n};
+    case 'color':return{cur:prog.color[g.c],n:g.n};
+    case 'chain':return{cur:prog.chain,n:g.n};
+    case 'rocks':return{cur:prog.rocks,n:(LV.rocks||[]).length};
+    case 'clear':return{cur:prog.clear,n:g.n};
+  }}
+function goalsMet(){return LV.goals.every(g=>{const s=goalState(g);return s.cur>=s.n})}
+function goalIcon(g){return g.t==='score'?'⭐':g.t==='color'?chip(g.c):g.t==='chain'?'⛓':g.t==='rocks'?chip(ROCK):'✦'}
+function goalHud(){return LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n;
+  const v=g.t==='chain'?`×${Math.max(1,s.cur)}/×${s.n}`:g.t==='score'?`${fmt(Math.min(s.cur,s.n))}/${fmt(s.n)}`:`${Math.min(s.cur,s.n)}/${s.n}`;
+  return `<span class="${ok?'ok':''}">${goalIcon(g)} ${ok?'✓':v}</span>`}).join('')}
+function goalText(g,withProgress){
+  const s=goalState(g),ok=withProgress&&s.cur>=s.n;
+  const t=g.t==='score'?`${fmt(g.n)} Punkte erreichen`:g.t==='color'?`${g.n} Steine dieser Farbe abräumen`:g.t==='chain'?`Eine Kette ×${g.n} auslösen`:
+    g.t==='rocks'?`Alle ${s.n} Felsen zerbrechen`:`${g.n} Steine abräumen`;
+  const p=withProgress&&!ok?` <small style="color:var(--muted)">(${g.t==='chain'?'×'+Math.max(1,s.cur):fmt(s.cur)})</small>`:'';
+  return `<div class="${ok?'ok':''}">${goalIcon(g)} <span>${ok?'✓ ':''}${t}${p}</span></div>`}
+const starsHtml=n=>[1,2,3].map(i=>i<=n?'★':'<span class="off">★</span>').join('');
 
 // ---------- Flow ----------
 async function resolve(dir,chain){
@@ -439,10 +563,16 @@ async function resolve(dir,chain){
     score+=gained;
     const lvBefore=level;
     cleared+=cells.length;level=1+Math.floor(cleared/30);
-    sfx.pop(chain);
-    for(const i of cells){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
+    // Felsen neben abgeräumten Steinen zerbrechen
+    const rocks=new Set();
+    for(const i of cells){const r=Math.floor(i/N),c=i%N;
+      for(const[dr,dc]of[[1,0],[-1,0],[0,1],[0,-1]]){const nr=r+dr,nc=c+dc;if(nr<0||nc<0||nr>=N||nc>=N)continue;
+        const k=idx(nr,nc);if(grid[k]&&grid[k].color===ROCK)rocks.add(k)}}
+    if(prog){for(const g of groups)prog.color[g.color]+=g.cells.length;prog.clear+=cells.length;prog.rocks+=rocks.size;prog.chain=Math.max(prog.chain,chain)}
+    sfx.pop(chain);haptic(chain>1?'medium':'light');
+    for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     if(chain===2)banner('KETTE ×2');else if(chain===3)banner('KETTE ×3!');else if(chain>=4)banner('MEGA ×'+chain+'!!');
-    if(level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)}
+    if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)}
     render();
     await sleep(230);
     if(dir&&slide(dir)){render();await sleep(150)}
@@ -453,14 +583,16 @@ async function move(dir){
   if(busy||over||!started)return;
   if(!slide(dir)){boardEl.classList.remove('shake');void boardEl.offsetWidth;boardEl.classList.add('shake');sfx.bump();return}
   busy=true;sfx.slide();
-  if(mode==='daily')movesLeft--;
+  if(mode!=='endless')movesLeft--;
   render();await sleep(150);
   const chain=await resolve(dir,0);
+  if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
   history.push(total);bestChain=Math.max(bestChain,total);
+  if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
-  if(mode==='daily'&&movesLeft<=0)return gameOver('moves');
+  if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
   busy=false;
 }
 
@@ -475,27 +607,80 @@ function countdown(){
 }
 
 function gameOver(reason){
-  over=true;busy=false;sfx.over();
-  if(mode==='endless'&&!rescued&&Ads.canRescue){
-    $('rescueScore').textContent=score.toLocaleString('de-DE');$('rescueN').textContent=ADS_CONFIG.rescueTiles;
+  over=true;busy=false;sfx.over();haptic('heavy');
+  if(mode!=='daily'&&!rescued&&Ads.canRescue){
+    rescueKind=reason;
+    $('rescueTitle').textContent=reason==='moves'?'KEINE ZÜGE MEHR':'FELD VOLL';
+    $('rescueScore').textContent=mode==='level'?'LEVEL '+lvNo:score.toLocaleString('de-DE');
+    $('rescueText').innerHTML=reason==='moves'
+      ?`Fast geschafft? Schau ein kurzes Video – dafür bekommst du <b>${ADS_CONFIG.rescueMoves} Züge</b> extra.`
+      :`Noch eine Chance? Schau ein kurzes Video – dafür verschwinden <b>${ADS_CONFIG.rescueTiles} Steine</b> und du spielst weiter.`;
     $('rescueBtn').disabled=false;$('rescueBtn').textContent='🎬 VIDEO ANSEHEN & WEITER';
     setTimeout(()=>$('rescueOv').classList.remove('hidden'),500);return;
   }
-  finishGame(reason);
+  endRound(reason);
 }
+function endRound(reason){mode==='level'?levelFail(reason):finishGame(reason)}
 async function rescue(){
   $('rescueBtn').disabled=true;$('rescueBtn').textContent='VIDEO LÄDT …';
   const earned=await Ads.showReward();
   $('rescueOv').classList.add('hidden');
-  if(!earned)return finishGame('full');
+  if(!earned)return endRound(rescueKind);
   rescued=true;
-  const filled=[];for(let i=0;i<N*N;i++)if(grid[i])filled.push(i);
+  if(rescueKind==='moves'){movesLeft+=ADS_CONFIG.rescueMoves;over=false;busy=false;started=true;render();banner('+'+ADS_CONFIG.rescueMoves+' ZÜGE');sfx.level();return}
+  const filled=[];for(let i=0;i<N*N;i++)if(grid[i]&&grid[i].color!==ROCK)filled.push(i);
   for(let i=filled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[filled[i],filled[j]]=[filled[j],filled[i]]}
   for(const i of filled.slice(0,ADS_CONFIG.rescueTiles)){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
   over=false;busy=false;started=true;render();banner('WEITER!');sfx.level();
 }
+function countRound(){gamesDone++;pendingInter=!!ADS_CONFIG.interstitialEvery&&Ads.native&&gamesDone%ADS_CONFIG.interstitialEvery===0&&!rescued}
+function maybeInter(){if(pendingInter){pendingInter=false;Ads.showInter()}}
+
+// ---------- Level-Bildschirme ----------
+function showLvl({kicker,title,stars,goalsProg,text,main,mainFn,retry=true,map=true}){
+  $('lvlKicker').textContent=kicker;$('lvlTitle').textContent=title;
+  $('lvlStars').style.display=stars==null?'none':'';$('lvlStars').innerHTML=stars==null?'':starsHtml(stars);
+  $('lvlGoals').innerHTML=LV.goals.map(g=>goalText(g,goalsProg)).join('');
+  $('lvlText').innerHTML=text||'';$('lvlMain').textContent=main;lvlMainFn=mainFn;
+  $('lvlRetry').style.display=retry?'':'none';$('lvlMap').style.display=map?'':'none';
+  ['startOv','overOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));$('lvlOv').classList.remove('hidden');
+}
+let lvlMainFn=null;
+function levelIntro(n){
+  lvNo=n;LV=LEVELS[n-1];prog={color:[0,0,0,0,0],chain:0,rocks:0,clear:0};score=0;
+  const best=LP[n]||0;
+  let tip='';
+  if(LV.rocks&&LV.rocks.length&&!LEVELS.slice(0,n-1).some(l=>l.rocks))tip='<br>💡 Felsen zerbrechen, wenn direkt daneben eine Gruppe verschwindet.';
+  if(LV.goals.some(g=>g.t==='chain')&&!LEVELS.slice(0,n-1).some(l=>l.goals.some(g=>g.t==='chain')))tip+='<br>💡 Eine Kette entsteht, wenn nachrutschende Steine eine neue Gruppe bilden.';
+  showLvl({kicker:best?'BESTES ERGEBNIS':'NEUES LEVEL',title:'LEVEL '+n,stars:best,goalsProg:false,
+    text:`<b>${LV.moves} Züge</b> · ★★ ab ${LV.stars[0]} übrigen Zügen · ★★★ ab ${LV.stars[1]}${tip}`,
+    main:'▶ START',mainFn:()=>start('level'),retry:false});
+}
+function levelWin(){
+  over=true;busy=false;started=false;countRound();
+  const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
+  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP()}
+  sfx.level();haptic('win');banner('GESCHAFFT!');
+  const last=lvNo>=LEVELS.length;
+  setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'LEVEL '+lvNo,stars:st,goalsProg:true,
+    text:`${movesLeft} ${movesLeft===1?'Zug':'Züge'} übrig · ${fmt(score)} Punkte${st>prev&&prev?' · neuer Bestwert!':''}${last?'<br>🎉 Du hast alle Level geschafft!':''}`,
+    main:last?'🗺 ZUR KARTE':'WEITER ▶',mainFn:()=>{maybeInter();last?openLevels():levelIntro(lvNo+1)}}),900);
+}
+function levelFail(reason){
+  over=true;busy=false;started=false;countRound();
+  setTimeout(()=>showLvl({kicker:'LEIDER NICHT',title:'LEVEL '+lvNo,stars:null,goalsProg:true,
+    text:reason==='moves'?'Keine Züge mehr übrig.':'Das Feld ist voll.',
+    main:'↻ NOCHMAL',mainFn:()=>{maybeInter();start('level')},retry:false}),400);
+}
+function openLevels(){
+  const un=unlocked();$('levelsTotal').textContent=`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne`;
+  $('lvGrid').innerHTML=LEVELS.map((l,i)=>{const n=i+1,s=LP[n]||0,lock=n>un;
+    return `<button class="lvbtn${lock?' locked':''}${n===un&&!s?' next':''}" data-n="${n}" ${lock?'disabled':''}>${lock?'🔒':n}<small>${lock?'&nbsp;':s?'★'.repeat(s)+'☆'.repeat(3-s):'☆☆☆'}</small></button>`}).join('');
+  ['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');
+}
+
 function finishGame(reason){
-  if(mode==='endless'){endlessDone++;pendingInter=!!ADS_CONFIG.interstitialEvery&&Ads.native&&endlessDone%ADS_CONFIG.interstitialEvery===0&&!rescued}
+  if(mode==='endless')countRound();
   $('finalScore').textContent=score.toLocaleString('de-DE');
   const daily=mode==='daily';
   $('shareBox').style.display=$('shareBtn').style.display=daily?'':'none';
@@ -527,14 +712,16 @@ function newGame(){
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
   else{rc=Math.random;rp=Math.random;practice=false}
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;
-  movesLeft=DAILY_MOVES;history=[];bestChain=0;rescued=false;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung #':'Tag #')+dailyNo():'';
+  movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;rescued=false;
+  prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung #':'Tag #')+dailyNo():mode==='level'?'Level '+lvNo:'';
+  if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
-  let placed=0;
-  while(placed<8){
+  let placed=0;const startN=mode==='level'?(LV.start||8):8,startC=mode==='level'?LV.colors:4;
+  while(placed<startN){
     const i=Math.floor(rp()*N*N);if(grid[i])continue;
-    grid[i]={id:++tileId,color:Math.floor(rc()*4),r:Math.floor(i/N),c:i%N};
+    grid[i]={id:++tileId,color:Math.floor(rc()*startC),r:Math.floor(i/N),c:i%N};
     if(findGroups().cells.length){grid[i]=null;continue}
     placed++;
   }
@@ -545,6 +732,9 @@ function newGame(){
 const keys={ArrowLeft:'L',ArrowRight:'R',ArrowUp:'U',ArrowDown:'D',a:'L',d:'R',w:'U',s:'D',A:'L',D:'R',W:'U',S:'D'};
 document.addEventListener('keydown',e=>{
   if(!$('rescueOv').classList.contains('hidden'))return;
+  if(!$('lvlOv').classList.contains('hidden')){if(e.key==='Enter'||e.key===' '){e.preventDefault();$('lvlMain').click()}else if(e.key==='Escape')$('lvlMap').click();return}
+  if(!$('levelsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeLevels').click();return}
+  if(!$('settingsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeSettings').click();return}
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
@@ -558,20 +748,57 @@ document.addEventListener('pointerup',e=>{
   move(Math.abs(dx)>Math.abs(dy)?(dx>0?'R':'L'):(dy>0?'D':'U'));
 });
 document.querySelectorAll('.pad button').forEach(b=>b.addEventListener('click',()=>move(b.dataset.d)));
-function start(m){mode=m;paused=false;$('startOv').classList.add('hidden');$('overOv').classList.add('hidden');newGame();started=true;tone(660,.1,'triangle',.06)}
+function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06)}
 function showMenu(){
   const done=loadDaily();
   $('dailyBtn').textContent=(done?'✓ ':'📅 ')+'TAGESRÄTSEL #'+dailyNo();
   $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · weitere Runden zählen als Übung`:'Jeden Tag dieselben Steine für alle · 40 Züge';
   $('resumeBtn').style.display=paused?'':'none';
+  const un=unlocked();$('levelBtn').textContent=`🗺 LEVEL ${LP[LEVELS.length]?'· ⭐'+totalStars():un}`;
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
-  $('overOv').classList.add('hidden');$('startOv').classList.remove('hidden');
+  ['overOv','lvlOv','levelsOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
 $('resumeBtn').onclick=()=>{paused=false;started=true;$('startOv').classList.add('hidden')};
-$('againBtn').onclick=()=>{if(pendingInter){pendingInter=false;Ads.showInter()}start(mode)};
-$('menuBtn').onclick=()=>{if(pendingInter){pendingInter=false;Ads.showInter()}started=false;showMenu()};
+$('againBtn').onclick=()=>{maybeInter();start(mode)};
+$('menuBtn').onclick=()=>{maybeInter();started=false;showMenu()};
+$('levelBtn').onclick=()=>{if(paused){paused=false}openLevels()};
+$('lvGrid').onclick=e=>{const b=e.target.closest('.lvbtn');if(b&&!b.disabled)levelIntro(+b.dataset.n)};
+$('closeLevels').onclick=()=>showMenu();
+$('lvlMain').onclick=()=>lvlMainFn&&lvlMainFn();
+$('lvlRetry').onclick=()=>{maybeInter();start('level')};
+$('lvlMap').onclick=()=>{maybeInter();openLevels()};
+// Einstellungen
+let settingsReturn=null,resetArm={};
+function renderSettings(){
+  $('setSound').checked=settings.sound;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
+  document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
+  $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
+  $('resetScores').textContent='🏆 Bestenliste löschen';$('resetLevels').textContent='🗺 Level-Fortschritt löschen';resetArm={};
+}
+function openSettings(from){
+  settingsReturn=from;
+  if(from==='play'){paused=true;started=false}
+  renderSettings();['startOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('settingsOv').classList.remove('hidden');
+}
+['setSound','setVibe','setSymbols'].forEach(id=>$(id).onchange=e=>{
+  settings[{setSound:'sound',setVibe:'vibe',setSymbols:'symbols'}[id]]=e.target.checked;saveSettings();applySettings();
+  if(id==='setSound'&&settings.sound)tone(660,.1,'triangle',.06);if(id==='setVibe'&&settings.vibe)haptic('medium')});
+document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings()});
+function armReset(id,label,fn){
+  if(resetArm[id]){fn();$(id).textContent='✓ Gelöscht';resetArm[id]=false;return}
+  resetArm[id]=true;$(id).textContent='⚠ Wirklich? Nochmal tippen';
+  setTimeout(()=>{if(resetArm[id]){resetArm[id]=false;$(id).textContent=label}},3000)}
+$('resetScores').onclick=()=>armReset('resetScores','🏆 Bestenliste löschen',()=>{scores={endless:[],daily:[]};saveScores();best=0;try{localStorage.removeItem('kippwerk_best')}catch(e){};render()});
+$('resetLevels').onclick=()=>armReset('resetLevels','🗺 Level-Fortschritt löschen',()=>{LP={};saveLP()});
+$('privacyBtn2').onclick=()=>Ads.privacy();
+$('closeSettings').onclick=()=>{$('settingsOv').classList.add('hidden');
+  if(settingsReturn==='play'){paused=false;started=true}else showMenu()};
+$('settingsBtn').onclick=()=>{if(busy||over||document.querySelector('.overlay:not(.hidden)'))return;openSettings('play')};
+$('menuSettings').onclick=()=>openSettings('menu');
+$('menuScores').onclick=()=>openScores('endless');
 $('rescueBtn').onclick=rescue;
 $('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');finishGame('full')};
 $('privacyBtn').onclick=()=>Ads.privacy();
@@ -609,8 +836,8 @@ function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;
   if(started&&!over){paused=true;started=false;scoresReturn='pause'}
   $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
-  scoresTab=tab||scoresTab;renderScores();$('scoresOv').classList.remove('hidden')}
-$('scoresBtn').onclick=()=>{if(busy||!$('rescueOv').classList.contains('hidden'))return;openScores(mode)};
+  scoresTab=(tab==='level'?'endless':tab)||scoresTab;renderScores();$('scoresOv').classList.remove('hidden')}
+$('scoresBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidden)'))return;openScores(mode==='level'?'endless':mode)};
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
 $('tabDaily').onclick=()=>{scoresTab='daily';renderScores()};
@@ -619,13 +846,12 @@ $('closeScores').onclick=()=>{$('scoresOv').classList.add('hidden');
 $('helpBtn').onclick=()=>{if(over||busy)return;
   if(started){paused=true;started=false}
   showMenu()};
-const sb=$('soundBtn');sb.textContent=sound?'🔊':'🔇';
-sb.onclick=()=>{sound=!sound;sb.textContent=sound?'🔊':'🔇';try{localStorage.setItem('kippwerk_sound',sound?'1':'0')}catch(e){}};
 
+applySettings();
 newGame();showMenu();
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,get state(){return{score,level,over,busy,cleared,movesLeft,mode,filled:grid.filter(Boolean).length,
+window.__kw={move,LEVELS,get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

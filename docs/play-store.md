@@ -31,6 +31,9 @@ Wische in eine Richtung und das ganze Spielfeld kippt: Alle Steine rutschen mit.
 JEDE BEWEGUNG ZÄHLT
 Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat das Feld schnell voll. Wer vorausdenkt, baut riesige Ketten.
 
+30 LEVEL
+Knacke Level mit klaren Zielen: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Level.
+
 TAGESRÄTSEL
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
 
@@ -40,7 +43,7 @@ Spiele, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker 
 • Bestenliste mit Top 10 und Tages-Serie 🔥
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
 • Kein Konto nötig, offline spielbar
-• Farbsymbole für Spieler mit Farbsehschwäche
+• Farbschema und Symbole für Spieler mit Farbsehschwäche
 • Klein, schnell, akkuschonend
 
 Gemacht von david.digital.

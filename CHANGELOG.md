@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.4.0 (Build 6) – 30.10.2026
+- Neu: **Level-Modus** mit 30 Leveln
+  - Ziele: Punkte, Farben abräumen, Steine abräumen, Ketten auslösen, **Felsen** zerbrechen (neues Hindernis)
+  - 1–3 Sterne je nach übrigen Zügen, Level schalten sich nacheinander frei, Level-Karte mit Sternsumme
+  - Ziel-Anzeige im Spielfeld, Tipps beim ersten Felsen-/Ketten-Level
+  - Rettung per Video im Level: **+5 Züge** (Züge aufgebraucht) bzw. 6 Steine weg (Feld voll)
+  - Schwierigkeit per Bot-Simulation kalibriert (`tools/`)
+- Neu: **Einstellungen** (⚙): Ton, Vibration, Tempo (Normal/Schnell), Farbschema für Farbschwäche, Symbole an/aus, Steuerkreuz Auto/An/Aus, Bestenliste bzw. Level-Fortschritt löschen, Datenschutz-Einstellungen
+- Vibration (Haptik) beim Abräumen, bei Ketten, Sieg und Niederlage
+- Kopfzeile: 🏆 ⚙ ☰ (Ton-Schalter in die Einstellungen verschoben), besser auf schmalen Handys
+- Vollbild-Werbung zählt jetzt Endlos- und Level-Runden
+
 ## v1.3.0 (Build 5) – 30.10.2026
 - Neu: **Werbung über Google AdMob** (nur Android/iOS-App, Web bleibt werbefrei)
   - **Rettung per Video:** Feld voll im Endlos-Modus → freiwilliges Video, 6 Steine verschwinden, weiterspielen (1× pro Runde)

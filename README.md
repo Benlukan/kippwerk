@@ -5,6 +5,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 **Web-Version:** https://benlukan.github.io/kippwerk/
 
 ## Modi
+- **Level** – 30 Level mit Zielen (Punkte, Farben, Ketten, Felsen) und 1–3 Sternen
 - **Tagesrätsel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen
 - **Endlos** – so lange, bis das Feld voll ist; Level steigern Farben, Joker und Tempo
 
@@ -14,6 +15,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 | `www/` | Das komplette Spiel (eine HTML-Datei) + PWA-Manifest und Service Worker |
 | `android/`, `ios/` | Native Capacitor-Projekte |
 | `assets/` | Quellbilder für App-Icon und Splash (`npm run icons`) |
+| `tools/` | Level-Simulator und Kalibrierung (`python3 tools/calib.py tools/levels-entwurf.json 100`) |
 | `.github/workflows/` | Automatische Builds: APK, iOS-IPA, GitHub Pages |
 
 ## Builds
@@ -42,4 +44,4 @@ npx cap open ios       # Xcode (macOS)
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.3.0 · Build 5** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.4.0 · Build 6** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

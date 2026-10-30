@@ -38,8 +38,8 @@ ENDLOS-MODUS
 Spiele, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker und mehr Tempo.
 
 • Bestenliste mit Top 10 und Tages-Serie 🔥
-• Keine Werbung, kein Konto, keine Datensammlung
-• Komplett offline spielbar
+• Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
+• Kein Konto nötig, offline spielbar
 • Farbsymbole für Spieler mit Farbsehschwäche
 • Klein, schnell, akkuschonend
 
@@ -57,12 +57,40 @@ Gemacht von david.digital.
 | Abschnitt | Antwort |
 |---|---|
 | App-Zugriff | Alle Funktionen ohne Einschränkung verfügbar |
-| Werbung | Nein, enthält keine Werbung |
+| Werbung | **Ja, enthält Werbung** (ab v1.3.0) |
 | Einstufung (IARC-Fragebogen) | Puzzle, keine Gewalt/Glücksspiel/Chat → ergibt i. d. R. USK 0 / PEGI 3 |
 | Zielgruppe | 13+ empfohlen (bei „unter 13“ gelten zusätzlich die Familien-Richtlinien) |
-| Datensicherheit | **Keine Daten erhoben, keine Daten geteilt.** Daten werden nicht übertragen (nur lokal gespeichert) |
+| Datensicherheit | siehe Abschnitt 4a (wegen AdMob) |
 | Behörden-/Gesundheits-/Finanz-App | Nein |
 | Nachrichten-App | Nein |
+
+## 4a. Datensicherheit mit AdMob (ab v1.3.0)
+Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite „Daten, die das Google Mobile Ads SDK erhebt“ abgleichen.
+
+| Datentyp | Erhoben | Geteilt | Zweck |
+|---|---|---|---|
+| Geräte- oder andere IDs (Werbe-ID) | Ja | Ja | Werbung, Analyse, Betrugsprävention |
+| Ungefährer Standort (aus IP) | Ja | Ja | Werbung, Analyse, Betrugsprävention |
+| App-Interaktionen (Anzeigen-Klicks/-Aufrufe) | Ja | Ja | Werbung, Analyse |
+| Absturzprotokolle / Diagnosedaten | Ja | Ja | Analyse, Betrugsprävention |
+
+- Daten bei Übertragung verschlüsselt: **Ja**
+- Nutzer können Löschung beantragen: über Google (Werbe-ID zurücksetzen)
+- In der Play Console zusätzlich: **App-Inhalte → Werbe-ID → „Ja, für Werbung“** (Berechtigung `AD_ID` bringt das SDK automatisch mit)
+
+## 4b. AdMob einrichten (vor Veröffentlichung)
+1. Konto auf admob.google.com anlegen, Auszahlungs- und Steuerdaten hinterlegen.
+2. Zwei Apps anlegen (Android + iOS) → je eine **App-ID** (`ca-app-pub-…~…`).
+3. Pro App zwei Anzeigenblöcke: **Prämie** (Rettung) und **Interstitial** → **Anzeigenblock-IDs** (`ca-app-pub-…/…`).
+4. **Datenschutz & Mitteilungen → DSGVO-Mitteilung** erstellen und veröffentlichen (sonst erscheint kein Einwilligungsdialog). Für iOS zusätzlich die **IDFA-Erklärung**.
+5. IDs eintragen:
+   - Android-App-ID: `android/app/src/main/res/values/strings.xml` (`admob_app_id`)
+   - iOS-App-ID: `ios/App/App/Info.plist` (`GADApplicationIdentifier`)
+   - Anzeigenblöcke: `www/index.html` → `ADS_CONFIG` (dort auch `testing:false` setzen)
+6. **app-ads.txt:** muss im Stammverzeichnis der Website liegen, die im Store als Entwickler-Website steht. Mit GitHub Pages: Repo **`Benlukan/benlukan.github.io`** anlegen und dort eine Datei `app-ads.txt` mit der Zeile aus AdMob ablegen, z. B.
+   `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
+   und `https://benlukan.github.io` als Website im Store-Eintrag angeben.
+7. **Nie auf eigene Anzeigen klicken** – solange `testing:true` gesetzt ist, kommen nur Testanzeigen. Eigene Testgeräte können zusätzlich in AdMob registriert werden.
 
 ## 5. Grafiken
 | Asset | Format | Quelle |

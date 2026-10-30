@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.0 (Build 5) – 30.10.2026
+- Neu: **Werbung über Google AdMob** (nur Android/iOS-App, Web bleibt werbefrei)
+  - **Rettung per Video:** Feld voll im Endlos-Modus → freiwilliges Video, 6 Steine verschwinden, weiterspielen (1× pro Runde)
+  - **Vollbild-Anzeige** nach jeder 3. Endlos-Runde (nicht nach einer Rettung, nie im Tagesrätsel)
+  - **EU-Einwilligungsdialog** (Google UMP) beim ersten Start, **Datenschutz-Einstellungen** im Menü
+  - iOS: Tracking-Abfrage (ATT)
+- Vorerst mit **Google-Test-IDs** – echte IDs siehe `docs/play-store.md`, Abschnitt 4b
+- Datenschutzerklärung um AdMob ergänzt
+
 ## v1.2.0 (Build 4) – 30.10.2026
 - Neu: **Bestenliste** (🏆 oben rechts und im Game-Over-Bildschirm)
   - Endlos: Top 10 mit Name, Level und Datum; Namenseingabe bei Platzierung, Name wird gemerkt

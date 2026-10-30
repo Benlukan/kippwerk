@@ -99,6 +99,8 @@ h1 span{color:var(--c3)}
 .statsrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:min(100%,380px)}
 .statsrow div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 4px}
 .statsrow b{display:block;font-size:20px}.statsrow small{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;font:500 12px "Space Grotesk",sans-serif;cursor:pointer;margin-top:4px}
+.btn:disabled{opacity:.6;cursor:wait}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -143,6 +145,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
         <button class="btn alt" id="endlessBtn">∞ ENDLOS</button>
       </div>
       <p class="hint" id="dailyHint">Jeden Tag dieselben Steine für alle · 40 Züge</p>
+      <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
     </div>
     <div class="overlay hidden" id="overOv">
       <h2 id="overTitle">FELD VOLL</h2>
@@ -161,6 +164,14 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       </div>
       <p class="hint" id="countdown"></p>
     </div>
+    <div class="overlay hidden" id="rescueOv">
+      <h2>FELD VOLL</h2>
+      <div class="big" id="rescueScore">0</div>
+      <p>Noch eine Chance? Schau ein kurzes Video – dafür verschwinden <b id="rescueN">6</b> Steine und du spielst weiter.</p>
+      <button class="btn" id="rescueBtn">🎬 VIDEO ANSEHEN &amp; WEITER</button>
+      <button class="btn alt" id="noRescueBtn">NEIN DANKE</button>
+      <p class="hint">Eine Rettung pro Runde · freiwillig</p>
+    </div>
     <div class="overlay hidden" id="scoresOv">
       <h2>🏆 BESTENLISTE</h2>
       <div class="tabs"><button id="tabEndless" class="on">∞ Endlos</button><button id="tabDaily">📅 Tagesrätsel</button></div>
@@ -173,7 +184,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.2.0 · Build 4 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
+  <footer>KIPPWERK v1.3.0 · Build 5 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
 </div>
 <script>
 (()=>{
@@ -190,6 +201,59 @@ let mode='endless', movesLeft=0, history=[], bestChain=0, practice=false, paused
 const els=new Map();
 const DAILY_MOVES=40;
 const SHARE_URL='https://benlukan.github.io/kippwerk/';
+
+// ---------- Werbung (nur in der Android-/iOS-App) ----------
+// VOR VERÖFFENTLICHUNG: testing:false setzen und eigene Anzeigenblock-IDs aus AdMob eintragen
+// (dazu App-IDs in android/app/src/main/res/values/strings.xml und ios/App/App/Info.plist).
+const ADS_CONFIG={
+  testing:true,
+  rewarded:{android:'ca-app-pub-3940256099942544/5224354917',ios:'ca-app-pub-3940256099942544/1712485313'},
+  interstitial:{android:'ca-app-pub-3940256099942544/1033173712',ios:'ca-app-pub-3940256099942544/4411468910'},
+  interstitialEvery:3,  // Vollbild-Werbung nach jeder n-ten Endlos-Runde (0 = aus)
+  rescueTiles:6         // so viele Steine entfernt die Rettung
+};
+const Ads=(()=>{
+  const C=window.Capacitor;
+  const native=!!(C&&C.isNativePlatform&&C.isNativePlatform());
+  const platform=native?C.getPlatform():'web';
+  const P=native?((C.Plugins&&C.Plugins.AdMob)||(C.registerPlugin&&C.registerPlugin('AdMob'))):null;
+  let ready=false,rewardLoaded=false,interLoaded=false,privacyRequired=false;
+  const id=k=>ADS_CONFIG[k][platform];
+  async function loadReward(){if(!ready)return;try{await P.prepareRewardVideoAd({adId:id('rewarded'),isTesting:ADS_CONFIG.testing});rewardLoaded=true}catch(e){rewardLoaded=false;setTimeout(loadReward,60000)}}
+  async function loadInter(){if(!ready||!ADS_CONFIG.interstitialEvery)return;try{await P.prepareInterstitial({adId:id('interstitial'),isTesting:ADS_CONFIG.testing});interLoaded=true}catch(e){interLoaded=false;setTimeout(loadInter,60000)}}
+  async function init(onReady){
+    if(!P)return;
+    try{
+      let info=await P.requestConsentInfo();                       // EU-Einwilligung (Google UMP)
+      if(info.isConsentFormAvailable&&info.status==='REQUIRED')info=await P.showConsentForm();
+      privacyRequired=info.privacyOptionsRequirementStatus==='REQUIRED';
+      if(platform==='ios'){try{const t=await P.trackingAuthorizationStatus();if(t.status==='notDetermined')await P.requestTrackingAuthorization()}catch(e){}}
+      if(info.canRequestAds===false){onReady&&onReady();return}
+      await P.initialize({initializeForTesting:ADS_CONFIG.testing});
+      ready=true;onReady&&onReady();
+      loadReward();loadInter();
+    }catch(e){console.warn('Werbung nicht verfügbar',e);onReady&&onReady()}
+  }
+  function showReward(){
+    if(window.KW_MOCK_ADS)return Promise.resolve(window.KW_MOCK_ADS==='reward');
+    return new Promise(async resolve=>{
+      let earned=false,done=false;const hs=[];
+      const finish=v=>{if(done)return;done=true;hs.forEach(h=>{try{h.remove()}catch(e){}});rewardLoaded=false;loadReward();resolve(v)};
+      try{
+        hs.push(await P.addListener('onRewardedVideoAdReward',()=>{earned=true}));
+        hs.push(await P.addListener('onRewardedVideoAdDismissed',()=>setTimeout(()=>finish(earned),80)));
+        hs.push(await P.addListener('onRewardedVideoAdFailedToShow',()=>finish(false)));
+        P.showRewardVideoAd().then(()=>{earned=true}).catch(()=>finish(false));
+      }catch(e){finish(false)}
+    });
+  }
+  async function showInter(){if(!interLoaded)return;interLoaded=false;try{await P.showInterstitial()}catch(e){}loadInter()}
+  return{native,init,showReward,showInter,
+    get canRescue(){return !!window.KW_MOCK_ADS||(ready&&rewardLoaded)},
+    get privacyRequired(){return privacyRequired},
+    privacy(){if(P)P.showPrivacyOptionsForm().catch(()=>{})}};
+})();
+let rescued=false,endlessDone=0,pendingInter=false;
 
 // ---------- Seeded RNG (Tagesrätsel) ----------
 function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -412,6 +476,26 @@ function countdown(){
 
 function gameOver(reason){
   over=true;busy=false;sfx.over();
+  if(mode==='endless'&&!rescued&&Ads.canRescue){
+    $('rescueScore').textContent=score.toLocaleString('de-DE');$('rescueN').textContent=ADS_CONFIG.rescueTiles;
+    $('rescueBtn').disabled=false;$('rescueBtn').textContent='🎬 VIDEO ANSEHEN & WEITER';
+    setTimeout(()=>$('rescueOv').classList.remove('hidden'),500);return;
+  }
+  finishGame(reason);
+}
+async function rescue(){
+  $('rescueBtn').disabled=true;$('rescueBtn').textContent='VIDEO LÄDT …';
+  const earned=await Ads.showReward();
+  $('rescueOv').classList.add('hidden');
+  if(!earned)return finishGame('full');
+  rescued=true;
+  const filled=[];for(let i=0;i<N*N;i++)if(grid[i])filled.push(i);
+  for(let i=filled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[filled[i],filled[j]]=[filled[j],filled[i]]}
+  for(const i of filled.slice(0,ADS_CONFIG.rescueTiles)){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
+  over=false;busy=false;started=true;render();banner('WEITER!');sfx.level();
+}
+function finishGame(reason){
+  if(mode==='endless'){endlessDone++;pendingInter=!!ADS_CONFIG.interstitialEvery&&Ads.native&&endlessDone%ADS_CONFIG.interstitialEvery===0&&!rescued}
   $('finalScore').textContent=score.toLocaleString('de-DE');
   const daily=mode==='daily';
   $('shareBox').style.display=$('shareBtn').style.display=daily?'':'none';
@@ -443,7 +527,7 @@ function newGame(){
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
   else{rc=Math.random;rp=Math.random;practice=false}
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;
-  movesLeft=DAILY_MOVES;history=[];bestChain=0;
+  movesLeft=DAILY_MOVES;history=[];bestChain=0;rescued=false;
   $('modeTag').textContent=mode==='daily'?(practice?'Übung #':'Tag #')+dailyNo():'';
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
@@ -460,6 +544,7 @@ function newGame(){
 // ---------- Input ----------
 const keys={ArrowLeft:'L',ArrowRight:'R',ArrowUp:'U',ArrowDown:'D',a:'L',d:'R',w:'U',s:'D',A:'L',D:'R',W:'U',S:'D'};
 document.addEventListener('keydown',e=>{
+  if(!$('rescueOv').classList.contains('hidden'))return;
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
@@ -479,13 +564,17 @@ function showMenu(){
   $('dailyBtn').textContent=(done?'✓ ':'📅 ')+'TAGESRÄTSEL #'+dailyNo();
   $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · weitere Runden zählen als Übung`:'Jeden Tag dieselben Steine für alle · 40 Züge';
   $('resumeBtn').style.display=paused?'':'none';
+  $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('overOv').classList.add('hidden');$('startOv').classList.remove('hidden');
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
 $('resumeBtn').onclick=()=>{paused=false;started=true;$('startOv').classList.add('hidden')};
-$('againBtn').onclick=()=>start(mode);
-$('menuBtn').onclick=()=>{started=false;showMenu()};
+$('againBtn').onclick=()=>{if(pendingInter){pendingInter=false;Ads.showInter()}start(mode)};
+$('menuBtn').onclick=()=>{if(pendingInter){pendingInter=false;Ads.showInter()}started=false;showMenu()};
+$('rescueBtn').onclick=rescue;
+$('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');finishGame('full')};
+$('privacyBtn').onclick=()=>Ads.privacy();
 $('shareBtn').onclick=async()=>{
   const txt=$('shareBox').textContent,b=$('shareBtn');
   const C=window.Capacitor;
@@ -521,7 +610,7 @@ function openScores(tab){
   if(started&&!over){paused=true;started=false;scoresReturn='pause'}
   $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
   scoresTab=tab||scoresTab;renderScores();$('scoresOv').classList.remove('hidden')}
-$('scoresBtn').onclick=()=>{if(busy)return;openScores(mode)};
+$('scoresBtn').onclick=()=>{if(busy||!$('rescueOv').classList.contains('hidden'))return;openScores(mode)};
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
 $('tabDaily').onclick=()=>{scoresTab='daily';renderScores()};
@@ -534,6 +623,7 @@ const sb=$('soundBtn');sb.textContent=sound?'🔊':'🔇';
 sb.onclick=()=>{sound=!sound;sb.textContent=sound?'🔊':'🔇';try{localStorage.setItem('kippwerk_sound',sound?'1':'0')}catch(e){}};
 
 newGame();showMenu();
+setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
 window.__kw={move,get state(){return{score,level,over,busy,cleared,movesLeft,mode,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};

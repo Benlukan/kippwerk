@@ -1,0 +1,12 @@
+node_modules/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/capacitor-cordova-android-plugins/build/
+ios/App/build/
+ios/DerivedData/
+*.keystore
+*.jks
+.DS_Store
+!android/app/kippwerk-debug.keystore

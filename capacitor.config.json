@@ -1,0 +1,8 @@
+{
+  "appId": "de.daviddigital.kippwerk",
+  "appName": "KIPPWERK",
+  "webDir": "www",
+  "backgroundColor": "#0d0f1a",
+  "android": { "backgroundColor": "#0d0f1a" },
+  "ios": { "backgroundColor": "#0d0f1a", "contentInset": "never" }
+}

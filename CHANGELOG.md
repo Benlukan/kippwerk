@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 (Build 3) – 30.10.2026
+- Play-Store-Vorbereitung: Release-Signatur über GitHub-Secrets, AAB-Build
+- Datenschutzerklärung (`datenschutz.html`), im Spiel verlinkt
+- Schrift lokal eingebunden – keine Verbindungen zu Drittanbietern mehr
+- Store-Texte, Feature-Grafik und Screenshots unter `docs/`
+
 ## v1.1.0 (Build 2) – 30.10.2026
 - Neu: **Tagesrätsel** – jeden Tag dieselbe Steinfolge für alle Spieler, 40 Züge
 - Ergebnis teilen als Emoji-Verlauf (Wordle-Stil), natives Teilen in der App

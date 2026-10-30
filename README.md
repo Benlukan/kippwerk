@@ -24,8 +24,8 @@ Ein Tag `v*` (z. B. `v1.1.0`) erstellt zusätzlich ein GitHub-Release mit den Da
 - `KIPPWERK-unsigned.ipa` – unsigniert; per Sideloadly/AltStore mit eigener Apple-ID installierbar
 - `KIPPWERK-playstore.aab` – nur wenn Release-Secrets gesetzt sind
 
-### Play-Store-Signatur (optional)
-Repository-Secrets anlegen: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`.
+### Play Store
+Alles zur Veröffentlichung (Signatur-Secrets, Store-Texte, Formulare, Grafiken): [docs/play-store.md](docs/play-store.md)
 
 ### Lokal entwickeln
 ```bash
@@ -35,5 +35,8 @@ npx cap open android   # Android Studio
 npx cap open ios       # Xcode (macOS)
 ```
 
+## Lizenzen
+Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
+
 ## Version
-Aktuell **v1.1.0 · Build 2** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.1.1 · Build 3** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

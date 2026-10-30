@@ -31,8 +31,8 @@ Wische in eine Richtung und das ganze Spielfeld kippt: Alle Steine rutschen mit.
 JEDE BEWEGUNG ZÄHLT
 Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat das Feld schnell voll. Wer vorausdenkt, baut riesige Ketten.
 
-30 LEVEL
-Knacke Level mit klaren Zielen: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Level.
+100 LEVEL IN 10 WELTEN
+Knacke Level mit klaren Zielen – von entspannt bis knallhart, mit Boss-Level am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Level.
 
 TAGESRÄTSEL
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.

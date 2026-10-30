@@ -1,7 +1,16 @@
 # Changelog
 
+## v1.5.0 (Build 7) – 30.10.2026
+- **100 Level** statt 30, aufgeteilt in **10 Welten** (Erste Schritte, Felsenfeld, Farbrausch, Kettenwerk, Steinbruch, Prismental, Sturmzone, Tiefenwerk, Meisterklasse, Finale)
+- **Gleichmäßig steigende Schwierigkeit** – per Bot-Simulation neu kalibriert:
+  Welt 1 ≈ 93 % Erfolgsquote → Welt 10 ≈ 34 % (vorher sprunghaft zwischen 54 % und 100 %)
+- Jedes 10. Level ist ein **👑 Boss-Level** (deutlich schwerer), danach folgt ein leichteres Level zum Durchatmen
+- Spätere Welten: mehr Farben, 3 neue Steine pro Zug, mehr Felsen, bis zu 3 Ziele gleichzeitig
+- Level-Karte mit Welt-Überschriften und Sternen je Welt, springt automatisch zum aktuellen Level
+- Generator und Kalibrierung: `tools/gen.py`, Prüfung: `tools/check.py`
+
 ## v1.4.0 (Build 6) – 30.10.2026
-- Neu: **Level-Modus** mit 30 Leveln
+- Neu: **Level-Modus** mit 30 Leveln (ab v1.5.0: 100)
   - Ziele: Punkte, Farben abräumen, Steine abräumen, Ketten auslösen, **Felsen** zerbrechen (neues Hindernis)
   - 1–3 Sterne je nach übrigen Zügen, Level schalten sich nacheinander frei, Level-Karte mit Sternsumme
   - Ziel-Anzeige im Spielfeld, Tipps beim ersten Felsen-/Ketten-Level

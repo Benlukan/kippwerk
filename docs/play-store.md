@@ -64,7 +64,7 @@ Gemacht von david.digital.
 | Werbung | **Ja, enthält Werbung** (ab v1.3.0) |
 | Einstufung (IARC-Fragebogen) | Puzzle, keine Gewalt/Glücksspiel/Chat → ergibt i. d. R. USK 0 / PEGI 3 |
 | Zielgruppe | 13+ empfohlen (bei „unter 13“ gelten zusätzlich die Familien-Richtlinien) |
-| Datensicherheit | siehe Abschnitt 4a (wegen AdMob) |
+| Datensicherheit | siehe Abschnitt 4a (AdMob) und 4d (Online-Bestenliste) |
 | Behörden-/Gesundheits-/Finanz-App | Nein |
 | Nachrichten-App | Nein |
 
@@ -81,6 +81,19 @@ Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite �
 - Daten bei Übertragung verschlüsselt: **Ja**
 - Nutzer können Löschung beantragen: über Google (Werbe-ID zurücksetzen)
 - In der Play Console zusätzlich: **App-Inhalte → Werbe-ID → „Ja, für Werbung“** (Berechtigung `AD_ID` bringt das SDK automatisch mit)
+
+## 4d. Datensicherheit mit Online-Bestenliste (ab v1.10.0)
+Zusätzlich zu 4a angeben, sobald `ONLINE_CONFIG` in `www/index.html` gesetzt ist (Details: [supabase.md](supabase.md)):
+
+| Datentyp | Erhoben | Geteilt | Optional | Zweck |
+|---|---|---|---|---|
+| Persönliche Infos → Name (Spielername) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
+| Geräte- oder andere IDs (zufällige Spieler-ID) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
+| App-Aktivität → Sonstige nutzergenerierte Inhalte / In-App-Aktionen (Punkte) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
+
+- „Geteilt“ = Nein, weil Supabase als Auftragsverarbeiter arbeitet
+- Verschlüsselt übertragen: **Ja** (HTTPS) · Löschung: **Ja**, in der App (⚙ → Online-Einträge löschen) oder per E-Mail
+- App Store Connect (App Privacy): **Name**, **User ID**, **Gameplay Content** · Zweck: App Functionality · Tracking: Nein
 
 ## 4c. AdMob-Status (Stand v1.6.0, 10.11.2026)
 | | Android | iOS |

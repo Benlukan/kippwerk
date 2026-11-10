@@ -8,6 +8,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 - **Level** – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Ketten, Felsen), steigender Schwierigkeit, Boss-Leveln und 1–3 Sternen
 - **Tagesrätsel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen
 - **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe; Level steigern Farben, Joker und Tempo
+- **🌍 Online-Bestenliste** (freiwillig) – weltweit für Tagesrätsel und Endlos je Feldgröße, über Supabase: Einrichtung in [docs/supabase.md](docs/supabase.md)
 
 ## Projektstruktur
 | Pfad | Inhalt |
@@ -15,6 +16,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 | `www/` | Das komplette Spiel (eine HTML-Datei) + PWA-Manifest und Service Worker |
 | `android/`, `ios/` | Native Capacitor-Projekte |
 | `assets/` | Quellbilder für App-Icon und Splash (`npm run icons`) |
+| `supabase/` | Datenbank-Schema der Online-Bestenliste (`schema.sql`) |
 | `tools/` | Level-Simulator, Generator und Kalibrierung (`cd tools && python3 gen.py 100`, prüfen: `python3 check.py levels.json 80`) |
 | `.github/workflows/` | Automatische Builds: APK, iOS-IPA, GitHub Pages |
 
@@ -54,4 +56,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.9.3 · Build 15** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.10.0 · Build 16** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.10.0 (Build 16) – 10.11.2026
+- Neu: **Weltweite Online-Bestenliste** (Supabase) – in der Bestenliste umschalten zwischen „📱 Dieses Gerät“ und „🌍 Weltweit“
+  - Tagesrätsel: Rangliste des heutigen Rätsels, nur das erste (gewertete) Ergebnis zählt
+  - Endlos: Top 10 je Feldgröße (5×5 bis 8×8), pro Spieler nur der Bestwert
+  - eigene Platzierung wird auch außerhalb der Top 10 angezeigt
+  - **freiwillig**: erst nach „Mitmachen“ werden Daten übertragen; abschaltbar und Einträge löschbar in ⚙
+  - beim Mitmachen werden vorhandene Bestwerte einmal hochgeladen; ohne Netz werden Ergebnisse gemerkt und später gesendet
+  - Namensänderung gilt auch online
+- Datenschutzerklärung um die Online-Bestenliste ergänzt
+
 ## v1.9.3 (Build 15) – 10.11.2026
 - **Info-Leiste jetzt auch am PC** (und Tablet quer): als Seitenleiste rechts neben dem Spielfeld – Combo, Abgeräumt, Level-Fortschritt, Verlauf mit Legende bzw. Level-Ziele und Tages-Raster
 - enthält den Scroll-Fix aus v1.9.2

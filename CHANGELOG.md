@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.9.1 (Build 13) – 10.11.2026
+- Level-Modus bleibt bei 100 Leveln; nach Level 100 Hinweis, dass neue Welten per Update folgen (Sieg-Bildschirm und Level-Karte)
+- Hilfe: Endlos-Modus als „ohne Ende“ beschrieben, Hinweis auf kommende Welten
+- README: Ablauf für neue Welten per Update dokumentiert
+
 ## v1.9.0 (Build 12) – 10.11.2026
 - Neu: **Feldgrößen im Endlos-Modus** – 5×5 Kompakt, 6×6 Standard, 7×7 Groß, 8×8 Riesig (Auswahl im Menü und in ⚙)
   - per Simulation abgestimmt: größere Felder starten mit 5 Farben und mehr neuen Steinen pro Zug, Level-Schwelle wächst mit der Feldfläche

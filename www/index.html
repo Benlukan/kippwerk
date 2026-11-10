@@ -368,8 +368,8 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
             <li><b>📅 Tagesrätsel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
-            <li><b>🗺 Level</b> – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Steine, Combos, Felsen). 1–3 Sterne je nach übrigen Zügen. Jedes 10. Level ist ein 👑 Boss.</li>
-            <li><b>∞ Endlos</b> – so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
+            <li><b>🗺 Level</b> – 100 Level in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). 1–3 Sterne je nach übrigen Zügen. Jedes 10. Level ist ein 👑 Boss.</li>
+            <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße und alle gewerteten Tagesrätsel – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
           <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesrätsel).</p>
@@ -400,7 +400,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.9.0 · Build 12 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.9.1 · Build 13 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -868,7 +868,7 @@ function levelWin(){
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
   setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'LEVEL '+lvNo,stars:st,goalsProg:true,
-    text:`${movesLeft} ${movesLeft===1?'Zug':'Züge'} übrig · ${fmt(score)} Punkte${st>prev&&prev?' · neuer Bestwert!':''}${lvNo%10===0&&!last?`<br>🎉 Welt ${lvNo/10} geschafft – weiter nach „${WORLDS[lvNo/10]}“!`:''}${last?'<br>🎉 Du hast alle 100 Level geschafft!':''}`,
+    text:`${movesLeft} ${movesLeft===1?'Zug':'Züge'} übrig · ${fmt(score)} Punkte${st>prev&&prev?' · neuer Bestwert!':''}${lvNo%10===0&&!last?`<br>🎉 Welt ${lvNo/10} geschafft – weiter nach „${WORLDS[lvNo/10]}“!`:''}${last?'<br>🎉 Du hast alle 100 Level geschafft! Neue Welten kommen mit den nächsten Updates – bis dahin: fehlende Sterne holen oder im ∞ Endlos-Modus weiterspielen.':''}`,
     main:last?'🗺 ZUR KARTE':'WEITER ▶',mainFn:()=>{maybeInter();last?openLevels():levelIntro(lvNo+1)}}),900);
 }
 function levelFail(reason){
@@ -878,7 +878,7 @@ function levelFail(reason){
     main:'↻ NOCHMAL',mainFn:()=>{maybeInter();start('level')},retry:false}),400);
 }
 function openLevels(){
-  const un=unlocked();$('levelsTotal').textContent=`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne`;
+  const un=unlocked();$('levelsTotal').innerHTML=`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne`+(LP[LEVELS.length]?'<br><small style="color:var(--muted)">Alle Welten geschafft – neue Welten folgen per Update</small>':'');
   $('lvGrid').innerHTML=LEVELS.map((l,i)=>{const n=i+1,s=LP[n]||0,lock=n>un,boss=n%10===0;
     let head='';if(i%10===0){const w=i/10,ws=LEVELS.slice(i,i+10).reduce((a,_,j)=>a+(LP[i+j+1]||0),0);head=`<div class="lvworld"><span>Welt ${w+1} · ${WORLDS[w]||''}</span><span>⭐ ${ws}/30</span></div>`}
     return head+`<button class="lvbtn${lock?' locked':''}${boss?' boss':''}${n===un&&!s?' next':''}" data-n="${n}" ${lock?'disabled':''}>${lock?'🔒':(boss?'👑':'')+n}<small>${lock?'&nbsp;':s?'★'.repeat(s)+'☆'.repeat(3-s):'☆☆☆'}</small></button>`}).join('');
@@ -1020,6 +1020,7 @@ $('menuSettings').onclick=()=>openSettings('menu');
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
+ ['1.9.1','Hinweis auf kommende Welten nach Level 100'],
  ['1.9.0','Feldgrößen 5×5 bis 8×8, Bestenliste je Größe, Spielername im Tagesrätsel, einmalige Spieler-ID, Hilfe mit Farb-Erklärung'],
  ['1.8.0','Ganze Bildschirmhöhe genutzt, Info-Leiste mit Verlauf und Zielen'],
  ['1.7.0','Combo-Stufen GOOD, SUPER, MEGA und MONSTER'],

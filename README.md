@@ -40,8 +40,18 @@ npx cap open android   # Android Studio
 npx cap open ios       # Xcode (macOS)
 ```
 
+## Neue Welten per Update
+Festgelegt: Der Level-Modus bleibt vorerst bei **100 Leveln (10 Welten)**, neue Welten kommen per Update. Der Endlos-Modus hat keine Obergrenze.
+
+So entsteht eine neue Welt (10 Level, Level 10 = Boss):
+1. In `tools/gen.py` die Level-Spanne erweitern (z. B. `range(1,111)`) und die Zielkurve `target()` fortsetzen.
+2. `cd tools && python3 gen.py 100` erzeugen, dann **nur die neuen Level (101+)** übernehmen – Level 1–100 im Spiel nie ersetzen (dort stecken handgemachte Level 1–30 und nachjustierte Boss-Level 40/60/100).
+3. Mit `python3 check.py` die neuen Level prüfen (Erfolgsquote fällt weiter leicht, Boss deutlich darunter), dann an `LEVELS` in `www/index.html` anhängen und Namen in `WORLDS` ergänzen.
+4. Fortschritt der Spieler bleibt erhalten (gespeichert je Levelnummer); bisherige „Alles geschafft“-Spieler sehen die neue Welt sofort freigeschaltet.
+5. Version + Build hochzählen, Changelog, Store-Text („110 Level in 11 Welten“).
+
 ## Lizenzen
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.9.0 · Build 12** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.9.1 · Build 13** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

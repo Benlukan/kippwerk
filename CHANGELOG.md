@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.11.2 (Build 19) – 10.11.2026
+- **Zurück-Taste (Android):** im Spiel → Pause-Menü; im Pause-Menü → weiterspielen; in Menüs/Fenstern → einen Schritt zurück (Level-Intro → Karte → Menü); im Hauptmenü zweimal drücken zum Beenden
+- Spiel pausiert automatisch, wenn die App in den Hintergrund geht (nicht während Werbung); Esc am PC pausiert ebenfalls
+- **Verlauf** in festem Raster: immer 2 Zeilen à 20 Kästchen über die volle Breite, leere Plätze angedeutet
+- Fix: Das Spielfeld rutschte nach oben, sobald eine neue Verlaufszeile dazukam oder der Tipp-Text verschwand – Info-Leiste hat jetzt eine feste Höhe
+
 ## v1.11.1 (Build 18) – 10.11.2026
 - Fix: Die Flamme in der Kopfzeile war im Startmenü verdeckt – neuer Menüpunkt **„🔥 Serie“** (mit aktueller Zahl), auch der Serien-Hinweis unter dem Tagesrätsel öffnet die Serien-Seite
 - Store: **Produktvideo** (29,6 s, Hochformat) in `docs/store/` – 1080×1920 (YouTube/Google Play, Social Media) und 886×1920 (App-Store-Vorschau)

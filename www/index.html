@@ -250,8 +250,9 @@ body.pad-off .pad{display:none!important}
 .ib-tile small,.ib-box small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 .ib-tile b{font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .ib-tile b i{font-style:normal;font-size:12px;margin-left:4px}
-.ib-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:14px}
-.ib-dots span{width:14px;height:14px;border-radius:4px;background:var(--line)}
+.ib-dots{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;margin-top:6px}
+.ib-dots span{aspect-ratio:1;border-radius:4px;background:var(--line);min-width:0}
+.ib-dots span.e{background:transparent;box-shadow:inset 0 0 0 1px #ffffff12}
 .ib-dots .k1{background:var(--c3)}.ib-dots .k2{background:var(--c2)}.ib-dots .k3{background:var(--c1)}.ib-dots .k4{background:var(--c0);box-shadow:0 0 8px var(--c0)}
 .ib-goal{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:14px;margin-top:6px}
 .ib-goal .bar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:-2px}
@@ -283,7 +284,6 @@ body.pad-off .pad{display:none!important}
   .ib-tile,.ib-box{padding:clamp(8px,1.5vh,14px) clamp(10px,2.6vw,14px)}
   .ib-tile b{font-size:clamp(17px,min(5.4vw,2.7vh),26px)}
   .ib-tile small,.ib-box small,.stat small{font-size:clamp(10px,1.25vh,12px)}
-  .ib-dots span{width:clamp(14px,2.1vh,20px);height:clamp(14px,2.1vh,20px)}
   .ib-goal{font-size:clamp(14px,1.9vh,17px)}
   .ib-goal .bar{height:clamp(5px,.8vh,8px)}
 }
@@ -425,7 +425,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <div class="help">
         <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hSerie">Serie</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
         <section id="hGrund"><h3>So geht's</h3>
-          <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
+          <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Die <b>Zurück-Taste</b> des Handys (bzw. Esc) pausiert das Spiel. Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
           <p>Berühren sich <b>3 oder mehr gleiche Steine</b> waagerecht oder senkrecht, verschwinden sie. Größere Gruppen bringen deutlich mehr Punkte (Größe² × 10).</p>
           <p>Nach jedem Zug kommen <b>neue Steine von der Gegenseite</b> dazu. Oben bei „Als Nächstes“ siehst du, welche Farben kommen. Ist das Feld voll, ist die Runde vorbei.</p>
         </section>
@@ -496,7 +496,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.11.1 · Build 18 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.11.2 · Build 19 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -766,6 +766,27 @@ function closeStreak(){$('streakOv').classList.add('hidden');
   else if(streakReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}
   else if(streakReturn==='play'){if(paused){paused=false;started=true}}
   else showMenu()}
+// ---------- Zurück-Taste & Pausieren ----------
+let backArmed=0;
+function pauseToMenu(){if(started&&!over){paused=true;started=false;showMenu();return true}return false}
+function handleBack(){
+  const open=id=>!$(id).classList.contains('hidden');
+  if(open('rescueOv')){$('noRescueBtn').click();return}
+  if(open('helpOv')){$('closeHelp').click();return}
+  if(open('streakOv')){closeStreak();return}
+  if(open('scoresOv')){$('closeScores').click();return}
+  if(open('settingsOv')){$('closeSettings').click();return}
+  if(open('lvlOv')){$('lvlMap').style.display!=='none'?$('lvlMap').click():openLevels();return}
+  if(open('levelsOv')){$('closeLevels').click();return}
+  if(open('overOv')){$('menuBtn').click();return}
+  if(open('startOv')){
+    if(paused){$('resumeBtn').click();return}                 // im Pause-Menü: weiterspielen
+    if(Date.now()-backArmed<2200){const A=AppPlugin();if(A)A.exitApp();return}
+    backArmed=Date.now();toast('Zum Beenden nochmal „Zurück“ drücken');return}
+  if(busy){setTimeout(handleBack,250);return}                // Zug läuft noch → kurz warten
+  pauseToMenu();
+}
+const AppPlugin=()=>{const C=window.Capacitor;return C&&C.isNativePlatform&&C.isNativePlatform()?((C.Plugins&&C.Plugins.App)||(C.registerPlugin&&C.registerPlugin('App'))):null};
 function setTheme(th){if(!themeUnlocked(th))return;settings.theme=th;saveSettings();applySettings()}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),4600)}
 // ---------- Erinnerung (nur App) ----------
@@ -945,7 +966,8 @@ function renderInfo(){
   const ib=$('infobar');if(!ib||getComputedStyle(ib).display==='none')return;
   const cb=bestChain>=2?`×${bestChain}<i>${COMBOS[Math.min(bestChain,5)].replace('!','')}</i>`:'–';
   const tile=(l,v)=>`<div class="ib-tile"><small>${l}</small><b>${v}</b></div>`;
-  const dots=(arr,max)=>`<div class="ib-dots">${arr.slice(-max).map(c=>`<span class="k${Math.min(c,4)}"></span>`).join('')}</div>`;
+  // immer genau `max` Kästchen (2 Zeilen à 20): leere Plätze als Platzhalter → Höhe bleibt konstant, Feld springt nicht
+  const dots=(arr,max)=>{const a=arr.slice(-max);return `<div class="ib-dots">${a.map(c=>`<span class="k${Math.min(c,4)}"></span>`).join('')}${'<span class="e"></span>'.repeat(max-a.length)}</div>`};
   let h='';
   if(mode==='level'){
     h+=`<div class="ib-box"><small>Ziele · Level ${lvNo}</small>`+LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n,pct=Math.min(100,s.n?s.cur/s.n*100:0);
@@ -962,7 +984,7 @@ function renderInfo(){
   }
   const wide=matchMedia('(min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px)').matches;
   if(wide)h+=`<div class="ib-box"><small>Steuerung</small><div class="ib-hint" style="text-align:left;margin-top:6px">⌨ Pfeiltasten oder W A S D<br>🖱 Wischen mit gedrückter Maustaste<br>☰ Menü / Pause · ❓ Tippen auf den Verlauf</div></div>`;
-  else if(history.length<3)h+=`<div class="ib-hint">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
+  else h+=`<div class="ib-hint" style="visibility:${history.length<3?'visible':'hidden'}">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
   ib.innerHTML=h;
 }
 addEventListener('resize',()=>{try{renderInfo()}catch(e){}});
@@ -1095,7 +1117,8 @@ async function rescue(){
   over=false;busy=false;started=true;render();banner('WEITER!');sfx.level();
 }
 function countRound(){gamesDone++;pendingInter=!!ADS_CONFIG.interstitialEvery&&Ads.native&&gamesDone%ADS_CONFIG.interstitialEvery===0&&!rescued}
-function maybeInter(){if(pendingInter){pendingInter=false;Ads.showInter()}}
+let adBusy=false;
+function maybeInter(){if(pendingInter){pendingInter=false;adBusy=true;Promise.resolve(Ads.showInter()).finally(()=>setTimeout(()=>adBusy=false,1500))}}
 
 // ---------- Level-Bildschirme ----------
 function showLvl({kicker,title,stars,goalsProg,text,main,mainFn,retry=true,map=true}){
@@ -1218,6 +1241,7 @@ document.addEventListener('keydown',e=>{
   if(!$('streakOv').classList.contains('hidden')){if(e.key==='Escape')closeStreak();return}
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();e.target.id==='setName'?e.target.blur():$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
+  if(e.key==='Escape'&&started&&!over){e.preventDefault();handleBack();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
   else if((e.key==='Enter'||e.key===' ')&&over){e.preventDefault();start(mode)}
 });
@@ -1312,6 +1336,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.11.2','Zurück-Taste: pausiert bzw. zurück ins Menü; Verlauf in festem Raster, Spielfeld springt nicht mehr'],
  ['1.11.1','Serie direkt im Startmenü erreichbar'],
  ['1.11.0','Serien fürs Tagesrätsel: Flamme, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend'],
  ['1.9.3','Info-Leiste am PC als Seitenleiste neben dem Spielfeld; Menüs scrollbar auf niedrigen Bildschirmen'],
@@ -1419,11 +1444,13 @@ initStreak();
 applySettings();
 newGame();showMenu();
 setTimeout(()=>Reminder.schedule(),2000);
+try{const A=AppPlugin();if(A)A.addListener('backButton',()=>handleBack())}catch(e){}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!over&&!adBusy){const go=()=>{if(busy)return setTimeout(go,200);pauseToMenu()};go()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
 setTimeout(()=>Online.flush(),1500);addEventListener('online',()=>Online.flush());
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

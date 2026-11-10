@@ -1,6 +1,6 @@
 {
   "name": "kippwerk",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "private": true,
   "description": "KIPPWERK – Kipp-Puzzle mit Tagesrätsel",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@capacitor-community/admob": "^8.3.0",
     "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
     "@capacitor/core": "^8.6.0",
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/ios": "^8.6.0",

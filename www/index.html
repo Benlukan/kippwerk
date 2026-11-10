@@ -258,7 +258,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.5.0 · Build 7 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
+  <footer>KIPPWERK v1.6.0 · Build 8 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
 </div>
 <script>
 (()=>{
@@ -278,12 +278,13 @@ const DAILY_MOVES=40;
 const SHARE_URL='https://benlukan.github.io/kippwerk/';
 
 // ---------- Werbung (nur in der Android-/iOS-App) ----------
-// VOR VERÖFFENTLICHUNG: testing:false setzen und eigene Anzeigenblock-IDs aus AdMob eintragen
-// (dazu App-IDs in android/app/src/main/res/values/strings.xml und ios/App/App/Info.plist).
+// Android: eigene AdMob-IDs eingetragen. iOS: noch Google-Test-IDs (iOS-App in AdMob folgt später).
+// testing:true  → das Plugin zeigt Googles Testanzeigen (für geschlossenen Test / Entwicklung)
+// testing:false → echte Anzeigen. ERST beim öffentlichen Play-Store-Start umstellen!
 const ADS_CONFIG={
   testing:true,
-  rewarded:{android:'ca-app-pub-3940256099942544/5224354917',ios:'ca-app-pub-3940256099942544/1712485313'},
-  interstitial:{android:'ca-app-pub-3940256099942544/1033173712',ios:'ca-app-pub-3940256099942544/4411468910'},
+  rewarded:{android:'ca-app-pub-8873350241195536/5053799865',ios:'ca-app-pub-3940256099942544/1712485313'},
+  interstitial:{android:'ca-app-pub-8873350241195536/2160218226',ios:'ca-app-pub-3940256099942544/4411468910'},
   interstitialEvery:3,  // Vollbild-Werbung nach jeder n-ten Endlos-Runde (0 = aus)
   rescueTiles:6,        // so viele Steine entfernt die Rettung
   rescueMoves:5         // so viele Extra-Züge gibt es im Level-Modus

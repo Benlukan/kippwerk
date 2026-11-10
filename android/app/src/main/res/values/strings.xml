@@ -4,6 +4,6 @@
     <string name="title_activity_main">KIPPWERK</string>
     <string name="package_name">de.daviddigital.kippwerk</string>
     <string name="custom_url_scheme">de.daviddigital.kippwerk</string>
-    <!-- TEST-ID von Google. Vor Veröffentlichung durch eigene AdMob-App-ID ersetzen (ca-app-pub-XXXX~YYYY) -->
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <!-- Eigene AdMob-App-ID (KIPPWERK Android) -->
+    <string name="admob_app_id">ca-app-pub-8873350241195536~3572363083</string>
 </resources>

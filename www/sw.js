@@ -1,5 +1,5 @@
 // KIPPWERK Service Worker – offline spielbar
-const CACHE = 'kippwerk-v1.5.0-b7';
+const CACHE = 'kippwerk-v1.6.0-b8';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './datenschutz.html', './fonts/space-grotesk-latin-500-normal.woff2', './fonts/space-grotesk-latin-700-normal.woff2'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => {

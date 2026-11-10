@@ -81,6 +81,24 @@ Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite �
 - Nutzer können Löschung beantragen: über Google (Werbe-ID zurücksetzen)
 - In der Play Console zusätzlich: **App-Inhalte → Werbe-ID → „Ja, für Werbung“** (Berechtigung `AD_ID` bringt das SDK automatisch mit)
 
+## 4c. AdMob-Status (Stand v1.6.0, 10.11.2026)
+| | Android | iOS |
+|---|---|---|
+| App in AdMob | ✅ angelegt (nicht veröffentlicht) | ⏳ später |
+| App-ID | `ca-app-pub-8873350241195536~3572363083` | Test-ID |
+| Prämie „Rettung“ | `ca-app-pub-8873350241195536/5053799865` | Test-ID |
+| Interstitial „Zwischen Runden“ | `ca-app-pub-8873350241195536/2160218226` | Test-ID |
+| Testmodus | aktiv (`testing:true`) | aktiv |
+
+**Fahrplan bis echte Einnahmen**
+1. DSGVO-Mitteilung in AdMob veröffentlichen (Datenschutz-URL: `https://benlukan.github.io/kippwerk/datenschutz.html`)
+2. Geschlossener Test: ≥ 12 Tester, 14 Tage am Stück
+3. Öffentlicher Start → `testing:false` setzen, neue Version bauen
+4. In AdMob: App-Einstellungen → Store hinzufügen → mit Play-Eintrag verknüpfen (App-Prüfung startet)
+5. `app-ads.txt` im Repo `Benlukan/benlukan.github.io` ablegen:
+   `google.com, pub-8873350241195536, DIRECT, f08c47fec0942fa0`
+   und `https://benlukan.github.io` als Website im Play-Store-Eintrag angeben
+
 ## 4b. AdMob einrichten (vor Veröffentlichung)
 1. Konto auf admob.google.com anlegen, Auszahlungs- und Steuerdaten hinterlegen.
 2. Zwei Apps anlegen (Android + iOS) → je eine **App-ID** (`ca-app-pub-…~…`).

@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.0 (Build 8) – 10.11.2026
+- **AdMob Android: eigene IDs** eingetragen (App-ID, Anzeigenblöcke „Rettung“ und „Zwischen Runden“)
+- Testmodus bleibt bewusst **aktiv** (Testanzeigen) für den geschlossenen Test – Umschalten auf echte Anzeigen erst zum öffentlichen Start (`ADS_CONFIG.testing:false`)
+- iOS weiterhin mit Google-Test-IDs (iOS-App in AdMob folgt)
+- Doku: AdMob-Status und Fahrplan bis zum Start in `docs/play-store.md`
+
 ## v1.5.0 (Build 7) – 30.10.2026
 - **100 Level** statt 30, aufgeteilt in **10 Welten** (Erste Schritte, Felsenfeld, Farbrausch, Kettenwerk, Steinbruch, Prismental, Sturmzone, Tiefenwerk, Meisterklasse, Finale)
 - **Gleichmäßig steigende Schwierigkeit** – per Bot-Simulation neu kalibriert:

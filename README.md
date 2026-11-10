@@ -27,7 +27,7 @@ Ein Tag `v*` (z. B. `v1.1.0`) erstellt zusätzlich ein GitHub-Release mit den Da
 - `KIPPWERK-playstore.aab` – nur wenn Release-Secrets gesetzt sind
 
 ### Werbung (AdMob)
-Nur in der Android-/iOS-App: Rettung per Video + Vollbild-Anzeige jede 3. Endlos-Runde. Aktuell **Google-Test-IDs** – Umstellung auf echte IDs: [docs/play-store.md](docs/play-store.md#4b-admob-einrichten-vor-veröffentlichung). Einstellungen in `www/index.html` → `ADS_CONFIG`.
+Nur in der Android-/iOS-App: Rettung per Video + Vollbild-Anzeige jede 3. Endlos-Runde. Android: **eigene AdMob-IDs** eingetragen, Testmodus noch aktiv bis zum öffentlichen Start · iOS: noch Test-IDs – Details: [docs/play-store.md](docs/play-store.md#4b-admob-einrichten-vor-veröffentlichung). Einstellungen in `www/index.html` → `ADS_CONFIG`.
 
 ### Play Store
 Alles zur Veröffentlichung (Signatur-Secrets, Store-Texte, Formulare, Grafiken): [docs/play-store.md](docs/play-store.md)
@@ -44,4 +44,4 @@ npx cap open ios       # Xcode (macOS)
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.5.0 · Build 7** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.6.0 · Build 8** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

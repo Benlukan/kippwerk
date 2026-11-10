@@ -22,7 +22,7 @@
   --c0:#ff5d73; --c1:#ffc145; --c2:#3ddc97; --c3:#4cc9f0; --c4:#b57bff;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 50% -10%,#1d2240 0%,var(--bg) 60%);color:var(--text);
+html,body{margin:0;height:100%;background:var(--bgimg,none),radial-gradient(1200px 800px at 50% -10%,var(--bg2,#1d2240) 0%,var(--bg) 60%);background-attachment:fixed;color:var(--text);
   font-family:"Space Grotesk",system-ui,sans-serif;overflow:hidden;touch-action:none;user-select:none}
 .wrap{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:14px}
 header{width:var(--W);display:flex;align-items:center;justify-content:space-between;gap:6px}
@@ -156,6 +156,56 @@ h1 span{color:var(--c3)}
 .seg button.on{background:var(--line);color:var(--text)}
 .tile.rock .in{background:repeating-linear-gradient(135deg,#5b6079 0 7px,#4a4e66 7px 14px);box-shadow:inset 0 -5px 0 rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.15)}
 body.nosym .tile:not(.wild) .in,body.nosym .mini:not(.w),body.nosym .chip{color:transparent!important}
+/* Designs (Serien-Belohnungen) – Farben nur, wenn kein Farbschwäche-Schema aktiv ist */
+body.th-neon{--bg:#05050c;--bg2:#1a0d33}
+body.th-neon:not(.pal-cb){--c0:#ff2e63;--c1:#ffe600;--c2:#00ff9d;--c3:#00d4ff;--c4:#c84bff}
+body.th-neon .tile .in{box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.4),0 0 26px var(--glow)}
+body.th-pastell{--bg:#17141f;--bg2:#2e2742;--panel:#221d30;--line:#3a3150}
+body.th-pastell:not(.pal-cb){--c0:#ff8fa3;--c1:#ffd6a5;--c2:#a8e6cf;--c3:#9bd0f5;--c4:#cdb4ff}
+body.th-ozean{--bg:#03101c;--bg2:#0b3354;--panel:#0b1e30;--line:#16344f}
+body.th-ozean:not(.pal-cb){--c0:#ef476f;--c1:#ffd166;--c2:#06d6a0;--c3:#2bb3e0;--c4:#8c9eff}
+body.th-lava{--bg:#120604;--bg2:#3d1206;--panel:#22110c;--line:#43211a}
+body.th-lava:not(.pal-cb){--c0:#ff4d2e;--c1:#ffb703;--c2:#a7f432;--c3:#5ad1f5;--c4:#ff5fa2}
+body.th-gold{--bg:#0f0c04;--bg2:#30270d;--panel:#1b170b;--line:#4a3d16}
+body.th-gold .board{border-color:#d4af37;box-shadow:0 0 34px #d4af3740}
+body.th-gold h1 span{color:#e8c25a}
+body.th-gold .tile .in{box-shadow:inset 0 -5px 0 rgba(0,0,0,.2),inset 0 0 0 2px #f4d77a88,0 0 18px var(--glow)}
+body.th-kosmos{--bg:#04020c;--bg2:#2a1052;--panel:#130d26;--line:#2c2150;
+  --bgimg:radial-gradient(1px 1px at 10% 20%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 70% 35%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 40% 80%,#fffa 50%,transparent 51%),radial-gradient(1px 1px at 85% 75%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 25% 55%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 60% 10%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 92% 12%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 5% 90%,#fff7 50%,transparent 51%)}
+body.th-kosmos:not(.pal-cb){--c0:#ff5d8f;--c1:#ffd23f;--c2:#3ee8b5;--c3:#5ec8ff;--c4:#b98cff}
+/* Serie */
+header h1{min-width:0;overflow:hidden;text-overflow:clip}
+@media (max-width:430px){.icons{gap:4px}.mode-tag{display:none}.streakchip{padding:0 6px;font-size:13px}}
+.streakchip{display:flex;align-items:center;gap:3px;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;height:clamp(32px,9.5vw,38px);padding:0 9px;font:700 15px "Space Grotesk",sans-serif;cursor:pointer;flex:none}
+.streakchip .fl{filter:grayscale(1);opacity:.6}
+.streakchip.done{color:var(--text);border-color:#ff8a3d88;box-shadow:0 0 14px #ff6a0040}
+.streakchip.done .fl{filter:none;opacity:1}
+.streakchip.open{animation:pulseOpen 2s ease-in-out infinite}
+@keyframes pulseOpen{50%{border-color:#ff8a3d}}
+.stk-big{font-size:64px;font-weight:700;line-height:1}
+.stk-big .fl{display:inline-block;animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{50%{transform:scale(1.08) rotate(-3deg)}}
+.stk-week{display:flex;gap:8px;justify-content:center}
+.stk-day{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.stk-day i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;background:var(--line);color:var(--text)}
+.stk-day.ok i{background:linear-gradient(160deg,#ff9a3d,#ff5d2e);box-shadow:0 0 10px #ff6a0066}
+.stk-day.sh i{background:#3a5a8a}
+.stk-day.today i{outline:2px solid var(--c3);outline-offset:2px}
+.stk-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;width:min(100%,400px);text-align:left}
+.stk-card small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.stk-bar{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px}
+.stk-bar i{display:block;height:100%;background:linear-gradient(90deg,#ff9a3d,#ff5d2e)}
+.ms-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ms{background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;color:var(--text);font:600 11px "Space Grotesk",sans-serif}
+.ms b{display:block;font-size:22px;margin-bottom:2px}
+.ms.lock{opacity:.38;cursor:default}
+.ms.on{border-color:var(--c2);box-shadow:0 0 10px #3ddc9744}
+.ms .sw5{display:flex;justify-content:center;gap:2px;margin-top:4px}.ms .sw5 span{width:7px;height:7px;border-radius:2px}
+.streaknote{background:linear-gradient(135deg,#ff9a3d22,#ff5d2e22);border:1px solid #ff8a3d66;border-radius:14px;padding:10px 14px;max-width:340px}
+.streaknote b{color:#ffb36b}
+.toast{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);color:var(--text);
+  border-radius:12px;padding:10px 16px;font-size:14px;z-index:50;box-shadow:0 8px 30px #0008;animation:toastIn 4.5s ease forwards;max-width:90vw;text-align:center}
+@keyframes toastIn{0%{opacity:0;transform:translate(-50%,-10px)}8%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
 body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7}
 body.fast .tile{transition-duration:.08s}
 body.pad-on .pad{display:flex!important}
@@ -246,6 +296,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <header>
     <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
     <div class="icons">
+      <button class="streakchip" id="streakBtn" title="Deine Serie"><span class="fl">🔥</span><span id="streakNum">0</span></button>
       <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
       <button class="icon-btn" id="settingsBtn" title="Einstellungen">⚙</button>
       <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
@@ -294,6 +345,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <input id="nameInput" maxlength="12" placeholder="Dein Name" autocomplete="nickname" enterkeyhint="done">
         <button class="btn" id="saveName">EINTRAGEN</button>
       </div>
+      <div class="streaknote" id="streakNote" style="display:none"></div>
       <pre class="share" id="shareBox" style="display:none"></pre>
       <button class="btn" id="shareBtn" style="display:none">ERGEBNIS TEILEN</button>
       <div class="modes">
@@ -339,6 +391,8 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
+        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
+        <label class="set" id="remindRow" style="display:none"><span>🔔 Serien-Erinnerung (abends)</span><input type="checkbox" id="setRemind"></label>
         <div class="set"><span>🔲 Feldgröße (Endlos)</span><div class="seg" data-key="size"><button data-v="5">5</button><button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button></div></div>
         <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
       </div>
@@ -353,10 +407,23 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
     </div>
+    <div class="overlay hidden" id="streakOv">
+      <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
+      <p id="stkSub">Tage in Folge</p>
+      <p id="stkStatus"></p>
+      <button class="btn" id="stkPlay" style="display:none">📅 JETZT TAGESRÄTSEL SPIELEN</button>
+      <div class="stk-week" id="stkWeek"></div>
+      <div class="stk-card"><small>Serienschutz</small><div id="stkShield"></div>
+        <button class="btn alt" id="stkAd" style="display:none;margin-top:8px">🎬 SCHUTZ PER VIDEO HOLEN</button></div>
+      <div class="stk-card"><small>Nächster Meilenstein</small><div id="stkNext"></div></div>
+      <div class="stk-card"><small>Abzeichen &amp; Designs · tippen zum Anwenden</small><div class="ms-grid" id="stkMs"></div></div>
+      <p class="hint" id="stkBest"></p>
+      <button class="btn alt" id="closeStreak">SCHLIESSEN</button>
+    </div>
     <div class="overlay hidden" id="helpOv">
       <h2>❓ HILFE</h2>
       <div class="help">
-        <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
+        <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hSerie">Serie</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
         <section id="hGrund"><h3>So geht's</h3>
           <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
           <p>Berühren sich <b>3 oder mehr gleiche Steine</b> waagerecht oder senkrecht, verschwinden sie. Größere Gruppen bringen deutlich mehr Punkte (Größe² × 10).</p>
@@ -394,6 +461,12 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           <p><b>🌍 Weltweit:</b> In der Bestenliste oben auf „Weltweit“ tippen und mitmachen – dann landen deine besten Endlos-Runden je Feldgröße und dein erstes Tagesrätsel des Tages in der Online-Bestenliste. Freiwillig, jederzeit in ⚙ abschaltbar und löschbar.</p>
           <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesrätsel).</p>
         </section>
+        <section id="hSerie"><h3>🔥 Serie</h3>
+          <p>Spiel jeden Tag das <b>Tagesrätsel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
+          <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und ein neues Design (Neon, Pastell, Ozean, Lava, Gold, Kosmos) – rein optisch.</p>
+          <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
+        </section>
         <section id="hTipps"><h3>Tipps</h3>
           <ul>
             <li>Kippe öfter in <b>dieselbe Richtung</b> – dann sammeln sich Farben an einer Seite und Combos werden wahrscheinlicher.</li>
@@ -423,7 +496,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.10.0 · Build 16 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.11.0 · Build 17 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -501,19 +574,24 @@ let lvNo=1,LV=null,prog=null;
 // ---------- Seeded RNG (Tagesrätsel) ----------
 function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function hashStr(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
-function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function now(){return new Date(Date.now()+(window.KW_DAY_OFFSET||0)*864e5)}
+function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function dayDiff(a,b){const[x,y,z]=a.split('-').map(Number),[u,v,w]=b.split('-').map(Number);return Math.round((Date.UTC(u,v-1,w)-Date.UTC(x,y-1,z))/864e5)}
+function addDays(k,n){const[y,m,d]=k.split('-').map(Number);return dk(new Date(y,m-1,d+n))}
+function todayKey(){const d=now();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dailyNo(){const[y,m,d]=todayKey().split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen
 function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null')}catch(e){return null}}
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',online:false};
+const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',online:false,theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
 function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings))}catch(e){}}
 function applySettings(){
+  for(const th of Object.keys(THEME_NAMES))document.body.classList.toggle('th-'+th,th!=='std'&&settings.theme===th);
   sound=settings.sound;const b=document.body.classList;
   b.toggle('nosym',!settings.symbols);b.toggle('pal-cb',settings.palette==='cb');b.toggle('fast',settings.speed==='fast');
   b.toggle('pad-on',settings.pad==='on');b.toggle('pad-off',settings.pad==='off');
@@ -589,7 +667,7 @@ const Online=(()=>{
 })();
 // Migration: alle bisherigen (lokalen) Einträge gehören diesem Gerät/Spieler
 {let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
-const fmtDate=()=>new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});
+const fmtDate=()=>now().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});
 scores.endless.forEach(x=>{if(!x.size)x.size=6});   // Migration: alte Einträge = 6×6
 const sizeList=n=>scores.endless.filter(x=>x.size===n);
 const bestFor=n=>{const l=sizeList(n);return l.length?l[0].score:0};
@@ -598,9 +676,126 @@ function addScore(list,entry,key='score'){
   scores[list].push(entry);scores[list].sort((a,b)=>b[key]-a[key]);
   if(list==='endless'){const keep=[];const cnt={};for(const x of scores.endless){cnt[x.size]=(cnt[x.size]||0)+1;if(cnt[x.size]<=TOP)keep.push(x)}scores.endless=keep}
   saveScores();const i=scores[list].indexOf(entry);return i<0?0:i+1}
+// ---------- Serie ----------
+const MILESTONES=[
+  {d:3,badge:'✨',name:'Funke',theme:'neon'},
+  {d:7,badge:'⚡',name:'Eine Woche',theme:'pastell'},
+  {d:14,badge:'🌊',name:'Zwei Wochen',theme:'ozean'},
+  {d:30,badge:'🌋',name:'Ein Monat',theme:'lava'},
+  {d:50,badge:'👑',name:'Fünfzig Tage',theme:'gold'},
+  {d:100,badge:'🌌',name:'Hundert Tage',theme:'kosmos'}];
+const THEME_NAMES={std:'Standard',neon:'Neon',pastell:'Pastell',ozean:'Ozean',lava:'Lava',gold:'Gold',kosmos:'Kosmos'};
+const THEME_SW={std:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],neon:['#ff2e63','#ffe600','#00ff9d','#00d4ff','#c84bff'],pastell:['#ff8fa3','#ffd6a5','#a8e6cf','#9bd0f5','#cdb4ff'],
+  ozean:['#ef476f','#ffd166','#06d6a0','#2bb3e0','#8c9eff'],lava:['#ff4d2e','#ffb703','#a7f432','#5ad1f5','#ff5fa2'],gold:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],kosmos:['#ff5d8f','#ffd23f','#3ee8b5','#5ec8ff','#b98cff']};
+const MAX_SHIELDS=2;
+function loadStreak(){let s=null;try{s=JSON.parse(localStorage.getItem('kippwerk_streak')||'null')}catch(e){}return s}
+function saveStreak(){try{localStorage.setItem('kippwerk_streak',JSON.stringify(ST))}catch(e){}}
+const dailyDone=k=>{try{return !!localStorage.getItem('kippwerk_daily_'+k)}catch(e){return false}};
+let ST=null;
+function initStreak(){
+  ST=loadStreak();
+  if(!ST){ // Übernahme: bisherige Serie aus gespielten Tagesrätseln
+    const t=todayKey();let cur=0,k=dailyDone(t)?t:addDays(t,-1);
+    while(dailyDone(k)){cur++;k=addDays(k,-1)}
+    ST={cur,best:cur,last:cur?(dailyDone(t)?t:addDays(t,-1)):null,shields:0,prot:[],adDay:null,ms:[],seen:[]};
+    MILESTONES.forEach(m=>{if(cur>=m.d){ST.ms.push(m.d);ST.seen.push(m.d)}});
+    saveStreak();
+  }
+  checkStreak();
+}
+// prüft beim Start, ob Tage verpasst wurden → Schutz einsetzen oder Serie beenden
+function checkStreak(){
+  if(!ST||!ST.last||ST.cur<=0)return null;
+  const gap=dayDiff(ST.last,todayKey());if(gap<=1)return null;
+  const missed=gap-1;let msg;
+  if(ST.shields>=missed){
+    for(let i=1;i<=missed;i++)ST.prot.push(addDays(ST.last,i));
+    ST.shields-=missed;ST.last=addDays(todayKey(),-1);
+    msg=`🛡 Serienschutz eingesetzt – deine 🔥 ${ST.cur}er-Serie lebt weiter!`;
+  }else{
+    msg=`Deine 🔥 ${ST.cur}er-Serie ist leider gerissen. Heute beginnt eine neue!`;
+    ST.cur=0;ST.last=null;
+  }
+  ST.prot=ST.prot.slice(-30);saveStreak();toast(msg);return msg;
+}
+// nach dem ersten (gewerteten) Tagesrätsel des Tages
+function streakOnDaily(){
+  checkStreak();const t=todayKey();if(ST.last===t)return null;
+  ST.cur=(ST.last===addDays(t,-1))?ST.cur+1:1;ST.last=t;ST.best=Math.max(ST.best,ST.cur);
+  const ev={cur:ST.cur,shield:false,ms:null};
+  if(ST.cur%7===0&&ST.shields<MAX_SHIELDS){ST.shields++;ev.shield=true}
+  for(const m of MILESTONES)if(ST.cur>=m.d&&!ST.ms.includes(m.d)){ST.ms.push(m.d);ev.ms=m}
+  saveStreak();renderStreakChip();Reminder.schedule();return ev;
+}
+const themeUnlocked=th=>th==='std'||MILESTONES.some(m=>m.theme===th&&ST.ms.includes(m.d));
+function renderStreakChip(){
+  if(!ST)return;const done=ST.last===todayKey();
+  $('streakNum').textContent=ST.cur;const b=$('streakBtn');
+  b.classList.toggle('done',done);b.classList.toggle('open',!done&&ST.cur>0);
+  b.title=done?`Serie: ${ST.cur} Tage – heute gesichert`:ST.cur>0?`Serie: ${ST.cur} Tage – heute noch offen!`:'Starte eine Serie mit dem Tagesrätsel';
+}
+function renderStreak(){
+  const t=todayKey(),done=ST.last===t;
+  $('stkNum').textContent=ST.cur;$('stkSub').textContent=ST.cur===1?'Tag in Folge':'Tage in Folge';
+  $('stkStatus').innerHTML=done?'✅ Heute gesichert – bis morgen!':ST.cur>0?'⏳ Heute noch offen – spiel das Tagesrätsel, sonst reißt die Serie (oder ein 🛡 springt ein).':'Spiel das Tagesrätsel, um eine Serie zu starten.';
+  $('stkPlay').style.display=done?'none':'';
+  const wd=['So','Mo','Di','Mi','Do','Fr','Sa'];let w='';
+  for(let i=6;i>=0;i--){const k=addDays(t,-i),[y,m,d]=k.split('-').map(Number),day=new Date(y,m-1,d).getDay();
+    const ok=dailyDone(k),sh=ST.prot.includes(k);
+    w+=`<div class="stk-day${ok?' ok':sh?' sh':''}${i===0?' today':''}"><i>${ok?'🔥':sh?'🛡':i===0?'·':'✕'}</i>${i===0?'Heute':wd[day]}</div>`}
+  $('stkWeek').innerHTML=w;
+  $('stkShield').innerHTML=`${'🛡'.repeat(ST.shields)}${'<span style="opacity:.25">🛡</span>'.repeat(MAX_SHIELDS-ST.shields)} &nbsp;<b>${ST.shields}/${MAX_SHIELDS}</b><br><span class="hint">Rettet automatisch einen verpassten Tag. Gratis alle 7 Serientage${Ads.native?', zusätzlich 1× täglich per Video':''}.</span>`;
+  $('stkAd').style.display=(Ads.canRescue&&ST.shields<MAX_SHIELDS&&ST.adDay!==t)?'':'none';
+  const nx=MILESTONES.find(m=>m.d>ST.cur);
+  $('stkNext').innerHTML=nx?`<b>${nx.badge} ${nx.name}</b> – noch ${nx.d-ST.cur} ${nx.d-ST.cur===1?'Tag':'Tage'} · Design „${THEME_NAMES[nx.theme]}“<div class="stk-bar"><i style="width:${Math.min(100,ST.cur/nx.d*100)}%"></i></div>`:'🏆 Alle Meilensteine erreicht – unglaublich!';
+  const cur=settings.theme||'std';
+  $('stkMs').innerHTML=`<button class="ms${cur==='std'?' on':''}" data-th="std"><b>🎨</b>Standard${sw5('std')}</button>`+MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
+    return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('');
+  $('stkBest').textContent=`Längste Serie: ${ST.best} ${ST.best===1?'Tag':'Tage'}`;
+}
+const sw5=th=>`<div class="sw5">${THEME_SW[th].map(c=>`<span style="background:${c}"></span>`).join('')}</div>`;
+let streakReturn=null;
+function openStreak(){
+  streakReturn=!$('startOv').classList.contains('hidden')?'start':!$('overOv').classList.contains('hidden')?'over':!$('settingsOv').classList.contains('hidden')?'settings':'play';
+  if(streakReturn==='play'&&started&&!over){paused=true;started=false}
+  ['startOv','overOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));
+  renderStreak();$('streakOv').classList.remove('hidden');$('streakOv').scrollTop=0;
+}
+function closeStreak(){$('streakOv').classList.add('hidden');
+  if(streakReturn==='over')$('overOv').classList.remove('hidden');
+  else if(streakReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}
+  else if(streakReturn==='play'){if(paused){paused=false;started=true}}
+  else showMenu()}
+function setTheme(th){if(!themeUnlocked(th))return;settings.theme=th;saveSettings();applySettings()}
+function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),4600)}
+// ---------- Erinnerung (nur App) ----------
+const Reminder=(()=>{
+  const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform());
+  const P=native?((C.Plugins&&C.Plugins.LocalNotifications)||(C.registerPlugin&&C.registerPlugin('LocalNotifications'))):null;
+  const HOUR=19;
+  async function schedule(){
+    if(!P)return;
+    try{await P.cancel({notifications:[{id:7001},{id:7002}]})}catch(e){}
+    if(!settings.remind||!ST)return;
+    const n=now(),t=todayKey(),done=ST.last===t;
+    let first=new Date(n);first.setHours(HOUR,0,0,0);
+    if(done||n>=first)first.setDate(first.getDate()+1);
+    const second=new Date(first);second.setDate(second.getDate()+1);
+    const streakAt=d=>{const k=dk(d);return (ST.last===addDays(k,-1))?ST.cur:0};
+    const body=d=>{const c=streakAt(d);return c>0?`Deine 🔥 ${c}er-Serie läuft heute ab – noch schnell das Tagesrätsel!`:'Das neue Tagesrätsel wartet auf dich – starte eine Serie! 🔥'};
+    try{
+      await P.schedule({notifications:[
+        {id:7001,title:'KIPPWERK',body:body(first),schedule:{at:first,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false},
+        {id:7002,title:'KIPPWERK',body:'Ein neues Tagesrätsel ist da – heute schon gekippt? 🧩',schedule:{at:second,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false}]});
+    }catch(e){console.warn('Erinnerung',e)}
+  }
+  async function enable(){if(!P)return false;try{const r=await P.requestPermissions();return r.display==='granted'}catch(e){return false}}
+  return{native,schedule,enable};
+})();
+
 function dailyStats(){
   const keys=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))keys.push(k.slice(15))}}catch(e){}
-  const set=new Set(keys);let streak=0;const d=new Date();
+  const set=new Set(keys);let streak=0;const d=now();
   if(!set.has(todayKey()))d.setDate(d.getDate()-1);
   while(true){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!set.has(k))break;streak++;d.setDate(d.getDate()-1)}
   const sc=scores.daily.map(x=>x.score);
@@ -865,10 +1060,10 @@ async function move(dir){
 const EMO=c=>c<=0?'⬛':c===1?'🟦':c===2?'🟩':c===3?'🟨':'🟥';
 function shareText(r){
   const rows=[];for(let i=0;i<r.hist.length;i+=10)rows.push(r.hist.slice(i,i+10).map(EMO).join(''));
-  return `KIPPWERK Tagesrätsel #${r.no}\n⭐ ${r.score.toLocaleString('de-DE')} Punkte · Kette ×${Math.max(1,r.chain)}${r.full?' · Feld voll':''}\n${rows.join('\n')}\n${SHARE_URL}`;
+  return `KIPPWERK Tagesrätsel #${r.no}\n⭐ ${r.score.toLocaleString('de-DE')} Punkte · Kette ×${Math.max(1,r.chain)}${r.full?' · Feld voll':''}${r.streak>=2?`\n🔥 ${r.streak} Tage in Folge`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
 }
 function countdown(){
-  const n=new Date(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
+  const n=now(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
   return `Nächstes Rätsel in ${Math.floor(m/60)} h ${m%60} min`;
 }
 
@@ -958,12 +1153,24 @@ function finishGame(reason){
     $('overTitle').textContent=reason==='full'?'FELD VOLL':'GESCHAFFT';
     let official=loadDaily();
     $('nameRow').style.display='none';lastEntry=null;
-    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);
+    let sev=null;
+    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
       lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Online.submit('daily',6,dailyNo(),score,0,bestChain);
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString('de-DE')}`:`Tagesrätsel #${dailyNo()} · ${cleared} Steine abgeräumt`;
     $('shareBox').textContent=shareText(official);
+    const sn=$('streakNote');
+    if(sev){
+      let h=`<b>🔥 Serie: ${sev.cur} ${sev.cur===1?'Tag':'Tage'}!</b>`;
+      if(sev.ms)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Design „${THEME_NAMES[sev.ms.theme]}“ freigeschaltet! <button class="linkbtn" id="applyMsTheme" data-th="${sev.ms.theme}">Jetzt anwenden</button>`;
+      if(sev.shield)h+=`<br>🛡 +1 Serienschutz für 7 Tage am Stück!`;
+      if(!sev.ms){const nx=MILESTONES.find(m=>m.d>sev.cur);if(nx)h+=`<br><span class="hint">Noch ${nx.d-sev.cur} bis ${nx.badge} ${nx.name}</span>`}
+      sn.innerHTML=h;sn.style.display='';
+      setTimeout(()=>{banner('🔥 '+sev.cur,'combo c'+(sev.ms?5:sev.cur>=7?4:3),sev.ms?'NEUES ABZEICHEN':'SERIE');sfx.combo(sev.ms?5:3);haptic('win')},300);
+      if(sev.cur===1&&settings.remind&&Reminder.native)Reminder.enable().then(ok=>{if(!ok){settings.remind=false;saveSettings()}else Reminder.schedule()});
+    }else sn.style.display='none';
   }else{
+    $('streakNote').style.display='none';
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
@@ -1008,6 +1215,7 @@ document.addEventListener('keydown',e=>{
   if(!$('levelsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeLevels').click();return}
   if(!$('settingsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeSettings').click();return}
   if(!$('helpOv').classList.contains('hidden')){if(e.key==='Escape'||e.key==='Enter')$('closeHelp').click();return}
+  if(!$('streakOv').classList.contains('hidden')){if(e.key==='Escape')closeStreak();return}
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();e.target.id==='setName'?e.target.blur():$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
@@ -1025,13 +1233,14 @@ function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].fo
 function showMenu(){
   const done=loadDaily();
   $('dailyBtn').textContent=(done?'✓ ':'📅 ')+'TAGESRÄTSEL #'+dailyNo();
-  $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · weitere Runden zählen als Übung`:'Jeden Tag dieselben Steine für alle · 40 Züge';
+  $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · 🔥 Serie ${ST?ST.cur:0} gesichert`:(ST&&ST.cur>0?`🔥 ${ST.cur}er-Serie – heute noch offen! · 40 Züge`:'Jeden Tag dieselben Steine für alle · 40 Züge · starte eine 🔥 Serie');
+  renderStreakChip();
   $('resumeBtn').style.display=paused?'':'none';
   document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
   $('endlessBtn').textContent='∞ ENDLOS'+(+settings.size!==6?' '+settings.size+'×'+settings.size:'');
   const un=unlocked();$('levelBtn').textContent=`🗺 LEVEL ${LP[LEVELS.length]?'· ⭐'+totalStars():un}`;
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
-  ['overOv','lvlOv','levelsOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
@@ -1048,6 +1257,8 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 let settingsReturn=null,resetArm={};
 function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
+  $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
+  $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
   $('setSound').checked=settings.sound;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
@@ -1085,10 +1296,21 @@ $('closeSettings').onclick=()=>{$('settingsOv').classList.add('hidden');
   if(settingsReturn==='play'){paused=false;started=true}else showMenu()};
 $('settingsBtn').onclick=()=>{if(busy||over||document.querySelector('.overlay:not(.hidden)'))return;openSettings('play')};
 $('menuSettings').onclick=()=>openSettings('menu');
+$('streakBtn').onclick=()=>{if(busy||!$('rescueOv').classList.contains('hidden'))return;openStreak()};
+$('closeStreak').onclick=closeStreak;
+$('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
+$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;setTheme(b.dataset.th);renderStreak()};
+$('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
+  if(ok&&ST.shields<MAX_SHIELDS){ST.shields++;ST.adDay=todayKey();saveStreak();toast('🛡 Serienschutz erhalten!')}renderStreak()};
+$('overOv').addEventListener('click',e=>{const b=e.target.closest('#applyMsTheme');if(b){setTheme(b.dataset.th);b.textContent='✓ angewendet'}});
+$('setTheme').onclick=()=>openStreak();
+$('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
+  saveSettings();Reminder.schedule()};
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.11.0','Serien fürs Tagesrätsel: Flamme, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend'],
  ['1.9.3','Info-Leiste am PC als Seitenleiste neben dem Spielfeld; Menüs scrollbar auf niedrigen Bildschirmen'],
  ['1.9.1','Hinweis auf kommende Welten nach Level 100'],
  ['1.9.0','Feldgrößen 5×5 bis 8×8, Bestenliste je Größe, Spielername im Tagesrätsel, einmalige Spieler-ID, Hilfe mit Farb-Erklärung'],
@@ -1190,12 +1412,15 @@ $('helpBtn').onclick=()=>{if(over||busy)return;
   if(started){paused=true;started=false}
   showMenu()};
 
+initStreak();
 applySettings();
 newGame();showMenu();
+setTimeout(()=>Reminder.schedule(),2000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
 setTimeout(()=>Online.flush(),1500);addEventListener('online',()=>Online.flush());
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,LEVELS,comboFx,openHelp,get N(){return N},get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

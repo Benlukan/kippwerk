@@ -34,7 +34,8 @@ Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat da
 100 LEVEL IN 10 WELTEN
 Knacke Level mit klaren Zielen – von entspannt bis knallhart, mit Boss-Level am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Level.
 
-TAGESRÄTSEL
+TAGESRÄTSEL & SERIEN
+Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
 
 ENDLOS-MODUS

@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.11.0 (Build 17) – 10.11.2026
+- Neu: **🔥 Serie** – jeder Tag mit gewertetem Tagesrätsel verlängert die Serie
+  - **Flamme in der Kopfzeile**: farbig = heute gesichert, grau/pulsierend = heute noch offen; Tippen öffnet die Serien-Seite
+  - Serien-Seite mit Wochenleiste, längster Serie, nächstem Meilenstein
+  - **Serienschutz 🛡**: rettet verpasste Tage automatisch; gratis alle 7 Serientage, zusätzlich 1× täglich per freiwilligem Video, max. 2 auf Vorrat
+  - **Meilensteine** bei 3/7/14/30/50/100 Tagen mit Abzeichen und **6 neuen Designs** (Neon, Pastell, Ozean, Lava, Gold, Kosmos) – rein optisch; Farbschwäche-Schema hat Vorrang
+  - Feier-Animation beim Verlängern, Serie im Menü und im **geteilten Ergebnis** („🔥 8 Tage in Folge“)
+  - **Erinnerung** (nur App): lokale Benachrichtigung um 19 Uhr, wenn die Serie noch offen ist; Berechtigung wird nach dem ersten Serientag erfragt, abschaltbar in ⚙
+  - bestehende Serien werden aus den bisher gespielten Tagesrätseln übernommen
+- Einstellungen: Design-Auswahl und Erinnerung
+- Hilfe: neuer Abschnitt „Serie“; Datenschutz: Hinweis zur lokalen Erinnerung
+- Android: exakte Wecker-Berechtigung bewusst entfernt (Play-Richtlinie), eigenes Benachrichtigungs-Symbol
+- Kopfzeile auf schmalen Handys kompakter
+
 ## v1.10.0 (Build 16) – 10.11.2026
 - Neu: **Weltweite Online-Bestenliste** (Supabase) – in der Bestenliste umschalten zwischen „📱 Dieses Gerät“ und „🌍 Weltweit“
   - Tagesrätsel: Rangliste des heutigen Rätsels, nur das erste (gewertete) Ergebnis zählt

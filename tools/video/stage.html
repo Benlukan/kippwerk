@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:SG;font-weight:500;src:url(/kippwerk/www/fonts/space-grotesk-latin-500-normal.woff2)}
+@font-face{font-family:SG;font-weight:700;src:url(/kippwerk/www/fonts/space-grotesk-latin-700-normal.woff2)}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a;font-family:SG,sans-serif;color:#e9ecff}
+#bg{position:absolute;inset:0;background:radial-gradient(1400px 1100px at 50% 8%,#262c58 0%,#0d0f1a 62%)}
+.deco{position:absolute;width:120px;height:120px;border-radius:26px;opacity:.10;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(40px,-70px) rotate(25deg)}}
+.cap{position:absolute;left:0;right:0;top:96px;text-align:center;transition:opacity .35s,transform .35s}
+.cap.out{opacity:0;transform:translateY(-14px)}
+.cap h1{margin:0;font-size:66px;font-weight:700;letter-spacing:.01em;line-height:1.08}
+.cap h1 em{font-style:normal;color:#4cc9f0}
+.cap p{margin:14px 0 0;font-size:34px;color:#aab0d8;font-weight:500}
+.phone{position:absolute;left:50%;top:340px;width:709px;height:1452px;margin-left:-372px;border:18px solid #1c2140;border-radius:72px;overflow:hidden;
+  box-shadow:0 0 0 3px #343b66,0 40px 120px #000c,0 0 90px #4cc9f022;background:#0d0f1a;transition:transform .5s,opacity .4s}
+.phone iframe{width:412px;height:844px;border:0;transform:scale(1.7209);transform-origin:0 0;position:absolute;left:0;top:0}
+.phone img{position:absolute;left:0;top:0;width:709px;height:1452px;opacity:0;transition:opacity .45s}
+.phone img.on{opacity:1}
+.arrow{position:absolute;left:50%;top:54%;width:170px;height:170px;margin:-85px 0 0 -85px;border-radius:50%;background:#ffffff1f;border:4px solid #ffffff66;
+  display:grid;place-items:center;font-size:96px;color:#fff;opacity:0;pointer-events:none}
+.arrow.go{animation:swipe .55s ease-out}
+@keyframes swipe{0%{opacity:0;transform:translate(0,0) scale(.7)}30%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+.full{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;opacity:0;transition:opacity .4s}
+.full.on{opacity:1}
+.logo{position:relative;width:300px;height:300px;transform:rotate(-12deg)}
+.lt{position:absolute;width:136px;height:136px;border-radius:30px;box-shadow:inset 0 -9px 0 #0003,inset 0 4px 0 #fff5,0 0 40px var(--c);background:var(--c);opacity:0;display:grid;place-items:center;font-size:44px;color:#0006}
+.lt.in{animation:drop .55s cubic-bezier(.3,1.5,.5,1) forwards}
+@keyframes drop{from{opacity:0;transform:translateY(-260px)}to{opacity:1;transform:none}}
+.word{font-size:132px;font-weight:700;letter-spacing:.16em;opacity:0;transform:scale(.85);transition:opacity .5s,transform .6s cubic-bezier(.3,1.4,.5,1)}
+.word span{color:#4cc9f0}.word.on{opacity:1;transform:none}
+.tag{font-size:44px;color:#c3c8ea;opacity:0;transition:opacity .5s}.tag.on{opacity:1}
+.cta{font-size:56px;font-weight:700;padding:26px 60px;border-radius:30px;background:#4cc9f0;color:#06121a;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.cta.on{opacity:1;transform:none}
+.small{font-size:34px;color:#8a90b8;opacity:0;transition:opacity .5s}.small.on{opacity:1}
+#fade{position:absolute;inset:0;background:#0d0f1a;opacity:1;transition:opacity .25s;pointer-events:none}
+#fade.off{opacity:0}
+</style></head><body>
+<div id="bg"></div>
+<div id="decos"></div>
+<div class="cap out" id="cap"><h1 id="capH"></h1><p id="capP"></p></div>
+<div class="phone" id="phone" style="opacity:0">
+  <iframe id="game"></iframe>
+  <img id="i_levels" src="m_levels.png"><img id="i_daily" src="m_daily.png"><img id="i_8x8" src="m_8x8.png"><img id="i_streak" src="m_streak.png"><img id="i_ozean" src="m_ozean.png">
+  <div class="arrow" id="arrow">➜</div>
+</div>
+<div class="full" id="full">
+  <div class="logo" id="logo">
+    <div class="lt" style="--c:#ff5d73;left:0;top:0">●</div><div class="lt" style="--c:#ffc145;left:156px;top:0">▲</div>
+    <div class="lt" style="--c:#3ddc97;left:0;top:156px">■</div><div class="lt" style="--c:#4cc9f0;left:156px;top:156px">◆</div>
+  </div>
+  <div class="word" id="word">KIPP<span>WERK</span></div>
+  <div class="tag" id="tag">Kippen. Verbinden. Kettenreaktion.</div>
+  <div class="cta" id="cta">Jetzt kostenlos spielen</div>
+  <div class="small" id="small">Tagesrätsel · 100 Level · Endlos · offline spielbar</div>
+</div>
+<div id="fade"></div>
+<script>
+const $=id=>document.getElementById(id);
+const COLS=['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'];
+for(let i=0;i<9;i++){const d=document.createElement('div');d.className='deco';d.style.background=COLS[i%5];d.style.left=(i*137%1000)+'px';d.style.top=(140+i*211%1700)+'px';d.style.animationDelay=(-i*1.7)+'s';$('decos').appendChild(d)}
+const at=(ms,fn)=>setTimeout(fn,ms);
+function cap(h,p){$('cap').classList.add('out');at(260,()=>{$('capH').innerHTML=h;$('capP').innerHTML=p;$('cap').classList.remove('out')})}
+function fadeIn(){$('fade').classList.add('off')}
+function fadeOut(d){at(d-260,()=>$('fade').classList.remove('off'))}
+function img(id){document.querySelectorAll('.phone img').forEach(i=>i.classList.toggle('on',i.id==='i_'+id))}
+const G=()=>$('game').contentWindow;
+const MOVES='LDDLLLDDDDDDDD';
+const ARR={L:['180deg','-150px','0px'],R:['0deg','150px','0px'],U:['-90deg','0px','-150px'],D:['90deg','0px','150px']};
+function swipe(d){const a=$('arrow'),r=ARR[d];a.style.transform='';a.style.setProperty('--dx',r[1]);a.style.setProperty('--dy',r[2]);a.textContent='➜';a.style.rotate=r[0];
+  a.classList.remove('go');void a.offsetWidth;a.classList.add('go');G().__kw.move(d)}
+function loadGame(){return new Promise(res=>{
+  localStorage.clear();localStorage.setItem('kippwerk_helpseen','1');
+  localStorage.setItem('kippwerk_settings',JSON.stringify({sound:false,vibe:false}));
+  localStorage.setItem('kippwerk_scores',JSON.stringify({endless:[{name:'Lena',score:23710,level:7,date:'09.11.26',size:6,pid:'x'}],daily:[]}));
+  const d=new Date();const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  localStorage.setItem('kippwerk_streak',JSON.stringify({cur:13,best:13,last:k,shields:1,prot:[],adDay:null,ms:[3,7],seen:[3,7]}));
+  $('game').onload=()=>res();$('game').src='/kippwerk/www/index.html#seed=29'})}
+function runMoves(list,first,gap,sw){let i=0;const step=()=>{if(i>=list.length)return;const st=G().__kw.state;if(st.busy||st.over){setTimeout(step,30);return}
+  const m=list[i++];sw?swipe(m):G().__kw.move(m);setTimeout(step,gap)};setTimeout(step,first)}
+function startEndless(){G().document.getElementById('endlessBtn').click()}
+const SCENES={
+  1:{d:3000,run(){fadeIn();$('full').classList.add('on');['tag','cta','small'].forEach(x=>$(x).style.display=x==='tag'?'':'none');
+     document.querySelectorAll('.lt').forEach((t,i)=>at(150+i*150,()=>t.classList.add('in')));at(950,()=>$('word').classList.add('on'));at(1500,()=>$('tag').classList.add('on'));fadeOut(3000)}},
+  2:{d:9600,async prep(){await loadGame()},run(){startEndless();$('phone').style.opacity=1;fadeIn();
+     cap('Wische – das ganze<br>Feld <em>kippt</em>','Alle Steine rutschen mit');
+     runMoves([...MOVES].slice(0,12),600,560,true);
+     at(3700,()=>cap('3 gleiche Farben<br><em>verschwinden</em>','Größere Gruppen = mehr Punkte'));
+     at(6500,()=>cap('Nachrutschen löst<br><em>Ketten</em> aus','Kombiniere bis zur MEGA-Combo'));fadeOut(9600)}},
+  3:{d:3600,async prep(){await loadGame()},prepMs:12000,prepRun(){startEndless();runMoves([...MOVES].slice(0,12),300,400,false)},
+     run(){$('phone').style.opacity=1;fadeIn();cap('GOOD · SUPER ·<br>MEGA · <em>MONSTER</em>','Jede Combo-Stufe größer und lauter');
+     at(250,()=>G().__kw.comboFx(2));at(1050,()=>G().__kw.comboFx(3));at(1950,()=>G().__kw.comboFx(5));fadeOut(3600)}},
+  4:{d:6600,run(){$('phone').style.opacity=1;$('game').style.display='none';img('levels');fadeIn();cap('<em>100 Level</em><br>in 10 Welten','Ziele, Felsen und Boss-Level');
+     at(2200,()=>{img('daily');cap('Jeden Tag ein<br>neues <em>Rätsel</em>','Ergebnis teilen & vergleichen')});
+     at(4400,()=>{img('8x8');cap('<em>Endlos</em> auf<br>5×5 bis 8×8','Wie weit kommst du?')});fadeOut(6600)}},
+  5:{d:3800,run(){$('phone').style.opacity=1;$('game').style.display='none';img('streak');fadeIn();cap('Halte deine<br>🔥 <em>Serie</em>','Abzeichen & neue Designs freischalten');
+     at(1900,()=>{img('ozean');cap('6 Designs –<br>von <em>Neon</em> bis Kosmos','Rein optisch, alles fair')});fadeOut(3800)}},
+  6:{d:3000,run(){fadeIn();$('full').classList.add('on');$('tag').style.display='none';
+     document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(350,()=>$('word').classList.add('on'));at(800,()=>$('cta').classList.add('on'));at(1200,()=>$('small').classList.add('on'))}}
+};
+window.SCENES=SCENES;
+</script></body></html>

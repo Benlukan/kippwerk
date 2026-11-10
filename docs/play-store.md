@@ -135,5 +135,13 @@ Zusätzlich zu 4a angeben, sobald `ONLINE_CONFIG` in `www/index.html` gesetzt is
 | Feature-Grafik | 1024×500 PNG | `docs/store/feature-graphic.png` |
 | Screenshots Smartphone | 1080×1920 | `docs/store/screenshot-*.png` (3 Stück) |
 
+## 5a. Produktvideo
+| Datei | Format | Verwendung |
+|---|---|---|
+| `docs/store/KIPPWERK_Produktvideo_1080x1920.mp4` | 1080×1920, 30 fps, 29,6 s | **Google Play**: bei YouTube hochladen (öffentlich oder „nicht gelistet“, Werbung aus) und den Link im Store-Eintrag unter „Video“ eintragen · Social Media / Shorts |
+| `docs/store/KIPPWERK_AppStore_886x1920.mp4` | 886×1920, 30 fps, 29,6 s | **App Store** – App-Vorschau für iPhone 6,5″/6,9″ |
+
+Inhalt: Logo → echtes Gameplay mit MEGA-Combo → GOOD/SUPER/MEGA/MONSTER → 100 Level, Tagesrätsel, Feldgrößen → Serie & Designs → „Jetzt kostenlos spielen“. Ohne Musik (stille Tonspur). Neu rendern: siehe `tools/video/README.md`.
+
 ## 6. Neue Version veröffentlichen
 Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `android/app/build.gradle` (`versionCode` muss steigen!), `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js`, dazu `CHANGELOG.md`. Pushen → AAB aus den Actions-Artifacts hochladen.

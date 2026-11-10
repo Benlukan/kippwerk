@@ -334,7 +334,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <p class="hint" id="dailyHint">Jeden Tag dieselben Steine für alle · 40 Züge</p>
       <div class="sizepick"><small>Feldgröße im Endlos-Modus</small>
         <div class="seg big" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
-      <div class="menurow"><button class="linkbtn" id="menuHelp">❓ Hilfe</button><button class="linkbtn" id="menuSettings">⚙ Einstellungen</button><button class="linkbtn" id="menuScores">🏆 Bestenliste</button></div>
+      <div class="menurow"><button class="linkbtn" id="menuStreak">🔥 Serie</button><button class="linkbtn" id="menuHelp">❓ Hilfe</button><button class="linkbtn" id="menuSettings">⚙ Einstellungen</button><button class="linkbtn" id="menuScores">🏆 Bestenliste</button></div>
       <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
     </div>
     <div class="overlay hidden" id="overOv">
@@ -496,7 +496,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.11.0 · Build 17 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.11.1 · Build 18 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1234,7 +1234,7 @@ function showMenu(){
   const done=loadDaily();
   $('dailyBtn').textContent=(done?'✓ ':'📅 ')+'TAGESRÄTSEL #'+dailyNo();
   $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · 🔥 Serie ${ST?ST.cur:0} gesichert`:(ST&&ST.cur>0?`🔥 ${ST.cur}er-Serie – heute noch offen! · 40 Züge`:'Jeden Tag dieselben Steine für alle · 40 Züge · starte eine 🔥 Serie');
-  renderStreakChip();
+  renderStreakChip();$('menuStreak').textContent=ST&&ST.cur>0?`🔥 Serie ${ST.cur}`:'🔥 Serie';
   $('resumeBtn').style.display=paused?'':'none';
   document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
   $('endlessBtn').textContent='∞ ENDLOS'+(+settings.size!==6?' '+settings.size+'×'+settings.size:'');
@@ -1298,6 +1298,8 @@ $('settingsBtn').onclick=()=>{if(busy||over||document.querySelector('.overlay:no
 $('menuSettings').onclick=()=>openSettings('menu');
 $('streakBtn').onclick=()=>{if(busy||!$('rescueOv').classList.contains('hidden'))return;openStreak()};
 $('closeStreak').onclick=closeStreak;
+$('menuStreak').onclick=()=>openStreak();
+$('dailyHint').style.cursor='pointer';$('dailyHint').onclick=()=>openStreak();
 $('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
 $('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;setTheme(b.dataset.th);renderStreak()};
 $('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
@@ -1310,6 +1312,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.11.1','Serie direkt im Startmenü erreichbar'],
  ['1.11.0','Serien fürs Tagesrätsel: Flamme, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend'],
  ['1.9.3','Info-Leiste am PC als Seitenleiste neben dem Spielfeld; Menüs scrollbar auf niedrigen Bildschirmen'],
  ['1.9.1','Hinweis auf kommende Welten nach Level 100'],
@@ -1420,7 +1423,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const
 setTimeout(()=>Online.flush(),1500);addEventListener('online',()=>Online.flush());
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.11.1 (Build 18) – 10.11.2026
+- Fix: Die Flamme in der Kopfzeile war im Startmenü verdeckt – neuer Menüpunkt **„🔥 Serie“** (mit aktueller Zahl), auch der Serien-Hinweis unter dem Tagesrätsel öffnet die Serien-Seite
+- Store: **Produktvideo** (29,6 s, Hochformat) in `docs/store/` – 1080×1920 (YouTube/Google Play, Social Media) und 886×1920 (App-Store-Vorschau)
+- Werkzeug zum Neu-Rendern des Videos in `tools/video/`
+
 ## v1.11.0 (Build 17) – 10.11.2026
 - Neu: **🔥 Serie** – jeder Tag mit gewertetem Tagesrätsel verlängert die Serie
   - **Flamme in der Kopfzeile**: farbig = heute gesichert, grau/pulsierend = heute noch offen; Tippen öffnet die Serien-Seite

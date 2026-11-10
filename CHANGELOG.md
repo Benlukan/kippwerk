@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.9.2 (Build 14) – 10.11.2026
+- Fix: Einstellungen wurden auf niedrigen Bildschirmen (Computer, kleine Handys) gestaucht und abgeschnitten statt scrollbar – alle Menüs scrollen jetzt mit Mausrad, Touchpad und Wischen
+
 ## v1.9.1 (Build 13) – 10.11.2026
 - Level-Modus bleibt bei 100 Leveln; nach Level 100 Hinweis, dass neue Welten per Update folgen (Sieg-Bildschirm und Level-Karte)
 - Hilfe: Endlos-Modus als „ohne Ende“ beschrieben, Hinweis auf kommende Welten

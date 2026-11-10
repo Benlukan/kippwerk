@@ -18,20 +18,20 @@
 @font-face{font-family:"Space Grotesk";font-weight:700;font-display:swap;src:url(fonts/space-grotesk-latin-700-normal.woff2) format("woff2")}
 :root{
   --bg:#0d0f1a; --panel:#161a2b; --line:#262b45; --text:#e9ecff; --muted:#8a90b8;
-  --gap:7px; --radius:12px;
+  --gap:7px; --radius:12px; --W:min(92vw,560px,calc(100vh - 300px)); --W:min(92vw,560px,calc(100dvh - 300px));
   --c0:#ff5d73; --c1:#ffc145; --c2:#3ddc97; --c3:#4cc9f0; --c4:#b57bff;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 50% -10%,#1d2240 0%,var(--bg) 60%);color:var(--text);
   font-family:"Space Grotesk",system-ui,sans-serif;overflow:hidden;touch-action:none;user-select:none}
-.wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:14px}
-header{width:min(92vw,440px);display:flex;align-items:center;justify-content:space-between;gap:6px}
+.wrap{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:14px}
+header{width:var(--W);display:flex;align-items:center;justify-content:space-between;gap:6px}
 h1{margin:0;font-size:clamp(19px,6vw,26px);letter-spacing:.15em;font-weight:700;white-space:nowrap}
 h1 span{color:var(--c3)}
 .icons{display:flex;gap:6px;flex:none}
 .icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;width:clamp(32px,9.5vw,38px);height:clamp(32px,9.5vw,38px);font-size:16px;cursor:pointer;padding:0}
 .icon-btn:hover{color:var(--text)}
-.hud{width:min(92vw,440px);display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:8px}
+.hud{width:var(--W);display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:8px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
 .stat small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 .stat b{font-size:20px;font-variant-numeric:tabular-nums}
@@ -39,7 +39,7 @@ h1 span{color:var(--c3)}
 .next .mini{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px;color:#0008}
 .levelbar{height:3px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}
 .levelbar i{display:block;height:100%;width:0;background:var(--c3);transition:width .3s}
-.board-wrap{position:relative;width:min(92vw,440px);aspect-ratio:1}
+.board-wrap{position:relative;width:var(--W);aspect-ratio:1}
 .board{position:absolute;inset:0;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:var(--gap)}
 .board.shake{animation:shake .25s}
 @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
@@ -158,7 +158,40 @@ body.pad-off .pad{display:none!important}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
-footer{color:var(--muted);font-size:11px;opacity:.7}
+/* ---- Info-Leiste: nutzt freie Fläche auf hohen Bildschirmen ---- */
+.infobar{width:var(--W);display:none;flex-direction:column;gap:8px}
+.ib-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ib-tile,.ib-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:0}
+.ib-tile small,.ib-box small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.ib-tile b{font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ib-tile b i{font-style:normal;font-size:12px;margin-left:4px}
+.ib-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:14px}
+.ib-dots span{width:14px;height:14px;border-radius:4px;background:var(--line)}
+.ib-dots .k1{background:var(--c3)}.ib-dots .k2{background:var(--c2)}.ib-dots .k3{background:var(--c1)}.ib-dots .k4{background:var(--c0);box-shadow:0 0 8px var(--c0)}
+.ib-goal{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:14px;margin-top:6px}
+.ib-goal .bar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:-2px}
+.ib-goal .bar i{display:block;height:100%;background:var(--c3);transition:width .3s}
+.ib-goal.ok{color:var(--c2)}.ib-goal.ok .bar i{background:var(--c2)}
+.ib-hint{color:var(--muted);font-size:12px;text-align:center}
+@media (max-aspect-ratio:3/4){
+  :root{--W:min(94vw,640px,calc(100vh - 330px));--W:min(94vw,640px,calc(100dvh - 330px))}
+  .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:clamp(10px,1.6vh,18px)}
+  .board-wrap{margin-block:auto}
+  .infobar{display:flex;gap:clamp(8px,1.2vh,12px)}
+  h1{font-size:clamp(19px,min(7vw,3.4vh),32px)}
+  .icon-btn{width:clamp(32px,min(10.5vw,5vh),46px);height:clamp(32px,min(10.5vw,5vh),46px);font-size:clamp(16px,2.2vh,20px)}
+  .hud{gap:clamp(6px,1vh,10px)}
+  .stat{padding:clamp(8px,1.5vh,14px) clamp(8px,2.4vw,12px)}
+  .stat b{font-size:clamp(18px,min(6vw,3vh),28px)}
+  .next .mini{width:clamp(20px,min(6vw,3vh),28px);height:clamp(20px,min(6vw,3vh),28px);font-size:clamp(11px,1.5vh,14px)}
+  .ib-tile,.ib-box{padding:clamp(8px,1.5vh,14px) clamp(10px,2.6vw,14px)}
+  .ib-tile b{font-size:clamp(17px,min(5.4vw,2.7vh),26px)}
+  .ib-tile small,.ib-box small,.stat small{font-size:clamp(10px,1.25vh,12px)}
+  .ib-dots span{width:clamp(14px,2.1vh,20px);height:clamp(14px,2.1vh,20px)}
+  .ib-goal{font-size:clamp(14px,1.9vh,17px)}
+  .ib-goal .bar{height:clamp(5px,.8vh,8px)}
+}
+footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space:nowrap}
 .hint{color:var(--muted);font-size:12px}
 </style>
 </head>
@@ -271,10 +304,11 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       <button class="btn alt" id="closeScores">SCHLIESSEN</button>
     </div>
   </div>
+  <div class="infobar" id="infobar"></div>
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.7.0 · Build 10 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.8.0 · Build 11 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -538,7 +572,31 @@ function render(){
     else{m.style.background=COLORS[c];m.textContent=SYMBOLS[c]}
     nx.appendChild(m);
   });
+  renderInfo();
 }
+function renderInfo(){
+  const ib=$('infobar');if(!ib||getComputedStyle(ib).display==='none')return;
+  const cb=bestChain>=2?`×${bestChain}<i>${COMBOS[Math.min(bestChain,5)].replace('!','')}</i>`:'–';
+  const tile=(l,v)=>`<div class="ib-tile"><small>${l}</small><b>${v}</b></div>`;
+  const dots=(arr,max)=>`<div class="ib-dots">${arr.slice(-max).map(c=>`<span class="k${Math.min(c,4)}"></span>`).join('')}</div>`;
+  let h='';
+  if(mode==='level'){
+    h+=`<div class="ib-box"><small>Ziele · Level ${lvNo}</small>`+LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n,pct=Math.min(100,s.n?s.cur/s.n*100:0);
+      const t=g.t==='score'?'Punkte':g.t==='color'?'Farbe abräumen':g.t==='chain'?'Combo auslösen':g.t==='rocks'?'Felsen zerbrechen':'Steine abräumen';
+      const v=g.t==='chain'?`×${Math.max(1,s.cur)} / ×${s.n}`:`${fmt(Math.min(s.cur,s.n))} / ${fmt(s.n)}`;
+      return `<div class="ib-goal${ok?' ok':''}"><span>${goalIcon(g)}</span><span>${t}</span><b>${ok?'✓':v}</b><div class="bar"><i style="width:${pct}%"></i></div></div>`}).join('')+`</div>`;
+    h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Sterne-Ziel',movesLeft>=LV.stars[1]?'★★★':movesLeft>=LV.stars[0]?'★★':'★')}</div>`;
+  }else if(mode==='daily'){
+    h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Züge übrig',movesLeft)}</div>`;
+    h+=`<div class="ib-box"><small>Dein Raster · Rätsel #${dailyNo()}</small>${dots(history,DAILY_MOVES)}</div>`;
+  }else{
+    h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Bis Level '+(level+1),(30-cleared%30)+' Steine')}</div>`;
+    h+=`<div class="ib-box"><small>Verlauf · letzte Züge</small>${dots(history,40)}</div>`;
+  }
+  if(history.length<3)h+=`<div class="ib-hint">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
+  ib.innerHTML=h;
+}
+addEventListener('resize',()=>{try{renderInfo()}catch(e){}});
 function floatText(txt,r,c,color){
   const f=document.createElement('div');f.className='float';f.textContent=txt;f.style.color=color||'#fff';
   f.style.left=`calc(var(--gap) + ${(c+.5)/N*100}%)`;f.style.top=`calc(var(--gap) + ${(r+.5)/N*100}%)`;
@@ -623,7 +681,7 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);bestChain=Math.max(bestChain,total);
+  history.push(total);bestChain=Math.max(bestChain,total);renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');

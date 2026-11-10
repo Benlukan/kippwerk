@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.0 (Build 11) – 10.11.2026
+- **Ganze Bildschirmhöhe genutzt** (hohe Handys und Tablets im Hochformat):
+  - Kopfzeile und Anzeigen oben, Spielfeld mittig und etwas breiter, Anzeigen wachsen mit der Bildschirmhöhe
+  - Neue **Info-Leiste** unten, je nach Modus:
+    - Endlos: beste Combo, abgeräumte Steine, Steine bis zum nächsten Level, Verlauf der letzten Züge
+    - Level: Ziele mit Fortschrittsbalken, beste Combo, aktuelles Sterne-Ziel
+    - Tagesrätsel: beste Combo, abgeräumte Steine, übrige Züge und dein Ergebnis-Raster live
+- Desktop und Querformat unverändert kompakt; Footer passt auch auf schmale Handys in eine Zeile
+
 ## v1.7.0 (Build 10) – 10.11.2026
 - Neu: **Combo-Stufen** beim Nachrutschen, jede Stufe lauter und größer:
   - ×2 **GOOD!** (grün) · ×3 **SUPER!** (blau) · ×4 **MEGA!** (gold, Lichtblitz) · ×5 und mehr **MONSTER!** (Regenbogen, Lichtblitz, Beben)

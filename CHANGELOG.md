@@ -1,6 +1,10 @@
 # Changelog
 
-## v1.9.2 (Build 14) – 10.11.2026
+## v1.9.3 (Build 15) – 10.11.2026
+- **Info-Leiste jetzt auch am PC** (und Tablet quer): als Seitenleiste rechts neben dem Spielfeld – Combo, Abgeräumt, Level-Fortschritt, Verlauf mit Legende bzw. Level-Ziele und Tages-Raster
+- enthält den Scroll-Fix aus v1.9.2
+
+## v1.9.2 (Build 14) – 10.11.2026 (nicht separat ausgeliefert)
 - Fix: Einstellungen wurden auf niedrigen Bildschirmen (Computer, kleine Handys) gestaucht und abgeschnitten statt scrollbar – alle Menüs scrollen jetzt mit Mausrad, Touchpad und Wischen
 
 ## v1.9.1 (Build 13) – 10.11.2026

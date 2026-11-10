@@ -205,6 +205,17 @@ body.pad-off .pad{display:none!important}
 .ib-goal .bar i{display:block;height:100%;background:var(--c3);transition:width .3s}
 .ib-goal.ok{color:var(--c2)}.ib-goal.ok .bar i{background:var(--c2)}
 .ib-hint{color:var(--muted);font-size:12px;text-align:center}
+/* Breite Bildschirme (PC, Tablet quer): Info-Leiste als Seitenleiste rechts neben dem Feld */
+.playrow{display:contents}
+@media (min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px){
+  :root{--W:min(600px,calc(100vh - 230px),calc(100vw - 380px));--W:min(600px,calc(100dvh - 230px),calc(100vw - 380px))}
+  header,.hud{width:calc(var(--W) + 316px)}
+  .playrow{display:flex;gap:16px;align-items:stretch}
+  .infobar{display:flex;width:300px;justify-content:flex-start}
+  .infobar .ib-row{grid-template-columns:1fr}
+  .ib-tile b{font-size:22px}
+  .ib-goal{font-size:15px}
+}
 @media (max-aspect-ratio:3/4){
   :root{--W:min(94vw,640px,calc(100vh - 330px));--W:min(94vw,640px,calc(100dvh - 330px))}
   .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:clamp(10px,1.6vh,18px)}
@@ -243,6 +254,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
     <div class="stat"><small id="levelLabel">Level</small><b id="level">1</b><div class="levelbar"><i id="lvlbar"></i></div></div>
     <div class="stat"><small>Als Nächstes</small><div class="next" id="next"></div></div>
   </div>
+  <div class="playrow">
   <div class="board-wrap">
     <div class="board" id="board">
       <div class="cells" id="cells"></div>
@@ -399,10 +411,11 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
     </div>
   </div>
   <div class="infobar" id="infobar"></div>
+  </div>
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.9.2 · Build 14 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.9.3 · Build 15 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -707,7 +720,9 @@ function renderInfo(){
     h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Bis Level '+(level+1),(perLevel()-cleared%perLevel())+' Steine')}</div>`;
     h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzte Züge</small>${dots(history,40)}${LEGEND}</div>`;
   }
-  if(history.length<3)h+=`<div class="ib-hint">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
+  const wide=matchMedia('(min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px)').matches;
+  if(wide)h+=`<div class="ib-box"><small>Steuerung</small><div class="ib-hint" style="text-align:left;margin-top:6px">⌨ Pfeiltasten oder W A S D<br>🖱 Wischen mit gedrückter Maustaste<br>☰ Menü / Pause · ❓ Tippen auf den Verlauf</div></div>`;
+  else if(history.length<3)h+=`<div class="ib-hint">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
   ib.innerHTML=h;
 }
 addEventListener('resize',()=>{try{renderInfo()}catch(e){}});
@@ -1022,7 +1037,7 @@ $('menuSettings').onclick=()=>openSettings('menu');
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
- ['1.9.2','Einstellungen und Menüs lassen sich auf niedrigen Bildschirmen scrollen'],
+ ['1.9.3','Info-Leiste am PC als Seitenleiste neben dem Spielfeld; Menüs scrollbar auf niedrigen Bildschirmen'],
  ['1.9.1','Hinweis auf kommende Welten nach Level 100'],
  ['1.9.0','Feldgrößen 5×5 bis 8×8, Bestenliste je Größe, Spielername im Tagesrätsel, einmalige Spieler-ID, Hilfe mit Farb-Erklärung'],
  ['1.8.0','Ganze Bildschirmhöhe genutzt, Info-Leiste mit Verlauf und Zielen'],

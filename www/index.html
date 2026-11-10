@@ -64,6 +64,21 @@ h1 span{color:var(--c3)}
 @keyframes floatUp{to{transform:translate(-50%,-160%);opacity:0}}
 .banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:34px;font-weight:700;letter-spacing:.08em;
   pointer-events:none;text-shadow:0 0 24px var(--c3);animation:banner 1.1s ease-out forwards;z-index:6;white-space:nowrap}
+/* Combo-Stufen: GOOD ×2 · SUPER ×3 · MEGA ×4 · MONSTER ×5+ */
+.banner small{display:block;font-size:.55em;letter-spacing:.2em;opacity:.9;margin-top:-2px}
+.banner.combo{text-align:center;line-height:1}
+.banner.c2{color:var(--c2);font-size:clamp(26px,9vw,36px);text-shadow:0 0 22px var(--c2)}
+.banner.c3{color:var(--c3);font-size:clamp(30px,10.5vw,44px);text-shadow:0 0 28px var(--c3)}
+.banner.c4{color:var(--c1);font-size:clamp(34px,12vw,52px);text-shadow:0 0 34px var(--c1),0 0 60px var(--c0);animation:banner 1.3s ease-out forwards,wobble .35s ease-in-out 2}
+.banner.c5{font-size:clamp(34px,12.5vw,60px);background:linear-gradient(90deg,var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0));background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px #ff5d73) drop-shadow(0 0 30px #b57bff);
+  animation:banner 1.6s ease-out forwards,rainbow .8s linear infinite}
+@keyframes wobble{50%{rotate:-4deg}}
+@keyframes rainbow{to{background-position:300% 0}}
+.board.flash::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:radial-gradient(circle,#fff6 0%,transparent 70%);animation:flash .45s ease-out forwards;z-index:4}
+@keyframes flash{from{opacity:1}to{opacity:0}}
+.board.quake{animation:quake .5s}
+@keyframes quake{10%,50%,90%{transform:translate(-7px,3px) rotate(-.6deg)}30%,70%{transform:translate(7px,-3px) rotate(.6deg)}}
 @keyframes banner{0%{transform:translate(-50%,-50%) scale(.6);opacity:0}20%{transform:translate(-50%,-50%) scale(1.05);opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-70%)}}
 .overlay{position:fixed;inset:0;background:rgba(10,12,22,.9);backdrop-filter:blur(4px);overflow-y:auto;
   display:flex;flex-direction:column;align-items:center;justify-content:safe center;text-align:center;
@@ -173,7 +188,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
       <div class="rules">
         <b>⇦⇧⇨⇩</b><span>Kippe das Feld – alle Steine rutschen mit.</span>
         <b>3+</b><span>Gleiche Farben, die sich berühren, verschwinden.</span>
-        <b>×2</b><span>Nachrutschen erzeugt Ketten-Combos.</span>
+        <b>×2</b><span>Nachrutschen erzeugt Combos: GOOD ×2, SUPER ×3, MEGA ×4, MONSTER ×5.</span>
         <b>✦</b><span>Prisma-Steine passen zu jeder Farbe.</span>
         <b>!</b><span>Neue Steine kommen von der Gegenseite. Ist das Feld voll, ist Schluss.</span>
       </div>
@@ -259,7 +274,7 @@ footer{color:var(--muted);font-size:11px;opacity:.7}
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.6.1 · Build 9 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.7.0 · Build 10 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -411,6 +426,8 @@ const sfx={
   bump:()=>tone(90,.12,'square',.04),
   pop:(chain)=>{const b=440*Math.pow(1.122,chain-1);tone(b,.12,'sine',.09);tone(b*1.5,.14,'sine',.06,.05)},
   level:()=>[523,659,784,1046].forEach((f,i)=>tone(f,.15,'triangle',.07,i*.08)),
+  combo:(n)=>{const seq=n>=5?[523,659,784,1046,1318,1568]:n===4?[523,659,784,1046,1318]:n===3?[587,740,880]:[659,880];
+    seq.forEach((f,i)=>tone(f,.14,n>=4?'square':'triangle',n>=4?.05:.06,.12+i*.07));if(n>=5)tone(110,.5,'sawtooth',.06,.1)},
   over:()=>[392,330,262].forEach((f,i)=>tone(f,.25,'sawtooth',.04,i*.15))
 };
 
@@ -527,7 +544,17 @@ function floatText(txt,r,c,color){
   f.style.left=`calc(var(--gap) + ${(c+.5)/N*100}%)`;f.style.top=`calc(var(--gap) + ${(r+.5)/N*100}%)`;
   boardEl.appendChild(f);setTimeout(()=>f.remove(),950);
 }
-function banner(txt){const b=document.createElement('div');b.className='banner';b.textContent=txt;boardEl.appendChild(b);setTimeout(()=>b.remove(),1150)}
+function banner(txt,cls,sub){const b=document.createElement('div');b.className='banner'+(cls?' '+cls:'');b.textContent=txt;
+  if(sub){const s=document.createElement('small');s.textContent=sub;b.appendChild(s)}
+  boardEl.appendChild(b);setTimeout(()=>b.remove(),cls==='combo c5'?1650:cls==='combo c4'?1350:1150)}
+const COMBOS=[null,null,'GOOD!','SUPER!','MEGA!','MONSTER!'];
+function comboFx(n){
+  if(n<2)return;const lv=Math.min(n,5);
+  banner(COMBOS[lv],'combo c'+lv,'COMBO ×'+n);sfx.combo(lv);
+  if(lv>=4){boardEl.classList.remove('flash');void boardEl.offsetWidth;boardEl.classList.add('flash');setTimeout(()=>boardEl.classList.remove('flash'),500)}
+  if(lv>=5){boardEl.classList.remove('quake');void boardEl.offsetWidth;boardEl.classList.add('quake');setTimeout(()=>boardEl.classList.remove('quake'),520)}
+  haptic(lv>=5?'win':lv>=4?'heavy':'medium');
+}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms*(settings.speed==='fast'?.55:1)));
 
 // ---------- Level-Ziele ----------
@@ -576,9 +603,9 @@ async function resolve(dir,chain){
       for(const[dr,dc]of[[1,0],[-1,0],[0,1],[0,-1]]){const nr=r+dr,nc=c+dc;if(nr<0||nc<0||nr>=N||nc>=N)continue;
         const k=idx(nr,nc);if(grid[k]&&grid[k].color===ROCK)rocks.add(k)}}
     if(prog){for(const g of groups)prog.color[g.color]+=g.cells.length;prog.clear+=cells.length;prog.rocks+=rocks.size;prog.chain=Math.max(prog.chain,chain)}
-    sfx.pop(chain);haptic(chain>1?'medium':'light');
+    sfx.pop(chain);if(chain<2)haptic('light');
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
-    if(chain===2)banner('KETTE ×2');else if(chain===3)banner('KETTE ×3!');else if(chain>=4)banner('MEGA ×'+chain+'!!');
+    comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)}
     render();
     await sleep(230);
@@ -861,7 +888,7 @@ applySettings();
 newGame();showMenu();
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,LEVELS,get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={move,LEVELS,comboFx,get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

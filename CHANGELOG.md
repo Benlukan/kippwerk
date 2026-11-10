@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.0 (Build 10) – 10.11.2026
+- Neu: **Combo-Stufen** beim Nachrutschen, jede Stufe lauter und größer:
+  - ×2 **GOOD!** (grün) · ×3 **SUPER!** (blau) · ×4 **MEGA!** (gold, Lichtblitz) · ×5 und mehr **MONSTER!** (Regenbogen, Lichtblitz, Beben)
+  - eigene Fanfare je Stufe, stärkere Vibration ab MEGA
+- Anleitung im Menü um die Combo-Stufen ergänzt
+
 ## v1.6.1 (Build 9) – 10.11.2026
 - Datenschutzerklärung: Verantwortlicher vollständig (Name, Anschrift, E-Mail), Stand aktualisiert
 - Neu: **Impressum** (§ 5 DDG, Kleinunternehmer § 19 UStG) – verlinkt im Footer, in den Einstellungen und in der Datenschutzerklärung

@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.9.0 (Build 12) – 10.11.2026
+- Neu: **Feldgrößen im Endlos-Modus** – 5×5 Kompakt, 6×6 Standard, 7×7 Groß, 8×8 Riesig (Auswahl im Menü und in ⚙)
+  - per Simulation abgestimmt: größere Felder starten mit 5 Farben und mehr neuen Steinen pro Zug, Level-Schwelle wächst mit der Feldfläche
+  - 6×6 spielt sich exakt wie bisher; Level-Modus und Tagesrätsel bleiben 6×6
+- **Bestenliste und Rekord je Feldgröße** (Top 10 pro Größe); bisherige Einträge werden automatisch als 6×6 übernommen
+- Neu: **Hilfe** (❓ im Menü, in ⚙ und unter der Kurzanleitung): Spielprinzip, alle Steinfarben mit Symbolen, Prisma und Felsen, Combo-Stufen, **Bedeutung der Farben im Verlauf/Raster**, Spielmodi, Rettung, Tipps, Neuigkeiten
+  - öffnet sich beim ersten Start einmal automatisch
+  - Legende direkt unter dem Verlauf; Tippen auf den Verlauf öffnet die Erklärung
+- **Spielername in der Tagesrätsel-Bestenliste** (bisher nur Rätsel-Nummer); beim ersten gewerteten Tagesrätsel ohne Namen wird nach dem Namen gefragt
+- **Einmalige Spieler-ID** je Installation (zufällige 128-Bit-ID, z. B. `KW-1A2B-3C4D`), sichtbar und kopierbar in ⚙; Kurzkennung `#1A2B` hinter dem Namen unterscheidet gleiche Namen
+- Spielername jetzt auch in ⚙ änderbar (ändert alle eigenen Einträge)
+
 ## v1.8.0 (Build 11) – 10.11.2026
 - **Ganze Bildschirmhöhe genutzt** (hohe Handys und Tablets im Hochformat):
   - Kopfzeile und Anzeigen oben, Spielfeld mittig und etwas breiter, Anzeigen wachsen mit der Bildschirmhöhe

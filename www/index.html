@@ -44,10 +44,11 @@ h1 span{color:var(--c3)}
 .board.shake{animation:shake .25s}
 @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .cells,.tiles{position:absolute;inset:var(--gap)}
-.cells{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:var(--gap)}
+.board{--n:6}
+.cells{display:grid;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);gap:var(--gap)}
 .cells div{background:#1d2238;border-radius:var(--radius)}
-.tile{position:absolute;top:0;left:0;width:calc((100% - 5 * var(--gap)) / 6);height:calc((100% - 5 * var(--gap)) / 6);
-  border-radius:var(--radius);display:grid;place-items:center;font-size:clamp(16px,4.5vw,24px);color:rgba(0,0,0,.38);
+.tile{position:absolute;top:0;left:0;width:calc((100% - (var(--n) - 1) * var(--gap)) / var(--n));height:calc((100% - (var(--n) - 1) * var(--gap)) / var(--n));
+  border-radius:var(--radius);display:grid;place-items:center;font-size:clamp(11px,calc(var(--W) * .27 / var(--n)),24px);color:rgba(0,0,0,.38);
   transition:transform .14s cubic-bezier(.3,.7,.4,1);will-change:transform}
 .tile .in{width:100%;height:100%;border-radius:inherit;display:grid;place-items:center;
   box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.35),0 0 18px var(--glow)}
@@ -111,6 +112,9 @@ h1 span{color:var(--c3)}
 .scores td.r{text-align:right}.scores td.m{color:var(--muted);font-size:12px}
 .scores tr.me td{color:var(--c1);font-weight:700}
 .scores td.rank{width:34px;color:var(--muted)}
+.ptag{color:var(--muted);font-size:10px;margin-left:4px;font-weight:500}
+.set input[type=text]{background:#0d1020;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:7px 10px;font:600 14px "Space Grotesk",sans-serif;width:150px;user-select:text}
+.pid{font:12px ui-monospace,monospace;color:var(--muted)}
 .statsrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:min(100%,380px)}
 .statsrow div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 4px}
 .statsrow b{display:block;font-size:20px}.statsrow small{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
@@ -155,6 +159,32 @@ body.fast .tile{transition-duration:.08s}
 body.pad-on .pad{display:flex!important}
 body.pad-off .pad{display:none!important}
 .menurow{display:flex;gap:14px;justify-content:center}
+/* Feldgrößen */
+.board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}
+.sizepick{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sizepick small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.seg.big button{padding:8px 12px;font-size:13px}
+.subtabs{display:flex;gap:4px}
+.subtabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 9px;font:700 12px "Space Grotesk",sans-serif;cursor:pointer}
+.subtabs button.on{border-color:var(--c3);color:var(--text)}
+/* Hilfe */
+.help{width:min(100%,440px);text-align:left;display:flex;flex-direction:column;gap:10px}
+.help section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.help h3{margin:0 0 6px;font-size:15px;color:var(--c3);letter-spacing:.04em}
+.help p,.help li{margin:4px 0;color:#c3c8ea;font-size:14px;line-height:1.45}
+.help ul{margin:0;padding-left:18px}
+.help .row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:14px;color:#c3c8ea}
+.help .sw{flex:none;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:13px;color:#0008;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.help .sw.d{width:16px;height:16px;border-radius:4px;box-shadow:none}
+.help .sw.rock{background:repeating-linear-gradient(135deg,#5b6079 0 5px,#4a4e66 5px 10px)}
+.help .sw.wild{background:conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0));color:#fff}
+.help .toc{display:flex;flex-wrap:wrap;gap:6px}
+.help .toc button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:6px 10px;font:600 12px "Space Grotesk",sans-serif;cursor:pointer}
+.helpclose{position:sticky;bottom:calc(-1 * max(26px,env(safe-area-inset-bottom)));width:100%;display:flex;justify-content:center;padding:14px 0 max(26px,env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(10,12,22,.97) 35%)}
+.ib-legend{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:11px;color:var(--muted)}
+.ib-legend span{display:inline-flex;align-items:center;gap:4px}
+.ib-legend i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.ib-box.tap{cursor:pointer}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -225,6 +255,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <b>✦</b><span>Prisma-Steine passen zu jeder Farbe.</span>
         <b>!</b><span>Neue Steine kommen von der Gegenseite. Ist das Feld voll, ist Schluss.</span>
       </div>
+      <button class="linkbtn" id="rulesMore">Ausführliche Hilfe &amp; Farb-Erklärung →</button>
       <p class="hint">Pfeiltasten / WASD oder Wischen</p>
       <button class="btn" id="resumeBtn" style="display:none">WEITER</button>
       <div class="modes">
@@ -233,7 +264,9 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <button class="btn alt" id="endlessBtn">∞ ENDLOS</button>
       </div>
       <p class="hint" id="dailyHint">Jeden Tag dieselben Steine für alle · 40 Züge</p>
-      <div class="menurow"><button class="linkbtn" id="menuSettings">⚙ Einstellungen</button><button class="linkbtn" id="menuScores">🏆 Bestenliste</button></div>
+      <div class="sizepick"><small>Feldgröße im Endlos-Modus</small>
+        <div class="seg big" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
+      <div class="menurow"><button class="linkbtn" id="menuHelp">❓ Hilfe</button><button class="linkbtn" id="menuSettings">⚙ Einstellungen</button><button class="linkbtn" id="menuScores">🏆 Bestenliste</button></div>
       <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
     </div>
     <div class="overlay hidden" id="overOv">
@@ -279,14 +312,20 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
     <div class="overlay hidden" id="settingsOv">
       <h2>⚙ EINSTELLUNGEN</h2>
       <div class="settings">
+        <label class="set"><span>👤 Spielername</span><input type="text" id="setName" maxlength="12" placeholder="Dein Name" autocomplete="nickname"></label>
+        <button class="set" id="pidRow" title="Spieler-ID kopieren"><span>🆔 Spieler-ID</span><span class="pid" id="pidText"></span></button>
+      </div>
+      <div class="settings">
         <label class="set"><span>🔊 Ton</span><input type="checkbox" id="setSound"></label>
         <label class="set"><span>📳 Vibration</span><input type="checkbox" id="setVibe"></label>
         <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
+        <div class="set"><span>🔲 Feldgröße (Endlos)</span><div class="seg" data-key="size"><button data-v="5">5</button><button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button></div></div>
         <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
       </div>
       <div class="settings">
+        <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
         <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
@@ -295,9 +334,62 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
     </div>
+    <div class="overlay hidden" id="helpOv">
+      <h2>❓ HILFE</h2>
+      <div class="help">
+        <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
+        <section id="hGrund"><h3>So geht's</h3>
+          <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
+          <p>Berühren sich <b>3 oder mehr gleiche Steine</b> waagerecht oder senkrecht, verschwinden sie. Größere Gruppen bringen deutlich mehr Punkte (Größe² × 10).</p>
+          <p>Nach jedem Zug kommen <b>neue Steine von der Gegenseite</b> dazu. Oben bei „Als Nächstes“ siehst du, welche Farben kommen. Ist das Feld voll, ist die Runde vorbei.</p>
+        </section>
+        <section id="hSteine"><h3>Steine &amp; Farben</h3>
+          <p>Jede Farbe hat ein eigenes Symbol – so klappt es auch bei Farbschwäche (Farbschema in ⚙ umstellbar).</p>
+          <div id="helpColors"></div>
+          <div class="row"><span class="sw wild">✦</span><span><b>Prisma</b> – passt zu jeder Farbe und verbindet Gruppen (ab Level 2).</span></div>
+          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (nur Level-Modus) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
+        </section>
+        <section id="hCombo"><h3>Combos</h3>
+          <p>Verschwindet eine Gruppe, rutschen die übrigen Steine nach. Entsteht dabei eine neue Gruppe, ist das eine <b>Combo</b> – die Punkte werden mit der Combo-Stufe multipliziert.</p>
+          <div class="row"><span class="sw" style="background:var(--c2)">×2</span><span><b>GOOD!</b> – zweite Gruppe in Folge</span></div>
+          <div class="row"><span class="sw" style="background:var(--c3)">×3</span><span><b>SUPER!</b> – dreifache Kette</span></div>
+          <div class="row"><span class="sw" style="background:var(--c1)">×4</span><span><b>MEGA!</b> – mit Lichtblitz</span></div>
+          <div class="row"><span class="sw wild">×5</span><span><b>MONSTER!</b> – Regenbogen und Beben, sehr selten!</span></div>
+        </section>
+        <section id="hVerlauf"><h3>Farb-Verlauf &amp; Raster</h3>
+          <p>Unten in der Info-Leiste (und beim Teilen des Tagesrätsels) steht jedes Kästchen für <b>einen Zug</b>. Die Farbe zeigt, was der Zug gebracht hat:</p>
+          <div class="row"><span class="sw d" style="background:var(--line)"></span><span><b>Grau</b> (⬛) – nichts abgeräumt</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c3)"></span><span><b>Blau</b> (🟦) – eine Gruppe abgeräumt</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c2)"></span><span><b>Grün</b> (🟩) – Combo ×2 GOOD</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c1)"></span><span><b>Gelb</b> (🟨) – Combo ×3 SUPER</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Rot</b> (🟥) – Combo ×4 oder mehr: MEGA / MONSTER</span></div>
+          <p>Je bunter dein Raster, desto besser hast du gespielt.</p>
+        </section>
+        <section id="hModi"><h3>Spielmodi</h3>
+          <ul>
+            <li><b>📅 Tagesrätsel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
+            <li><b>🗺 Level</b> – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Steine, Combos, Felsen). 1–3 Sterne je nach übrigen Zügen. Jedes 10. Level ist ein 👑 Boss.</li>
+            <li><b>∞ Endlos</b> – so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
+          </ul>
+          <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße und alle gewerteten Tagesrätsel – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
+          <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesrätsel).</p>
+        </section>
+        <section id="hTipps"><h3>Tipps</h3>
+          <ul>
+            <li>Kippe öfter in <b>dieselbe Richtung</b> – dann sammeln sich Farben an einer Seite und Combos werden wahrscheinlicher.</li>
+            <li>Schau auf <b>„Als Nächstes“</b> und denk daran: neue Steine kommen von der Gegenseite.</li>
+            <li>Hebe <b>Prisma-Steine</b> auf, um zwei Gruppen zu einer großen zu verbinden.</li>
+            <li>Im Level-Modus zählen <b>übrige Züge</b> – schnell fertig werden bringt Sterne.</li>
+          </ul>
+        </section>
+        <section id="hNeu"><h3>Neuigkeiten</h3><div id="helpChangelog"></div></section>
+      </div>
+      <div class="helpclose"><button class="btn" id="closeHelp">VERSTANDEN</button></div>
+    </div>
     <div class="overlay hidden" id="scoresOv">
       <h2>🏆 BESTENLISTE</h2>
       <div class="tabs"><button id="tabEndless" class="on">∞ Endlos</button><button id="tabDaily">📅 Tagesrätsel</button></div>
+      <div class="subtabs" id="sizeTabs"><button data-n="5">5×5</button><button data-n="6">6×6</button><button data-n="7">7×7</button><button data-n="8">8×8</button></div>
       <div id="dailyStats" class="statsrow" style="display:none"></div>
       <table class="scores" id="scoresTable"></table>
       <p class="hint" id="scoresEmpty" style="display:none"></p>
@@ -308,11 +400,11 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.8.0 · Build 11 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.9.0 · Build 12 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
-const N=6;
+let N=6;
 const COLORS=['var(--c0)','var(--c1)','var(--c2)','var(--c3)','var(--c4)'];
 const SYMBOLS=['●','▲','■','◆','✚'];
 const WILD=9, ROCK=8;
@@ -393,7 +485,7 @@ function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto'};
+const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6'};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -427,11 +519,24 @@ function loadScores(){let d=null;try{d=JSON.parse(localStorage.getItem('kippwerk
 function saveScores(){try{localStorage.setItem('kippwerk_scores',JSON.stringify(scores))}catch(e){}}
 let scores=loadScores(), lastEntry=null;
 let playerName='';try{playerName=localStorage.getItem('kippwerk_name')||''}catch(e){}
+// Einmalige Spieler-ID (zufällig, 128 Bit) – wird einmal pro Installation erzeugt und nie geändert
+function makeId(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}
+  const a=new Uint8Array(16);try{crypto.getRandomValues(a)}catch(e){for(let i=0;i<16;i++)a[i]=Math.random()*256|0}
+  a[6]=a[6]&15|64;a[8]=a[8]&63|128;const h=[...a].map(x=>x.toString(16).padStart(2,'0')).join('');
+  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`}
+let playerId='';try{playerId=localStorage.getItem('kippwerk_pid')||'';if(!playerId){playerId=makeId();localStorage.setItem('kippwerk_pid',playerId)}}catch(e){playerId=playerId||makeId()}
+const shortId=id=>'KW-'+String(id).replace(/-/g,'').slice(0,8).toUpperCase().replace(/(.{4})(.{4})/,'$1-$2');
+const myTag=()=>'#'+String(playerId).replace(/-/g,'').slice(0,4).toUpperCase();
+// Migration: alle bisherigen (lokalen) Einträge gehören diesem Gerät/Spieler
+{let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
 const fmtDate=()=>new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});
-best=scores.endless.length?scores.endless[0].score:0;
+scores.endless.forEach(x=>{if(!x.size)x.size=6});   // Migration: alte Einträge = 6×6
+const sizeList=n=>scores.endless.filter(x=>x.size===n);
+const bestFor=n=>{const l=sizeList(n);return l.length?l[0].score:0};
+best=bestFor(6);
 function addScore(list,entry,key='score'){
   scores[list].push(entry);scores[list].sort((a,b)=>b[key]-a[key]);
-  if(list==='endless')scores[list]=scores[list].slice(0,TOP);
+  if(list==='endless'){const keep=[];const cnt={};for(const x of scores.endless){cnt[x.size]=(cnt[x.size]||0)+1;if(cnt[x.size]<=TOP)keep.push(x)}scores.endless=keep}
   saveScores();const i=scores[list].indexOf(entry);return i<0?0:i+1}
 function dailyStats(){
   const keys=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))keys.push(k.slice(15))}}catch(e){}
@@ -441,7 +546,13 @@ function dailyStats(){
   const sc=scores.daily.map(x=>x.score);
   return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 
-for(let i=0;i<N*N;i++)$('cells').appendChild(document.createElement('div'));
+function setSize(n){
+  N=n;const b=$('board');b.style.setProperty('--n',n);b.classList.remove('n5','n6','n7','n8');b.classList.add('n'+n);
+  const c=$('cells');c.innerHTML='';for(let i=0;i<N*N;i++)c.appendChild(document.createElement('div'));
+}
+setSize(6);
+const START_TILES={5:6,6:8,7:10,8:14}, BASE_SPAWN={5:1,6:2,7:3,8:4};
+const perLevel=()=>N===6?30:Math.round(30*N*N/36);
 
 // ---------- Audio ----------
 let actx=null;
@@ -466,8 +577,8 @@ const sfx={
 };
 
 // ---------- Rules ----------
-const numColors=()=>mode==='level'?LV.colors:level>=3?5:4;
-const spawnCount=()=>mode==='level'?LV.spawn:2+(level>=4?1:0)+(level>=10?1:0);
+const numColors=()=>mode==='level'?LV.colors:(N>=7||level>=3)?5:4;
+const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();return w<wildChance()?WILD:Math.floor(c*numColors())}
 function fillQueue(){while(nextQ.length<3)nextQ.push(randColor())}
@@ -564,7 +675,7 @@ function render(){
   if(isLv)$('goalHud').innerHTML=goalHud();
   else $('best').textContent=Math.max(best,mode==='endless'?score:0).toLocaleString('de-DE');
   if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
-  else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%30)/30*100)+'%'}
+  else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%perLevel())/perLevel()*100)+'%'}
   const nx=$('next');nx.innerHTML='';
   nextQ.slice(0,spawnCount()).forEach(c=>{
     const m=document.createElement('div');m.className='mini';
@@ -574,6 +685,7 @@ function render(){
   });
   renderInfo();
 }
+const LEGEND='<div class="ib-legend"><span><i style="background:var(--line)"></i>nichts</span><span><i style="background:var(--c3)"></i>abgeräumt</span><span><i style="background:var(--c2)"></i>×2</span><span><i style="background:var(--c1)"></i>×3</span><span><i style="background:var(--c0)"></i>×4+</span><span>· ❓</span></div>';
 function renderInfo(){
   const ib=$('infobar');if(!ib||getComputedStyle(ib).display==='none')return;
   const cb=bestChain>=2?`×${bestChain}<i>${COMBOS[Math.min(bestChain,5)].replace('!','')}</i>`:'–';
@@ -588,10 +700,10 @@ function renderInfo(){
     h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Sterne-Ziel',movesLeft>=LV.stars[1]?'★★★':movesLeft>=LV.stars[0]?'★★':'★')}</div>`;
   }else if(mode==='daily'){
     h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Züge übrig',movesLeft)}</div>`;
-    h+=`<div class="ib-box"><small>Dein Raster · Rätsel #${dailyNo()}</small>${dots(history,DAILY_MOVES)}</div>`;
+    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Dein Raster · Rätsel #${dailyNo()}</small>${dots(history,DAILY_MOVES)}${LEGEND}</div>`;
   }else{
-    h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Bis Level '+(level+1),(30-cleared%30)+' Steine')}</div>`;
-    h+=`<div class="ib-box"><small>Verlauf · letzte Züge</small>${dots(history,40)}</div>`;
+    h+=`<div class="ib-row">${tile('Beste Combo',cb)}${tile('Abgeräumt',cleared)}${tile('Bis Level '+(level+1),(perLevel()-cleared%perLevel())+' Steine')}</div>`;
+    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzte Züge</small>${dots(history,40)}${LEGEND}</div>`;
   }
   if(history.length<3)h+=`<div class="ib-hint">Tipp: Wischen funktioniert überall auf dem Bildschirm</div>`;
   ib.innerHTML=h;
@@ -654,7 +766,7 @@ async function resolve(dir,chain){
     }
     score+=gained;
     const lvBefore=level;
-    cleared+=cells.length;level=1+Math.floor(cleared/30);
+    cleared+=cells.length;level=1+Math.floor(cleared/perLevel());
     // Felsen neben abgeräumten Steinen zerbrechen
     const rocks=new Set();
     for(const i of cells){const r=Math.floor(i/N),c=i%N;
@@ -783,18 +895,19 @@ function finishGame(reason){
   if(daily){
     $('overTitle').textContent=reason==='full'?'FELD VOLL':'GESCHAFFT';
     let official=loadDaily();
-    $('nameRow').style.display='none';
+    $('nameRow').style.display='none';lastEntry=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);
-      addScore('daily',{no:dailyNo(),score,chain:bestChain,date:fmtDate()})}
+      lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);
+      if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString('de-DE')}`:`Tagesrätsel #${dailyNo()} · ${cleared} Steine abgeräumt`;
     $('shareBox').textContent=shareText(official);
   }else{
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;
-    const qualifies=score>0&&(scores.endless.length<TOP||score>scores.endless[scores.endless.length-1].score);
+    const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(qualifies){lastEntry={name:playerName||'Spieler',score,level,date:fmtDate()};rank=addScore('endless',lastEntry)}
-    best=scores.endless.length?scores.endless[0].score:0;
+    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1}
+    best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt.'+(!isBest?' Rekord: '+best.toLocaleString('de-DE'):'');
     $('nameRow').style.display=rank?'':'none';
     $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
@@ -806,14 +919,16 @@ function newGame(){
   els.forEach(el=>el.remove());els.clear();
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
   else{rc=Math.random;rp=Math.random;practice=false}
+  setSize(mode==='endless'?(+settings.size||6):6);
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;
+  best=bestFor(N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung #':'Tag #')+dailyNo():mode==='level'?'Level '+lvNo:'';
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung #':'Tag #')+dailyNo():mode==='level'?'Level '+lvNo:(N!==6?N+'×'+N:'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
-  let placed=0;const startN=mode==='level'?(LV.start||8):8,startC=mode==='level'?LV.colors:4;
+  let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N>=7?5:4);
   while(placed<startN){
     const i=Math.floor(rp()*N*N);if(grid[i])continue;
     grid[i]={id:++tileId,color:Math.floor(rc()*startC),r:Math.floor(i/N),c:i%N};
@@ -830,7 +945,8 @@ document.addEventListener('keydown',e=>{
   if(!$('lvlOv').classList.contains('hidden')){if(e.key==='Enter'||e.key===' '){e.preventDefault();$('lvlMain').click()}else if(e.key==='Escape')$('lvlMap').click();return}
   if(!$('levelsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeLevels').click();return}
   if(!$('settingsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeSettings').click();return}
-  if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();$('saveName').click()}return}
+  if(!$('helpOv').classList.contains('hidden')){if(e.key==='Escape'||e.key==='Enter')$('closeHelp').click();return}
+  if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();e.target.id==='setName'?e.target.blur():$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(keys[e.key]){e.preventDefault();move(keys[e.key])}
   else if((e.key==='Enter'||e.key===' ')&&over){e.preventDefault();start(mode)}
@@ -849,6 +965,8 @@ function showMenu(){
   $('dailyBtn').textContent=(done?'✓ ':'📅 ')+'TAGESRÄTSEL #'+dailyNo();
   $('dailyHint').textContent=done?`Heute gespielt: ${done.score.toLocaleString('de-DE')} Punkte · weitere Runden zählen als Übung`:'Jeden Tag dieselben Steine für alle · 40 Züge';
   $('resumeBtn').style.display=paused?'':'none';
+  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
+  $('endlessBtn').textContent='∞ ENDLOS'+(+settings.size!==6?' '+settings.size+'×'+settings.size:'');
   const un=unlocked();$('levelBtn').textContent=`🗺 LEVEL ${LP[LEVELS.length]?'· ⭐'+totalStars():un}`;
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   ['overOv','lvlOv','levelsOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
@@ -867,6 +985,7 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 // Einstellungen
 let settingsReturn=null,resetArm={};
 function renderSettings(){
+  $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('setSound').checked=settings.sound;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
@@ -881,7 +1000,8 @@ function openSettings(from){
   settings[{setSound:'sound',setVibe:'vibe',setSymbols:'symbols'}[id]]=e.target.checked;saveSettings();applySettings();
   if(id==='setSound'&&settings.sound)tone(660,.1,'triangle',.06);if(id==='setVibe'&&settings.vibe)haptic('medium')});
 document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
-  settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings()});
+  settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings();
+  if(sg.dataset.key==='size'&&!$('startOv').classList.contains('hidden'))showMenu()});
 function armReset(id,label,fn){
   if(resetArm[id]){fn();$(id).textContent='✓ Gelöscht';resetArm[id]=false;return}
   resetArm[id]=true;$(id).textContent='⚠ Wirklich? Nochmal tippen';
@@ -889,10 +1009,42 @@ function armReset(id,label,fn){
 $('resetScores').onclick=()=>armReset('resetScores','🏆 Bestenliste löschen',()=>{scores={endless:[],daily:[]};saveScores();best=0;try{localStorage.removeItem('kippwerk_best')}catch(e){};render()});
 $('resetLevels').onclick=()=>armReset('resetLevels','🗺 Level-Fortschritt löschen',()=>{LP={};saveLP()});
 $('privacyBtn2').onclick=()=>Ads.privacy();
+$('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n)}catch(x){}
+  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
+$('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
+  setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};
 $('closeSettings').onclick=()=>{$('settingsOv').classList.add('hidden');
   if(settingsReturn==='play'){paused=false;started=true}else showMenu()};
 $('settingsBtn').onclick=()=>{if(busy||over||document.querySelector('.overlay:not(.hidden)'))return;openSettings('play')};
 $('menuSettings').onclick=()=>openSettings('menu');
+// ---------- Hilfe ----------
+const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
+const CHANGES=[
+ ['1.9.0','Feldgrößen 5×5 bis 8×8, Bestenliste je Größe, Spielername im Tagesrätsel, einmalige Spieler-ID, Hilfe mit Farb-Erklärung'],
+ ['1.8.0','Ganze Bildschirmhöhe genutzt, Info-Leiste mit Verlauf und Zielen'],
+ ['1.7.0','Combo-Stufen GOOD, SUPER, MEGA und MONSTER'],
+ ['1.5.0','100 Level in 10 Welten mit Boss-Leveln'],
+ ['1.4.0','Level-Modus, Einstellungen, Vibration'],
+ ['1.2.0','Bestenliste'],['1.1.0','Tagesrätsel zum Teilen']];
+let helpReturn=null;
+function openHelp(section,from){
+  helpReturn=from||(!$('startOv').classList.contains('hidden')?'start':!$('settingsOv').classList.contains('hidden')?'settings':'play');
+  if(helpReturn==='play'&&started&&!over){paused=true;started=false}
+  $('helpColors').innerHTML=COLOR_NAMES.map((n,i)=>`<div class="row"><span class="sw" style="background:${COLORS[i]}">${SYMBOLS[i]}</span><span><b>${n}</b> ${SYMBOLS[i]}${i===4?' – kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':''}</span></div>`).join('');
+  $('helpChangelog').innerHTML='<ul>'+CHANGES.map(c=>`<li><b>v${c[0]}</b> – ${c[1]}</li>`).join('')+'</ul>';
+  ['startOv','settingsOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('helpOv').classList.remove('hidden');
+  const el=section&&$(section);$('helpOv').scrollTop=el?el.offsetTop-20:0;
+}
+$('helpOv').querySelector('.toc').onclick=e=>{const b=e.target.closest('button');if(b){const el=$(b.dataset.s);$('helpOv').scrollTo({top:el.offsetTop-20,behavior:'smooth'})}};
+$('closeHelp').onclick=()=>{$('helpOv').classList.add('hidden');
+  if(helpReturn==='settings')$('settingsOv').classList.remove('hidden');
+  else if(helpReturn==='play'){if(paused){paused=false;started=true}}
+  else showMenu()};
+$('menuHelp').onclick=()=>openHelp(null,'start');
+$('rulesMore').onclick=()=>openHelp(null,'start');
+$('settingsHelp').onclick=()=>openHelp(null,'settings');
+$('infobar').addEventListener('click',e=>{const b=e.target.closest('[data-help]');if(b&&!busy&&!over)openHelp(b.dataset.help,'play')});
+try{if(!localStorage.getItem('kippwerk_helpseen')){localStorage.setItem('kippwerk_helpseen','1');setTimeout(()=>{if(!$('startOv').classList.contains('hidden'))openHelp(null,'start')},1200)}}catch(e){}
 $('menuScores').onclick=()=>openScores('endless');
 $('rescueBtn').onclick=rescue;
 $('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');finishGame('full')};
@@ -911,27 +1063,32 @@ $('saveName').onclick=()=>{
   const n=$('nameInput').value.trim().slice(0,12)||'Spieler';playerName=n;
   try{localStorage.setItem('kippwerk_name',n)}catch(e){}
   if(lastEntry){lastEntry.name=n;saveScores()}
-  $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT'};
-let scoresTab='endless',scoresReturn=null;
+  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
+  $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
+let scoresTab='endless',scoresReturn=null,scoresSize=6;
+$('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
+const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
   const t=$('scoresTable'),esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const list=scores[scoresTab].slice(0,TOP);
+  $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
+  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  const list=(scoresTab==='endless'?sizeList(scoresSize):scores[scoresTab]).slice(0,TOP);
   $('dailyStats').style.display=scoresTab==='daily'?'':'none';
   if(scoresTab==='daily'){const st=dailyStats();
     $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString('de-DE')}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString('de-DE')}</b><small>Schnitt</small></div>`}
   t.innerHTML=list.map((x,i)=>{const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
     return scoresTab==='endless'
-      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`
-      :`<tr><td class="rank">${medal}</td><td>Rätsel #${x.no}</td><td class="m">${x.chain>1?'×'+x.chain:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`}).join('');
+      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`
+      :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}</td><td class="m">#${x.no}${x.chain>1?' · ×'+x.chain:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
-  $('scoresEmpty').textContent=scoresTab==='endless'?'Noch keine Einträge – spiel eine Runde Endlos!':'Noch kein Tagesrätsel gespielt.';
+  $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:'Noch kein Tagesrätsel gespielt.';
 }
 function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;
   if(started&&!over){paused=true;started=false;scoresReturn='pause'}
   $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
-  scoresTab=(tab==='level'?'endless':tab)||scoresTab;renderScores();$('scoresOv').classList.remove('hidden')}
+  scoresTab=(tab==='level'?'endless':tab)||scoresTab;scoresSize=mode==='endless'?N:(+settings.size||6);renderScores();$('scoresOv').classList.remove('hidden')}
 $('scoresBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidden)'))return;openScores(mode==='level'?'endless':mode)};
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
@@ -946,7 +1103,7 @@ applySettings();
 newGame();showMenu();
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={move,LEVELS,comboFx,get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={move,LEVELS,comboFx,openHelp,get N(){return N},get state(){return{score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

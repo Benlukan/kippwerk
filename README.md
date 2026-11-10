@@ -7,7 +7,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 ## Modi
 - **Level** – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Ketten, Felsen), steigender Schwierigkeit, Boss-Leveln und 1–3 Sternen
 - **Tagesrätsel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen
-- **Endlos** – so lange, bis das Feld voll ist; Level steigern Farben, Joker und Tempo
+- **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe; Level steigern Farben, Joker und Tempo
 
 ## Projektstruktur
 | Pfad | Inhalt |
@@ -44,4 +44,4 @@ npx cap open ios       # Xcode (macOS)
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.8.0 · Build 11** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.9.0 · Build 12** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

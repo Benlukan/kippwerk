@@ -38,7 +38,7 @@ TAGESRÄTSEL
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
 
 ENDLOS-MODUS
-Spiele, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker und mehr Tempo.
+Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker und mehr Tempo.
 
 • Bestenliste mit Top 10 und Tages-Serie 🔥
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel

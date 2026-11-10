@@ -6,7 +6,7 @@ Ab v1.10.0 hat KIPPWERK eine freiwillige, weltweite Bestenliste. Solange in `www
 1. Auf <https://supabase.com> anmelden (z. B. mit GitHub) → **New project**.
 2. Name: `kippwerk` · Datenbank-Passwort: generieren und sicher ablegen (wird von der App nicht gebraucht).
 3. **Region: Central EU (Frankfurt)** – wichtig, die Datenschutzerklärung nennt Frankfurt.
-4. Plan: **Free** reicht für den Anfang. Hinweis: Free-Projekte werden nach 7 Tagen ohne Aufrufe pausiert – sobald Spieler mitmachen, passiert das nicht; sonst im Dashboard wieder starten.
+4. Plan: **Free** reicht. Free-Projekte werden nach 7 Tagen ohne Aufrufe pausiert – dagegen pingt der Workflow `.github/workflows/supabase-keepalive.yml` die Datenbank automatisch alle 3 Tage an (siehe Abschnitt 6).
 
 ## 2. Datenbank einrichten
 1. Im Projekt links **SQL Editor** → **New query**.
@@ -44,6 +44,7 @@ Dann Version + Build hochzählen, pushen – die Builds (APK, IPA, Web) laufen a
 3. Im Supabase-Dashboard unter **Table Editor → kw_scores** sind die Einträge sichtbar.
 
 ## 6. Pflege
+- **Keep-Alive:** Der Workflow „Supabase wach halten“ läuft alle 3 Tage (Actions → Supabase wach halten → *Run workflow* zum Testen). Schlägt er fehl, schickt GitHub eine E-Mail – dann ist das Projekt vermutlich pausiert: Dashboard → Projekt → **Resume project**. Daten bleiben erhalten; Restore ist mindestens 90 Tage nach der Pause möglich.
 - **Anstößige Namen / Cheater entfernen:** Table Editor → `kw_scores` → Zeile löschen (oder Namen ändern).
 - **Löschanfrage per E-Mail:** im SQL Editor `select kw_delete('SPIELER-ID');`
 - **Statistik:** `select mode, size, count(*), count(distinct player_id) from kw_scores group by 1,2;`

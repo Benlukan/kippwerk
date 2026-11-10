@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.1 (Build 9) – 10.11.2026
+- Datenschutzerklärung: Verantwortlicher vollständig (Name, Anschrift, E-Mail), Stand aktualisiert
+- Neu: **Impressum** (§ 5 DDG, Kleinunternehmer § 19 UStG) – verlinkt im Footer, in den Einstellungen und in der Datenschutzerklärung
+- Offline-Cache um das Impressum ergänzt
+- Doku: Kontakt-E-Mail, Impressum-URL, Status DSGVO-Mitteilung
+
 ## v1.6.0 (Build 8) – 10.11.2026
 - **AdMob Android: eigene IDs** eingetragen (App-ID, Anzeigenblöcke „Rettung“ und „Zwischen Runden“)
 - Testmodus bleibt bewusst **aktiv** (Testanzeigen) für den geschlossenen Test – Umschalten auf echte Anzeigen erst zum öffentlichen Start (`ADS_CONFIG.testing:false`)

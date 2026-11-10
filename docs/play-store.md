@@ -51,9 +51,10 @@ Gemacht von david.digital.
 
 **Kategorie:** Spiele → Puzzle
 **Tags:** Puzzle, Logik, Gelegenheitsspiel, Einzelspieler, Offline
-**Kontakt-E-Mail:** [deine E-Mail]
+**Kontakt-E-Mail:** david.digital@web.de
+**Website (für app-ads.txt):** https://benlukan.github.io
 **Datenschutzerklärung:** `https://benlukan.github.io/kippwerk/datenschutz.html`
-*(vorher Name, Adresse und E-Mail in `www/datenschutz.html` eintragen)*
+**Impressum:** `https://benlukan.github.io/kippwerk/impressum.html`
 
 ## 4. Formulare in der Play Console
 
@@ -91,7 +92,7 @@ Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite �
 | Testmodus | aktiv (`testing:true`) | aktiv |
 
 **Fahrplan bis echte Einnahmen**
-1. DSGVO-Mitteilung in AdMob veröffentlichen (Datenschutz-URL: `https://benlukan.github.io/kippwerk/datenschutz.html`)
+1. ✅ DSGVO-Mitteilung in AdMob veröffentlicht (10.11.2026, Deutsch + Englisch)
 2. Geschlossener Test: ≥ 12 Tester, 14 Tage am Stück
 3. Öffentlicher Start → `testing:false` setzen, neue Version bauen
 4. In AdMob: App-Einstellungen → Store hinzufügen → mit Play-Eintrag verknüpfen (App-Prüfung startet)

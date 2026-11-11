@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.20.0 (Build 33) – 11.11.2026
+- **Info-Leiste unten:** Combo-Leiste und Verlauf stehen im Spiel (Tagesspiel, Endlos, Etappen) am unteren Bildschirmrand
+- **Combo-Leiste** mit je einem Zähler pro Spiel: Abgeräumt · Good (×2) · Super (×3) · Mega (×4) · Monster (×5) · **Ultra (×6+)**; Kopfzeile mit Combos gesamt, bester Kette, Steinen weg (Endlos: bis zum nächsten Level), ❤-Vorrat
+  - Etappen: aktuelles Sterne-Ziel steht in der Ziele-Kopfzeile
+- **Neue Stufe ULTRA ab ×6** (eigener Effekt) – bringt ein **❤ Extra-Leben** (Vorrat bis 9, gespeichert, im Cloud-Spielstand)
+  - Leben einsetzen statt Video, wenn das Feld voll ist bzw. die Züge alle sind (Endlos + Etappen, nicht im Tagesspiel); mehrere pro Runde möglich, funktioniert auch in der Web-Version
+  - Vorrat im Hauptmenü neben der Flamme (nur wenn > 0)
+- Kleine Displays (bis 780 px Höhe): Verlauf-Raster ausgeblendet; bis 740 px etwas kleineres Spielfeld – alles passt ohne Abschneiden
 ## v1.19.2 (Build 32) – 11.11.2026
 - Hauptmenü: Die Steine stehen wieder direkt unter der Top-5-Liste (etwa ab Bildschirmmitte) statt ganz unten. Wird die Liste länger oder ist das Display kleiner, rutschen sie automatisch weiter nach unten; Version unten am Rand
 ## v1.19.1 (Build 31) – 11.11.2026

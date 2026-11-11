@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.12.0 (Build 20) – 11.11.2026
+- **Neuer Startbildschirm** im KIPPWERK-Stil statt Regel-Text über dem Spielfeld:
+  - animiertes Logo aus vier kippenden Steinen, Schriftzug KIPP**WERK**, schwebende Steine im Hintergrund (passt sich dem gewählten Design an)
+  - drei große **Modus-Karten** mit eigener Farbe: Tagesrätsel (Nummer, Status bzw. Punkte + Countdown, offene Serie), Level (aktuelles Level, Welt, Sterne, Fortschrittsbalken), Endlos (Rekord für die gewählte Größe, Feldgröße direkt in der Karte)
+  - oben Serien-Flamme mit Zahl sowie 🏆 / ⚙ / ? als Symbole
+  - Pause: große **„Weiterspielen“-Karte** mit Modus und Stand
+  - Spielregeln wandern komplett in die Hilfe („So wird gespielt“)
 ## v1.11.2 (Build 19) – 10.11.2026
 - **Zurück-Taste (Android):** im Spiel → Pause-Menü; im Pause-Menü → weiterspielen; in Menüs/Fenstern → einen Schritt zurück (Level-Intro → Karte → Menü); im Hauptmenü zweimal drücken zum Beenden
 - Spiel pausiert automatisch, wenn die App in den Hintergrund geht (nicht während Werbung); Esc am PC pausiert ebenfalls

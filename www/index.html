@@ -19,7 +19,7 @@
 :root{
   --bg:#0d0f1a; --panel:#161a2b; --line:#262b45; --text:#e9ecff; --muted:#8a90b8;
   --gap:7px; --radius:12px; --W:min(92vw,560px,calc(100vh - 300px)); --W:min(92vw,560px,calc(100dvh - 300px));
-  --c0:#ff5d73; --c1:#ffc145; --c2:#3ddc97; --c3:#4cc9f0; --c4:#b57bff;
+  --c0:#ff5d73; --c1:#ffc145; --c2:#3ddc97; --c3:#4cc9f0; --c4:#b57bff; --c5:#ff8a3d;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bgimg,none),radial-gradient(1200px 800px at 50% -10%,var(--bg2,#1d2240) 0%,var(--bg) 60%);background-attachment:fixed;color:var(--text);
@@ -212,7 +212,7 @@ header h1{min-width:0;overflow:hidden;text-overflow:clip}
 .toast{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);color:var(--text);
   border-radius:12px;padding:10px 16px;font-size:14px;z-index:50;box-shadow:0 8px 30px #0008;animation:toastIn 4.5s ease forwards;max-width:90vw;text-align:center}
 @keyframes toastIn{0%{opacity:0;transform:translate(-50%,-10px)}8%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
-body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7}
+body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7;--c5:#0072b2}
 body.fast .tile{transition-duration:.08s}
 body.pad-on .pad{display:flex!important}
 body.pad-off .pad{display:none!important}
@@ -529,7 +529,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
           <p>Jede Farbe hat ein eigenes Symbol – so klappt es auch bei Farbschwäche (Farbschema in ⚙ umstellbar).</p>
           <div id="helpColors"></div>
           <div class="row"><span class="sw wild">✦</span><span><b>Prisma</b> – passt zu jeder Farbe und verbindet Gruppen (ab Level 2).</span></div>
-          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (nur Level-Modus) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
+          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos auf 7×7 und 8×8 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
         </section>
         <section id="hCombo"><h3>Combos</h3>
           <p>Verschwindet eine Gruppe, rutschen die übrigen Steine nach. Entsteht dabei eine neue Gruppe, ist das eine <b>Combo</b> – die Punkte werden mit der Combo-Stufe multipliziert.</p>
@@ -601,13 +601,13 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.21.0 · Build 36 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.22.0 · Build 37 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
 let N=6;
-const COLORS=['var(--c0)','var(--c1)','var(--c2)','var(--c3)','var(--c4)'];
-const SYMBOLS=['●','▲','■','◆','✚'];
+const COLORS=['var(--c0)','var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)'];
+const SYMBOLS=['●','▲','■','◆','✚','★'];
 const WILD=9, ROCK=8;
 const LEVELS=[{"colors":3,"spawn":2,"goals":[{"t":"score","n":300}],"moves":9,"stars":[1,3]},{"colors":3,"spawn":2,"goals":[{"t":"color","c":0,"n":9}],"moves":30,"stars":[12,16]},{"colors":4,"spawn":2,"goals":[{"t":"score","n":800}],"moves":17,"stars":[1,3]},{"colors":3,"spawn":2,"goals":[{"t":"chain","n":2}],"moves":21,"stars":[12,15]},{"colors":3,"spawn":2,"rocks":[[2,2],[2,3],[3,2],[3,3]],"goals":[{"t":"rocks"}],"moves":10,"stars":[1,4]},{"colors":4,"spawn":2,"goals":[{"t":"color","c":1,"n":8},{"t":"color","c":3,"n":8}],"moves":34,"stars":[5,9]},{"colors":4,"spawn":2,"goals":[{"t":"clear","n":40}],"moves":26,"stars":[2,3]},{"colors":4,"spawn":2,"rocks":[[0,0],[0,5],[5,0],[5,5],[2,2],[3,3]],"goals":[{"t":"rocks"}],"moves":13,"stars":[2,6]},{"colors":4,"spawn":2,"wild":0.06,"goals":[{"t":"score","n":2000}],"moves":34,"stars":[2,4]},{"colors":4,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"score","n":1000}],"moves":18,"stars":[1,3]},{"colors":4,"spawn":2,"rocks":[[1,1],[1,4],[4,1],[4,4],[2,2],[2,3],[3,2],[3,3]],"goals":[{"t":"rocks"},{"t":"score","n":1000}],"moves":25,"stars":[4,6]},{"colors":5,"spawn":2,"goals":[{"t":"score","n":1500}],"moves":29,"stars":[2,4]},{"colors":4,"spawn":3,"goals":[{"t":"color","c":2,"n":20}],"moves":43,"stars":[3,7]},{"colors":5,"spawn":2,"wild":0.05,"goals":[{"t":"clear","n":60}],"moves":39,"stars":[2,4]},{"colors":4,"spawn":2,"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"goals":[{"t":"rocks"}],"moves":15,"stars":[2,6]},{"colors":5,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"clear","n":45}],"moves":31,"stars":[2,4]},{"colors":4,"spawn":3,"goals":[{"t":"score","n":3500}],"moves":38,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":0,"n":10},{"t":"color","c":4,"n":10}],"moves":49,"stars":[3,9]},{"colors":5,"spawn":2,"wild":0.05,"rocks":[[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5]],"goals":[{"t":"rocks"}],"moves":23,"stars":[4,6]},{"colors":4,"spawn":3,"goals":[{"t":"clear","n":80}],"moves":33,"stars":[2,4]},{"colors":5,"spawn":3,"wild":0.04,"goals":[{"t":"score","n":3000}],"moves":36,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"chain","n":2}],"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"moves":30,"stars":[7,12]},{"colors":5,"spawn":3,"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"goals":[{"t":"rocks"},{"t":"score","n":1500}],"moves":21,"stars":[2,3]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":1,"n":13},{"t":"color","c":2,"n":13},{"t":"color","c":3,"n":13}],"moves":41,"stars":[2,4]},{"colors":5,"spawn":3,"wild":0.05,"goals":[{"t":"score","n":4000}],"moves":44,"stars":[2,4]},{"colors":5,"spawn":3,"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"goals":[{"t":"rocks"}],"moves":23,"stars":[5,6]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":90},{"t":"chain","n":2}],"moves":39,"stars":[2,4]},{"colors":5,"spawn":3,"wild":0.03,"goals":[{"t":"color","c":4,"n":20},{"t":"score","n":3000}],"moves":48,"stars":[2,7]},{"colors":5,"spawn":3,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"goals":[{"t":"rocks"},{"t":"chain","n":3}],"moves":58,"stars":[22,36]},{"colors":5,"spawn":3,"goals":[{"t":"score","n":4500}],"moves":47,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"clear","n":60},{"t":"score","n":1500}],"wild":0.042,"moves":39,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"color","c":2,"n":15}],"rocks":[[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5]],"moves":54,"stars":[2,11]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"chain","n":2}],"wild":0.025,"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"moves":20,"stars":[3,6]},{"colors":5,"spawn":2,"goals":[{"t":"clear","n":60},{"t":"chain","n":2}],"wild":0.042,"moves":38,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"color","c":0,"n":15}],"wild":0.025,"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"moves":54,"stars":[3,10]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":3,"n":16},{"t":"chain","n":2}],"wild":0.025,"moves":58,"stars":[3,7]},{"colors":5,"spawn":2,"goals":[{"t":"clear","n":65},{"t":"chain","n":2}],"moves":43,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"chain","n":2}],"wild":0.024,"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"moves":22,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"score","n":1650}],"wild":0.04,"moves":30,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":2,"n":16},{"t":"chain","n":2},{"t":"score","n":1700}],"wild":0.024,"moves":53,"stars":[2,8]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"color","c":0,"n":17}],"wild":0.024,"rocks":[[1,1],[1,4],[4,1],[4,4],[2,2],[2,3],[3,2],[3,3]],"moves":59,"stars":[3,7]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"score","n":1700}],"wild":0.024,"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"moves":32,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":0,"n":17},{"t":"score","n":1750}],"wild":0.039,"moves":58,"stars":[3,10]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":4,"n":17},{"t":"clear","n":70}],"wild":0.039,"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"chain","n":2},{"t":"score","n":1800}],"wild":0.039,"moves":22,"stars":[2,3]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"clear","n":70}],"rocks":[[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5]],"moves":44,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":3,"n":18},{"t":"chain","n":3}],"moves":48,"stars":[3,7]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":70},{"t":"chain","n":3}],"wild":0.038,"moves":48,"stars":[9,11]},{"colors":5,"spawn":2,"goals":[{"t":"chain","n":2},{"t":"score","n":1850}],"moves":32,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":2,"n":18},{"t":"clear","n":75},{"t":"chain","n":3}],"moves":64,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":75},{"t":"score","n":1900}],"wild":0.022,"moves":33,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":75},{"t":"score","n":1900}],"wild":0.037,"moves":32,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"chain","n":3}],"wild":0.022,"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"moves":43,"stars":[13,24]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"score","n":1950}],"rocks":[[0,2],[0,3],[5,2],[5,3],[2,0],[3,0],[2,5],[3,5]],"moves":33,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":2,"n":19},{"t":"chain","n":2}],"wild":0.036,"moves":41,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":20},{"t":"chain","n":2}],"wild":0.022,"moves":46,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"clear","n":80},{"t":"chain","n":2}],"wild":0.022,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"moves":34,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":4,"n":20},{"t":"clear","n":80},{"t":"score","n":2050}],"moves":45,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":4,"n":20},{"t":"score","n":2050}],"wild":0.021,"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"clear","n":80},{"t":"chain","n":2}],"wild":0.035,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"moves":34,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"clear","n":80},{"t":"score","n":2100}],"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"moves":36,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"clear","n":80}],"wild":0.035,"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"moves":49,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":85},{"t":"score","n":2150}],"wild":0.021,"moves":36,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":3,"n":17},{"t":"chain","n":2}],"wild":0.02,"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":4,"n":21},{"t":"chain","n":3}],"wild":0.02,"moves":48,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":22},{"t":"chain","n":2},{"t":"score","n":2200}],"wild":0.034,"moves":46,"stars":[2,4]},{"colors":5,"spawn":2,"goals":[{"t":"rocks"},{"t":"chain","n":2},{"t":"score","n":2200}],"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"moves":37,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":1,"n":22}],"wild":0.033,"rocks":[[0,0],[0,2],[0,4],[1,1],[1,3],[1,5],[4,0],[4,2],[4,4],[5,1],[5,3],[5,5]],"moves":52,"stars":[2,7]},{"colors":5,"spawn":2,"goals":[{"t":"color","c":1,"n":22},{"t":"score","n":2250}],"moves":63,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":1,"n":22},{"t":"chain","n":2},{"t":"score","n":2300}],"wild":0.02,"moves":46,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":3,"n":23},{"t":"clear","n":90}],"wild":0.032,"moves":51,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":23},{"t":"chain","n":2}],"wild":0.019,"moves":51,"stars":[2,6]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":4,"n":23},{"t":"score","n":2350}],"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"moves":55,"stars":[4,8]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":4,"n":23},{"t":"clear","n":90}],"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"moves":54,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":95},{"t":"chain","n":2}],"wild":0.019,"moves":39,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"clear","n":95}],"wild":0.031,"rocks":[[1,1],[1,2],[1,3],[1,4],[2,1],[2,4],[3,1],[3,4],[4,1],[4,2],[4,3],[4,4]],"moves":40,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":4,"n":24},{"t":"score","n":2400}],"moves":53,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":0,"n":24}],"wild":0.018,"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"moves":55,"stars":[2,8]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"score","n":2450}],"wild":0.03,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"moves":29,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":0,"n":24},{"t":"clear","n":95}],"rocks":[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[3,0],[3,1],[3,2],[3,3],[3,4],[3,5]],"moves":51,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":2,"n":25},{"t":"clear","n":95},{"t":"chain","n":2}],"wild":0.018,"moves":55,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":4,"n":25},{"t":"chain","n":2}],"wild":0.03,"moves":51,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":100},{"t":"score","n":2550}],"wild":0.029,"moves":41,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":1,"n":25},{"t":"color","c":2,"n":25},{"t":"clear","n":100}],"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"chain","n":2},{"t":"score","n":2600}],"wild":0.029,"moves":28,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":1,"n":26},{"t":"score","n":2600}],"moves":55,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":100},{"t":"chain","n":2}],"moves":41,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":105},{"t":"chain","n":3},{"t":"score","n":2650}],"wild":0.017,"moves":45,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"color","c":1,"n":26},{"t":"clear","n":105}],"wild":0.017,"rocks":[[1,1],[1,2],[1,3],[1,4],[2,1],[2,4],[3,1],[3,4],[4,1],[4,2],[4,3],[4,4]],"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"chain","n":3},{"t":"score","n":2700}],"wild":0.017,"rocks":[[0,1],[0,4],[1,2],[1,3],[2,0],[2,5],[3,0],[3,5],[4,2],[4,3],[5,1],[5,4]],"moves":29,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":27},{"t":"chain","n":3}],"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"chain","n":3},{"t":"score","n":2700}],"wild":0.016,"moves":30,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":27},{"t":"clear","n":105},{"t":"chain","n":3}],"wild":0.027,"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"score","n":2750}],"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"moves":30,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"rocks"},{"t":"chain","n":3}],"wild":0.016,"rocks":[[0,0],[0,1],[1,0],[0,5],[0,4],[1,5],[5,0],[5,1],[4,0],[5,5],[5,4],[4,5]],"moves":34,"stars":[6,16]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":28},{"t":"clear","n":110},{"t":"score","n":2800}],"wild":0.016,"moves":56,"stars":[2,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":110},{"t":"score","n":2800}],"moves":45,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"chain","n":2},{"t":"score","n":2850}],"wild":0.026,"moves":30,"stars":[2,4]},{"colors":5,"spawn":3,"goals":[{"t":"color","c":0,"n":28},{"t":"color","c":3,"n":28},{"t":"score","n":2850}],"wild":0.025,"moves":58,"stars":[3,5]},{"colors":5,"spawn":3,"goals":[{"t":"clear","n":110},{"t":"chain","n":3},{"t":"score","n":2900}],"wild":0.015,"moves":45,"stars":[2,4]}];
 const WORLDS=['Erste Schritte','Felsenfeld','Farbrausch','Kettenwerk','Steinbruch','Prismental','Sturmzone','Tiefenwerk','Meisterklasse','Finale'];
@@ -972,10 +972,13 @@ const sfx={
 };
 
 // ---------- Rules ----------
-const numColors=()=>mode==='level'?LV.colors:(N>=7||level>=3)?5:4;
+// Große Felder (7×7, 8×8) im Endlos-Modus: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)
+const BIG_ROCKS=30,BIG_COLOR6=40;
+const numColors=()=>mode==='level'?LV.colors:(N>=7&&level>=BIG_COLOR6)?6:(N>=7||level>=3)?5:4;
+const rockChance=()=>mode==='endless'&&N>=7&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
-function randColor(){const w=rc(),c=rc();return w<wildChance()?WILD:Math.floor(c*numColors())}
+function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}
 function fillQueue(){while(nextQ.length<3)nextQ.push(randColor())}
 const idx=(r,c)=>r*N+c;
 
@@ -1002,7 +1005,7 @@ function slide(dir){
 
 function findGroups(){
   const groups=[],taken=new Set();
-  for(let col=0;col<5;col++){
+  for(let col=0;col<COLORS.length;col++){
     const seen=new Set();
     for(let i=0;i<N*N;i++){
       const t=grid[i];
@@ -1077,7 +1080,8 @@ function render(){
   const nx=$('next');nx.innerHTML='';
   nextQ.slice(0,spawnCount()).forEach(c=>{
     const m=document.createElement('div');m.className='mini';
-    if(c===WILD){m.classList.add('w');m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0))';m.textContent='✦';m.style.color='#fff'}
+    if(c===WILD){m.classList.add('w');m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c0))';m.textContent='✦';m.style.color='#fff'}
+    else if(c===ROCK){m.style.background='repeating-linear-gradient(135deg,#5b6079 0 4px,#4a4e66 4px 8px)';m.textContent=''}
     else{m.style.background=COLORS[c];m.textContent=SYMBOLS[c]}
     nx.appendChild(m);
   });
@@ -1182,7 +1186,9 @@ async function resolve(dir,chain){
     sfx.pop(chain);if(chain<2)haptic('light');
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
-    if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)}
+    if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)
+      if(N>=7&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
+      if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
     await sleep(230);
     if(dir&&slide(dir)){render();await sleep(150)}
@@ -1484,8 +1490,9 @@ $('setTheme').onclick=()=>openStreak();
 $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
   saveSettings();Reminder.schedule()};
 // ---------- Hilfe ----------
-const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
+const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.22.0','Endlos auf 7×7 und 8×8: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)'],
  ['1.21.0','Belohnungen für Tages- und Wochenplätze (Extra-Leben, Abzeichen) – Ranglisten-Erfolge auf der Serien-Seite'],
  ['1.20.2','Verlauf: MONSTER (×5, lila) und ULTRA (×6+, weiß) eigene Farben statt wie MEGA; Endlos wieder „letzten 40 Züge“'],
  ['1.20.0','Combo-Leiste (Abgeräumt, Good, Super, Mega, Monster, Ultra), neue Stufe ULTRA ab ×6 mit ❤ Extra-Leben, Info-Leiste unten'],
@@ -1518,7 +1525,7 @@ let helpReturn=null;
 function openHelp(section,from){
   helpReturn=from||(!$('startOv').classList.contains('hidden')?'start':!$('settingsOv').classList.contains('hidden')?'settings':'play');
   if(helpReturn==='play'&&started&&!over){paused=true;started=false}
-  $('helpColors').innerHTML=COLOR_NAMES.map((n,i)=>`<div class="row"><span class="sw" style="background:${COLORS[i]}">${SYMBOLS[i]}</span><span><b>${n}</b> ${SYMBOLS[i]}${i===4?' – kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':''}</span></div>`).join('');
+  $('helpColors').innerHTML=COLOR_NAMES.map((n,i)=>`<div class="row"><span class="sw" style="background:${COLORS[i]}">${SYMBOLS[i]}</span><span><b>${n}</b> ${SYMBOLS[i]}${i===4?' – kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':i===5?' – nur Endlos auf 7×7 und 8×8, ab Level 40':''}</span></div>`).join('');
   $('helpChangelog').innerHTML='<ul>'+CHANGES.map(c=>`<li><b>v${c[0]}</b> – ${c[1]}</li>`).join('')+'</ul>';
   ['startOv','settingsOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('helpOv').classList.remove('hidden');
   const el=section&&$(section);$('helpOv').scrollTop=el?el.offsetTop-20:0;
@@ -1732,7 +1739,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)Cloud.sync(
 setTimeout(()=>Games.init(),1500);
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

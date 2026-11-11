@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.0 (Build 37) – 11.11.2026
+- **Endlos auf 7×7 und 8×8 – neue Steinarten:**
+  - ab **Level 30 Felsen** 🪨: kommen zufällig mit den neuen Steinen (6 %, je Level +0,5 %, höchstens 15 %), rutschen mit und zerbrechen, wenn direkt daneben eine Gruppe verschwindet
+  - ab **Level 40 eine 6. Farbe: Orange ★** (Farbschwäche-Schema: Blau)
+  - Ankündigung beim Erreichen der Stufe; Vorschau „Als nächstes“ zeigt Felsen; Hilfe ergänzt
+  - 5×5, 6×6, Tagesspiel und Etappen unverändert
 ## v1.21.0 (Build 36) – 11.11.2026
 - **Belohnungen für die Tagesspiel-Rangliste** (Google Play Games / Game Center):
   - Tag: Platz 1 👑 +1 ❤ · Top 3 🥈 · Top 10 ⭐ (Abzeichen)

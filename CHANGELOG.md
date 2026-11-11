@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.18.0 (Build 27) – 11.11.2026
+- **Level deutlich leichter** (alle 100 Level neu abgestimmt per Bot-Simulation, `tools/rebalance.py`):
+  - mehr Züge pro Level (insgesamt +27 %), kein Level hat weniger Züge als vorher
+  - Sterne leichter: für ★★★ und ★★ darf man deutlich mehr Züge verbrauchen (★★★ etwa 35–80 % mehr Spielraum)
+  - Bot schafft die Level jetzt zu 87–100 % je Welt (vorher 35–93 %)
+  - bereits erspielte Sterne bleiben erhalten
+- **Levelkarte:** Sterne groß und farbig (leere Sterne grau), Level mit ★★★ golden hervorgehoben
+- **Combo-Zähler pro Spiel:** Kachel „Combos“ unter dem Feld zählt jede Combo mit (springt bei jeder neuen Combo) und zeigt die beste; am Ende die Aufteilung, z. B. „5 Combos (1× SUPER, 4× GOOD)“
 ## v1.17.0 (Build 26) – 11.11.2026
 - **☁ Spielstand in der Cloud (geräteübergreifend):** Mit Anmeldung bei Google Play Games bzw. Game Center werden Level/Sterne, Endlos-Rekorde, Tagesspiele, Serie (inkl. Schutz und Abzeichen), Spielername und Einstellungen im Konto gespeichert
   - auf einem anderen Gerät mit demselben Konto wird alles automatisch übernommen – Zusammenführung statt Überschreiben, es zählt jeweils das Bessere

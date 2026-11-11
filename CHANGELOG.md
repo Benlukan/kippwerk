@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.16.1 (Build 25) – 11.11.2026
+- Startbildschirm: Schriftzug **KIPPWERK** steht jetzt über den Steinen (aufgeräumter)
+- Endlos ohne Rekord zeigt „Rekord –“ (Text passt auch auf schmale Handys)
 ## v1.16.0 (Build 24) – 11.11.2026
 - **Hauptmenü:** Das Logo mit den vier gekippten Steinen ist das Menü – jeder Stein ist ein Knopf (● Tagesspiel, ▲ Level, ■ Endlos, ◆ Hilfe)
   - Beschriftung dezent daneben: links Tagesspiel und Endlos, rechts Level und Hilfe (Titel + graue Infozeile: Datum/Status, Welt/Sterne/Fortschritt, Feldgröße/Rekord) – auch die Beschriftung ist antippbar

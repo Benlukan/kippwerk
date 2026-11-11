@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.13.0 (Build 21) – 11.11.2026
+- **„Tagesrätsel“ heißt jetzt „Tagesspiel“** und wird mit **Datum** statt Nummer angezeigt (Menü, Spielkopf, Ergebnis, Teilen: „KIPPWERK Tagesspiel 11.11.2026“, Serie, Erinnerung, Hilfe)
+- **Bestenliste Tagesspiel mit drei Listen:**
+  - **Heute** – das Tagesspiel des Tages
+  - **Woche** – alle Tagesspiele von Montag bis Sonntag zusammengezählt (lokal mit Wochensumme, Tagen x/7, bestem Tag)
+  - **All the best** – die besten Tagesspiele aller Zeiten
+  - jeweils auf diesem Gerät und weltweit
+- Online: neue Server-Funktion `kw_top_daily` – **`supabase/schema.sql` einmal erneut im SQL Editor ausführen** (Daten bleiben erhalten)
 ## v1.12.0 (Build 20) – 11.11.2026
 - **Neuer Startbildschirm** im KIPPWERK-Stil statt Regel-Text über dem Spielfeld:
   - animiertes Logo aus vier kippenden Steinen, Schriftzug KIPP**WERK**, schwebende Steine im Hintergrund (passt sich dem gewählten Design an)

@@ -6,10 +6,10 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 
 ## Modi
 - **Level** – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Ketten, Felsen), steigender Schwierigkeit, Boss-Leveln und 1–3 Sternen
-- **🔥 Serie** – jeden Tag das Tagesrätsel spielen: Flamme in der Kopfzeile, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend (App)
-- **Tagesrätsel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen
+- **🔥 Serie** – jeden Tag das Tagesspiel spielen: Flamme in der Kopfzeile, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend (App)
+- **Tagesspiel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen; Bestenliste Heute / Woche / All the best
 - **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe; Level steigern Farben, Joker und Tempo
-- **🌍 Online-Bestenliste** (freiwillig) – weltweit für Tagesrätsel und Endlos je Feldgröße, über Supabase: Einrichtung in [docs/supabase.md](docs/supabase.md)
+- **🌍 Online-Bestenliste** (freiwillig) – weltweit für Tagesspiel und Endlos je Feldgröße, über Supabase: Einrichtung in [docs/supabase.md](docs/supabase.md)
 
 ## Projektstruktur
 | Pfad | Inhalt |
@@ -57,4 +57,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.12.0 · Build 20** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.13.0 · Build 21** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

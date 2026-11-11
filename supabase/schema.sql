@@ -97,6 +97,44 @@ language sql stable security definer set search_path = '' as $$
   order by r.rank
 $$;
 
+-- Tagesspiel-Bestenlisten (ab v1.13.0):
+--   'day'  = Tagesspiel p_daily_no
+--   'week' = Summe aller Tagesspiele der Woche (Mo–So) von p_daily_no, je Spieler
+--   'all'  = bestes einzelnes Tagesspiel je Spieler, aller Zeiten ("All the best")
+create or replace function public.kw_top_daily(
+  p_period text, p_daily_no integer, p_player uuid default null, p_limit integer default 10
+) returns table (rank bigint, name text, tag text, score bigint, days integer, chain integer, day date, is_me boolean)
+language sql stable security definer set search_path = '' as $$
+  with base as (
+    select s.player_id, s.name, s.score, s.chain, s.created_at,
+           date '2026-10-30' + (s.daily_no - 1) as d
+      from public.kw_scores s
+     where s.mode = 'daily'
+  ), sel as (
+    select * from base b
+     where case p_period
+             when 'day'  then b.d = date '2026-10-30' + (p_daily_no - 1)
+             when 'week' then date_trunc('week', b.d) = date_trunc('week', date '2026-10-30' + (p_daily_no - 1))
+             else true end
+  ), agg as (
+    select player_id, max(name) as name,
+           case when p_period = 'week' then sum(score) else max(score)::bigint end as score,
+           count(*)::integer as days,
+           (array_agg(chain order by score desc, created_at))[1] as chain,
+           (array_agg(d order by score desc, created_at))[1] as day,
+           min(created_at) as first_at
+      from sel group by player_id
+  ), r as (
+    select rank() over (order by a.score desc, a.first_at) as rank,
+           a.name, upper(left(replace(a.player_id::text, '-', ''), 4)) as tag,
+           a.score, a.days, a.chain, a.day,
+           (p_player is not null and a.player_id = p_player) as is_me
+      from agg a
+  )
+  select * from r where r.rank <= least(greatest(coalesce(p_limit, 10), 1), 50) or r.is_me
+  order by r.rank
+$$;
+
 -- Namen ändern (alle eigenen Einträge)
 create or replace function public.kw_rename(p_player uuid, p_name text)
 returns void language sql security definer set search_path = '' as $$
@@ -116,9 +154,11 @@ end $$;
 -- Nur diese Funktionen sind für die App freigegeben
 revoke execute on function public.kw_submit(uuid, text, text, integer, integer, integer, integer, integer) from public;
 revoke execute on function public.kw_top(text, integer, integer, uuid, integer) from public;
+revoke execute on function public.kw_top_daily(text, integer, uuid, integer) from public;
 revoke execute on function public.kw_rename(uuid, text) from public;
 revoke execute on function public.kw_delete(uuid) from public;
 grant execute on function public.kw_submit(uuid, text, text, integer, integer, integer, integer, integer) to anon, authenticated;
 grant execute on function public.kw_top(text, integer, integer, uuid, integer) to anon, authenticated;
+grant execute on function public.kw_top_daily(text, integer, uuid, integer) to anon, authenticated;
 grant execute on function public.kw_rename(uuid, text) to anon, authenticated;
 grant execute on function public.kw_delete(uuid) to anon, authenticated;

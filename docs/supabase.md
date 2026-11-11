@@ -9,6 +9,8 @@ Ab v1.10.0 hat KIPPWERK eine freiwillige, weltweite Bestenliste. Solange in `www
 4. Plan: **Free** reicht. Free-Projekte werden nach 7 Tagen ohne Aufrufe pausiert – dagegen pingt der Workflow `.github/workflows/supabase-keepalive.yml` die Datenbank automatisch alle 3 Tage an (siehe Abschnitt 6).
 
 ## 2. Datenbank einrichten
+
+> **Update auf v1.13.0:** `supabase/schema.sql` einmal erneut komplett im SQL Editor ausführen (fügt `kw_top_daily` hinzu, Daten bleiben). Bis dahin zeigt „Heute“ weiter die alte Liste, „Woche“ und „All the best“ melden keine Verbindung.
 1. Im Projekt links **SQL Editor** → **New query**.
 2. Den kompletten Inhalt von [`supabase/schema.sql`](../supabase/schema.sql) einfügen → **Run**.
 3. Erwartet: „Success. No rows returned“. Unter **Table Editor** gibt es jetzt `kw_scores`.
@@ -16,9 +18,10 @@ Ab v1.10.0 hat KIPPWERK eine freiwillige, weltweite Bestenliste. Solange in `www
 
 Was das Schema macht:
 - Tabelle `kw_scores` mit **RLS an und ohne Policies** → die App kann die Tabelle weder direkt lesen noch schreiben.
-- Die App nutzt nur vier Funktionen:
-  - `kw_submit` – Ergebnis eintragen (Tagesrätsel: nur das erste zählt, nur gestern/heute/morgen; Endlos: nur Bestwert je Feldgröße; Plausibilitätsgrenzen)
+- Die App nutzt nur fünf Funktionen:
+  - `kw_submit` – Ergebnis eintragen (Tagesspiel: nur das erste zählt, nur gestern/heute/morgen; Endlos: nur Bestwert je Feldgröße; Plausibilitätsgrenzen)
   - `kw_top` – Top 10 + eigene Platzierung; öffentlich nur Name, Kurzkennung `#1A2B`, Punkte
+  - `kw_top_daily` – Tagesspiel-Listen *Heute*, *Woche* (Summe Mo–So je Spieler) und *All the best* (bestes Einzelergebnis je Spieler) – ab v1.13.0
   - `kw_rename` – Namen ändern
   - `kw_delete` – alle eigenen Einträge löschen (DSGVO)
 

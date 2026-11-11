@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.21.0 (Build 36) – 11.11.2026
+- **Belohnungen für die Tagesspiel-Rangliste** (Google Play Games / Game Center):
+  - Tag: Platz 1 👑 +1 ❤ · Top 3 🥈 · Top 10 ⭐ (Abzeichen)
+  - Woche: Platz 1 🏆 +3 ❤ · Top 3 🥇 +1 ❤ · Top 10 🎖
+  - Gewertet wird der zuletzt gesehene Platz (die App merkt ihn sich bei jedem Abruf der Rangliste, die Woche wird im Hintergrund mitgeladen); vergeben beim ersten Start nach Ablauf von Tag bzw. Woche, jeweils nur einmal; Extra-Leben bis max. 9
+  - Ranglisten-Erfolge mit Anzahl auf der 🔥 Serien-Seite; Abzeichen im Cloud-Spielstand
+  - Hinweis: Plattform und App rechnen Tag/Woche leicht unterschiedlich (App: deutscher Kalendertag, Woche Mo–So)
 ## v1.20.2 (Build 35) – 11.11.2026
 - Verlauf (Endlos): wieder die **letzten 40 Züge** in zwei Zeilen, Überschrift „Verlauf · letzten 40 Züge“
 - Verlauf, Legende, Hilfe und geteiltes Ergebnis: **MONSTER ×5** (lila 🟪) und **ULTRA ×6+** (weiß ⬜) haben eigene Farben – vorher liefen sie als ×4 MEGA (rot) mit

@@ -7,6 +7,9 @@ Ab v1.15.0 nutzt KIPPWERK statt eines eigenen Servers die Ranglisten von **Googl
 - Die Plattformen behalten pro Spieler automatisch den **Bestwert** und zeigen von sich aus **Heute / Woche / Gesamt**.
   Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (Tageswechsel ca. 9:00 Uhr deutscher Zeit). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
 
+## Top 5 im Hauptmenü (ab v1.19.0)
+Lädt die besten 5 der Rangliste „Tagesspiel“ (Zeitraum Heute / Woche / Alle) plus die eigene Platzierung über `loadTopScores` – eine Erweiterung des Plugins per `patches/@idleflowgames+capacitor-play-games+0.3.3.patch` (wird bei `npm install` automatisch angewendet). Bei einem Plugin-Update den Patch prüfen.
+
 ## Spielstand in der Cloud (ab v1.17.0)
 Mit `saves:true` in `GAMES_CONFIG` speichert KIPPWERK den Spielstand als „Gespeichertes Spiel“ (`kippwerk-spielstand`) im Play-Games- bzw. Game-Center-Konto:
 Level/Sterne, Endlos-Rekorde, Tagesspiele (Ergebnisse der letzten 60 Tage), Serie inkl. Schutz und Abzeichen, Spielername, Einstellungen (Ton, Vibration, Tempo, Farben, Symbole, Feldgröße, Design).

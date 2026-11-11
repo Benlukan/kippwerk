@@ -250,7 +250,20 @@ body.pad-off .pad{display:none!important}
 .rs-play{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;font-size:15px;color:#1a1030;
   background:linear-gradient(160deg,var(--c4),color-mix(in srgb,var(--c4) 70%,#000));box-shadow:inset 0 -4px 0 #0003,inset 0 2px 0 #fff5}
 .rs-txt{display:flex;flex-direction:column;gap:2px}.rs-txt b{font-size:16px}.rs-txt small{font-size:12px;color:var(--muted)}
-.hmenu{margin-top:clamp(26px,5.5vh,52px);display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr 1fr;align-items:center;column-gap:clamp(10px,4vw,22px);width:min(100%,460px)}
+.top5{margin-top:clamp(18px,3.5vh,32px);width:min(100%,330px);background:color-mix(in srgb,var(--panel) 70%,transparent);border:1px solid var(--line);
+  border-radius:14px;padding:10px 14px 8px;color:var(--text);font-family:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.t5-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.t5seg{padding:2px}.t5seg button{font-size:11px;padding:4px 8px;letter-spacing:0;text-transform:none}
+.t5-more{display:block;margin:4px 0 0 auto;background:none;border:0;color:var(--c3);font:500 12px inherit;font-family:inherit;cursor:pointer;padding:2px 0}
+#top5List{cursor:pointer;min-height:20px}
+.t5-row{display:grid;grid-template-columns:26px 1fr auto;align-items:center;font-size:13.5px;line-height:1.75}
+.t5-row .r{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.t5-row.me{color:var(--c3)}
+.t5-row .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t5-row .m{font-size:12px;color:var(--muted)}
+.t5-me{border-top:1px dashed var(--line);margin-top:4px;padding-top:2px}
+.t5-msg{font-size:12.5px;color:var(--muted);padding:2px 0 4px}
+.hmenu{margin-top:clamp(18px,3.5vh,34px);display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr 1fr;align-items:center;column-gap:clamp(10px,4vw,22px);width:min(100%,460px)}
 .hlogo{grid-column:2;grid-row:1/3;display:grid;grid-template-columns:repeat(2,clamp(58px,min(19vw,9.5vh),84px));gap:clamp(8px,1.2vh,11px);
   transform:rotate(-12deg);animation:kipp 7s cubic-bezier(.5,0,.3,1) infinite}
 @keyframes kipp{0%,64%,100%{transform:rotate(-12deg)}72%{transform:rotate(-22deg)}80%{transform:rotate(-5deg)}88%{transform:rotate(-12deg)}}
@@ -263,7 +276,7 @@ body.pad-off .pad{display:none!important}
 @keyframes hglow{50%{box-shadow:inset 0 -6px 0 #0003,inset 0 2px 0 #fff5,0 0 38px color-mix(in srgb,var(--c) 85%,transparent)}}
 .hl{display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0;-webkit-tap-highlight-color:transparent}
 .hl.l{grid-column:1;text-align:right;align-items:flex-end}.hl.r{grid-column:3;text-align:left;align-items:flex-start}
-.hl b{font-size:clamp(14px,4.2vw,17px);font-weight:700}
+.hl b{font-size:clamp(14px,4.2vw,17px);font-weight:700;white-space:nowrap}
 .hl small{font-size:clamp(11px,3.1vw,12.5px);color:var(--muted);line-height:1.3;white-space:nowrap}
 .hl:hover b{color:var(--c,var(--text))}
 .hbar{display:block;height:3px;width:70px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden}
@@ -370,6 +383,11 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <div class="hero-word">KIPP<span>WERK</span></div>
         <div class="hero-tag" id="heroTag">Kippen. Verbinden. Kettenreaktion.</div>
       </div>
+      <div class="top5" id="homeTop5" style="display:none">
+        <div class="t5-head"><span>🏆 Tagesspiel · Top 5</span><div class="seg t5seg" id="top5Seg"><button data-p="day">Heute</button><button data-p="week">Woche</button><button data-p="all">Alle</button></div></div>
+        <div id="top5List"></div>
+        <button class="t5-more" id="top5More">Ganze Rangliste ›</button>
+      </div>
       <div class="hmenu" id="homeTiles">
         <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></div>
         <div class="hlogo">
@@ -378,7 +396,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
           <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
         </div>
-        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars"></small><span class="hbar"><i id="levelBar"></i></span></div>
         <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></div>
         <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b><small>So geht’s</small></div>
       </div>
@@ -510,6 +528,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
           <p><b>🌍 Weltweit (App):</b> Unter der Bestenliste öffnet „Weltweit“ die Rangliste von <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) – mit Heute, Woche und Gesamt. Dafür meldest du dich einmal mit deinem Google- bzw. Apple-Konto an (in ⚙ oder beim ersten Öffnen). Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden dann automatisch eingetragen. Android und iPhone haben getrennte Ranglisten.</p>
+          <p><b>🏆 Top 5 im Menü (App):</b> Bist du bei Google Play Games bzw. Game Center angemeldet, zeigt das Hauptmenü die besten 5 im Tagesspiel – umschaltbar zwischen Heute, Woche und Alle. Bist du nicht unter den ersten 5, steht deine Platzierung darunter. Antippen öffnet die ganze Rangliste. (Bei Google beginnt „Heute“ gegen 9 Uhr deutscher Zeit; „Woche“ zeigt das beste Tagesspiel der Woche.)</p>
           <p><b>☁ Spielstand auf mehreren Geräten:</b> Bist du bei Google Play Games bzw. Game Center angemeldet, speichert KIPPWERK Level, Sterne, Rekorde, Tagesspiele, Serie, Name und Einstellungen in deinem Konto. Auf einem anderen Gerät mit demselben Konto (Android ↔ Android, iPhone ↔ iPad) wird alles automatisch übernommen – dabei zählt immer das Bessere, nichts geht verloren. Auf dem iPhone muss dafür iCloud eingeschaltet sein.</p>
           <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesspiel).</p>
         </section>
@@ -549,7 +568,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.18.2 · Build 29 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.19.0 · Build 30 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -720,7 +739,8 @@ const Games=(()=>{
     if(signedIn){flush();afterSignIn()}onChange();return signedIn}
   return{available,label,plugin:P,savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
-    submit(key,score){if(!available||!(score>0)||!cfg[key])return;const o=pend();o[key]=Math.max(o[key]||0,Math.round(score));savePend(o);flush()},
+    submit(key,score){if(!available||!(score>0)||!cfg[key])return;const o=pend();o[key]=Math.max(o[key]||0,Math.round(score));savePend(o);flush().then(()=>{if(key==='daily')try{Top5.clear()}catch(e){}})},
+    async top(key,span,n){if(!available||!signedIn||!cfg[key])throw new Error('n/a');return await P.loadTopScores({leaderboardId:cfg[key],timeSpan:span,maxResults:n||5})},
     async show(key){if(!available)return;if(!(await signIn()))return false;
       try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
 })();
@@ -1327,7 +1347,7 @@ function showMenu(){
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
   $('levelTitle').textContent=all?'Etappen ✓':'Etappe '+stg(un);
-  $('levelSub').textContent=`${WORLDS[w-1]||'Welt '+w} · ⭐ ${totalStars()}`;
+  $('levelSub').textContent=WORLDS[w-1]||'Welt '+w;$('levelStars').textContent='⭐ '+totalStars();
   $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
   const sz=+settings.size||6,bs=bestFor(sz);
@@ -1343,6 +1363,7 @@ function showMenu(){
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
   ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
   try{Cloud.onMenu()}catch(e){}
+  try{Top5.refresh()}catch(e){}
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
@@ -1388,7 +1409,7 @@ $('privacyBtn2').onclick=()=>Ads.privacy();
 function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';
   $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?('✓ angemeldet'+(Games.savesOn?' · ☁ '+(Cloud.last||'…'):'')):'Anmelden'}
 $('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
-Games.onChange=()=>{try{renderGamesRow();renderGamesBtn()}catch(e){}};
+Games.onChange=()=>{try{renderGamesRow();renderGamesBtn();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
 $('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
@@ -1413,6 +1434,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.19.0','Hauptmenü: Top 5 im Tagesspiel (Heute / Woche / Alle) aus Google Play Games / Game Center'],
  ['1.18.2','Vollbild: Uhrzeit- und Navigationsleiste ausgeblendet, erscheinen beim Wischen vom Rand'],
  ['1.18.1','Level heißen jetzt Etappen: „Etappe 2-3“ = Welt 2, dritte Etappe'],
  ['1.18.0','Level deutlich leichter (mehr Züge, Sterne leichter), große Sterne in der Levelkarte, Combo-Zähler pro Spiel'],
@@ -1527,6 +1549,33 @@ setTimeout(()=>Reminder.schedule(),2000);
 try{const A=AppPlugin();if(A)A.addListener('backButton',()=>handleBack())}catch(e){}
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!over&&!adBusy){const go=()=>{if(busy)return setTimeout(go,200);pauseToMenu()};go()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
+// ---------- Top 5 des Tagesspiels im Hauptmenü (Play Games / Game Center) ----------
+const Top5=(()=>{
+  const SK='kippwerk_top5span',cache={};let span='day';try{span=localStorage.getItem(SK)||'day'}catch(e){}
+  const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
+  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString('de-DE')}</span></div>`};
+  function draw(d){const L=$('top5List');
+    if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
+    if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}
+    const myId=d.me&&d.me.playerId,ent=d.entries||[];
+    if(!ent.length){L.innerHTML=`<div class="t5-msg">${EMPTY[span]}</div>`;return}
+    let h=ent.map(x=>row(x,myId&&x.playerId===myId)).join('');
+    if(d.me&&d.me.rank>0&&!ent.some(x=>x.playerId===myId))h+=row({...d.me,name:playerName||'Du'},'extra');
+    L.innerHTML=h}
+  async function refresh(force){
+    const box=$('homeTop5');if(!Games.available){box.style.display='none';return}
+    box.style.display='';$('top5Seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===span));
+    if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
+    const c=cache[span];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
+    if(!c)draw(null);else draw(c.d);
+    const want=span;let d;try{d=await Games.top('daily',want,5)}catch(e){d={err:1}}
+    if(!d.err)cache[want]={t:Date.now(),d};if(want===span)draw(d)}
+  $('top5Seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();span=b.dataset.p;try{localStorage.setItem(SK,span)}catch(x){}refresh()};
+  const open=async()=>{if(!Games.signedIn){if(await Games.signIn())refresh(true);return}Games.show('daily')};
+  $('top5List').onclick=open;$('top5More').onclick=open;
+  return{refresh,get span(){return span},clear(){for(const k in cache)delete cache[k]}};
+})();
 // ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
 // Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
 const Cloud=(()=>{

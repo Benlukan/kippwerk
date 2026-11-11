@@ -17,3 +17,135 @@ index 0fcbe5c..7533781 100644
  
  android {
      namespace = "com.idleflowgames.playgames"
+diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
+index 0e973d6..0fa110d 100644
+--- a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
++++ b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
+@@ -1,7 +1,9 @@
+ package com.idleflowgames.playgames
+ 
++import com.getcapacitor.JSArray
+ import com.getcapacitor.PluginCall
+ import com.google.android.gms.games.PlayGames
++import com.google.android.gms.games.leaderboard.LeaderboardVariant
+ 
+ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
+     private val client get() = PlayGames.getLeaderboardsClient(activity)
+@@ -20,4 +22,44 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
+     fun showAll(call: PluginCall) {
+         plugin.launchUiIntent(client.allLeaderboardsIntent, call, "onLeaderboardUiResult")
+     }
++
++    // KIPPWERK-Patch: Top-Liste + eigene Platzierung laden (für die Anzeige im Spiel)
++    fun loadTop(call: PluginCall) {
++        val id = call.getString("leaderboardId") ?: return call.reject("missing leaderboardId")
++        val span = when (call.getString("timeSpan")) {
++            "day" -> LeaderboardVariant.TIME_SPAN_DAILY
++            "week" -> LeaderboardVariant.TIME_SPAN_WEEKLY
++            else -> LeaderboardVariant.TIME_SPAN_ALL_TIME
++        }
++        val count = (call.getInt("maxResults") ?: 5).coerceIn(1, 25)
++        client.loadTopScores(id, span, LeaderboardVariant.COLLECTION_PUBLIC, count, true)
++            .settle(call, "loadTopScores failed") { annotated ->
++                val entries = JSArray()
++                val data = annotated.get()
++                try {
++                    data?.scores?.forEach { s ->
++                        entries.put(jsObject {
++                            put("rank", s.rank)
++                            put("name", s.scoreHolderDisplayName ?: "")
++                            put("score", s.rawScore)
++                            put("playerId", s.scoreHolder?.playerId ?: "")
++                        })
++                    }
++                } finally {
++                    data?.release()
++                }
++                client.loadCurrentPlayerLeaderboardScore(id, span, LeaderboardVariant.COLLECTION_PUBLIC)
++                    .addOnCompleteListener { t ->
++                        val me = if (t.isSuccessful) t.result?.get() else null
++                        call.resolve(jsObject {
++                            put("entries", entries)
++                            if (me != null) put("me", jsObject {
++                                put("rank", me.rank)
++                                put("score", me.rawScore)
++                                put("playerId", me.scoreHolder?.playerId ?: "")
++                            })
++                        })
++                    }
++            }
++    }
+ }
+diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/PlayGamesPlugin.kt b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/PlayGamesPlugin.kt
+index 682bd5a..3979a3a 100644
+--- a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/PlayGamesPlugin.kt
++++ b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/PlayGamesPlugin.kt
+@@ -60,6 +60,7 @@ class PlayGamesPlugin : Plugin() {
+     @PluginMethod fun submitScore(call: PluginCall) = leaderboards.submit(call)
+     @PluginMethod fun showLeaderboard(call: PluginCall) = leaderboards.show(call)
+     @PluginMethod fun showAllLeaderboards(call: PluginCall) = leaderboards.showAll(call)
++    @PluginMethod fun loadTopScores(call: PluginCall) = leaderboards.loadTop(call)   // KIPPWERK-Patch
+ 
+     @PluginMethod fun loadSnapshot(call: PluginCall) = savedGames.load(call)
+     @PluginMethod fun saveSnapshot(call: PluginCall) = savedGames.save(call)
+diff --git a/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/LeaderboardsModule.swift b/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/LeaderboardsModule.swift
+index 83b9ec1..76df550 100644
+--- a/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/LeaderboardsModule.swift
++++ b/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/LeaderboardsModule.swift
+@@ -67,6 +67,36 @@ internal class LeaderboardsModule: PgsModule, GKGameCenterControllerDelegate {
+         }
+     }
+ 
++    // KIPPWERK-Patch: Top-Liste + eigene Platzierung laden (für die Anzeige im Spiel)
++    func loadTop(_ call: CAPPluginCall) {
++        guard let leaderboardID = call.getString("leaderboardId") else {
++            call.reject("missing leaderboardId"); return
++        }
++        let count = Swift.min(25, Swift.max(1, call.getInt("maxResults") ?? 5))
++        let scope: GKLeaderboard.TimeScope
++        switch call.getString("timeSpan") {
++        case "day": scope = .today
++        case "week": scope = .week
++        default: scope = .allTime
++        }
++        GKLeaderboard.loadLeaderboards(IDs: [leaderboardID]) { boards, error in
++            if let error = error { call.reject(error.localizedDescription, nil, error); return }
++            guard let board = boards?.first else { call.reject("leaderboard not found"); return }
++            board.loadEntries(for: .global, timeScope: scope, range: NSRange(location: 1, length: count)) { local, entries, _, err in
++                if let err = err { call.reject(err.localizedDescription, nil, err); return }
++                var list: [[String: Any]] = []
++                for e in entries ?? [] {
++                    list.append(["rank": e.rank, "name": e.player.displayName, "score": e.score, "playerId": e.player.gamePlayerID])
++                }
++                var result: [String: Any] = ["entries": list]
++                if let me = local {
++                    result["me"] = ["rank": me.rank, "score": me.score, "playerId": me.player.gamePlayerID]
++                }
++                call.resolve(result)
++            }
++        }
++    }
++
+     // MARK: - GKGameCenterControllerDelegate
+ 
+     func gameCenterViewControllerDidFinish(_ controller: GKGameCenterViewController) {
+diff --git a/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/Plugin.swift b/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/Plugin.swift
+index 8d5bafc..cdb2322 100644
+--- a/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/Plugin.swift
++++ b/node_modules/@idleflowgames/capacitor-play-games/ios/Plugin/Plugin.swift
+@@ -23,6 +23,7 @@ public class PlayGamesPlugin: CAPPlugin, CAPBridgedPlugin {
+         CAPPluginMethod(name: "submitScore", returnType: CAPPluginReturnPromise),
+         CAPPluginMethod(name: "showLeaderboard", returnType: CAPPluginReturnPromise),
+         CAPPluginMethod(name: "showAllLeaderboards", returnType: CAPPluginReturnPromise),
++        CAPPluginMethod(name: "loadTopScores", returnType: CAPPluginReturnPromise), // KIPPWERK-Patch
+         CAPPluginMethod(name: "loadSnapshot", returnType: CAPPluginReturnPromise),
+         CAPPluginMethod(name: "saveSnapshot", returnType: CAPPluginReturnPromise),
+         CAPPluginMethod(name: "listSnapshots", returnType: CAPPluginReturnPromise),
+@@ -66,6 +67,7 @@ public class PlayGamesPlugin: CAPPlugin, CAPBridgedPlugin {
+     @objc func submitScore(_ call: CAPPluginCall) { leaderboardsModule.submit(call) }
+     @objc func showLeaderboard(_ call: CAPPluginCall) { leaderboardsModule.show(call) }
+     @objc func showAllLeaderboards(_ call: CAPPluginCall) { leaderboardsModule.showAll(call) }
++    @objc func loadTopScores(_ call: CAPPluginCall) { leaderboardsModule.loadTop(call) } // KIPPWERK-Patch
+ 
+     @objc func loadSnapshot(_ call: CAPPluginCall) { savedGamesModule.load(call) }
+     @objc func saveSnapshot(_ call: CAPPluginCall) { savedGamesModule.save(call) }

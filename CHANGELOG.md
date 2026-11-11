@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.19.0 (Build 30) – 11.11.2026
+- **Top 5 im Hauptmenü:** zwischen Schriftzug und Steinen die besten 5 im Tagesspiel aus Google Play Games / Game Center
+  - Umschalter **Heute / Woche / Alle** (Auswahl wird gemerkt), eigene Zeile blau; außerhalb der Top 5 steht die eigene Platzierung darunter
+  - Antippen bzw. „Ganze Rangliste ›“ öffnet die Plattform-Rangliste; nicht angemeldet: Hinweis zum Anmelden
+  - nur in der App (Web blendet den Kasten aus), noch ausgeschaltet bis zur Play-Games-Einrichtung
+  - Plugin um `loadTopScores` erweitert (Android: Play Games v2 `loadTopScores` + eigene Platzierung; iOS: `GKLeaderboard.loadEntries`) – als Patch in `patches/`
+- Hauptmenü: Weltname und Sterne der Etappe auf zwei Zeilen (wurden auf manchen Handys abgeschnitten)
 ## v1.18.2 (Build 29) – 11.11.2026
 - **Vollbild auf Android:** Uhrzeit-/Statusleiste und Navigationsleiste sind ausgeblendet. Wischen vom oberen bzw. unteren Rand blendet sie kurz ein, danach verschwinden sie wieder (auch nach Werbung, Teilen oder App-Wechsel)
 - Keine grauen Flächen mehr hinter den Leisten: Fensterhintergrund in Spielfarbe, Inhalt reicht bis neben die Kamera-Aussparung

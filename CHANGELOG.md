@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.16.0 (Build 24) – 11.11.2026
+- **Hauptmenü:** Das Logo mit den vier gekippten Steinen ist das Menü – jeder Stein ist ein Knopf (● Tagesspiel, ▲ Level, ■ Endlos, ◆ Hilfe)
+  - Beschriftung dezent daneben: links Tagesspiel und Endlos, rechts Level und Hilfe (Titel + graue Infozeile: Datum/Status, Welt/Sterne/Fortschritt, Feldgröße/Rekord) – auch die Beschriftung ist antippbar
+  - Tagesspiel-Stein leuchtet, solange das heutige Spiel offen ist; Logo kippt ab und zu
+  - darunter Schriftzug KIPPWERK und Endlos-Feldgröße; Pause: „Weiterspielen“ oben
 ## v1.15.0 (Build 23) – 11.11.2026
 - **Weltweite Ranglisten jetzt über Google Play Games (Android) und Game Center (iOS)** statt eigenem Supabase-Server
   - Ranglisten: Endlos 5×5 / 6×6 / 7×7 / 8×8 und Tagesspiel – mit Heute / Woche / Gesamt der Plattform

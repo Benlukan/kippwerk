@@ -238,46 +238,46 @@ body.pad-off .pad{display:none!important}
 .ib-legend span{display:inline-flex;align-items:center;gap:4px}
 .ib-legend i{display:inline-block;width:10px;height:10px;border-radius:3px}
 .ib-box.tap{cursor:pointer}
-/* ---------- Startbildschirm: die vier Logo-Steine sind die Knöpfe ---------- */
-.overlay.home{background:var(--bgimg,none),radial-gradient(900px 700px at 50% 30%,var(--bg2,#1d2240) 0%,var(--bg) 70%);backdrop-filter:none;
-  justify-content:flex-start;gap:clamp(12px,2.4vh,24px);padding-top:max(14px,env(safe-area-inset-top));overflow-x:hidden}
+/* ---------- Startbildschirm: Logo-Steine sind die Knöpfe, Beschriftung links/rechts ---------- */
+.overlay.home{background:var(--bgimg,none),radial-gradient(900px 700px at 50% 35%,var(--bg2,#1d2240) 0%,var(--bg) 70%);backdrop-filter:none;
+  justify-content:flex-start;gap:0;padding-top:max(14px,env(safe-area-inset-top));overflow-x:hidden}
 .home-top{width:min(100%,460px);display:flex;justify-content:space-between;align-items:center}
 .home-icons{display:flex;gap:8px}
-.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto}
-.hero-word{font-size:clamp(36px,min(12vw,6.5vh),58px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
+.resume{margin-top:clamp(14px,3vh,28px);display:flex;align-items:center;gap:12px;width:min(100%,360px);text-align:left;cursor:pointer;font-family:inherit;color:var(--text);
+  background:color-mix(in srgb,var(--c4) 14%,var(--panel));border:1px solid color-mix(in srgb,var(--c4) 55%,var(--line));border-radius:16px;padding:10px 14px}
+.rs-play{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;font-size:15px;color:#1a1030;
+  background:linear-gradient(160deg,var(--c4),color-mix(in srgb,var(--c4) 70%,#000));box-shadow:inset 0 -4px 0 #0003,inset 0 2px 0 #fff5}
+.rs-txt{display:flex;flex-direction:column;gap:2px}.rs-txt b{font-size:16px}.rs-txt small{font-size:12px;color:var(--muted)}
+.hmenu{margin-top:auto;display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr 1fr;align-items:center;column-gap:clamp(10px,4vw,22px);width:min(100%,460px)}
+.hlogo{grid-column:2;grid-row:1/3;display:grid;grid-template-columns:repeat(2,clamp(58px,min(19vw,9.5vh),84px));gap:clamp(8px,1.2vh,11px);
+  transform:rotate(-12deg);animation:kipp 7s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes kipp{0%,64%,100%{transform:rotate(-12deg)}72%{transform:rotate(-22deg)}80%{transform:rotate(-5deg)}88%{transform:rotate(-12deg)}}
+.hst{aspect-ratio:1;border:0;border-radius:24%;cursor:pointer;display:grid;place-items:center;font-size:clamp(15px,2.4vh,20px);color:#0006;padding:0;font-family:inherit;
+  background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));
+  box-shadow:inset 0 -6px 0 #0003,inset 0 2px 0 #fff5,0 0 22px color-mix(in srgb,var(--c) 40%,transparent);transition:transform .1s,filter .15s;-webkit-tap-highlight-color:transparent}
+.hst:hover{filter:brightness(1.08)}
+.hst:active{transform:translateY(3px) scale(.96)}
+.hst.open{animation:hglow 2s ease-in-out infinite}
+@keyframes hglow{50%{box-shadow:inset 0 -6px 0 #0003,inset 0 2px 0 #fff5,0 0 38px color-mix(in srgb,var(--c) 85%,transparent)}}
+.hl{display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0;-webkit-tap-highlight-color:transparent}
+.hl.l{grid-column:1;text-align:right;align-items:flex-end}.hl.r{grid-column:3;text-align:left;align-items:flex-start}
+.hl b{font-size:clamp(14px,4.2vw,17px);font-weight:700}
+.hl small{font-size:clamp(11px,3.1vw,12.5px);color:var(--muted);line-height:1.3;white-space:nowrap}
+.hl:hover b{color:var(--c,var(--text))}
+.hbar{display:block;height:3px;width:70px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden}
+.hbar i{display:block;height:100%;background:var(--c2);border-radius:2px}
+.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:clamp(22px,5vh,46px)}
+.hero-word{font-size:clamp(34px,min(11vw,6vh),54px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
 .hero-word span{color:var(--c3)}
-.hero-tag{color:var(--muted);font-size:clamp(13px,1.8vh,16px);letter-spacing:.04em}
-.htiles{width:min(78%,320px,40vh);display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,1.6vh,13px);
-  transform:rotate(-2deg);animation:kipp 10s cubic-bezier(.5,0,.3,1) infinite;margin:clamp(6px,1.6vh,16px) 0 clamp(2px,.8vh,8px)}
-@keyframes kipp{0%,72%,100%{transform:rotate(-2deg)}78%{transform:rotate(-6deg)}85%{transform:rotate(1deg)}91%{transform:rotate(-2deg)}}
-.mt{position:relative;aspect-ratio:1;border:0;border-radius:22%;cursor:pointer;text-align:left;font-family:inherit;color:#15121b;
-  padding:clamp(10px,9%,16px);display:flex;flex-direction:column;justify-content:space-between;
-  background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 72%,#000));
-  box-shadow:inset 0 -6px 0 #0003,inset 0 2px 0 #fff6,0 6px 16px color-mix(in srgb,var(--c) 22%,transparent);
-  transition:transform .1s,box-shadow .1s,filter .15s;-webkit-tap-highlight-color:transparent}
-.mt:hover{filter:brightness(1.06)}
-.mt:active{transform:translateY(4px);box-shadow:inset 0 -3px 0 #0003,inset 0 2px 0 #fff5,0 4px 12px color-mix(in srgb,var(--c) 25%,transparent)}
-.t-sym{font-size:clamp(16px,2.6vh,22px);line-height:1;color:#0005}
-.t-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
-.t-txt b{font-size:clamp(15px,min(4.4vw,2.3vh),19px);letter-spacing:.01em}
-.t-txt small{font-size:clamp(10px,min(2.9vw,1.45vh),12px);font-weight:700;color:#000a;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t-bar{display:block;height:4px;border-radius:2px;background:#0002;margin-top:4px;overflow:hidden}
-.t-bar i{display:block;height:100%;background:#0006;border-radius:3px}
-.t-flag{position:absolute;top:clamp(10px,4%,16px);right:clamp(10px,4%,16px);min-width:20px;height:20px;padding:0 5px;border-radius:10px;display:grid;place-items:center;
-  font:700 11px "Space Grotesk",sans-serif;background:#15121b;color:var(--c)}
-.t-flag:empty{display:none}
-.t-flag.open{animation:flagPulse 1.8s ease-in-out infinite}
-@keyframes flagPulse{50%{transform:scale(1.12)}}
-.t-wide{aspect-ratio:auto;width:min(78%,320px,40vh);flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;border-radius:16px;padding:11px 16px}
-.t-wide .t-sym{font-size:22px}
-.home-size{display:flex;align-items:center;gap:10px;color:var(--muted)}
-.home-size small{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.home-foot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:auto;padding-bottom:4px}
+.hero-tag{color:var(--muted);font-size:clamp(13px,1.8vh,15px);letter-spacing:.02em}
+.home-size{display:flex;align-items:center;gap:10px;color:var(--muted);margin-top:clamp(16px,3vh,26px)}
+.home-size small{font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.home-foot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:auto;padding:14px 0 4px}
 .home-ver{color:var(--muted);font-size:11px;opacity:.6}
-.home.paused .htiles{animation:none}
+.home.paused .hlogo{animation:none}
 .home.paused .hero-tag{color:var(--c4)}
-@media (max-height:680px){.hero-tag{display:none}.hero{margin-top:0}}
-@media (prefers-reduced-motion:reduce){.htiles,.t-flag.open{animation:none}}
+@media (max-height:680px){.hero-tag{display:none}}
+@media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -360,28 +360,22 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           <button class="icon-btn" id="menuSettings" title="Einstellungen">⚙</button>
         </div>
       </div>
+      <button class="resume" id="resumeBtn" style="display:none"><span class="rs-play">▶</span><span class="rs-txt"><b>Weiterspielen</b><small id="resumeInfo"></small></span></button>
+      <div class="hmenu" id="homeTiles">
+        <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></div>
+        <div class="hlogo">
+          <button class="hst" id="dailyBtn" style="--c:var(--c0)" aria-label="Tagesspiel">●</button>
+          <button class="hst" id="levelBtn" style="--c:var(--c1)" aria-label="Level">▲</button>
+          <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
+          <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
+        </div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Level</b><small id="levelSub"></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></div>
+        <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b><small>So geht’s</small></div>
+      </div>
       <div class="hero">
         <div class="hero-word">KIPP<span>WERK</span></div>
         <div class="hero-tag" id="heroTag">Kippen. Verbinden. Kettenreaktion.</div>
-      </div>
-      <button class="mt t-wide" id="resumeBtn" style="display:none;--c:var(--c4)"><span class="t-sym">▶</span><span class="t-txt"><b>Weiterspielen</b><small id="resumeInfo"></small></span></button>
-      <div class="htiles" id="homeTiles">
-        <button class="mt" id="dailyBtn" style="--c:var(--c0)">
-          <span class="t-sym">●</span><span class="t-flag" id="dailyFlag"></span>
-          <span class="t-txt"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></span>
-        </button>
-        <button class="mt" id="levelBtn" style="--c:var(--c1)">
-          <span class="t-sym">▲</span>
-          <span class="t-txt"><b>Level</b><small id="levelSub"></small><span class="t-bar"><i id="levelBar"></i></span></span>
-        </button>
-        <button class="mt" id="endlessBtn" style="--c:var(--c2)">
-          <span class="t-sym">■</span>
-          <span class="t-txt"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></span>
-        </button>
-        <button class="mt" id="menuHelp" style="--c:var(--c3)">
-          <span class="t-sym">◆</span>
-          <span class="t-txt"><b>Hilfe</b><small>So wird gespielt</small><small>Farben &amp; Tipps</small></span>
-        </button>
       </div>
       <div class="home-size"><small>Endlos-Feld</small><div class="seg" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
       <div class="home-foot">
@@ -548,7 +542,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.15.0 · Build 23 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.16.0 · Build 24 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1310,16 +1304,18 @@ document.addEventListener('pointerup',e=>{
 });
 document.querySelectorAll('.pad button').forEach(b=>b.addEventListener('click',()=>move(b.dataset.d)));
 function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06)}
+document.querySelectorAll('.hl[data-for]').forEach(l=>l.onclick=()=>$(l.dataset.for).click());
 function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString('de-DE')} Punkte`:(cur>0?`🔥 ${cur} – heute noch offen`:'heute noch offen');
-  const fl=$('dailyFlag');fl.textContent=done?'✓':'!';fl.className='t-flag'+(done?'':' open');
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString('de-DE')} Punkte`:(cur>0?`heute offen · 🔥 ${cur}`:'heute offen');
+  $('dailyBtn').classList.toggle('open',!done);
   // Level
-  const un=unlocked(),all=!!LP[LEVELS.length];
-  $('levelSub').textContent=(all?'alle geschafft':'Level '+un)+' · ⭐ '+totalStars();
-  $('levelBar').style.width=Math.max(2,Object.keys(LP).length/LEVELS.length*100)+'%';
+  const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
+  $('levelTitle').textContent=all?'Level ✓':'Level '+un;
+  $('levelSub').textContent=`Welt ${w} · ⭐ ${totalStars()}`;
+  $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
   const sz=+settings.size||6,bs=bestFor(sz);
   $('endlessSize').textContent=sz+'×'+sz;
@@ -1403,6 +1399,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.16.0','Hauptmenü: die gekippten Logo-Steine sind die Knöpfe, Beschriftung dezent daneben'],
  ['1.15.0','Weltweite Ranglisten über Google Play Games / Game Center statt eigenem Server; Menü-Steine kleiner'],
  ['1.14.0','Hauptmenü neu: die vier Steine des Logos sind jetzt die Knöpfe'],
  ['1.13.0','Tagesrätsel heißt jetzt Tagesspiel (mit Datum); Bestenliste Heute / Woche / All the best'],

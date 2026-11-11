@@ -504,6 +504,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
           <p><b>🌍 Weltweit (App):</b> Unter der Bestenliste öffnet „Weltweit“ die Rangliste von <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) – mit Heute, Woche und Gesamt. Dafür meldest du dich einmal mit deinem Google- bzw. Apple-Konto an (in ⚙ oder beim ersten Öffnen). Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden dann automatisch eingetragen. Android und iPhone haben getrennte Ranglisten.</p>
+          <p><b>☁ Spielstand auf mehreren Geräten:</b> Bist du bei Google Play Games bzw. Game Center angemeldet, speichert KIPPWERK Level, Sterne, Rekorde, Tagesspiele, Serie, Name und Einstellungen in deinem Konto. Auf einem anderen Gerät mit demselben Konto (Android ↔ Android, iPhone ↔ iPad) wird alles automatisch übernommen – dabei zählt immer das Bessere, nichts geht verloren. Auf dem iPhone muss dafür iCloud eingeschaltet sein.</p>
           <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesspiel).</p>
         </section>
         <section id="hSerie"><h3>🔥 Serie</h3>
@@ -542,7 +543,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.16.1 · Build 25 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.17.0 · Build 26 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -639,7 +640,7 @@ const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:tr
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
-function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings))}catch(e){}}
+function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings));localStorage.setItem('kippwerk_settings_at',String(Date.now()))}catch(e){}}
 function applySettings(){
   for(const th of Object.keys(THEME_NAMES))document.body.classList.toggle('th-'+th,th!=='std'&&settings.theme===th);
   sound=settings.sound;const b=document.body.classList;
@@ -680,10 +681,10 @@ const shortId=id=>'KW-'+String(id).replace(/-/g,'').slice(0,8).toUpperCase().rep
 const myTag=()=>'#'+String(playerId).replace(/-/g,'').slice(0,4).toUpperCase();
 // ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
 // IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
-// on:false oder leere IDs = Funktion ausgeblendet. Web-Version: nur lokale Bestenliste.
+// on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:false,e5:'',e6:'',e7:'',e8:'',daily:''},
-  ios:{on:false,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
+  android:{on:false,saves:true,e5:'',e6:'',e7:'',e8:'',daily:''},
+  ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 const Games=(()=>{
   const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';
   const cfg=GAMES_CONFIG[plat];
@@ -696,19 +697,20 @@ const Games=(()=>{
   const savePend=o=>{try{localStorage.setItem(PK,JSON.stringify(o))}catch(e){}};
   function init(){if(!available)return Promise.resolve(false);
     if(!ready)ready=(async()=>{try{await P.initialize();
-        try{P.addListener('signInStateChanged',r=>{signedIn=!!(r&&r.signedIn);if(signedIn)flush();onChange()})}catch(e){}
-        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);if(signedIn)flush()}catch(e){signedIn=false}
+        try{P.addListener('signInStateChanged',r=>{const was=signedIn;signedIn=!!(r&&r.signedIn);if(signedIn){flush();if(!was)afterSignIn()}onChange()})}catch(e){}
+        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);if(signedIn){flush();afterSignIn()}}catch(e){signedIn=false}
       onChange();return signedIn})();
     return ready}
   let onChange=()=>{};
+  const afterSignIn=()=>{try{if(typeof Cloud!=='undefined')setTimeout(()=>Cloud.sync(),300)}catch(e){}};
   async function flush(){if(!signedIn)return;const o=pend();
     for(const k of Object.keys(o)){const id=cfg[k];if(!id){delete o[k];continue}
       try{await P.submitScore({leaderboardId:id,score:o[k]});delete o[k]}catch(e){}}
     savePend(o)}
   async function signIn(){if(!available)return false;await init();if(signedIn)return true;
     try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn)}catch(e){signedIn=false}
-    if(signedIn)flush();onChange();return signedIn}
-  return{available,label,get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
+    if(signedIn){flush();afterSignIn()}onChange();return signedIn}
+  return{available,label,plugin:P,savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
     submit(key,score){if(!available||!(score>0)||!cfg[key])return;const o=pend();o[key]=Math.max(o[key]||0,Math.round(score));savePend(o);flush()},
     async show(key){if(!available)return;if(!(await signIn()))return false;
@@ -1329,6 +1331,7 @@ function showMenu(){
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
   ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  try{Cloud.onMenu()}catch(e){}
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
@@ -1372,10 +1375,10 @@ $('resetScores').onclick=()=>armReset('resetScores','🏆 Bestenliste löschen',
 $('resetLevels').onclick=()=>armReset('resetLevels','🗺 Level-Fortschritt löschen',()=>{LP={};saveLP()});
 $('privacyBtn2').onclick=()=>Ads.privacy();
 function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';
-  $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?'✓ angemeldet':'Anmelden'}
+  $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?('✓ angemeldet'+(Games.savesOn?' · ☁ '+(Cloud.last||'…'):'')):'Anmelden'}
 $('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
 Games.onChange=()=>{try{renderGamesRow();renderGamesBtn()}catch(e){}};
-$('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n)}catch(x){}
+$('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
   setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};
@@ -1399,6 +1402,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.17.0','Spielstand in der Cloud: Fortschritt geräteübergreifend über Google Play Games / Game Center'],
  ['1.16.1','Startbildschirm: Schriftzug KIPPWERK steht jetzt über den Steinen'],
  ['1.16.0','Hauptmenü: die gekippten Logo-Steine sind die Knöpfe, Beschriftung dezent daneben'],
  ['1.15.0','Weltweite Ranglisten über Google Play Games / Game Center statt eigenem Server; Menü-Steine kleiner'],
@@ -1450,7 +1454,7 @@ $('shareBtn').onclick=async()=>{
 };
 $('saveName').onclick=()=>{
   const n=$('nameInput').value.trim().slice(0,12)||'Spieler';playerName=n;
-  try{localStorage.setItem('kippwerk_name',n)}catch(e){}
+  try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(e){}
   if(lastEntry){lastEntry.name=n;saveScores()}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
@@ -1509,6 +1513,72 @@ setTimeout(()=>Reminder.schedule(),2000);
 try{const A=AppPlugin();if(A)A.addListener('backButton',()=>handleBack())}catch(e){}
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!over&&!adBusy){const go=()=>{if(busy)return setTimeout(go,200);pauseToMenu()};go()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
+// ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
+// Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
+const Cloud=(()=>{
+  const NAME='kippwerk-spielstand',HK='kippwerk_cloud_hash';
+  const ls=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+  const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
+  const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
+  const SET_KEYS=['sound','vibe','speed','palette','symbols','size','theme'];
+  function local(){
+    const daily={};const cut=addDays(todayKey(),-60);
+    try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}
+    const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
+    return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
+      set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
+      daily,streak:J('kippwerk_streak',null)}}
+  const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
+  function mergeStreak(a,b){if(!a)return b;if(!b)return a;
+    const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
+    return{...p,best:Math.max(a.best||0,b.best||0,p.cur||0),ms:uni(a.ms,b.ms).sort((x,y)=>x-y),seen:uni(a.seen,b.seen).sort((x,y)=>x-y),
+      prot:uni(a.prot,b.prot).sort().slice(-30),adDay:[a.adDay||'',b.adDay||''].sort().pop()||null}}
+  function merge(L,R){if(!R||R.v!==1)return L;
+    const pid=R.pid||L.pid;const fix=x=>({...x,pid:pid});
+    const lv={...R.levels};for(const k in L.levels)lv[k]=Math.max(lv[k]||0,L.levels[k]||0);
+    const seen=new Set(),en=[];
+    for(const x of [...(L.scores.endless||[]),...(R.scores.endless||[])].map(fix)){const id=[x.size,x.score,x.level,x.date].join('|');if(!seen.has(id)){seen.add(id);en.push(x)}}
+    en.sort((a,b)=>b.score-a.score);const cnt={},endless=en.filter(x=>(cnt[x.size]=(cnt[x.size]||0)+1)<=TOP);
+    const dm={};for(const x of [...(R.scores.daily||[]),...(L.scores.daily||[])].map(fix))if(!dm[x.no]||x.score>dm[x.no].score)dm[x.no]=x;
+    const daily=Object.values(dm).sort((a,b)=>b.score-a.score);
+    const dk={...R.daily};for(const k in L.daily)if(!dk[k]||(L.daily[k]&&dk[k]&&L.daily[k].score>=dk[k].score))dk[k]=L.daily[k];
+    const nameR=(R.nameAt||0)>(L.nameAt||0)&&R.name;
+    const setR=(R.setAt||0)>(L.setAt||0);
+    return{v:1,pid,name:nameR?R.name:(L.name||R.name||''),nameAt:Math.max(L.nameAt||0,R.nameAt||0),
+      set:setR?{...L.set,...R.set}:L.set,setAt:Math.max(L.setAt||0,R.setAt||0),levels:lv,scores:{endless,daily},daily:dk,
+      streak:mergeStreak(L.streak,R.streak)}}
+  function apply(M){
+    lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
+    lsSet('kippwerk_settings',JSON.stringify({...J('kippwerk_settings',{}),...M.set}));lsSet('kippwerk_settings_at',String(M.setAt||0));
+    lsSet('kippwerk_levels',JSON.stringify(M.levels));lsSet('kippwerk_scores',JSON.stringify(M.scores));
+    for(const k in M.daily)if(M.daily[k])lsSet('kippwerk_daily_'+k,JSON.stringify(M.daily[k]));
+    if(M.streak)lsSet('kippwerk_streak',JSON.stringify(M.streak))}
+  let busy=null,pending=false,last='';
+  function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);
+    if(Date.now()-t<30000)return false;sessionStorage.setItem(k,String(Date.now()));
+    lsSet('kippwerk_cloud_toast','1');location.reload();return true}
+  const idle=()=>!started&&!paused&&!$('startOv').classList.contains('hidden');
+  async function sync(){
+    if(!Games.savesOn||!Games.signedIn)return;if(busy)return busy;
+    busy=(async()=>{const P=Games.plugin;
+      try{let R=null;const r=await P.loadSnapshot({name:NAME});if(r&&r.snapshot&&r.snapshot.data){try{R=JSON.parse(r.snapshot.data)}catch(e){}}
+        const L=local(),M=merge(L,R),ms=stable(M);
+        if(ms!==stable(L)){if(idle()){apply(M);reloadSafe()}else pending=true}   // mitten im Spiel: erst im Menü übernehmen
+        if(ms!==ls(HK)&&ms!==stable(R)){const pl=await P.getPlayer();
+          await P.saveSnapshot({name:NAME,data:JSON.stringify(M),description:'KIPPWERK Spielstand',expectedPlayerId:pl.playerId});lsSet(HK,ms)}
+        else lsSet(HK,ms);
+        last=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}
+      catch(e){}
+    })().finally(()=>{busy=null;try{renderGamesRow()}catch(e){}});
+    return busy}
+  let tmr=0;
+  return{merge,local,sync,get last(){return last},
+    later(){if(!Games.savesOn||!Games.signedIn)return;clearTimeout(tmr);tmr=setTimeout(sync,2500)},
+    onMenu(){if(pending&&idle()){pending=false;setTimeout(sync,300);return}this.later()}};
+})();
+if(localStorage.getItem('kippwerk_cloud_toast')){localStorage.removeItem('kippwerk_cloud_toast');setTimeout(()=>toast('☁ Spielstand mit deinen anderen Geräten abgeglichen'),900)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)Cloud.sync()});
 setTimeout(()=>Games.init(),1500);
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}

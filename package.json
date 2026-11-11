@@ -1,6 +1,6 @@
 {
   "name": "kippwerk",
-  "version": "1.16.1",
+  "version": "1.17.0",
   "private": true,
   "description": "KIPPWERK – Kipp-Puzzle mit Tagesrätsel",
   "scripts": {

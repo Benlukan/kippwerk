@@ -86,6 +86,7 @@ Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite �
 ## 4d. Weltweite Ranglisten (ab v1.15.0): Google Play Games / Game Center
 Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafür nichts; Punkte gehen über das Play-Games-SDK an Google.
 - Play Console → Datensicherheit: zusätzlich **App-Aktivität → Sonstige Aktionen (Punktestände)** · Erhoben: Ja · Geteilt: Nein · Optional: Ja · Zweck: App-Funktionen
+- Spielstand in der Cloud (ab v1.17.0): Speicherung im Play-Games-Konto des Nutzers über Googles „Gespeicherte Spiele“ – zusätzlich **App-Aktivität → Sonstige nutzergenerierte Inhalte (Spielstand)** · Erhoben: Ja · Geteilt: Nein · Optional: Ja · Zweck: App-Funktionen
 - App Store Connect (App Privacy): **Gameplay Content** · Zweck: App Functionality · Tracking: Nein
 
 ## 4c. AdMob-Status (Stand v1.6.0, 10.11.2026)

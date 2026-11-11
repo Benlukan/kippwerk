@@ -7,6 +7,13 @@ Ab v1.15.0 nutzt KIPPWERK statt eines eigenen Servers die Ranglisten von **Googl
 - Die Plattformen behalten pro Spieler automatisch den **Bestwert** und zeigen von sich aus **Heute / Woche / Gesamt**.
   Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (Tageswechsel ca. 9:00 Uhr deutscher Zeit). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
 
+## Spielstand in der Cloud (ab v1.17.0)
+Mit `saves:true` in `GAMES_CONFIG` speichert KIPPWERK den Spielstand als „Gespeichertes Spiel“ (`kippwerk-spielstand`) im Play-Games- bzw. Game-Center-Konto:
+Level/Sterne, Endlos-Rekorde, Tagesspiele (Ergebnisse der letzten 60 Tage), Serie inkl. Schutz und Abzeichen, Spielername, Einstellungen (Ton, Vibration, Tempo, Farben, Symbole, Feldgröße, Design).
+- Abgleich beim Start (nach der Anmeldung), im Menü und wenn die App in den Hintergrund geht: Cloud lesen → **zusammenführen** (es zählt jeweils das Bessere) → zurückschreiben.
+- Läuft gerade eine Runde, wird der fremde Stand erst im Menü übernommen. Danach lädt die App einmal neu und zeigt „☁ Spielstand … abgeglichen“.
+- Nur innerhalb einer Plattform (Android ↔ Android, iPhone ↔ iPad). Web: nur lokal.
+
 ## Ranglisten (auf beiden Plattformen gleich anlegen)
 
 | Schlüssel | Name | iOS-ID (fest im Code) |
@@ -28,16 +35,17 @@ Einstellungen jeweils: Format **Zahl** (ohne Nachkommastellen), Reihenfolge **h�
    - **Upload-Schlüssel** (gleiche Seite)
    - **Test-APKs aus GitHub (Debug-Schlüssel):** `F6:C8:F4:34:6C:29:8F:34:B4:A1:8E:33:03:A0:9F:3D:A0:0E:8A:33`
 5. **Bestenlisten** → die 5 Ranglisten aus der Tabelle anlegen. Die IDs (`CgkI…`) kopieren.
-6. **Tester** → deine Google-Adresse (und die deiner Tester) eintragen. Bis zur Veröffentlichung funktioniert die Anmeldung nur für Tester.
-7. Die **Projekt-ID** (Ziffern, oben auf der Konfigurationsseite) und die 5 Ranglisten-IDs an Claude schicken bzw. selbst eintragen:
+6. **Gespeicherte Spiele**: in der Konfiguration (Eigenschaften) auf **An** stellen.
+7. **Tester** → deine Google-Adresse (und die deiner Tester) eintragen. Bis zur Veröffentlichung funktioniert die Anmeldung nur für Tester.
+8. Die **Projekt-ID** (Ziffern, oben auf der Konfigurationsseite) und die 5 Ranglisten-IDs an Claude schicken bzw. selbst eintragen:
    - `android/app/src/main/res/values/games-ids.xml` → `game_services_project_id`
    - `www/index.html` → `GAMES_CONFIG.android` → IDs eintragen, `on:true`
-8. Vor dem öffentlichen Start: Play Games-Dienste → **Überprüfen und veröffentlichen**.
+9. Vor dem öffentlichen Start: Play Games-Dienste → **Überprüfen und veröffentlichen**.
 
 ## iOS – App Store Connect (braucht Apple Developer Program, 99 €/Jahr)
 1. App in App Store Connect anlegen (Bundle-ID `de.daviddigital.kippwerk`).
 2. **Funktionen → Game Center** → 5 **klassische Ranglisten** mit genau den iOS-IDs aus der Tabelle anlegen (Score-Format „Ganzzahl“, Sortierung „hoch nach niedrig“), je eine deutsche Lokalisierung.
-3. Die Game-Center-Berechtigung (`ios/App/App/App.entitlements`) ist schon im Projekt.
+3. Unter Certificates, IDs & Profiles für die App-ID **Game Center** und **iCloud** aktivieren und den iCloud-Container `iCloud.de.daviddigital.kippwerk` anlegen. Die Berechtigungen (`ios/App/App/App.entitlements`) sind schon im Projekt.
 4. In `www/index.html` → `GAMES_CONFIG.ios` `on:true` setzen.
 5. Für einen installierbaren iOS-Build braucht der Workflow noch Signatur-Zertifikat und Provisioning Profile (bisher baut er unsigniert).
 

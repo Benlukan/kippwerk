@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.17.0 (Build 26) – 11.11.2026
+- **☁ Spielstand in der Cloud (geräteübergreifend):** Mit Anmeldung bei Google Play Games bzw. Game Center werden Level/Sterne, Endlos-Rekorde, Tagesspiele, Serie (inkl. Schutz und Abzeichen), Spielername und Einstellungen im Konto gespeichert
+  - auf einem anderen Gerät mit demselben Konto wird alles automatisch übernommen – Zusammenführung statt Überschreiben, es zählt jeweils das Bessere
+  - Abgleich beim Start, im Menü und beim Verlassen der App; mitten im Spiel wird erst im Menü übernommen
+  - ⚙ zeigt den letzten Abgleich („✓ angemeldet · ☁ 09:41“)
+  - nur innerhalb einer Plattform (Android ↔ Android, iPhone ↔ iPad); Web bleibt lokal
+  - noch ausgeschaltet bis zur Einrichtung der Play-Games-Dienste (`docs/game-services.md`: „Gespeicherte Spiele“ aktivieren; iOS: iCloud-Berechtigung ist im Projekt)
+- Hilfe und Datenschutzerklärung ergänzt
 ## v1.16.1 (Build 25) – 11.11.2026
 - Startbildschirm: Schriftzug **KIPPWERK** steht jetzt über den Steinen (aufgeräumter)
 - Endlos ohne Rekord zeigt „Rekord –“ (Text passt auch auf schmale Handys)

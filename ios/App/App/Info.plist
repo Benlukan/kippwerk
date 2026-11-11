@@ -76,7 +76,9 @@
 	<string>Damit können dir passendere Werbevideos angezeigt werden. Das Spiel funktioniert auch ohne Zustimmung vollständig.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

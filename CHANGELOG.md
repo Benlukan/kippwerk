@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.18.2 (Build 29) – 11.11.2026
+- **Vollbild auf Android:** Uhrzeit-/Statusleiste und Navigationsleiste sind ausgeblendet. Wischen vom oberen bzw. unteren Rand blendet sie kurz ein, danach verschwinden sie wieder (auch nach Werbung, Teilen oder App-Wechsel)
+- Keine grauen Flächen mehr hinter den Leisten: Fensterhintergrund in Spielfarbe, Inhalt reicht bis neben die Kamera-Aussparung
+- iOS: Statusleiste ausgeblendet
 ## v1.18.1 (Build 28) – 11.11.2026
 - Im Level-Modus heißen die Level jetzt **Etappen** im Format **Welt-Etappe**: „Etappe 2-3“ = Welt 2, dritte Etappe (bisher Level 13)
   - Menü, Etappenkarte (🗺 ETAPPEN, Knöpfe 1-1 … 10-10), Intro/Gewonnen/Verloren, Spielkopf, Ziele, Pause und Rettung

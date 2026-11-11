@@ -9,7 +9,7 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 - **🔥 Serie** – jeden Tag das Tagesspiel spielen: Flamme in der Kopfzeile, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend (App)
 - **Tagesspiel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen; Bestenliste Heute / Woche / All the best
 - **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe; Level steigern Farben, Joker und Tempo
-- **🌍 Online-Bestenliste** (freiwillig) – weltweit für Tagesspiel und Endlos je Feldgröße, über Supabase: Einrichtung in [docs/supabase.md](docs/supabase.md)
+- **🌍 Weltweite Ranglisten** (App, freiwillig) – Google Play Games (Android) und Game Center (iOS) für Endlos je Feldgröße und Tagesspiel: Einrichtung in [docs/game-services.md](docs/game-services.md)
 
 ## Projektstruktur
 | Pfad | Inhalt |
@@ -17,7 +17,6 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 | `www/` | Das komplette Spiel (eine HTML-Datei) + PWA-Manifest und Service Worker |
 | `android/`, `ios/` | Native Capacitor-Projekte |
 | `assets/` | Quellbilder für App-Icon und Splash (`npm run icons`) |
-| `supabase/` | Datenbank-Schema der Online-Bestenliste (`schema.sql`) |
 | `tools/` | Level-Simulator, Generator und Kalibrierung (`cd tools && python3 gen.py 100`, prüfen: `python3 check.py levels.json 80`) |
 | `.github/workflows/` | Automatische Builds: APK, iOS-IPA, GitHub Pages |
 
@@ -57,4 +56,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.14.0 · Build 22** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.15.0 · Build 23** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

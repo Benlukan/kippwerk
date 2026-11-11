@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Google Play Games: Play Console → Play Games-Dienste → Konfiguration → "Projekt-ID" (nur Ziffern).
+     Zusätzlich in www/index.html GAMES_CONFIG.android die Bestenlisten-IDs eintragen und on:true setzen. -->
+<resources>
+    <string name="game_services_project_id" translatable="false">0</string>
+</resources>

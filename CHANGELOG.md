@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.15.0 (Build 23) – 11.11.2026
+- **Weltweite Ranglisten jetzt über Google Play Games (Android) und Game Center (iOS)** statt eigenem Supabase-Server
+  - Ranglisten: Endlos 5×5 / 6×6 / 7×7 / 8×8 und Tagesspiel – mit Heute / Woche / Gesamt der Plattform
+  - Bestenliste: Knopf „🌍 Weltweit“ öffnet die Rangliste zum aktuellen Reiter; ⚙ zeigt den Anmeldestatus („Anmelden“ / „✓ angemeldet“)
+  - Ergebnisse werden vorgemerkt und automatisch nachgereicht, sobald man angemeldet ist
+  - Noch ausgeschaltet (`GAMES_CONFIG` in `www/index.html`), bis die Ranglisten in Play Console / App Store Connect angelegt sind – Anleitung: `docs/game-services.md`
+  - Web-Version: nur lokale Bestenliste
+- Supabase komplett entfernt (Schema, Keep-alive-Workflow, Einstellungen, Datenschutz-Abschnitt); Datenschutzerklärung um Play Games / Game Center ergänzt
+- Startbildschirm: die vier Menü-Steine sind kleiner und ruhiger, Logo und Steine stehen mittig
 ## v1.14.0 (Build 22) – 11.11.2026
 - **Hauptmenü neu:** Die vier Steine aus dem Logo sind jetzt die Knöpfe – im Stil der Spielsteine, leicht gekippt, mit gelegentlichem „Kipp“-Wackler
   - ● rot = **Tagesspiel** (Datum, Status, „!“ wenn heute noch offen, ✓ wenn gespielt)

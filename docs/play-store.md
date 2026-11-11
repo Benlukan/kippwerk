@@ -83,18 +83,10 @@ Grundlage: das Google Mobile Ads SDK. Vor dem Absenden mit Googles Hilfeseite �
 - Nutzer können Löschung beantragen: über Google (Werbe-ID zurücksetzen)
 - In der Play Console zusätzlich: **App-Inhalte → Werbe-ID → „Ja, für Werbung“** (Berechtigung `AD_ID` bringt das SDK automatisch mit)
 
-## 4d. Datensicherheit mit Online-Bestenliste (ab v1.10.0)
-Zusätzlich zu 4a angeben, sobald `ONLINE_CONFIG` in `www/index.html` gesetzt ist (Details: [supabase.md](supabase.md)):
-
-| Datentyp | Erhoben | Geteilt | Optional | Zweck |
-|---|---|---|---|---|
-| Persönliche Infos → Name (Spielername) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
-| Geräte- oder andere IDs (zufällige Spieler-ID) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
-| App-Aktivität → Sonstige nutzergenerierte Inhalte / In-App-Aktionen (Punkte) | Ja | Nein | Ja (Opt-in) | App-Funktionen |
-
-- „Geteilt“ = Nein, weil Supabase als Auftragsverarbeiter arbeitet
-- Verschlüsselt übertragen: **Ja** (HTTPS) · Löschung: **Ja**, in der App (⚙ → Online-Einträge löschen) oder per E-Mail
-- App Store Connect (App Privacy): **Name**, **User ID**, **Gameplay Content** · Zweck: App Functionality · Tracking: Nein
+## 4d. Weltweite Ranglisten (ab v1.15.0): Google Play Games / Game Center
+Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafür nichts; Punkte gehen über das Play-Games-SDK an Google.
+- Play Console → Datensicherheit: zusätzlich **App-Aktivität → Sonstige Aktionen (Punktestände)** · Erhoben: Ja · Geteilt: Nein · Optional: Ja · Zweck: App-Funktionen
+- App Store Connect (App Privacy): **Gameplay Content** · Zweck: App Functionality · Tracking: Nein
 
 ## 4c. AdMob-Status (Stand v1.6.0, 10.11.2026)
 | | Android | iOS |

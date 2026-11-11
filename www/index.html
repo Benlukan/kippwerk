@@ -220,8 +220,6 @@ body.pad-off .pad{display:none!important}
 .subtabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 9px;font:700 12px "Space Grotesk",sans-serif;cursor:pointer}
 .subtabs button.on{border-color:var(--c3);color:var(--text)}
 .scores tr.gap td{color:var(--muted);text-align:center;padding:2px;border:0}
-.onlinebox{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(100%,380px);text-align:center}
-.onlinebox p{margin:0}
 /* Hilfe */
 .help{width:min(100%,440px);text-align:left;display:flex;flex-direction:column;gap:10px}
 .help section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
@@ -245,32 +243,32 @@ body.pad-off .pad{display:none!important}
   justify-content:flex-start;gap:clamp(12px,2.4vh,24px);padding-top:max(14px,env(safe-area-inset-top));overflow-x:hidden}
 .home-top{width:min(100%,460px);display:flex;justify-content:space-between;align-items:center}
 .home-icons{display:flex;gap:8px}
-.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:clamp(0px,2vh,24px)}
+.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto}
 .hero-word{font-size:clamp(36px,min(12vw,6.5vh),58px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
 .hero-word span{color:var(--c3)}
 .hero-tag{color:var(--muted);font-size:clamp(13px,1.8vh,16px);letter-spacing:.04em}
-.htiles{--w:min(100%,440px,54vh);width:var(--w);display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,2.2vw,16px);
-  transform:rotate(-3deg);animation:kipp 9s cubic-bezier(.5,0,.3,1) infinite;margin:clamp(4px,1.5vh,14px) 0}
-@keyframes kipp{0%,70%,100%{transform:rotate(-3deg)}76%{transform:rotate(-9deg)}83%{transform:rotate(2deg)}90%{transform:rotate(-3deg)}}
+.htiles{width:min(78%,320px,40vh);display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,1.6vh,13px);
+  transform:rotate(-2deg);animation:kipp 10s cubic-bezier(.5,0,.3,1) infinite;margin:clamp(6px,1.6vh,16px) 0 clamp(2px,.8vh,8px)}
+@keyframes kipp{0%,72%,100%{transform:rotate(-2deg)}78%{transform:rotate(-6deg)}85%{transform:rotate(1deg)}91%{transform:rotate(-2deg)}}
 .mt{position:relative;aspect-ratio:1;border:0;border-radius:22%;cursor:pointer;text-align:left;font-family:inherit;color:#15121b;
-  padding:clamp(12px,4.2%,20px);display:flex;flex-direction:column;justify-content:space-between;
+  padding:clamp(10px,9%,16px);display:flex;flex-direction:column;justify-content:space-between;
   background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 72%,#000));
-  box-shadow:inset 0 -8px 0 #0003,inset 0 3px 0 #fff6,0 10px 26px color-mix(in srgb,var(--c) 32%,transparent);
+  box-shadow:inset 0 -6px 0 #0003,inset 0 2px 0 #fff6,0 6px 16px color-mix(in srgb,var(--c) 22%,transparent);
   transition:transform .1s,box-shadow .1s,filter .15s;-webkit-tap-highlight-color:transparent}
 .mt:hover{filter:brightness(1.06)}
 .mt:active{transform:translateY(4px);box-shadow:inset 0 -3px 0 #0003,inset 0 2px 0 #fff5,0 4px 12px color-mix(in srgb,var(--c) 25%,transparent)}
-.t-sym{font-size:clamp(22px,4vh,34px);line-height:1;color:#0005}
+.t-sym{font-size:clamp(16px,2.6vh,22px);line-height:1;color:#0005}
 .t-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
-.t-txt b{font-size:clamp(18px,min(5.2vw,3vh),24px);letter-spacing:.01em}
-.t-txt small{font-size:clamp(11px,min(3.3vw,1.7vh),14px);font-weight:700;color:#000a;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t-bar{display:block;height:5px;border-radius:3px;background:#0002;margin-top:5px;overflow:hidden}
+.t-txt b{font-size:clamp(15px,min(4.4vw,2.3vh),19px);letter-spacing:.01em}
+.t-txt small{font-size:clamp(10px,min(2.9vw,1.45vh),12px);font-weight:700;color:#000a;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-bar{display:block;height:4px;border-radius:2px;background:#0002;margin-top:4px;overflow:hidden}
 .t-bar i{display:block;height:100%;background:#0006;border-radius:3px}
-.t-flag{position:absolute;top:clamp(10px,4%,16px);right:clamp(10px,4%,16px);min-width:26px;height:26px;padding:0 7px;border-radius:13px;display:grid;place-items:center;
-  font:700 13px "Space Grotesk",sans-serif;background:#15121b;color:var(--c)}
+.t-flag{position:absolute;top:clamp(10px,4%,16px);right:clamp(10px,4%,16px);min-width:20px;height:20px;padding:0 5px;border-radius:10px;display:grid;place-items:center;
+  font:700 11px "Space Grotesk",sans-serif;background:#15121b;color:var(--c)}
 .t-flag:empty{display:none}
 .t-flag.open{animation:flagPulse 1.8s ease-in-out infinite}
 @keyframes flagPulse{50%{transform:scale(1.12)}}
-.t-wide{aspect-ratio:auto;width:min(100%,440px,54vh);flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;border-radius:20px;padding:14px 18px}
+.t-wide{aspect-ratio:auto;width:min(78%,320px,40vh);flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;border-radius:16px;padding:11px 16px}
 .t-wide .t-sym{font-size:22px}
 .home-size{display:flex;align-items:center;gap:10px;color:var(--muted)}
 .home-size small{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
@@ -436,7 +434,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <h2>⚙ EINSTELLUNGEN</h2>
       <div class="settings">
         <label class="set"><span>👤 Spielername</span><input type="text" id="setName" maxlength="12" placeholder="Dein Name" autocomplete="nickname"></label>
-        <label class="set" id="onlineRow" style="display:none"><span>🌍 Online-Bestenliste</span><input type="checkbox" id="setOnline"></label>
+        <button class="set" id="gamesRow" style="display:none"><span id="gamesName">🎮 Google Play Games</span><span class="pid" id="gamesState"></span></button>
         <button class="set" id="pidRow" title="Spieler-ID kopieren"><span>🆔 Spieler-ID</span><span class="pid" id="pidText"></span></button>
       </div>
       <div class="settings">
@@ -454,7 +452,6 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
         <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
-        <button class="set danger" id="resetOnline" style="display:none">🌍 Online-Einträge löschen</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
         <a class="set" href="datenschutz.html">📄 Datenschutzerklärung</a>
         <a class="set" href="impressum.html">ℹ️ Impressum</a>
@@ -512,7 +509,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
-          <p><b>🌍 Weltweit:</b> In der Bestenliste oben auf „Weltweit“ tippen und mitmachen – dann landen deine besten Endlos-Runden je Feldgröße und dein erstes Tagesspiel des Tages in der Online-Bestenliste. Freiwillig, jederzeit in ⚙ abschaltbar und löschbar.</p>
+          <p><b>🌍 Weltweit (App):</b> Unter der Bestenliste öffnet „Weltweit“ die Rangliste von <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) – mit Heute, Woche und Gesamt. Dafür meldest du dich einmal mit deinem Google- bzw. Apple-Konto an (in ⚙ oder beim ersten Öffnen). Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden dann automatisch eingetragen. Android und iPhone haben getrennte Ranglisten.</p>
           <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesspiel).</p>
         </section>
         <section id="hSerie"><h3>🔥 Serie</h3>
@@ -536,14 +533,13 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
     <div class="overlay hidden" id="scoresOv">
       <h2>🏆 BESTENLISTE</h2>
       <div class="tabs"><button id="tabEndless" class="on">∞ Endlos</button><button id="tabDaily">📅 Tagesspiel</button></div>
-      <div class="subtabs" id="scopeTabs" style="display:none"><button data-s="local" class="on">📱 Dieses Gerät</button><button data-s="world">🌍 Weltweit</button></div>
       <div class="subtabs" id="periodTabs" style="display:none"><button data-p="day">Heute</button><button data-p="week">Woche</button><button data-p="all">All the best</button></div>
       <div class="subtabs" id="sizeTabs"><button data-n="5">5×5</button><button data-n="6">6×6</button><button data-n="7">7×7</button><button data-n="8">8×8</button></div>
       <p class="hint" id="periodInfo" style="display:none;margin:0"></p>
       <div id="dailyStats" class="statsrow" style="display:none"></div>
       <table class="scores" id="scoresTable"></table>
       <p class="hint" id="scoresEmpty" style="display:none"></p>
-      <div class="onlinebox" id="onlineBox" style="display:none"><p class="hint">Mach mit bei der <b>weltweiten Bestenliste</b>! Dafür werden dein Spielername, deine Spieler-ID und deine Ergebnisse an unseren Server (Supabase, EU) übertragen – öffentlich sichtbar sind nur Name, Kurzkennung (#1A2B) und Punkte. Jederzeit abschaltbar und löschbar in ⚙. <a href="datenschutz.html" style="color:inherit">Datenschutz</a></p><button class="btn" id="joinOnline">🌍 MITMACHEN</button></div>
+      <button class="btn lvl" id="gamesBoard" style="display:none">🌍 WELTWEITE RANGLISTE</button>
       <button class="btn alt" id="closeScores">SCHLIESSEN</button>
     </div>
   </div>
@@ -552,7 +548,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.14.0 · Build 22 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.15.0 · Build 23 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -645,7 +641,7 @@ function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',online:false,theme:'std',remind:true};
+const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -688,45 +684,41 @@ function makeId(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}
 let playerId='';try{playerId=localStorage.getItem('kippwerk_pid')||'';if(!playerId){playerId=makeId();localStorage.setItem('kippwerk_pid',playerId)}}catch(e){playerId=playerId||makeId()}
 const shortId=id=>'KW-'+String(id).replace(/-/g,'').slice(0,8).toUpperCase().replace(/(.{4})(.{4})/,'$1-$2');
 const myTag=()=>'#'+String(playerId).replace(/-/g,'').slice(0,4).toUpperCase();
-// ---------- Online-Bestenliste (Supabase) ----------
-// url + key aus Supabase → Project Settings → API (Project URL + publishable/anon key). Leer = Online aus.
-const ONLINE_CONFIG={url:'',key:''};
-const Online=(()=>{
-  const OBX='kippwerk_outbox';
-  const configured=()=>!!(ONLINE_CONFIG.url&&ONLINE_CONFIG.key);
-  const on=()=>configured()&&settings.online;
-  async function rpc(fn,args){
-    const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),8000);
-    const h={'Content-Type':'application/json',apikey:ONLINE_CONFIG.key};
-    if(ONLINE_CONFIG.key.startsWith('eyJ'))h.Authorization='Bearer '+ONLINE_CONFIG.key; // alter anon-Key (JWT)
-    try{const r=await fetch(ONLINE_CONFIG.url.replace(/\/+$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args),signal:ctl.signal});
-      const t=await r.text();let d=null;try{d=t?JSON.parse(t):null}catch(e){}
-      if(!r.ok){const e=new Error((d&&d.message)||('HTTP '+r.status));e.status=r.status;throw e}return d}
-    finally{clearTimeout(to)}}
-  const loadBox=()=>{try{return JSON.parse(localStorage.getItem(OBX)||'[]')}catch(e){return[]}};
-  const saveBox=b=>{try{localStorage.setItem(OBX,JSON.stringify(b.slice(-30)))}catch(e){}};
-  let flushing=null;
-  function flush(){
-    if(!on())return Promise.resolve();if(flushing)return flushing;if(!loadBox().length)return Promise.resolve();
-    flushing=(async()=>{let box;
-      while((box=loadBox()).length){const it=box[0];
-        try{await rpc('kw_submit',{...it,p_player:playerId,p_name:playerName||'Spieler'})}
-        catch(e){if(!e.status||e.status>=500||e.status===429)break}   // offline/Serverfehler: später erneut; abgelehnt: verwerfen
-        box=loadBox();box.shift();saveBox(box)}
-    })().finally(()=>{flushing=null});
-    return flushing}
-  return{configured,on,flush,
-    submit(mode,size,no,score,level,chain){if(!on()||!(score>0))return;
-      const box=loadBox();box.push({p_mode:mode,p_size:size,p_daily_no:no,p_score:score,p_level:level||0,p_chain:chain||0});saveBox(box);flush()},
-    top(mode,size,no){return rpc('kw_top',{p_mode:mode,p_size:size,p_daily_no:no||0,p_player:playerId,p_limit:10})},
-    // Tagesspiel: Heute / Woche (Summe Mo–So) / All the best (bestes Einzelergebnis je Spieler)
-    topDaily(period,no){return rpc('kw_top_daily',{p_period:period,p_daily_no:no,p_player:playerId,p_limit:10})
-      .catch(e=>{if(period==='day'&&e.status===404)return rpc('kw_top',{p_mode:'daily',p_size:6,p_daily_no:no,p_player:playerId,p_limit:10});throw e})},
-    rename(n){if(on())flush().then(()=>rpc('kw_rename',{p_player:playerId,p_name:n})).catch(()=>{})},
-    join(){settings.online=true;saveSettings();   // vorhandene lokale Bestwerte einmal hochladen
-      for(const n of [5,6,7,8]){const x=scores.endless.find(e=>e.size===n&&e.pid===playerId);if(x)this.submit('endless',n,0,x.score,x.level,0)}
-      const d=loadDaily();if(d&&d.no===dailyNo())this.submit('daily',6,d.no,d.score,0,d.chain)},
-    remove(){saveBox([]);return rpc('kw_delete',{p_player:playerId})}};
+// ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
+// IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
+// on:false oder leere IDs = Funktion ausgeblendet. Web-Version: nur lokale Bestenliste.
+const GAMES_CONFIG={
+  android:{on:false,e5:'',e6:'',e7:'',e8:'',daily:''},
+  ios:{on:false,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
+const Games=(()=>{
+  const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';
+  const cfg=GAMES_CONFIG[plat];
+  const P=native?((C.Plugins&&C.Plugins.PlayGames)||(C.registerPlugin&&C.registerPlugin('PlayGames'))):null;
+  const available=!!(P&&cfg&&cfg.on&&cfg.daily);
+  const label=plat==='ios'?'Game Center':'Google Play Games';
+  const PK='kippwerk_games_pending';
+  let ready=null,signedIn=false;
+  const pend=()=>{try{return JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){return{}}};
+  const savePend=o=>{try{localStorage.setItem(PK,JSON.stringify(o))}catch(e){}};
+  function init(){if(!available)return Promise.resolve(false);
+    if(!ready)ready=(async()=>{try{await P.initialize();
+        try{P.addListener('signInStateChanged',r=>{signedIn=!!(r&&r.signedIn);if(signedIn)flush();onChange()})}catch(e){}
+        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);if(signedIn)flush()}catch(e){signedIn=false}
+      onChange();return signedIn})();
+    return ready}
+  let onChange=()=>{};
+  async function flush(){if(!signedIn)return;const o=pend();
+    for(const k of Object.keys(o)){const id=cfg[k];if(!id){delete o[k];continue}
+      try{await P.submitScore({leaderboardId:id,score:o[k]});delete o[k]}catch(e){}}
+    savePend(o)}
+  async function signIn(){if(!available)return false;await init();if(signedIn)return true;
+    try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn)}catch(e){signedIn=false}
+    if(signedIn)flush();onChange();return signedIn}
+  return{available,label,get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
+    // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
+    submit(key,score){if(!available||!(score>0)||!cfg[key])return;const o=pend();o[key]=Math.max(o[key]||0,Math.round(score));savePend(o);flush()},
+    async show(key){if(!available)return;if(!(await signIn()))return false;
+      try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
 })();
 // Migration: alle bisherigen (lokalen) Einträge gehören diesem Gerät/Spieler
 {let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
@@ -1241,7 +1233,7 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Online.submit('daily',6,dailyNo(),score,0,bestChain);
+      lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Games.submit('daily',score);
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString('de-DE')}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt`;
     $('shareBox').textContent=shareText(official);
@@ -1261,7 +1253,8 @@ function finishGame(reason){
     const isBest=score>best;
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;Online.submit('endless',N,0,score,level,bestChain)}
+    Games.submit('e'+N,score);
+    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt.'+(!isBest?' Rekord: '+best.toLocaleString('de-DE'):'');
     $('nameRow').style.display=rank?'':'none';
@@ -1361,7 +1354,7 @@ function renderSettings(){
   $('setSound').checked=settings.sound;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
-  const oc=Online.configured();$('onlineRow').style.display=$('resetOnline').style.display=oc?'':'none';$('setOnline').checked=!!settings.online;$('resetOnline').textContent='🌍 Online-Einträge löschen';
+  renderGamesRow();
   $('resetScores').textContent='🏆 Bestenliste löschen';$('resetLevels').textContent='🗺 Level-Fortschritt löschen';resetArm={};
 }
 function openSettings(from){
@@ -1382,13 +1375,12 @@ function armReset(id,label,fn){
 $('resetScores').onclick=()=>armReset('resetScores','🏆 Bestenliste löschen',()=>{scores={endless:[],daily:[]};saveScores();best=0;try{localStorage.removeItem('kippwerk_best')}catch(e){};render()});
 $('resetLevels').onclick=()=>armReset('resetLevels','🗺 Level-Fortschritt löschen',()=>{LP={};saveLP()});
 $('privacyBtn2').onclick=()=>Ads.privacy();
-$('setOnline').onchange=e=>{if(e.target.checked)Online.join();else{settings.online=false;saveSettings()}};
-$('resetOnline').onclick=()=>{if(resetArm.resetOnline){resetArm.resetOnline=false;$('resetOnline').textContent='⏳ Lösche…';
-    Online.remove().then(n=>{$('resetOnline').textContent=`✓ ${n||0} Einträge gelöscht`;settings.online=false;saveSettings();$('setOnline').checked=false})
-      .catch(()=>$('resetOnline').textContent='⚠ Keine Verbindung – später erneut');return}
-  armReset('resetOnline','🌍 Online-Einträge löschen',()=>{})};
+function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';
+  $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?'✓ angemeldet':'Anmelden'}
+$('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
+Games.onChange=()=>{try{renderGamesRow();renderGamesBtn()}catch(e){}};
 $('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n)}catch(x){}
-  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores();Online.rename(n)};
+  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
   setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};
 $('closeSettings').onclick=()=>{$('settingsOv').classList.add('hidden');
@@ -1411,6 +1403,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.15.0','Weltweite Ranglisten über Google Play Games / Game Center statt eigenem Server; Menü-Steine kleiner'],
  ['1.14.0','Hauptmenü neu: die vier Steine des Logos sind jetzt die Knöpfe'],
  ['1.13.0','Tagesrätsel heißt jetzt Tagesspiel (mit Datum); Bestenliste Heute / Woche / All the best'],
  ['1.12.0','Neuer Startbildschirm mit Modus-Karten, Pause-Karte und animiertem Logo'],
@@ -1461,31 +1454,17 @@ $('saveName').onclick=()=>{
   const n=$('nameInput').value.trim().slice(0,12)||'Spieler';playerName=n;
   try{localStorage.setItem('kippwerk_name',n)}catch(e){}
   if(lastEntry){lastEntry.name=n;saveScores()}
-  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();Online.rename(n);
+  for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
-let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresScope='local',worldReq=0,scoresPeriod='day';
+let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
 $('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresPeriod=b.dataset.p;renderScores()};
 const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>'Woche '+dayLabel(weekOf(dailyNo())).slice(4)+' – '+dayLabel(weekOf(dailyNo())+6).slice(4),all:()=>'Beste Tagesspiele aller Zeiten'};
-$('scopeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresScope=b.dataset.s;renderScores()};
-$('joinOnline').onclick=()=>{Online.join();renderScores()};
+function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available?'':'none';
+  b.textContent='🌍 WELTWEIT · '+(scoresTab==='endless'?scoresSize+'×'+scoresSize:'TAGESSPIEL');b.title=Games.label}
+$('gamesBoard').onclick=()=>Games.show(scoresTab==='endless'?'e'+scoresSize:'daily');
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function renderWorld(){
-  $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';
-  const t=$('scoresTable'),em=$('scoresEmpty'),box=$('onlineBox');$('dailyStats').style.display='none';
-  if(!settings.online){t.innerHTML='';em.style.display='none';box.style.display='';return}
-  box.style.display='none';t.innerHTML='';em.style.display='';em.textContent='⏳ Lade weltweite Bestenliste…';
-  const req=++worldReq,daily=scoresTab==='daily',no=dailyNo();
-  const per=scoresPeriod;
-  Online.flush().then(()=>daily?Online.topDaily(per,no):Online.top(scoresTab,scoresSize,0)).then(rows=>{
-    if(req!==worldReq||scoresScope!=='world')return;rows=rows||[];
-    let prev=0;t.innerHTML=rows.map(x=>{const r=+x.rank,gap=r>prev+1&&prev>=10?'<tr class="gap"><td colspan="5">⋯</td></tr>':'';prev=r;
-      const medal=['🥇','🥈','🥉'][r-1]||r+'.',d=x.day?x.day.slice(8,10)+'.'+x.day.slice(5,7)+'.':'';
-      return gap+`<tr class="${x.is_me?'me':''}"><td class="rank">${medal}</td><td>${escH(x.name)}<small class="ptag">#${escH(x.tag)}</small></td><td class="m">${daily?(per==='week'?x.days+(x.days>1?' Tage':' Tag'):(x.chain>1?'×'+x.chain:'')):(x.level?'Lvl '+x.level:'')}</td><td class="m">${daily&&per==='week'?'':d}</td><td class="r">${(+x.score).toLocaleString('de-DE')}</td></tr>`}).join('');
-    em.style.display=rows.length?'none':'';
-    em.textContent=daily?(per==='day'?`Noch niemand hat das Tagesspiel ${dayLabel(no)} gespielt – sei die/der Erste!`:per==='week'?'Diese Woche hat noch niemand gespielt – sei die/der Erste!':'Noch keine Ergebnisse.'):`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`})
-  .catch(()=>{if(req!==worldReq)return;em.style.display='';em.textContent='📡 Keine Verbindung zur Online-Bestenliste. Später nochmal versuchen.'})}
 function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
   const t=$('scoresTable'),esc=escH;
@@ -1493,10 +1472,7 @@ function renderScores(){
   $('periodTabs').style.display=scoresTab==='daily'?'':'none';
   $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===scoresPeriod));
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
-  $('scopeTabs').style.display=Online.configured()?'':'none';if(!Online.configured())scoresScope='local';
-  $('scopeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.s===scoresScope));
-  if(scoresScope==='world'){renderWorld();return}
-  $('onlineBox').style.display='none';
+  renderGamesBtn();
   const today=dailyNo(),wk=weekOf(today);
   const dl=scores.daily.filter(x=>scoresPeriod==='day'?x.no===today:scoresPeriod==='week'?x.no>=wk&&x.no<wk+7:true);
   const list=(scoresTab==='endless'?sizeList(scoresSize):dl).slice(0,TOP);
@@ -1535,7 +1511,7 @@ setTimeout(()=>Reminder.schedule(),2000);
 try{const A=AppPlugin();if(A)A.addListener('backButton',()=>handleBack())}catch(e){}
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!over&&!adBusy){const go=()=>{if(busy)return setTimeout(go,200);pauseToMenu()};go()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
-setTimeout(()=>Online.flush(),1500);addEventListener('online',()=>Online.flush());
+setTimeout(()=>Games.init(),1500);
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
 window.__kw={handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,

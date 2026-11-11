@@ -16,3 +16,6 @@ project(':capacitor-local-notifications').projectDir = new File('../node_modules
 
 include ':capacitor-share'
 project(':capacitor-share').projectDir = new File('../node_modules/@capacitor/share/android')
+
+include ':idleflowgames-capacitor-play-games'
+project(':idleflowgames-capacitor-play-games').projectDir = new File('../node_modules/@idleflowgames/capacitor-play-games/android')

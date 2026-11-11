@@ -24,7 +24,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bgimg,none),radial-gradient(1200px 800px at 50% -10%,var(--bg2,#1d2240) 0%,var(--bg) 60%);background-attachment:fixed;color:var(--text);
   font-family:"Space Grotesk",system-ui,sans-serif;overflow:hidden;touch-action:none;user-select:none}
-.wrap{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:14px}
+.wrap{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:14px}
 header{width:var(--W);display:flex;align-items:center;justify-content:space-between;gap:6px}
 h1{margin:0;font-size:clamp(19px,6vw,26px);letter-spacing:.15em;font-weight:700;white-space:nowrap}
 h1 span{color:var(--c3)}
@@ -32,6 +32,7 @@ h1 span{color:var(--c3)}
 .icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;width:clamp(32px,9.5vw,38px);height:clamp(32px,9.5vw,38px);font-size:16px;cursor:pointer;padding:0}
 .icon-btn:hover{color:var(--text)}
 .hud{width:var(--W);display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:8px}
+.hud.three{grid-template-columns:1.3fr 1fr 1.3fr}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
 .stat small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 .stat b{font-size:20px;font-variant-numeric:tabular-nums}
@@ -82,11 +83,13 @@ h1 span{color:var(--c3)}
 @keyframes quake{10%,50%,90%{transform:translate(-7px,3px) rotate(-.6deg)}30%,70%{transform:translate(7px,-3px) rotate(.6deg)}}
 @keyframes banner{0%{transform:translate(-50%,-50%) scale(.6);opacity:0}20%{transform:translate(-50%,-50%) scale(1.05);opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-70%)}}
 .overlay{position:fixed;inset:0;background:rgba(10,12,22,.9);backdrop-filter:blur(4px);overflow-y:auto;
-  display:flex;flex-direction:column;align-items:center;justify-content:safe center;text-align:center;
-  padding:max(26px,env(safe-area-inset-top)) 22px max(26px,env(safe-area-inset-bottom));z-index:10;gap:10px}
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  padding:max(22px,env(safe-area-inset-top)) 22px max(22px,env(safe-area-inset-bottom));z-index:10;gap:10px}
 .wrap{padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(14px,env(safe-area-inset-bottom))}
 .overlay.hidden{display:none}
-.overlay>*{flex-shrink:0}            /* Inhalte nie stauchen – stattdessen scrollt das Menü */
+.overlay>*{flex-shrink:0}
+#levelsOv{overflow:hidden}
+#scoresOv #closeScores{margin-top:auto}            /* Inhalte nie stauchen – stattdessen scrollt das Menü */
 .overlay{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .overlay h2{margin:0;font-size:28px;letter-spacing:.1em}
 .overlay p{margin:0;color:var(--muted);line-height:1.5;font-size:14px;max-width:320px}
@@ -138,7 +141,7 @@ h1 span{color:var(--c3)}
 .lvbtn.boss{border-color:#ffc14566}
 .lvworld{grid-column:1/-1;text-align:left;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:10px 2px 0;display:flex;justify-content:space-between}
 .lvworld:first-child{margin-top:0}
-.lvscroll{max-height:58vh;overflow-y:auto;width:min(100%,390px);padding:2px 4px;scrollbar-width:thin}
+.lvscroll{flex:1 1 0 !important;min-height:120px;max-height:none;overflow-y:auto;width:min(100%,390px);padding:2px 4px;scrollbar-width:thin}
 .stars{font-size:34px;letter-spacing:6px;color:var(--c1);text-shadow:0 0 18px #ffc14566}
 .stars .off{color:var(--line);text-shadow:none}
 .goals{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;min-width:240px}
@@ -263,7 +266,7 @@ body.pad-off .pad{display:none!important}
 .t5-row .m{font-size:12px;color:var(--muted)}
 .t5-me{border-top:1px dashed var(--line);margin-top:4px;padding-top:2px}
 .t5-msg{font-size:12.5px;color:var(--muted);padding:2px 0 4px}
-.hmenu{margin-top:clamp(18px,3.5vh,34px);display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr 1fr;align-items:center;column-gap:clamp(10px,4vw,22px);width:min(100%,460px)}
+.hmenu{margin-top:auto;padding-top:clamp(18px,3vh,30px);display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr 1fr;align-items:center;column-gap:clamp(10px,4vw,22px);width:min(100%,460px)}
 .hlogo{grid-column:2;grid-row:1/3;display:grid;grid-template-columns:repeat(2,clamp(58px,min(19vw,9.5vh),84px));gap:clamp(8px,1.2vh,11px);
   transform:rotate(-12deg);animation:kipp 7s cubic-bezier(.5,0,.3,1) infinite}
 @keyframes kipp{0%,64%,100%{transform:rotate(-12deg)}72%{transform:rotate(-22deg)}80%{transform:rotate(-5deg)}88%{transform:rotate(-12deg)}}
@@ -281,13 +284,13 @@ body.pad-off .pad{display:none!important}
 .hl:hover b{color:var(--c,var(--text))}
 .hbar{display:block;height:3px;width:70px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden}
 .hbar i{display:block;height:100%;background:var(--c2);border-radius:2px}
-.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:auto}
+.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:clamp(16px,2.5vh,28px)}
 .hero-word{font-size:clamp(34px,min(11vw,6vh),54px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
 .hero-word span{color:var(--c3)}
 .hero-tag{color:var(--muted);font-size:clamp(13px,1.8vh,15px);letter-spacing:.02em}
 .home-size{display:flex;align-items:center;gap:10px;color:var(--muted);margin-top:clamp(16px,3vh,26px)}
 .home-size small{font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.home-foot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:auto;padding:14px 0 4px}
+.home-foot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:clamp(14px,3.5vh,40px);padding:0 0 4px}
 .home-ver{color:var(--muted);font-size:11px;opacity:.6}
 .home.paused .hlogo{animation:none}
 .home.paused .hero-tag{color:var(--c4)}
@@ -328,9 +331,8 @@ body.pad-off .pad{display:none!important}
 }
 @media (max-aspect-ratio:3/4){
   :root{--W:min(94vw,640px,calc(100vh - 330px));--W:min(94vw,640px,calc(100dvh - 330px))}
-  .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:clamp(10px,1.6vh,18px)}
-  .board-wrap{margin-block:auto}
-  .infobar{display:flex;gap:clamp(8px,1.2vh,12px)}
+  .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:12px}
+  .infobar{display:flex;gap:10px}
   h1{font-size:clamp(19px,min(7vw,3.4vh),32px)}
   .icon-btn{width:clamp(32px,min(10.5vw,5vh),46px);height:clamp(32px,min(10.5vw,5vh),46px);font-size:clamp(16px,2.2vh,20px)}
   .hud{gap:clamp(6px,1vh,10px)}
@@ -343,7 +345,7 @@ body.pad-off .pad{display:none!important}
   .ib-goal{font-size:clamp(14px,1.9vh,17px)}
   .ib-goal .bar{height:clamp(5px,.8vh,8px)}
 }
-footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space:nowrap}
+footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space:nowrap}
 .hint{color:var(--muted);font-size:12px}
 </style>
 </head>
@@ -358,7 +360,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
     </div>
   </header>
-  <div class="hud">
+  <div class="hud" id="hud">
     <div class="stat"><small>Punkte</small><b id="score">0</b></div>
     <div class="stat"><small id="bestLabel">Rekord</small><b id="best">0</b><div class="goalline" id="goalHud" style="display:none"></div></div>
     <div class="stat"><small id="levelLabel">Level</small><b id="level">1</b><div class="levelbar"><i id="lvlbar"></i></div></div>
@@ -568,7 +570,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.19.0 · Build 30 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.19.1 · Build 31 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1026,9 +1028,12 @@ function render(){
   $('score').textContent=score.toLocaleString('de-DE');
   const isLv=mode==='level';
   $('best').style.display=isLv?'none':'';$('goalHud').style.display=isLv?'':'none';
-  $('bestLabel').textContent=isLv?'Ziel':'Rekord';
+  const od=mode==='daily'&&practice&&loadDaily();
+  $('best').parentNode.style.display=mode==='daily'&&!od?'none':'';$('hud').classList.toggle('three',mode==='daily'&&!od);
+  $('bestLabel').textContent=isLv?'Ziel':od?'Gewertet':'Rekord';
   if(isLv)$('goalHud').innerHTML=goalHud();
-  else $('best').textContent=Math.max(best,mode==='endless'?score:0).toLocaleString('de-DE');
+  else if(mode==='daily'){if(od)$('best').textContent=od.score.toLocaleString('de-DE')}
+  else $('best').textContent=Math.max(best,score).toLocaleString('de-DE');
   if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
   else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%perLevel())/perLevel()*100)+'%'}
   const nx=$('next');nx.innerHTML='';
@@ -1433,7 +1438,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
- ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.19.1','Feste Positionen statt mittig (Menü, Spielfeld, Listen); Etappenkarte nutzt die ganze Höhe; Tagesspiel zeigt die Punktzahl des Tages statt Endlos-Rekord'],
  ['1.19.0','Hauptmenü: Top 5 im Tagesspiel (Heute / Woche / Alle) aus Google Play Games / Game Center'],
  ['1.18.2','Vollbild: Uhrzeit- und Navigationsleiste ausgeblendet, erscheinen beim Wischen vom Rand'],
  ['1.18.1','Level heißen jetzt Etappen: „Etappe 2-3“ = Welt 2, dritte Etappe'],
@@ -1448,6 +1453,7 @@ const CHANGES=[
  ['1.11.2','Zurück-Taste: pausiert bzw. zurück ins Menü; Verlauf in festem Raster, Spielfeld springt nicht mehr'],
  ['1.11.1','Serie direkt im Startmenü erreichbar'],
  ['1.11.0','Serien fürs Tagesrätsel: Flamme, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend'],
+ ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
  ['1.9.3','Info-Leiste am PC als Seitenleiste neben dem Spielfeld; Menüs scrollbar auf niedrigen Bildschirmen'],
  ['1.9.1','Hinweis auf kommende Welten nach Level 100'],
  ['1.9.0','Feldgrößen 5×5 bis 8×8, Bestenliste je Größe, Spielername im Tagesrätsel, einmalige Spieler-ID, Hilfe mit Farb-Erklärung'],

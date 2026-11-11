@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.19.1 (Build 31) – 11.11.2026
+- **Feste Positionen statt vertikal mittig:** Spiel, Menüs und Listen beginnen oben und stehen pro Gerät immer an derselben Stelle (Spielfeld springt nicht mehr je nach Modus/Inhalt)
+  - Hauptmenü: Schriftzug oben, darunter Top 5, die Steine mit Beschriftung im unteren Drittel
+  - Bestenliste: oben bündig, „Schließen“ unten
+  - Etappenkarte nutzt die ganze Bildschirmhöhe
+- **Tagesspiel:** zeigt nicht mehr den Endlos-Rekord – nur noch die Punkte des Tages (in der Übungsrunde zusätzlich das gewertete Ergebnis „Gewertet“)
 ## v1.19.0 (Build 30) – 11.11.2026
 - **Top 5 im Hauptmenü:** zwischen Schriftzug und Steinen die besten 5 im Tagesspiel aus Google Play Games / Game Center
   - Umschalter **Heute / Woche / Alle** (Auswahl wird gemerkt), eigene Zeile blau; außerhalb der Top 5 steht die eigene Platzierung darunter

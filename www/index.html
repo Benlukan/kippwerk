@@ -594,7 +594,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.20.0 · Build 33 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.20.1 · Build 34 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1097,7 +1097,7 @@ function renderInfo(){
     h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Dein Raster · Tagesspiel ${dayLabel(dailyNo())}</small>${dots(history,DAILY_MOVES)}${LEGEND}</div>`;
   }else{
     h+=counter;
-    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzte Züge</small>${dots(history,40)}${LEGEND}</div>`;
+    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzten 20 Züge</small>${dots(history,20)}${LEGEND}</div>`;
   }
   const wide=matchMedia('(min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px)').matches;
   if(wide)h+=`<div class="ib-box"><small>Steuerung</small><div class="ib-hint" style="text-align:left;margin-top:6px">⌨ Pfeiltasten oder W A S D<br>🖱 Wischen mit gedrückter Maustaste<br>☰ Menü / Pause · ❓ Tippen auf den Verlauf</div></div>`;
@@ -1476,6 +1476,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
+ ['1.20.1','Verlauf im Endlos-Modus: „letzten 20 Züge“ (eine Zeile)'],
  ['1.20.0','Combo-Leiste (Abgeräumt, Good, Super, Mega, Monster, Ultra), neue Stufe ULTRA ab ×6 mit ❤ Extra-Leben, Info-Leiste unten'],
  ['1.19.2','Hauptmenü: Steine stehen unter der Top-5-Liste (etwa ab Bildschirmmitte) und rutschen bei längerer Liste oder kleinem Display nach unten'],
  ['1.19.1','Feste Positionen statt mittig (Menü, Spielfeld, Listen); Etappenkarte nutzt die ganze Höhe; Tagesspiel zeigt die Punktzahl des Tages statt Endlos-Rekord'],

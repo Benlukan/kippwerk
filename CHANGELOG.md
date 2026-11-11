@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.20.1 (Build 34) – 11.11.2026
+- Endlos: Verlauf heißt „Verlauf · letzten 20 Züge“ und zeigt genau die letzten 20 Züge (eine Zeile statt zwei)
+
 ## v1.20.0 (Build 33) – 11.11.2026
 - **Info-Leiste unten:** Combo-Leiste und Verlauf stehen im Spiel (Tagesspiel, Endlos, Etappen) am unteren Bildschirmrand
 - **Combo-Leiste** mit je einem Zähler pro Spiel: Abgeräumt · Good (×2) · Super (×3) · Mega (×4) · Monster (×5) · **Ultra (×6+)**; Kopfzeile mit Combos gesamt, bester Kette, Steinen weg (Endlos: bis zum nächsten Level), ❤-Vorrat

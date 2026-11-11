@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.19.2 (Build 32) – 11.11.2026
+- Hauptmenü: Die Steine stehen wieder direkt unter der Top-5-Liste (etwa ab Bildschirmmitte) statt ganz unten. Wird die Liste länger oder ist das Display kleiner, rutschen sie automatisch weiter nach unten; Version unten am Rand
 ## v1.19.1 (Build 31) – 11.11.2026
 - **Feste Positionen statt vertikal mittig:** Spiel, Menüs und Listen beginnen oben und stehen pro Gerät immer an derselben Stelle (Spielfeld springt nicht mehr je nach Modus/Inhalt)
   - Hauptmenü: Schriftzug oben, darunter Top 5, die Steine mit Beschriftung im unteren Drittel

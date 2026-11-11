@@ -329,7 +329,7 @@ body.pad-off .pad{display:none!important}
 .ib-dots{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;margin-top:6px}
 .ib-dots span{aspect-ratio:1;border-radius:4px;background:var(--line);min-width:0}
 .ib-dots span.e{background:transparent;box-shadow:inset 0 0 0 1px #ffffff12}
-.ib-dots .k1{background:var(--c3)}.ib-dots .k2{background:var(--c2)}.ib-dots .k3{background:var(--c1)}.ib-dots .k4{background:var(--c0);box-shadow:0 0 8px var(--c0)}
+.ib-dots .k1{background:var(--c3)}.ib-dots .k2{background:var(--c2)}.ib-dots .k3{background:var(--c1)}.ib-dots .k4{background:var(--c0);box-shadow:0 0 8px var(--c0)}.ib-dots .k5{background:var(--c4);box-shadow:0 0 9px var(--c4)}.ib-dots .k6{background:#fff;box-shadow:0 0 10px #fff}
 .ib-goal{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:14px;margin-top:6px}
 .ib-goal .bar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:-2px}
 .ib-goal .bar i{display:block;height:100%;background:var(--c3);transition:width .3s}
@@ -543,7 +543,9 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
           <div class="row"><span class="sw d" style="background:var(--c3)"></span><span><b>Blau</b> (🟦) – eine Gruppe abgeräumt</span></div>
           <div class="row"><span class="sw d" style="background:var(--c2)"></span><span><b>Grün</b> (🟩) – Combo ×2 GOOD</span></div>
           <div class="row"><span class="sw d" style="background:var(--c1)"></span><span><b>Gelb</b> (🟨) – Combo ×3 SUPER</span></div>
-          <div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Rot</b> (🟥) – Combo ×4 oder mehr: MEGA / MONSTER</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Rot</b> (🟥) – Combo ×4 MEGA</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c4)"></span><span><b>Lila</b> (🟪) – Combo ×5 MONSTER</span></div>
+          <div class="row"><span class="sw d" style="background:#fff"></span><span><b>Weiß</b> (⬜) – Combo ×6 oder mehr: ULTRA (+1 ❤)</span></div>
           <p>Je bunter dein Raster, desto besser hast du gespielt.</p>
         </section>
         <section id="hModi"><h3>Spielmodi</h3>
@@ -594,7 +596,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.20.1 · Build 34 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.20.2 · Build 35 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1074,7 +1076,7 @@ function render(){
   });
   renderInfo();
 }
-const LEGEND='<div class="ib-legend"><span><i style="background:var(--line)"></i>nichts</span><span><i style="background:var(--c3)"></i>abgeräumt</span><span><i style="background:var(--c2)"></i>×2</span><span><i style="background:var(--c1)"></i>×3</span><span><i style="background:var(--c0)"></i>×4+</span><span>· ❓</span></div>';
+const LEGEND='<div class="ib-legend"><span><i style="background:var(--line)"></i>nichts</span><span><i style="background:var(--c3)"></i>abgeräumt</span><span><i style="background:var(--c2)"></i>×2</span><span><i style="background:var(--c1)"></i>×3</span><span><i style="background:var(--c0)"></i>×4</span><span><i style="background:var(--c4)"></i>×5</span><span><i style="background:#fff"></i>×6+</span><span>· ❓</span></div>';
 // Combo-Zähler: kurze Hervorhebung bei jeder neuen Combo
 function bumpCombo(t){setTimeout(()=>{const e=document.querySelector('#infobar .cc[data-t="'+t+'"] b');if(e){e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')}},0)}
 const comboSummary=()=>combos[0]?`${combos[0]} ${combos[0]===1?'Combo':'Combos'} (`+[6,5,4,3,2].filter(k=>combos[k]).map(k=>combos[k]+'× '+COMBOS[k].replace('!','')).join(', ')+')':'keine Combo';
@@ -1084,7 +1086,7 @@ function renderInfo(){
   const counter=`<div class="ib-box cbox"><small><span>Combos${combos[0]?' '+combos[0]+' · beste ×'+bestChain:''} · ${cleared} Steine weg${mode==='endless'?' · noch '+(perLevel()-cleared%perLevel())+' bis Level '+(level+1):''}</span><span class="lives" title="Extra-Leben">❤ ${lives}</span></small><div class="ccs">${CC.map(([i,l,k])=>`<div class="cc ${k}${combos[i]?' on':''}" data-t="${i}"><b>${combos[i]}</b><small>${l}</small></div>`).join('')}</div></div>`;
   const tile=(l,v)=>`<div class="ib-tile"><small>${l}</small><b>${v}</b></div>`;
   // immer genau `max` Kästchen (2 Zeilen à 20): leere Plätze als Platzhalter → Höhe bleibt konstant, Feld springt nicht
-  const dots=(arr,max)=>{const a=arr.slice(-max);return `<div class="ib-dots">${a.map(c=>`<span class="k${Math.min(c,4)}"></span>`).join('')}${'<span class="e"></span>'.repeat(max-a.length)}</div>`};
+  const dots=(arr,max)=>{const a=arr.slice(-max);return `<div class="ib-dots">${a.map(c=>`<span class="k${Math.min(c,6)}"></span>`).join('')}${'<span class="e"></span>'.repeat(max-a.length)}</div>`};
   let h='';
   if(mode==='level'){
     h+=`<div class="ib-box"><small>Ziele · Etappe ${stg(lvNo)} · jetzt ${movesLeft>=LV.stars[1]?'★★★':movesLeft>=LV.stars[0]?'★★':'★'}</small>`+LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n,pct=Math.min(100,s.n?s.cur/s.n*100:0);
@@ -1097,7 +1099,7 @@ function renderInfo(){
     h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Dein Raster · Tagesspiel ${dayLabel(dailyNo())}</small>${dots(history,DAILY_MOVES)}${LEGEND}</div>`;
   }else{
     h+=counter;
-    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzten 20 Züge</small>${dots(history,20)}${LEGEND}</div>`;
+    h+=`<div class="ib-box tap" data-help="hVerlauf"><small>Verlauf · letzten 40 Züge</small>${dots(history,40)}${LEGEND}</div>`;
   }
   const wide=matchMedia('(min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px)').matches;
   if(wide)h+=`<div class="ib-box"><small>Steuerung</small><div class="ib-hint" style="text-align:left;margin-top:6px">⌨ Pfeiltasten oder W A S D<br>🖱 Wischen mit gedrückter Maustaste<br>☰ Menü / Pause · ❓ Tippen auf den Verlauf</div></div>`;
@@ -1197,7 +1199,7 @@ async function move(dir){
   busy=false;
 }
 
-const EMO=c=>c<=0?'⬛':c===1?'🟦':c===2?'🟩':c===3?'🟨':'🟥';
+const EMO=c=>c<=0?'⬛':c===1?'🟦':c===2?'🟩':c===3?'🟨':c===4?'🟥':c===5?'🟪':'⬜';
 function shareText(r){
   const rows=[];for(let i=0;i<r.hist.length;i+=10)rows.push(r.hist.slice(i,i+10).map(EMO).join(''));
   return `KIPPWERK Tagesspiel ${dayLabel(r.no,true)}\n⭐ ${r.score.toLocaleString('de-DE')} Punkte · Kette ×${Math.max(1,r.chain)}${r.full?' · Feld voll':''}${r.streak>=2?`\n🔥 ${r.streak} Tage in Folge`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
@@ -1476,7 +1478,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
- ['1.20.1','Verlauf im Endlos-Modus: „letzten 20 Züge“ (eine Zeile)'],
+ ['1.20.2','Verlauf: MONSTER (×5, lila) und ULTRA (×6+, weiß) eigene Farben statt wie MEGA; Endlos wieder „letzten 40 Züge“'],
  ['1.20.0','Combo-Leiste (Abgeräumt, Good, Super, Mega, Monster, Ultra), neue Stufe ULTRA ab ×6 mit ❤ Extra-Leben, Info-Leiste unten'],
  ['1.19.2','Hauptmenü: Steine stehen unter der Top-5-Liste (etwa ab Bildschirmmitte) und rutschen bei längerer Liste oder kleinem Display nach unten'],
  ['1.19.1','Feste Positionen statt mittig (Menü, Spielfeld, Listen); Etappenkarte nutzt die ganze Höhe; Tagesspiel zeigt die Punktzahl des Tages statt Endlos-Rekord'],

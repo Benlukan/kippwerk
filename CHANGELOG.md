@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.20.2 (Build 35) – 11.11.2026
+- Verlauf (Endlos): wieder die **letzten 40 Züge** in zwei Zeilen, Überschrift „Verlauf · letzten 40 Züge“
+- Verlauf, Legende, Hilfe und geteiltes Ergebnis: **MONSTER ×5** (lila 🟪) und **ULTRA ×6+** (weiß ⬜) haben eigene Farben – vorher liefen sie als ×4 MEGA (rot) mit
 ## v1.20.1 (Build 34) – 11.11.2026
 - Endlos: Verlauf heißt „Verlauf · letzten 20 Züge“ und zeigt genau die letzten 20 Züge (eine Zeile statt zwei)
 

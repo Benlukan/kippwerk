@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.18.1 (Build 28) – 11.11.2026
+- Im Level-Modus heißen die Level jetzt **Etappen** im Format **Welt-Etappe**: „Etappe 2-3“ = Welt 2, dritte Etappe (bisher Level 13)
+  - Menü, Etappenkarte (🗺 ETAPPEN, Knöpfe 1-1 … 10-10), Intro/Gewonnen/Verloren, Spielkopf, Ziele, Pause und Rettung
+  - Boss = jeweils Etappe x-10; Hilfe angepasst
+  - Endlos-Modus behält seine Stufen („Level“ = Schwierigkeit im Endlos-Spiel)
 ## v1.18.0 (Build 27) – 11.11.2026
 - **Level deutlich leichter** (alle 100 Level neu abgestimmt per Bot-Simulation, `tools/rebalance.py`):
   - mehr Züge pro Level (insgesamt +27 %), kein Level hat weniger Züge als vorher

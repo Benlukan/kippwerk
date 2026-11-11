@@ -129,7 +129,7 @@ h1 span{color:var(--c3)}
 .chip.rock{background:repeating-linear-gradient(135deg,#5b6079 0 4px,#4a4e66 4px 8px)}
 .lvgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(100%,380px)}
 .lvbtn{background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:8px 0 6px;cursor:pointer;
-  font:700 18px "Space Grotesk",sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px}
+  font:700 16px "Space Grotesk",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
 .lvbtn small{font-size:15px;line-height:1;letter-spacing:0;color:var(--c1);text-shadow:0 0 8px #ffc14555;display:flex;gap:1px}
 .lvbtn small .off{color:var(--line);text-shadow:none}
 .lvbtn.s3{border-color:#ffc14588;background:color-mix(in srgb,var(--c1) 10%,var(--panel))}
@@ -378,7 +378,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
           <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
           <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
         </div>
-        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Level</b><small id="levelSub"></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><span class="hbar"><i id="levelBar"></i></span></div>
         <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></div>
         <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b><small>So geht’s</small></div>
       </div>
@@ -415,13 +415,13 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <p class="hint">Eine Rettung pro Runde · freiwillig</p>
     </div>
     <div class="overlay hidden" id="levelsOv">
-      <h2>🗺 LEVEL</h2>
+      <h2>🗺 ETAPPEN</h2>
       <p id="levelsTotal"></p>
       <div class="lvscroll" id="lvScroll"><div class="lvgrid" id="lvGrid"></div></div>
       <button class="btn alt" id="closeLevels">ZURÜCK</button>
     </div>
     <div class="overlay hidden" id="lvlOv">
-      <p class="hint" id="lvlKicker">LEVEL</p>
+      <p class="hint" id="lvlKicker">ETAPPE</p>
       <h2 id="lvlTitle">LEVEL 1</h2>
       <div class="stars" id="lvlStars"></div>
       <div class="goals" id="lvlGoals"></div>
@@ -505,7 +505,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
             <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
-            <li><b>🗺 Level</b> – 100 Level in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). 1–3 Sterne je nach übrigen Zügen. Jedes 10. Level ist ein 👑 Boss.</li>
+            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss.</li>
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
@@ -549,7 +549,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.18.0 · Build 27 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.18.1 · Build 28 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -665,6 +665,8 @@ function haptic(kind){
 function loadLP(){try{return JSON.parse(localStorage.getItem('kippwerk_levels')||'{}')}catch(e){return{}}}
 let LP=loadLP();
 function saveLP(){try{localStorage.setItem('kippwerk_levels',JSON.stringify(LP))}catch(e){}}
+// Etappen-Bezeichnung: Welt-Etappe, z. B. Level 13 → „2-3“
+const stg=n=>Math.ceil(n/10)+'-'+((n-1)%10+1);
 const unlocked=()=>{let n=1;while(LP[n]&&n<LEVELS.length)n++;return LP[n]?LEVELS.length:n};
 const totalStars=()=>Object.values(LP).reduce((a,b)=>a+b,0);
 // ---------- Bestenliste ----------
@@ -1030,7 +1032,7 @@ function renderInfo(){
   const dots=(arr,max)=>{const a=arr.slice(-max);return `<div class="ib-dots">${a.map(c=>`<span class="k${Math.min(c,4)}"></span>`).join('')}${'<span class="e"></span>'.repeat(max-a.length)}</div>`};
   let h='';
   if(mode==='level'){
-    h+=`<div class="ib-box"><small>Ziele · Level ${lvNo}</small>`+LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n,pct=Math.min(100,s.n?s.cur/s.n*100:0);
+    h+=`<div class="ib-box"><small>Ziele · Etappe ${stg(lvNo)}</small>`+LV.goals.map(g=>{const s=goalState(g),ok=s.cur>=s.n,pct=Math.min(100,s.n?s.cur/s.n*100:0);
       const t=g.t==='score'?'Punkte':g.t==='color'?'Farbe abräumen':g.t==='chain'?'Combo auslösen':g.t==='rocks'?'Felsen zerbrechen':'Steine abräumen';
       const v=g.t==='chain'?`×${Math.max(1,s.cur)} / ×${s.n}`:`${fmt(Math.min(s.cur,s.n))} / ${fmt(s.n)}`;
       return `<div class="ib-goal${ok?' ok':''}"><span>${goalIcon(g)}</span><span>${t}</span><b>${ok?'✓':v}</b><div class="bar"><i style="width:${pct}%"></i></div></div>`}).join('')+`</div>`;
@@ -1154,7 +1156,7 @@ function gameOver(reason){
   if(mode!=='daily'&&!rescued&&Ads.canRescue){
     rescueKind=reason;
     $('rescueTitle').textContent=reason==='moves'?'KEINE ZÜGE MEHR':'FELD VOLL';
-    $('rescueScore').textContent=mode==='level'?'LEVEL '+lvNo:score.toLocaleString('de-DE');
+    $('rescueScore').textContent=mode==='level'?'ETAPPE '+stg(lvNo):score.toLocaleString('de-DE');
     $('rescueText').innerHTML=reason==='moves'
       ?`Fast geschafft? Schau ein kurzes Video – dafür bekommst du <b>${ADS_CONFIG.rescueMoves} Züge</b> extra.`
       :`Noch eine Chance? Schau ein kurzes Video – dafür verschwinden <b>${ADS_CONFIG.rescueTiles} Steine</b> und du spielst weiter.`;
@@ -1196,8 +1198,8 @@ function levelIntro(n){
   let tip='';
   if(LV.rocks&&LV.rocks.length&&!LEVELS.slice(0,n-1).some(l=>l.rocks))tip='<br>💡 Felsen zerbrechen, wenn direkt daneben eine Gruppe verschwindet.';
   if(LV.goals.some(g=>g.t==='chain')&&!LEVELS.slice(0,n-1).some(l=>l.goals.some(g=>g.t==='chain')))tip+='<br>💡 Eine Kette entsteht, wenn nachrutschende Steine eine neue Gruppe bilden.';
-  if(n%10===0)tip+='<br>👑 Boss-Level – das schwerste der Welt!';
-  showLvl({kicker:(n%10===0?'👑 BOSS · ':'')+`WELT ${Math.ceil(n/10)} · `+(best?'BESTES ERGEBNIS':'NEUES LEVEL'),title:'LEVEL '+n,stars:best,goalsProg:false,
+  if(n%10===0)tip+='<br>👑 Boss-Etappe – die schwerste der Welt!';
+  showLvl({kicker:(n%10===0?'👑 BOSS · ':'')+`WELT ${Math.ceil(n/10)} · `+(best?'BESTES ERGEBNIS':'NEUE ETAPPE'),title:'ETAPPE '+stg(n),stars:best,goalsProg:false,
     text:`<b>${LV.moves} Züge</b> · übrige Züge für ★★: ${LV.stars[0]} · ★★★: ${LV.stars[1]}${tip}`,
     main:'▶ START',mainFn:()=>start('level'),retry:false});
 }
@@ -1207,13 +1209,13 @@ function levelWin(){
   const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP()}
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
-  setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'LEVEL '+lvNo,stars:st,goalsProg:true,
-    text:`${movesLeft} ${movesLeft===1?'Zug':'Züge'} übrig · ${fmt(score)} Punkte · ${comboSummary()}${st>prev&&prev?' · neuer Bestwert!':''}${lvNo%10===0&&!last?`<br>🎉 Welt ${lvNo/10} geschafft – weiter nach „${WORLDS[lvNo/10]}“!`:''}${last?'<br>🎉 Du hast alle 100 Level geschafft! Neue Welten kommen mit den nächsten Updates – bis dahin: fehlende Sterne holen oder im ∞ Endlos-Modus weiterspielen.':''}`,
+  setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'ETAPPE '+stg(lvNo),stars:st,goalsProg:true,
+    text:`${movesLeft} ${movesLeft===1?'Zug':'Züge'} übrig · ${fmt(score)} Punkte · ${comboSummary()}${st>prev&&prev?' · neuer Bestwert!':''}${lvNo%10===0&&!last?`<br>🎉 Welt ${lvNo/10} geschafft – weiter nach „${WORLDS[lvNo/10]}“!`:''}${last?'<br>🎉 Du hast alle 100 Etappen geschafft! Neue Welten kommen mit den nächsten Updates – bis dahin: fehlende Sterne holen oder im ∞ Endlos-Modus weiterspielen.':''}`,
     main:last?'🗺 ZUR KARTE':'WEITER ▶',mainFn:()=>{maybeInter();last?openLevels():levelIntro(lvNo+1)}}),900);
 }
 function levelFail(reason){
   over=true;busy=false;started=false;countRound();
-  setTimeout(()=>showLvl({kicker:'LEIDER NICHT',title:'LEVEL '+lvNo,stars:null,goalsProg:true,
+  setTimeout(()=>showLvl({kicker:'LEIDER NICHT',title:'ETAPPE '+stg(lvNo),stars:null,goalsProg:true,
     text:reason==='moves'?'Keine Züge mehr übrig.':'Das Feld ist voll.',
     main:'↻ NOCHMAL',mainFn:()=>{maybeInter();start('level')},retry:false}),400);
 }
@@ -1221,7 +1223,7 @@ function openLevels(){
   const un=unlocked();$('levelsTotal').innerHTML=`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne`+(LP[LEVELS.length]?'<br><small style="color:var(--muted)">Alle Welten geschafft – neue Welten folgen per Update</small>':'');
   $('lvGrid').innerHTML=LEVELS.map((l,i)=>{const n=i+1,s=LP[n]||0,lock=n>un,boss=n%10===0;
     let head='';if(i%10===0){const w=i/10,ws=LEVELS.slice(i,i+10).reduce((a,_,j)=>a+(LP[i+j+1]||0),0);head=`<div class="lvworld"><span>Welt ${w+1} · ${WORLDS[w]||''}</span><span>⭐ ${ws}/30</span></div>`}
-    return head+`<button class="lvbtn${lock?' locked':''}${boss?' boss':''}${n===un&&!s?' next':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''}>${lock?'🔒':(boss?'👑':'')+n}<small>${lock?'&nbsp;':'★'.repeat(s)+'<span class="off">'+'★'.repeat(3-s)+'</span>'}</small></button>`}).join('');
+    return head+`<button class="lvbtn${lock?' locked':''}${boss?' boss':''}${n===un&&!s?' next':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''}>${lock?'🔒':(boss?'👑':'')+stg(n)}<small>${lock?'&nbsp;':'★'.repeat(s)+'<span class="off">'+'★'.repeat(3-s)+'</span>'}</small></button>`}).join('');
   ['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');
   const cur=$('lvGrid').querySelector(`[data-n="${Math.min(un,LEVELS.length)}"]`);if(cur)$('lvScroll').scrollTop=Math.max(0,cur.offsetTop-$('lvScroll').offsetTop-120);
 }
@@ -1277,7 +1279,7 @@ function newGame(){
   best=bestFor(N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayLabel(dailyNo()).slice(4):mode==='level'?'Level '+lvNo:(N!==6?N+'×'+N:'');
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayLabel(dailyNo()).slice(4):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
@@ -1324,8 +1326,8 @@ function showMenu(){
   $('dailyBtn').classList.toggle('open',!done);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
-  $('levelTitle').textContent=all?'Level ✓':'Level '+un;
-  $('levelSub').textContent=`Welt ${w} · ⭐ ${totalStars()}`;
+  $('levelTitle').textContent=all?'Etappen ✓':'Etappe '+stg(un);
+  $('levelSub').textContent=`${WORLDS[w-1]||'Welt '+w} · ⭐ ${totalStars()}`;
   $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
   const sz=+settings.size||6,bs=bestFor(sz);
@@ -1335,7 +1337,7 @@ function showMenu(){
   // Serie, Pause, Fußzeile
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
   $('startOv').classList.toggle('paused',!!paused);$('resumeBtn').style.display=paused?'':'none';
-  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Level ${lvNo} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString('de-DE')} Punkte`);
+  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString('de-DE')} Punkte`);
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
@@ -1411,6 +1413,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.18.1','Level heißen jetzt Etappen: „Etappe 2-3“ = Welt 2, dritte Etappe'],
  ['1.18.0','Level deutlich leichter (mehr Züge, Sterne leichter), große Sterne in der Levelkarte, Combo-Zähler pro Spiel'],
  ['1.17.0','Spielstand in der Cloud: Fortschritt geräteübergreifend über Google Play Games / Game Center'],
  ['1.16.1','Startbildschirm: Schriftzug KIPPWERK steht jetzt über den Steinen'],

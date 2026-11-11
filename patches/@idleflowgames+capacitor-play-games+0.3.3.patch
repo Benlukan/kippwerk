@@ -1,0 +1,19 @@
+diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/build.gradle b/node_modules/@idleflowgames/capacitor-play-games/android/build.gradle
+index 0fcbe5c..7533781 100644
+--- a/node_modules/@idleflowgames/capacitor-play-games/android/build.gradle
++++ b/node_modules/@idleflowgames/capacitor-play-games/android/build.gradle
+@@ -16,12 +16,13 @@ buildscript {
+         mavenCentral()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:9.4.1'
++        // KIPPWERK-Patch: AGP kommt aus dem Hauptprojekt (8.13)
+         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.4.21'
+     }
+ }
+ 
+ apply plugin: 'com.android.library'
++apply plugin: 'kotlin-android'   // KIPPWERK-Patch: unter AGP 8 ist Kotlin nicht eingebaut
+ 
+ android {
+     namespace = "com.idleflowgames.playgames"

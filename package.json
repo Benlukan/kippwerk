@@ -6,7 +6,8 @@
   "scripts": {
     "sync": "cap sync",
     "android": "cap sync android && cd android && ./gradlew assembleDebug",
-    "icons": "capacitor-assets generate --iconBackgroundColor '#0d0f1a' --iconBackgroundColorDark '#0d0f1a' --splashBackgroundColor '#0d0f1a' --splashBackgroundColorDark '#0d0f1a'"
+    "icons": "capacitor-assets generate --iconBackgroundColor '#0d0f1a' --iconBackgroundColorDark '#0d0f1a' --splashBackgroundColor '#0d0f1a' --splashBackgroundColorDark '#0d0f1a'",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@capacitor-community/admob": "^8.3.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^8.6.0"
+    "@capacitor/cli": "^8.6.0",
+    "patch-package": "^8.0.1"
   }
 }

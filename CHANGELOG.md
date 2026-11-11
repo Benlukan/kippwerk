@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.14.0 (Build 22) – 11.11.2026
+- **Hauptmenü neu:** Die vier Steine aus dem Logo sind jetzt die Knöpfe – im Stil der Spielsteine, leicht gekippt, mit gelegentlichem „Kipp“-Wackler
+  - ● rot = **Tagesspiel** (Datum, Status, „!“ wenn heute noch offen, ✓ wenn gespielt)
+  - ▲ gelb = **Level** (aktuelles Level, Sterne, Fortschritt)
+  - ■ grün = **Endlos** (Feldgröße, Rekord) – Feldgröße darunter wählbar
+  - ◆ blau = **Hilfe**
+- Farben folgen Design und Farbschwäche-Schema; Karten-Optik, Emoji-Symbole und schwebende Deko entfernt
+- Pause: „Weiterspielen“ als breiter Stein über den vier Knöpfen
 ## v1.13.0 (Build 21) – 11.11.2026
 - **„Tagesrätsel“ heißt jetzt „Tagesspiel“** und wird mit **Datum** statt Nummer angezeigt (Menü, Spielkopf, Ergebnis, Teilen: „KIPPWERK Tagesspiel 11.11.2026“, Serie, Erinnerung, Hilfe)
 - **Bestenliste Tagesspiel mit drei Listen:**

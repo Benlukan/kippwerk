@@ -240,56 +240,46 @@ body.pad-off .pad{display:none!important}
 .ib-legend span{display:inline-flex;align-items:center;gap:4px}
 .ib-legend i{display:inline-block;width:10px;height:10px;border-radius:3px}
 .ib-box.tap{cursor:pointer}
-/* ---------- Startbildschirm ---------- */
-.overlay.home{background:var(--bgimg,none),radial-gradient(900px 700px at 50% 12%,var(--bg2,#1d2240) 0%,var(--bg) 70%);backdrop-filter:none;
-  justify-content:flex-start;gap:clamp(12px,2.2vh,22px);padding-top:max(14px,env(safe-area-inset-top));overflow-x:hidden}
-.home>*{position:relative;z-index:1}
-.home-deco{position:absolute!important;inset:0;z-index:0!important;pointer-events:none;overflow:hidden}
-.home-deco i{position:absolute;width:var(--s);height:var(--s);border-radius:22%;background:var(--c);opacity:.11;filter:blur(1px);animation:hdrift var(--d) ease-in-out infinite alternate}
-@keyframes hdrift{from{transform:translate(0,0) rotate(var(--r))}to{transform:translate(var(--x),var(--y)) rotate(calc(var(--r) + 40deg))}}
+/* ---------- Startbildschirm: die vier Logo-Steine sind die Knöpfe ---------- */
+.overlay.home{background:var(--bgimg,none),radial-gradient(900px 700px at 50% 30%,var(--bg2,#1d2240) 0%,var(--bg) 70%);backdrop-filter:none;
+  justify-content:flex-start;gap:clamp(12px,2.4vh,24px);padding-top:max(14px,env(safe-area-inset-top));overflow-x:hidden}
 .home-top{width:min(100%,460px);display:flex;justify-content:space-between;align-items:center}
 .home-icons{display:flex;gap:8px}
-.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:clamp(0px,1.5vh,16px);transition:transform .3s}
-.hero-logo{display:grid;grid-template-columns:repeat(2,clamp(44px,7.5vh,66px));gap:clamp(6px,1vh,9px);transform:rotate(-12deg);animation:kipp 6s cubic-bezier(.5,0,.3,1) infinite;margin-bottom:clamp(6px,1.4vh,14px)}
-.hero-logo i{aspect-ratio:1;border-radius:24%;background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));display:grid;place-items:center;font-style:normal;
-  font-size:clamp(15px,2.4vh,22px);color:#0006;box-shadow:inset 0 -5px 0 #0003,inset 0 2px 0 #fff5,0 0 24px color-mix(in srgb,var(--c) 45%,transparent)}
-@keyframes kipp{0%,62%,100%{transform:rotate(-12deg)}70%{transform:rotate(-26deg)}78%{transform:rotate(4deg)}86%{transform:rotate(-12deg)}}
-.hero-word{font-size:clamp(34px,min(11vw,6vh),54px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
+.hero{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:clamp(0px,2vh,24px)}
+.hero-word{font-size:clamp(36px,min(12vw,6.5vh),58px);font-weight:700;letter-spacing:.16em;line-height:1;margin-right:-.16em}
 .hero-word span{color:var(--c3)}
 .hero-tag{color:var(--muted);font-size:clamp(13px,1.8vh,16px);letter-spacing:.04em}
-.home.paused .hero{transform:scale(.8);margin:-10px 0 -14px}
-.home.paused .hero-logo{animation:none}
-.cards{width:min(100%,460px);display:flex;flex-direction:column;gap:clamp(10px,1.6vh,14px)}
-.mcard,.resume{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 13%,var(--panel)),var(--panel) 60%);border:1px solid color-mix(in srgb,var(--acc) 35%,var(--line));
-  border-radius:18px;padding:clamp(12px,1.9vh,18px) 16px clamp(12px,1.9vh,18px) 18px;color:var(--text);font-family:inherit;overflow:hidden;
-  transition:transform .12s,border-color .2s,box-shadow .2s}
-.mcard::before,.resume::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--acc);box-shadow:0 0 12px var(--acc)}
-.mcard:hover,.resume:hover{border-color:var(--acc);box-shadow:0 0 22px color-mix(in srgb,var(--acc) 25%,transparent)}
-.mcard:active,.resume:active{transform:scale(.98)}
-.mcard.daily{--acc:var(--c3)}.mcard.level{--acc:var(--c2)}.mcard.endless{--acc:var(--c4)}.resume{--acc:var(--c1)}
-.mc-ico{width:clamp(42px,6vh,52px);height:clamp(42px,6vh,52px);border-radius:14px;display:grid;place-items:center;font-size:clamp(20px,3vh,26px);font-weight:700;
-  background:color-mix(in srgb,var(--acc) 22%,#0d1020);border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);color:var(--acc)}
-.mc-main{display:flex;flex-direction:column;gap:3px;min-width:0}
-.mc-main b{font-size:clamp(17px,2.4vh,21px);letter-spacing:.02em}
-.mc-main b i{font-style:normal;color:var(--acc);font-weight:700}
-.mc-main small{color:var(--muted);font-size:clamp(12px,1.6vh,14px);line-height:1.3}
-.mc-side{font-size:28px;color:var(--acc);font-weight:700;padding-left:4px}
-.mc-side.done{font-size:20px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--acc);color:#06121a}
-.mc-bar{display:block;height:5px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
-.mc-bar i{display:block;height:100%;background:var(--acc);border-radius:3px}
-.mcard.endless{display:flex;flex-direction:column;align-items:stretch;gap:10px;cursor:default}
-.mcard.endless:active{transform:none}
-.mc-hit{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
-.mc-hit:active{transform:scale(.98)}
-.mc-size{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-left:calc(clamp(42px,6vh,52px) + 14px)}
-.mc-size small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.seg.mini{flex:1;justify-content:space-between}.seg.mini button{flex:1;padding:6px 0;font-size:12px}
-.resume{grid-template-columns:auto 1fr;width:min(100%,460px);background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 22%,var(--panel)),var(--panel));border-color:var(--c1)}
-.rs-play{width:clamp(42px,6vh,52px);height:clamp(42px,6vh,52px);border-radius:50%;display:grid;place-items:center;background:var(--c1);color:#1a1405;font-size:20px;box-shadow:0 0 18px color-mix(in srgb,var(--c1) 50%,transparent)}
+.htiles{--w:min(100%,440px,54vh);width:var(--w);display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,2.2vw,16px);
+  transform:rotate(-3deg);animation:kipp 9s cubic-bezier(.5,0,.3,1) infinite;margin:clamp(4px,1.5vh,14px) 0}
+@keyframes kipp{0%,70%,100%{transform:rotate(-3deg)}76%{transform:rotate(-9deg)}83%{transform:rotate(2deg)}90%{transform:rotate(-3deg)}}
+.mt{position:relative;aspect-ratio:1;border:0;border-radius:22%;cursor:pointer;text-align:left;font-family:inherit;color:#15121b;
+  padding:clamp(12px,4.2%,20px);display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 72%,#000));
+  box-shadow:inset 0 -8px 0 #0003,inset 0 3px 0 #fff6,0 10px 26px color-mix(in srgb,var(--c) 32%,transparent);
+  transition:transform .1s,box-shadow .1s,filter .15s;-webkit-tap-highlight-color:transparent}
+.mt:hover{filter:brightness(1.06)}
+.mt:active{transform:translateY(4px);box-shadow:inset 0 -3px 0 #0003,inset 0 2px 0 #fff5,0 4px 12px color-mix(in srgb,var(--c) 25%,transparent)}
+.t-sym{font-size:clamp(22px,4vh,34px);line-height:1;color:#0005}
+.t-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.t-txt b{font-size:clamp(18px,min(5.2vw,3vh),24px);letter-spacing:.01em}
+.t-txt small{font-size:clamp(11px,min(3.3vw,1.7vh),14px);font-weight:700;color:#000a;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-bar{display:block;height:5px;border-radius:3px;background:#0002;margin-top:5px;overflow:hidden}
+.t-bar i{display:block;height:100%;background:#0006;border-radius:3px}
+.t-flag{position:absolute;top:clamp(10px,4%,16px);right:clamp(10px,4%,16px);min-width:26px;height:26px;padding:0 7px;border-radius:13px;display:grid;place-items:center;
+  font:700 13px "Space Grotesk",sans-serif;background:#15121b;color:var(--c)}
+.t-flag:empty{display:none}
+.t-flag.open{animation:flagPulse 1.8s ease-in-out infinite}
+@keyframes flagPulse{50%{transform:scale(1.12)}}
+.t-wide{aspect-ratio:auto;width:min(100%,440px,54vh);flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;border-radius:20px;padding:14px 18px}
+.t-wide .t-sym{font-size:22px}
+.home-size{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.home-size small{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .home-foot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:auto;padding-bottom:4px}
 .home-ver{color:var(--muted);font-size:11px;opacity:.6}
-@media (max-height:640px){.hero-tag{display:none}}
+.home.paused .htiles{animation:none}
+.home.paused .hero-tag{color:var(--c4)}
+@media (max-height:680px){.hero-tag{display:none}.hero{margin-top:0}}
+@media (prefers-reduced-motion:reduce){.htiles,.t-flag.open{animation:none}}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -365,43 +355,38 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
       <div class="tiles" id="tiles"></div>
     </div>
     <div class="overlay home" id="startOv">
-      <div class="home-deco" id="homeDeco" aria-hidden="true"></div>
       <div class="home-top">
         <button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button>
         <div class="home-icons">
           <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
           <button class="icon-btn" id="menuSettings" title="Einstellungen">⚙</button>
-          <button class="icon-btn" id="menuHelp" title="Hilfe">?</button>
         </div>
       </div>
       <div class="hero">
-        <div class="hero-logo"><i style="--c:var(--c0)">●</i><i style="--c:var(--c1)">▲</i><i style="--c:var(--c2)">■</i><i style="--c:var(--c3)">◆</i></div>
         <div class="hero-word">KIPP<span>WERK</span></div>
         <div class="hero-tag" id="heroTag">Kippen. Verbinden. Kettenreaktion.</div>
       </div>
-      <button class="resume" id="resumeBtn" style="display:none"><span class="rs-play">▶</span><span class="mc-main"><b>Weiterspielen</b><small id="resumeInfo"></small></span></button>
-      <div class="cards">
-        <button class="mcard daily" id="dailyBtn">
-          <span class="mc-ico">📅</span>
-          <span class="mc-main"><b>Tagesspiel <i id="dailyNoTxt"></i></b><small id="dailyHint"></small></span>
-          <span class="mc-side" id="dailySide">›</span>
+      <button class="mt t-wide" id="resumeBtn" style="display:none;--c:var(--c4)"><span class="t-sym">▶</span><span class="t-txt"><b>Weiterspielen</b><small id="resumeInfo"></small></span></button>
+      <div class="htiles" id="homeTiles">
+        <button class="mt" id="dailyBtn" style="--c:var(--c0)">
+          <span class="t-sym">●</span><span class="t-flag" id="dailyFlag"></span>
+          <span class="t-txt"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></span>
         </button>
-        <button class="mcard level" id="levelBtn">
-          <span class="mc-ico">🗺</span>
-          <span class="mc-main"><b id="levelTitle">Level</b><small id="levelSub"></small><span class="mc-bar"><i id="levelBar"></i></span></span>
-          <span class="mc-side">›</span>
+        <button class="mt" id="levelBtn" style="--c:var(--c1)">
+          <span class="t-sym">▲</span>
+          <span class="t-txt"><b>Level</b><small id="levelSub"></small><span class="t-bar"><i id="levelBar"></i></span></span>
         </button>
-        <div class="mcard endless">
-          <button class="mc-hit" id="endlessBtn">
-            <span class="mc-ico">∞</span>
-            <span class="mc-main"><b>Endlos <i id="endlessSize"></i></b><small id="endlessSub"></small></span>
-            <span class="mc-side">›</span>
-          </button>
-          <div class="mc-size"><small>Feld</small><div class="seg mini" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
-        </div>
+        <button class="mt" id="endlessBtn" style="--c:var(--c2)">
+          <span class="t-sym">■</span>
+          <span class="t-txt"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></span>
+        </button>
+        <button class="mt" id="menuHelp" style="--c:var(--c3)">
+          <span class="t-sym">◆</span>
+          <span class="t-txt"><b>Hilfe</b><small>So wird gespielt</small><small>Farben &amp; Tipps</small></span>
+        </button>
       </div>
+      <div class="home-size"><small>Endlos-Feld</small><div class="seg" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
       <div class="home-foot">
-        <button class="linkbtn" id="rulesMore">❓ So wird gespielt</button>
         <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
         <div class="home-ver" id="homeVer"></div>
       </div>
@@ -567,7 +552,7 @@ footer{color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.13.0 · Build 21 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.14.0 · Build 22 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 (()=>{
@@ -1336,17 +1321,16 @@ function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`Gespielt · ${done.score.toLocaleString('de-DE')} Punkte · ${countdown().replace('Nächstes Rätsel in ','neues in ')}`:(cur>0?`🔥 ${cur}er-Serie – heute noch offen!`:'Jeden Tag neu · für alle gleich · 40 Züge');
-  const ds=$('dailySide');ds.textContent=done?'✓':'›';ds.classList.toggle('done',!!done);
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString('de-DE')} Punkte`:(cur>0?`🔥 ${cur} – heute noch offen`:'heute noch offen');
+  const fl=$('dailyFlag');fl.textContent=done?'✓':'!';fl.className='t-flag'+(done?'':' open');
   // Level
-  const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
-  $('levelTitle').textContent=all?'Level · alle geschafft':'Level '+un;
-  $('levelSub').textContent=all?`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne · neue Welten folgen`:`Welt ${w} · ${WORLDS[w-1]||''} · ⭐ ${totalStars()}`;
-  $('levelBar').style.width=(Object.keys(LP).length/LEVELS.length*100)+'%';
+  const un=unlocked(),all=!!LP[LEVELS.length];
+  $('levelSub').textContent=(all?'alle geschafft':'Level '+un)+' · ⭐ '+totalStars();
+  $('levelBar').style.width=Math.max(2,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
   const sz=+settings.size||6,bs=bestFor(sz);
   $('endlessSize').textContent=sz+'×'+sz;
-  $('endlessSub').textContent=bs?`Rekord ${bs.toLocaleString('de-DE')} · bis das Feld voll ist`:'Bis das Feld voll ist – wie weit kommst du?';
+  $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString('de-DE'):'noch kein Rekord';
   document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
   // Serie, Pause, Fußzeile
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
@@ -1357,11 +1341,6 @@ function showMenu(){
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
   ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
 }
-// schwebende Deko-Steine im Startbildschirm
-(()=>{const d=$('homeDeco');const C=['var(--c0)','var(--c1)','var(--c2)','var(--c3)','var(--c4)'];
-  for(let i=0;i<12;i++){const t=document.createElement('i');const sz=40+((i*37)%70);
-    t.style.cssText=`--c:${C[i%5]};--s:${sz}px;left:${(i*83+11)%100}%;top:${(i*47+5)%100}%;--x:${((i*29)%80)-40}px;--y:${((i*53)%120)-60}px;--r:${(i*31)%90}deg;--d:${9+(i%5)*3}s;animation-delay:-${i*1.3}s`;
-    d.appendChild(t)}})();
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
 $('resumeBtn').onclick=()=>{paused=false;started=true;$('startOv').classList.add('hidden')};
@@ -1432,6 +1411,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila'];
 const CHANGES=[
  ['1.10.0','Weltweite Online-Bestenliste (freiwillig): Tagesrätsel des Tages und Endlos je Feldgröße'],
+ ['1.14.0','Hauptmenü neu: die vier Steine des Logos sind jetzt die Knöpfe'],
  ['1.13.0','Tagesrätsel heißt jetzt Tagesspiel (mit Datum); Bestenliste Heute / Woche / All the best'],
  ['1.12.0','Neuer Startbildschirm mit Modus-Karten, Pause-Karte und animiertem Logo'],
  ['1.11.2','Zurück-Taste: pausiert bzw. zurück ins Menü; Verlauf in festem Raster, Spielfeld springt nicht mehr'],
@@ -1460,7 +1440,6 @@ $('closeHelp').onclick=()=>{$('helpOv').classList.add('hidden');
   else if(helpReturn==='play'){if(paused){paused=false;started=true}}
   else showMenu()};
 $('menuHelp').onclick=()=>openHelp(null,'start');
-$('rulesMore').onclick=()=>openHelp(null,'start');
 $('settingsHelp').onclick=()=>openHelp(null,'settings');
 $('infobar').addEventListener('click',e=>{const b=e.target.closest('[data-help]');if(b&&!busy&&!over)openHelp(b.dataset.help,'play')});
 try{if(!localStorage.getItem('kippwerk_helpseen')){localStorage.setItem('kippwerk_helpseen','1');setTimeout(()=>{if(!$('startOv').classList.contains('hidden'))openHelp(null,'start')},1200)}}catch(e){}

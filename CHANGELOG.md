@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.26.0 (Build 44) – 17.11.2026
+- **Maskottchen „KIPPWERK-Fliege“:** fliegt alle 25–50 s (Menü 15–40 s) vorbei, landet auf Rändern (Spielfeld-Ecken, Info-Boxen, Menü-Steine – nie auf dem Spielfeld), schaut aufs Feld, blinzelt, wackelt beim Kippen mit (wird manchmal „abgeschüttelt“ 😵) und reagiert: Combo „!“, MONSTER 😮, ULTRA 🤩 mit Looping, volles Feld 💦, Level 🎉, Rekord ♥, Etappe geschafft ⭐, Spielende 😢. Keine Klicks, verschwindet bei offenen Menüs, aus bei „Bewegung reduzieren“, abschaltbar in ⚙ „🪰 Maskottchen (Fliege)“
+- **Musik mit Steigerung:** drei Stücke – Menü (ruhig), Spiel, Boss. Das Spiel-Stück wird in 5 Stufen schneller und voller (88 → 110 BPM, Hi-Hats, Bass-Drum, treibender Bass, Oktave): Endlos ab Level 5/10/15/25, Etappen je zwei Welten, Tagesspiel ab Zug 15/28/36. Boss-Etappen: eigenes Stück in harmonischem Moll (112 BPM, Bass-Ostinato, Snare). Ist das Feld zu ¾ voll, zieht das Tempo um 6 % an. Wechsel immer zum nächsten Takt mit kurzer Überblendung
+- **Schutz gegen Schummeln:** Punkte werden in einem geschlossenen Protokoll nachgerechnet, nur stimmige Ergebnisse gehen an Play Games/Game Center; wartende Ergebnisse sind signiert. Grenzwerte + Manipulationsschutz für die Play Console in `docs/game-services.md`
+- Hilfe: Tipps zu Fliege und Musik
 ## v1.25.2 (Build 43) – 17.11.2026
 - **Neue Store-Grafiken und Produktvideo** (Deutsch + Englisch, siehe `docs/store/de|en`): 7 Screenshots 1080×1920 mit Überschriften, Feature-Grafik, Video 29,2 s mit Spielmusik (Play-Store- und App-Store-Format); Werkzeuge in `tools/video`
 - Englisch: Datum im Hauptmenü war beim Start noch deutsch („Di, 17.11.“), Wochentage auf der Serien-Seite übersetzt, „So geht’s“ → „How to play“

@@ -336,6 +336,28 @@ body.pad-off .pad{display:none!important}
 /* kleine Displays: Verlauf-Raster und Tipp ausblenden, damit Spielfeld + Combo-Leiste ohne Scrollen passen */
 @media (max-height:780px) and (max-aspect-ratio:3/4){.infobar .ib-box.tap,.infobar .ib-hint{display:none!important}}
 @media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}.pt{display:none}}
+/* Maskottchen: die KIPPWERK-Fliege – stört nie (keine Klicks, nur Ränder als Landeplatz) */
+.fly{position:fixed;left:0;top:0;width:54px;height:49px;pointer-events:none;z-index:9;will-change:transform;transition:opacity .25s}
+.fly.hidden{opacity:0}
+.fly.top{z-index:11}
+.fly-in{width:100%;height:100%;transform-origin:50% 90%;animation:flyBob 2.4s ease-in-out infinite}
+.fly.flying .fly-in{animation:none}
+.fly svg{display:block;width:54px;height:49px;overflow:visible;filter:drop-shadow(0 3px 4px #0007)}
+.fly .wing{transform-box:fill-box;transform-origin:50% 100%;fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.fly.flying .wing{animation:wingFlap .07s linear infinite alternate}
+.fly:not(.flying) .wing{animation:wingRest 3.2s ease-in-out infinite}
+.fly .lid{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0);animation:blink 4.3s infinite}
+.fly .pupils{transition:transform .25s ease-out}
+.fly.wob .fly-in{animation:flyWob .45s ease-out}
+.fly-bubble{position:absolute;left:50%;bottom:100%;transform:translate(-50%,6px) scale(.4);opacity:0;font-size:20px;line-height:1;
+  background:#ffffffee;color:#1a1f3a;border-radius:12px;padding:3px 6px;font-weight:800;white-space:nowrap;transition:transform .2s,opacity .2s}
+.fly-bubble.on{opacity:1;transform:translate(-50%,-2px) scale(1)}
+@keyframes wingFlap{from{transform:scaleY(1)}to{transform:scaleY(.25)}}
+@keyframes wingRest{0%,86%,100%{transform:scaleY(1)}90%{transform:scaleY(.5)}94%{transform:scaleY(1)}96%{transform:scaleY(.6)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
+@keyframes flyBob{50%{transform:translateY(-1.5px)}}
+@keyframes flyWob{25%{transform:translateX(calc(var(--wx,0px)*1)) rotate(calc(var(--wr,0deg)*1))}60%{transform:translateX(calc(var(--wx,0px)*-.4)) rotate(calc(var(--wr,0deg)*-.4))}}
+@media (prefers-reduced-motion:reduce){.fly{display:none}}
 .hlogo.tilt{animation:none;transform:rotate(var(--rot,-12deg))}
 .hst{translate:var(--tx,0px) var(--ty,0px)}
 .pad{display:none;gap:8px}
@@ -535,6 +557,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
         <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
+        <label class="set"><span>🪰 Maskottchen (Fliege)</span><input type="checkbox" id="setFly"></label>
       </div>
       <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
@@ -564,6 +587,21 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       <p class="hint" id="stkBest"></p>
       <button class="btn alt" id="closeStreak">SCHLIESSEN</button>
     </div>
+    <div class="fly hidden" id="fly" aria-hidden="true"><div class="fly-in">
+      <svg viewBox="0 0 64 58"><g>
+        <ellipse class="wing" cx="21" cy="17" rx="13" ry="8" transform="rotate(-28 21 17)"/><ellipse class="wing" cx="43" cy="17" rx="13" ry="8" transform="rotate(28 43 17)"/>
+        <g stroke="#141831" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M24 46l-5 8"/><path d="M30 48l-2 8"/><path d="M34 48l2 8"/><path d="M40 46l5 8"/></g>
+        <ellipse cx="32" cy="38" rx="15" ry="12" fill="#262d52"/>
+        <path d="M18.5 36q13.5 6 27 0" stroke="#4cc9f0" stroke-width="3" fill="none"/><path d="M21 42q11 5 22 0" stroke="#ffc145" stroke-width="2.6" fill="none"/>
+        <g stroke="#2e3661" stroke-width="2" fill="none" stroke-linecap="round"><path d="M27 15q-2-7-7-9"/><path d="M37 15q2-7 7-9"/></g>
+        <circle cx="20" cy="6" r="2.6" fill="#ff5d73"/><circle cx="44" cy="6" r="2.6" fill="#3ddc97"/>
+        <circle cx="32" cy="25" r="12.5" fill="#2e3661"/>
+        <circle cx="25.5" cy="23" r="6.6" fill="#fff"/><circle cx="38.5" cy="23" r="6.6" fill="#fff"/>
+        <g class="pupils"><circle cx="25.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="38.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="26.7" cy="22.6" r="1.1" fill="#fff"/><circle cx="39.7" cy="22.6" r="1.1" fill="#fff"/></g>
+        <ellipse class="lid" cx="25.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/><ellipse class="lid" cx="38.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/>
+        <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
+        <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </g></svg></div><div class="fly-bubble" id="flyBubble"></div></div>
     <div class="coach hidden" id="coach"><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p>
       <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
     <div class="overlay hidden" id="helpOv">
@@ -628,7 +666,8 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
             <li>Schau auf <b>„Als Nächstes“</b> und denk daran: neue Steine kommen von der Gegenseite.</li>
             <li>Hebe <b>Prisma-Steine</b> auf, um zwei Gruppen zu einer großen zu verbinden.</li>
             <li>Im Level-Modus zählen <b>übrige Züge</b> – schnell fertig werden bringt Sterne.</li>
-          </ul>
+          <li>🪰 Die <b>KIPPWERK-Fliege</b> schaut ab und zu vorbei – sie stört nie und lässt sich in ⚙ ausschalten.</li>
+          <li>🎵 Die Musik wird schneller, je schwerer es wird – Boss-Etappen haben ein eigenes Stück.</li></ul>
         </section>
         <section id="hNeu"><h3>Neuigkeiten</h3><div id="helpChangelog"></div></section>
       </div>
@@ -652,7 +691,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.25.2 · Build 43 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.26.0 · Build 44 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -732,7 +771,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','So geht’s':'How to play',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','🪰 Maskottchen (Fliege)':'🪰 Mascot (fly)','So geht’s':'How to play',
   'Profil':'Profile','Ton & Vibration':'Sound & vibration','Spiel':'Game','Darstellung':'Display','Hilfe & Rechtliches':'Help & legal','Daten':'Data',
   '🔊 Effekte':'🔊 Effects','Sanft':'Soft','Stark':'Strong',
   '🎵 Musik':'🎵 Music','📱 Menü kippt mit dem Handy':'📱 Menu tilts with your phone','Tutorial':'Tutorial','Tutorial überspringen':'Skip tutorial','LOS GEHT’S ▶':'LET’S GO ▶',
@@ -876,9 +915,11 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <ul><li>Tilt in the <b>same direction</b> more often – colors collect on one side and combos become more likely.</li>
 <li>Watch <b>“Up next”</b> and remember: new stones come from the opposite side.</li>
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
-<li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
+<li>In stages, <b>moves left</b> count – finishing fast earns stars.</li>
+<li>🪰 The <b>KIPPWERK fly</b> drops by now and then to watch – it never gets in the way and can be turned off in ⚙.</li>
+<li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1009,7 +1050,7 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={fly:true,lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -1133,6 +1174,32 @@ const myTag=()=>'#'+String(playerId).replace(/-/g,'').slice(0,4).toUpperCase();
 // ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
 // IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
+// ---------- Schutz gegen geschummelte Ranglisten-Einträge ----------
+// 1) Jeder Punktgewinn wird in einem geschlossenen Protokoll nachgerechnet (Gruppengröße² × 10 × Combo).
+//    Weicht der Punktestand am Ende davon ab (z. B. durch Speicher-Manipulation), wird nichts gemeldet.
+// 2) Noch nicht gesendete Ergebnisse liegen signiert im Speicher – nachträglich geänderte Werte werden verworfen.
+// 3) Zusätzlich in der Play Console: Grenzwerte je Rangliste + Manipulationsschutz (siehe docs/play-store.md).
+const Audit=(()=>{
+  let sc=0,cl=0,mv=0,bad='',on=false;
+  const K=[0x6b69,0x7070,0x7765,0x726b].map((x,i)=>x^(0x2d1f*(i+1)));
+  function h32(str,seed){let h=seed>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;h^=h>>>13}return h>>>0}
+  const sign=(...a)=>{const s=a.join('|');return h32(s,K[0]^K[2]).toString(36)+h32(s,K[1]^K[3]).toString(36)};
+  return{
+    reset(){sc=0;cl=0;mv=0;bad='';on=true},
+    move(){mv++},
+    step(sizes,chain,gained,cells){
+      if(!on)return;
+      if(!(chain>=1&&chain<=30))bad=bad||'chain';
+      let sum=0,n=0;for(const z of sizes){if(!(z>=3&&z<=N*N))bad=bad||'size';sum+=z*z*10*chain;n+=z}
+      if(sum!==gained||n<cells||cells<3)bad=bad||'sum';   // Prisma-Steine können zu zwei Gruppen gehören → n ≥ cells
+      sc+=gained;cl+=cells},
+    ok(score,cleared,moves,maxMoves){
+      if(!on)return false;
+      return !bad&&sc===score&&cl===cleared&&mv===moves&&(!maxMoves||moves<=maxMoves)&&score>0},
+    get reason(){return bad||'mismatch'},
+    sign,
+    off(){on=false}};
+})();
 const GAMES_CONFIG={
   android:{on:false,saves:true,e5:'',e6:'',e7:'',e8:'',daily:''},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
@@ -1144,8 +1211,10 @@ const Games=(()=>{
   const label=plat==='ios'?'Game Center':'Google Play Games';
   const PK='kippwerk_games_pending';
   let ready=null,signedIn=false;
-  const pend=()=>{try{return JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){return{}}};
-  const savePend=o=>{try{localStorage.setItem(PK,JSON.stringify(o))}catch(e){}};
+  const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
+      for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===Audit.sign(k,v.s,playerId))r[k]=v.s}   // nur unveränderte, signierte Werte
+      return r}catch(e){return{}}};
+  const savePend=o=>{try{const w={};for(const k in o)w[k]={s:o[k],h:Audit.sign(k,o[k],playerId)};localStorage.setItem(PK,JSON.stringify(w))}catch(e){}};
   function init(){if(!available)return Promise.resolve(false);
     if(!ready)ready=(async()=>{try{await P.initialize();
         try{P.addListener('signInStateChanged',r=>{const was=signedIn;signedIn=!!(r&&r.signedIn);if(signedIn){flush();if(!was)afterSignIn()}onChange()})}catch(e){}
@@ -1359,23 +1428,52 @@ const sfx={
 };
 
 // ---------- Musik (prozedural, ruhiger Loop: Am – F – C – G) ----------
+// Drei Stücke: Menü (ruhig), Spiel (wird mit dem Level schneller und voller – in Stufen, nicht bei jedem Level), Boss (eigenes, dunkleres Stück)
 const Music=(()=>{
-  let on=false,hold=0,timer=null,step=0,next=0,g=null,f=null;
-  const CH=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]],ARP=[0,1,2,1,0,2,1,2],E=60/84/2;
+  let on=false,hold=0,timer=null,step=0,next=0,g=null,f=null,noise=null;
+  let cur='menu',stage=0,danger=false,E=60/84/2;
+  const POP=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]];                 // Am – F – C – G
+  const TR={menu:{bpm:[84],ch:POP},game:{bpm:[88,93,98,104,110],ch:POP},
+            boss:{bpm:[112],ch:[[57,60,64],[53,57,60],[50,53,57],[52,56,59]]}};   // Am – F – Dm – E (harmonisch Moll)
+  const ARP=[0,1,2,1,0,2,1,2],BARP=[0,1,2,0,1,2,1,2];
   const hz=m=>440*Math.pow(2,(m-69)/12);
   function note(fr,t,d,type,vol){const o=actx.createOscillator(),e=actx.createGain();o.type=type;o.frequency.value=fr;
-    e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(vol,t+.03);e.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(e).connect(f);o.start(t);o.stop(t+d+.05)}
+    e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(vol,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(e).connect(f);o.start(t);o.stop(t+d+.05)}
+  function nz(t,d,vol,type,freq){const src=actx.createBufferSource(),fl=actx.createBiquadFilter(),e=actx.createGain();src.buffer=noise;fl.type=type;fl.frequency.value=freq;
+    e.gain.setValueAtTime(vol,t);e.gain.exponentialRampToValueAtTime(.0001,t+d);src.connect(fl).connect(e).connect(g);src.start(t);src.stop(t+d+.02)}
+  const hat=(t,v)=>nz(t,.045,v,'highpass',7000),snare=(t,v)=>nz(t,.12,v,'bandpass',1800);
+  function kick(t,v){const o=actx.createOscillator(),e=actx.createGain();o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(42,t+.12);
+    e.gain.setValueAtTime(v,t);e.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(e).connect(g);o.start(t);o.stop(t+.22)}
+  function bar0(){const tr=TR[cur];E=60/(tr.bpm[Math.min(stage,tr.bpm.length-1)]*(danger?1.06:1))/2}
   function tick(){
     if(!actx||actx.state!=='running')return;
     if(next<actx.currentTime)next=actx.currentTime+.05;
     while(next<actx.currentTime+.3){
-      const bar=Math.floor(step/8)%4,s=step%8,ch=CH[bar],phrase=Math.floor(step/32)%4;
-      if(s===0){note(hz(ch[0]-12),next,E*7,'sine',.11);ch.forEach(m=>note(hz(m),next,E*8.5,'sine',.022))}
-      if(s===4)note(hz(ch[0]-12),next,E*3,'sine',.07);
-      if(phrase>0||s%2===0)note(hz(ch[ARP[s]]+12+(phrase===3&&s===7?12:0)),next,E*1.7,'triangle',.032);
+      const s=step%8;if(s===0)bar0();
+      const ch=TR[cur].ch[Math.floor(step/8)%4],phrase=Math.floor(step/32)%4,t=next;
+      if(cur==='menu'){
+        if(s===0){note(hz(ch[0]-12),t,E*7,'sine',.11);ch.forEach(m=>note(hz(m),t,E*8.5,'sine',.022))}
+        if(s===4)note(hz(ch[0]-12),t,E*3,'sine',.07);
+        if(phrase>0||s%2===0)note(hz(ch[ARP[s]]+12+(phrase===3&&s===7?12:0)),t,E*1.7,'triangle',.032);
+      }else if(cur==='game'){
+        if(s===0)ch.forEach(m=>note(hz(m),t,E*8.5,'sine',.02));
+        if(stage<3){if(s===0)note(hz(ch[0]-12),t,E*7,'sine',.11);if(s===4)note(hz(ch[0]-12),t,E*3,'sine',.07)}
+        else note(hz(ch[s%2?2:0]-12),t,E*.9,'sine',.08);                       // ab Stufe 3: treibender Bass
+        note(hz(ch[ARP[s]]+12),t,E*1.5,'triangle',.032);
+        if(stage>=4&&s%2)note(hz(ch[ARP[s]]+24),t,E*.8,'triangle',.014);         // Stufe 4: Oktave darüber
+        if(stage>=1&&s%2===1)hat(t,.02);
+        if(stage>=2&&(s===0||s===4))kick(t,.16);
+        if(danger&&s%2===0)hat(t,.013);
+      }else{   // Boss
+        note(hz(ch[0]-12),t,E*.85,'sawtooth',.035);note(hz(ch[0]-24),t,E*.9,'sine',.07);
+        if(s===0)ch.forEach(m=>note(hz(m),t,E*8,'sine',.018));
+        note(hz(ch[BARP[s]]+12+(s===7?12:0)),t,E*.9,'triangle',.034);
+        if(s===0||s===4)kick(t,.18);if(s===2||s===6)snare(t,.05);if(s%2)hat(t,.016);
+      }
       step++;next+=E}}
   function ensure(){actx=actx||new (window.AudioContext||window.webkitAudioContext)();
-    if(!g){g=actx.createGain();g.gain.value=.0001;f=actx.createBiquadFilter();f.type='lowpass';f.frequency.value=1900;f.connect(g);g.connect(actx.destination)}}
+    if(!g){g=actx.createGain();g.gain.value=.0001;f=actx.createBiquadFilter();f.type='lowpass';f.frequency.value=1900;f.connect(g);g.connect(actx.destination);
+      noise=actx.createBuffer(1,actx.sampleRate*.3,actx.sampleRate);const d=noise.getChannelData(0);let x=1;for(let i=0;i<d.length;i++){x=(x*16807)%2147483647;d[i]=x/1073741823.5-1}}}
   function fade(v,s){const t=actx.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),t);g.gain.linearRampToValueAtTime(v,t+s)}
   const level=()=>2*Math.pow((settings.musicVol??70)/100,2);
   function play(){try{ensure();if(actx.state==='suspended')actx.resume();if(!timer){next=actx.currentTime+.1;timer=setInterval(tick,100)}fade(level(),1.6)}catch(e){}}
@@ -1383,8 +1481,27 @@ const Music=(()=>{
   const want=()=>on&&!hold&&!document.hidden;
   function sync(){want()?play():pause()}
   document.addEventListener('visibilitychange',sync);
-  return{start(){on=true;sync()},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},get playing(){return want()}};
+  // Stückwechsel: kurz leiser, neues Stück beginnt mit einem neuen Takt
+  function setTrack(t,st){st=st|0;
+    if(t===cur&&st===stage)return;
+    if(t!==cur){cur=t;step=0;stage=st;if(g&&want())try{const v=level(),n=actx.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),n);g.gain.linearRampToValueAtTime(v*.25,n+.2);g.gain.linearRampToValueAtTime(v,n+1.2)}catch(e){}}
+    else stage=st}                                                   // Stufe greift ab dem nächsten Takt
+  return{start(){on=true;sync()},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},
+    track:setTrack,danger(b){danger=!!b},get playing(){return want()},get state(){return{track:cur,stage,danger,bpm:Math.round(30/E)}}};
 })();
+// Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
+function musicSync(){
+  const menu=!$('startOv').classList.contains('hidden')||!started||over;
+  if(menu){Music.track('menu');Music.danger(false);return}
+  if(mode==='level'&&lvNo%10===0)Music.track('boss',0);
+  else{let st=0;
+    if(mode==='endless')st=level<5?0:level<10?1:level<15?2:level<25?3:4;
+    else if(mode==='level')st=Math.min(4,Math.floor((Math.ceil(lvNo/10)-1)/2));
+    else if(mode==='daily'){const u=history.length;st=u<15?0:u<28?1:u<36?2:3}
+    Music.track('game',st)}
+  const dg=!!(grid&&grid.filter(Boolean).length>=N*N*.78);if(dg&&!musicSync.dg)try{Fly.react('danger')}catch(e){}
+  musicSync.dg=dg;Music.danger(dg);
+}
 ['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.musicVol>0&&!Music.playing)Music.start()},{passive:true}));
 
 // ---------- Rules ----------
@@ -1558,6 +1675,7 @@ const TIER=n=>Math.min(n,6);   // 2 GOOD · 3 SUPER · 4 MEGA · 5 MONSTER · 6+
 function comboFx(n){
   if(n<2)return;const lv=TIER(n);
   banner(COMBOS[lv],'combo c'+lv,'COMBO ×'+n);sfx.combo(Math.min(lv,5));
+  if(n>=3)try{Fly.react(n>=6?'ultra':n>=5?'monster':'combo')}catch(e){}
   if(lv>=4){boardEl.classList.remove('flash');void boardEl.offsetWidth;boardEl.classList.add('flash');setTimeout(()=>boardEl.classList.remove('flash'),500)}
   const fx=c=>{boardEl.classList.remove('jolt','quake','ultra');void boardEl.offsetWidth;boardEl.classList.add(c);setTimeout(()=>boardEl.classList.remove(c),820)};
   if(lv>=6)fx('ultra');else if(lv>=5)fx('quake');else if(lv>=4)fx('jolt');
@@ -1595,14 +1713,14 @@ async function resolve(dir,chain){
     const {groups,cells}=findGroups();
     if(!cells.length)return chain;
     chain++;
-    let gained=0;
-    for(const g of groups){
+    let gained=0;const sizes=[];
+    for(const g of groups){sizes.push(g.cells.length);
       const size=g.cells.length;
       const pts=(size*size*10)*chain;gained+=pts;
       const mid=g.cells.reduce((a,i)=>[a[0]+Math.floor(i/N),a[1]+i%N],[0,0]).map(v=>v/size);
       floatText('+'+pts+(chain>1?' ×'+chain:''),mid[0],mid[1],COLORS[g.color]);
     }
-    score+=gained;
+    score+=gained;Audit.step(sizes,chain,gained,cells.length);
     const lvBefore=level;
     cleared+=cells.length;level=1+Math.floor(cleared/perLevel());
     // Felsen neben abgeräumten Steinen zerbrechen
@@ -1615,7 +1733,7 @@ async function resolve(dir,chain){
     for(const i of [...cells,...rocks])burst(i,grid[i].color,chain);
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
-    if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)
+    if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level();try{Fly.react('level')}catch(e){}},chain>1?700:200)
       if(N>=7&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
       if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
@@ -1635,11 +1753,11 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=6)gainLife();renderInfo();
+  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=6)gainLife();renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
-  busy=false;
+  busy=false;musicSync();try{Fly.onMove(dir)}catch(e){}
   if(tut)tutNext(total);
 }
 
@@ -1655,7 +1773,7 @@ function countdown(){
 }
 
 function gameOver(reason){
-  over=true;busy=false;sfx.over();haptic('heavy');
+  over=true;busy=false;sfx.over();haptic('heavy');musicSync();try{Fly.react('over')}catch(e){}
   const canVideo=!rescued&&Ads.canRescue,canLife=lives>0;
   if(mode!=='daily'&&(canVideo||canLife)){
     rescueKind=reason;
@@ -1681,11 +1799,11 @@ async function rescue(){
 }
 function useLife(){if(lives<=0)return;lives--;saveLives();$('rescueOv').classList.add('hidden');applyRescue('❤ WEITER!')}
 function applyRescue(msg){
-  if(rescueKind==='moves'){movesLeft+=ADS_CONFIG.rescueMoves;over=false;busy=false;started=true;render();banner('+'+ADS_CONFIG.rescueMoves+' ZÜGE');sfx.level();return}
+  if(rescueKind==='moves'){movesLeft+=ADS_CONFIG.rescueMoves;over=false;busy=false;started=true;render();banner('+'+ADS_CONFIG.rescueMoves+' ZÜGE');sfx.level();musicSync();return}
   const filled=[];for(let i=0;i<N*N;i++)if(grid[i]&&grid[i].color!==ROCK)filled.push(i);
   for(let i=filled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[filled[i],filled[j]]=[filled[j],filled[i]]}
   for(const i of filled.slice(0,ADS_CONFIG.rescueTiles)){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
-  over=false;busy=false;started=true;render();banner(msg||'WEITER!');sfx.level();
+  over=false;busy=false;started=true;render();banner(msg||'WEITER!');sfx.level();musicSync();
 }
 function countRound(){gamesDone++;pendingInter=!!ADS_CONFIG.interstitialEvery&&Ads.native&&gamesDone%ADS_CONFIG.interstitialEvery===0&&!rescued}
 let adBusy=false;
@@ -1713,6 +1831,7 @@ function levelIntro(n){
     main:'▶ START',mainFn:()=>start('level'),retry:false});
 }
 function levelWin(){
+  setTimeout(musicSync,0);try{Fly.react('win')}catch(e){}
   over=true;busy=false;started=false;countRound();
   const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
   const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP()}
@@ -1738,6 +1857,7 @@ function openLevels(){
 }
 
 function finishGame(reason){
+  setTimeout(musicSync,0);
   if(mode==='endless')countRound();
   $('finalScore').textContent=score.toLocaleString(LOC());
   const daily=mode==='daily';
@@ -1749,7 +1869,7 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Games.submit('daily',score);
+      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score);else console.warn('Ergebnis nicht gemeldet:',Audit.reason);
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
@@ -1766,10 +1886,10 @@ function finishGame(reason){
   }else{
     $('streakNote').style.display='none';
     $('overTitle').textContent='FELD VOLL';
-    const isBest=score>best;
+    const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    Games.submit('e'+N,score);
+    if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score);else console.warn('Ergebnis nicht gemeldet:',Audit.reason);
     if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
@@ -1785,7 +1905,7 @@ function newGame(){
   else if(tut){rc=mulberry32(20261117);rp=mulberry32(7);practice=false}
   else{rc=Math.random;rp=Math.random;practice=false}
   setSize(mode==='endless'&&!tut?(+settings.size||6):6);
-  grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;
+  grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;Audit.reset();
   best=bestFor(N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
@@ -1830,10 +1950,11 @@ document.addEventListener('pointerup',e=>{
   move(Math.abs(dx)>Math.abs(dy)?(dx>0?'R':'L'):(dy>0?'D':'U'));
 });
 document.querySelectorAll('.pad button').forEach(b=>b.addEventListener('click',()=>move(b.dataset.d)));
-function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06)}
+function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06);musicSync()}
 document.querySelectorAll('.hl[data-for]').forEach(l=>l.onclick=()=>$(l.dataset.for).click());
 function showMenu(){
   if(tut)endTut();
+  setTimeout(musicSync,0);
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
@@ -1864,7 +1985,7 @@ function showMenu(){
 }
 $('dailyBtn').onclick=()=>start('daily');
 $('endlessBtn').onclick=()=>start('endless');
-$('resumeBtn').onclick=()=>{paused=false;started=true;$('startOv').classList.add('hidden')};
+$('resumeBtn').onclick=()=>{paused=false;started=true;$('startOv').classList.add('hidden');musicSync()};
 $('againBtn').onclick=()=>{maybeInter();start(mode)};
 $('menuBtn').onclick=()=>{maybeInter();started=false;showMenu()};
 $('levelBtn').onclick=()=>{if(paused){paused=false}openLevels()};
@@ -1879,7 +2000,7 @@ function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
-  $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setSymbols').checked=settings.symbols;
+  $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setFly').checked=settings.fly!==false;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
   renderGamesRow();
@@ -1896,6 +2017,7 @@ $('setSfxVol').onchange=()=>{saveSettings();applySettings();tone(660,.1,'triangl
 $('setMusicVol').oninput=e=>{settings.musicVol=+e.target.value;settings.music=settings.musicVol>0;volTxt();settings.musicVol>0?(Music.playing?Music.volume():Music.start()):Music.stop()};
 $('setMusicVol').onchange=()=>saveSettings();
 $('setTilt').onchange=e=>{settings.tilt=e.target.checked;saveSettings();Tilt.wake()};
+$('setFly').onchange=e=>{settings.fly=e.target.checked;saveSettings();if(!settings.fly)Fly.away(true)};
 $('setSymbols').onchange=e=>{settings.symbols=e.target.checked;saveSettings();applySettings()};
 document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
   settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings();
@@ -1944,6 +2066,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.26.0','Neues Maskottchen: die KIPPWERK-Fliege · Musik wird mit dem Level schneller, Boss-Etappen mit eigenem Stück · Schutz gegen geschummelte Ranglisten-Einträge'],
  ['1.25.2','Englisch: Datum im Menü und Wochentage der Serie übersetzt; kleine Darstellungs-Korrekturen'],
  ['1.25.1','Tempo-Auswahl entfernt – das Spiel läuft immer im normalen Tempo'],
  ['1.25.0','Lautstärkeregler für Effekte und Musik, Vibration Aus/Sanft/Stark (deutlich spürbarer), Bestenliste mit bester Combo, Zügen und abgeräumten Steinen, Einstellungen neu sortiert'],
@@ -2269,13 +2392,92 @@ const Tilt=(()=>{
   new MutationObserver(wake).observe($('startOv'),{attributes:true,attributeFilter:['class']});
   return{wake};
 })();
+// ---------- Maskottchen: die KIPPWERK-Fliege ----------
+// Kommt ab und zu vorbei, landet auf Rändern (Anzeigen, Spielfeld-Rahmen, Info-Boxen, Menü-Steine) und schaut zu.
+// Reagiert auf Combos, Gefahr, Rekorde und aufs Kippen. Keine Klicks, landet nie auf dem Spielfeld selbst.
+const Fly=(()=>{
+  const el=$('fly'),bub=$('flyBubble'),pup=el.querySelector('.pupils'),mouth=el.querySelector('.mouth');
+  const W=54,H=49,MOUTH={happy:'M29 31q3 2.6 6 0',sad:'M29 32.5q3-2.6 6 0',oh:'M30.5 31.5a1.6 1.8 0 1 0 3.2 0a1.6 1.8 0 1 0-3.2 0'};
+  let x=-80,y=160,state='away',raf=0,fl=null,sitTimer=0,nextVisit=Date.now()+9000,lastReact=0,bubT=0,pending=null,last=null;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const enabled=()=>settings.fly!==false&&!reduce&&!tut;
+  function scene(){
+    const ov=[...document.querySelectorAll('.overlay')].filter(o=>!o.classList.contains('hidden'));
+    if(!ov.length)return started&&!over?'game':null;
+    return ov.length===1&&ov[0].id==='startOv'?'menu':null}
+  function perches(sc){
+    const pts=[],add=(sel,fs)=>document.querySelectorAll(sel).forEach(e=>{const r=e.getBoundingClientRect();
+      if(r.width<30||r.top<8||r.top>innerHeight-60)return;fs.forEach(f=>pts.push({x:r.left+r.width*f-W/2,y:r.top-H+5}))});
+    if(sc==='game'){add('#board',[.1,.9]);add('.ib-box',[.12,.88])}
+    else add('#homeTiles .hst',[.5]);
+    return pts.filter(p=>!last||Math.hypot(p.x-last.x,p.y-last.y)>40)}
+  const put=(r=0)=>{el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${r.toFixed(1)}deg)`};
+  function look(tx,ty){const dx=tx-(x+W/2),dy=ty-(y+H/2),d=Math.hypot(dx,dy)||1;pup.style.transform=`translate(${(dx/d*1.8).toFixed(2)}px,${(dy/d*1.6).toFixed(2)}px)`}
+  function face(m){mouth.setAttribute('d',MOUTH[m]||MOUTH.happy)}
+  function say(t,ms=1500){bub.textContent=t;bub.classList.add('on');clearTimeout(bubT);bubT=setTimeout(()=>bub.classList.remove('on'),ms)}
+  function flyTo(tx,ty,done,loop){
+    el.classList.add('flying');el.classList.remove('hidden');state='fly';
+    const x0=x,y0=y,dist=Math.hypot(tx-x0,ty-y0),dur=Math.min(2000,Math.max(650,dist/0.42)),cx=(x0+tx)/2+(Math.random()-.5)*120,cy=Math.min(y0,ty)-60-Math.random()*60;
+    const t0=performance.now();cancelAnimationFrame(raf);
+    const stepf=now=>{let k=Math.min(1,(now-t0)/dur);const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,u=1-e;
+      let nx=u*u*x0+2*u*e*cx+e*e*tx,ny=u*u*y0+2*u*e*cy+e*e*ty;
+      if(loop){const a=e*Math.PI*2;nx+=Math.sin(a)*28;ny+=-Math.sin(a/2)*40+(1-Math.cos(a))*0}
+      ny+=Math.sin(now/90)*1.6*(1-k);
+      const r=Math.max(-25,Math.min(25,(nx-x)*2.2));x=nx;y=ny;put(r);
+      if(k<1)raf=requestAnimationFrame(stepf);else{raf=0;el.classList.remove('flying');put(0);done&&done()}};
+    raf=requestAnimationFrame(stepf)}
+  function land(){
+    const sc=scene();if(!sc||!enabled())return away(true);
+    const ps=perches(sc);if(!ps.length)return away();
+    const p=ps[Math.floor(Math.random()*ps.length)];last=p;
+    el.classList.toggle('top',sc==='menu');
+    flyTo(p.x,p.y,()=>{state='sit';face('happy');
+      const b=boardEl.getBoundingClientRect();look(b.left+b.width/2,b.top+b.height/2);
+      if(pending){const m=pending;pending=null;react(m.kind,true)}
+      clearTimeout(sitTimer);sitTimer=setTimeout(()=>Math.random()<.35?land():away(),6000+Math.random()*5000)})}
+  function enter(){
+    const fromLeft=Math.random()<.5;x=fromLeft?-W-20:innerWidth+20;y=60+Math.random()*innerHeight*.4;put();land()}
+  function away(now){
+    clearTimeout(sitTimer);nextVisit=Date.now()+(scene()==='menu'?14000:26000)+Math.random()*24000;
+    if(state==='away')return;
+    if(now||!el.isConnected){cancelAnimationFrame(raf);raf=0;state='away';el.classList.add('hidden');el.classList.remove('flying');return}
+    const tx=x<innerWidth/2?-W-30:innerWidth+30;
+    flyTo(tx,y-80-Math.random()*80,()=>{state='away';el.classList.add('hidden')})}
+  // Reaktionen (aus dem Spiel aufgerufen)
+  const R={combo:['!','happy'],monster:['😮','oh'],ultra:['🤩','oh'],danger:['💦','sad'],record:['♥','happy'],level:['🎉','happy'],win:['⭐','happy'],over:['😢','sad']};
+  function react(kind,arrived){
+    if(!enabled())return;const now=Date.now(),r=R[kind];if(!r)return;
+    if(state==='sit'){face(r[1]);say(r[0]);
+      if(kind==='ultra'){const hx=x,hy=y;flyTo(hx,hy,()=>{state='sit'},true)}
+      if(kind==='over')setTimeout(()=>away(),1800);
+      setTimeout(()=>{if(state==='sit')face('happy')},2200);lastReact=now;return}
+    if(arrived||state!=='away'||now-lastReact<9000||!scene())return;
+    if(kind==='combo'&&Math.random()<.6)return;              // nicht bei jeder Combo vorbeikommen
+    lastReact=now;pending={kind};enter()}
+  // Kippen: sitzende Fliege wackelt mit – manchmal wird sie dabei „abgeschüttelt“
+  function onMove(dir){
+    if(state!=='sit')return;const v={L:[-1,0],R:[1,0],U:[0,-1],D:[0,1]}[dir]||[0,0];
+    el.style.setProperty('--wx',v[0]*5+'px');el.style.setProperty('--wr',v[0]*10+'deg');
+    el.classList.remove('wob');void el.offsetWidth;el.classList.add('wob');
+    pup.style.transform=`translate(${v[0]*1.8}px,${v[1]*1.6}px)`;
+    if(Math.random()<.12){say('😵',900);clearTimeout(sitTimer);setTimeout(land,350)}}
+  // Besuchs-Zeitplan (1× pro Sekunde prüfen – sparsam)
+  let lastSc=null;
+  setInterval(()=>{
+    const sc=scene(),changed=sc!==lastSc;lastSc=sc;
+    if(state!=='away'&&(!sc||!enabled()))return away(true);
+    if(changed&&state==='sit'){clearTimeout(sitTimer);land();return}       // Bildschirm gewechselt → neuen Platz suchen
+    if(state==='away'&&sc&&enabled()&&!document.hidden&&Date.now()>nextVisit)enter()},1000);
+  addEventListener('resize',()=>{if(state==='sit')land()});
+  return{react,onMove,away,get state(){return state},visit:enter};
+})();
 // Musik während Werbung leise
 {const sr=Ads.showReward,si=Ads.showInter;
  Ads.showReward=async(...a)=>{Music.hold(true);try{return await sr(...a)}finally{Music.hold(false)}};
  Ads.showInter=async(...a)=>{Music.hold(true);try{return await si(...a)}finally{Music.hold(false)}};}
 try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
 I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
-window.__kw={i18n:I18N,music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={fly:Fly,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

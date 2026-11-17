@@ -27,7 +27,23 @@ Level/Sterne, Endlos-Rekorde, Tagesspiele (Ergebnisse der letzten 60 Tage), Seri
 | `e8` | Endlos 8×8 | `kippwerk.endlos.8x8` |
 | `daily` | Tagesspiel | `kippwerk.tagesspiel` |
 
-Einstellungen jeweils: Format **Zahl** (ohne Nachkommastellen), Reihenfolge **höher ist besser**, Mindestwert 0, Höchstwert 10 000 000 (bremst Schummler).
+Einstellungen jeweils: Format **Zahl** (ohne Nachkommastellen), Reihenfolge **höher ist besser**.
+
+### Schutz gegen Schummeln (ab v1.26.0)
+**In der App** (automatisch):
+- Jeder Punktgewinn wird in einem geschlossenen Protokoll nachgerechnet (Gruppengröße² × 10 × Combo, Zahl der Steine, Züge). Stimmt der Endstand nicht mit dem Protokoll überein (z. B. Speicher-Editor, manipulierte App), wird das Ergebnis **nicht** gemeldet. Das Tagesspiel wird außerdem nur mit höchstens 40 Zügen gemeldet.
+- Noch nicht gesendete Ergebnisse liegen **signiert** im Speicher; nachträglich geänderte Werte werden verworfen.
+
+**In der Play Console** (je Rangliste unter *Play Games-Dienste → Bestenlisten → bearbeiten*):
+| Rangliste | Mindestwert | Höchstwert |
+|---|---|---|
+| Endlos 5×5 bis 8×8 | 1 | 5 000 000 |
+| Tagesspiel | 1 | 100 000 |
+- **Manipulationsschutz** (Tamper protection) **einschalten** – Google blendet dann verdächtige Einträge aus.
+- Einzelne Einträge kann man im Bereich *Bestenlisten → Spielstände verwalten* auch von Hand entfernen.
+- Grenzen: Ohne eigenen Server kann ein sehr entschlossener Angreifer mit einer veränderten App trotzdem Werte senden. Die Maßnahmen oben stoppen aber alle üblichen Wege (Speicher-Editor, Speicherdatei ändern, Werte oberhalb der Grenzen).
+
+Game Center (iOS): je Rangliste **Wertebereich** 1–5 000 000 bzw. 1–100 000 setzen; Apple entfernt Einträge außerhalb automatisch.
 
 ## Android – Google Play Console (ca. 20 Min.)
 1. App muss in der Play Console als **Spiel** angelegt sein (Store-Präsenz → Kategorie „Spiel“ / Puzzle).

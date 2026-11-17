@@ -5,6 +5,11 @@ on:
     branches: [main]
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      ios:
+        description: 'iOS-Build mitbauen (braucht einen macOS-Runner, oft lange Wartezeit)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -70,7 +75,11 @@ jobs:
 
   ios:
     name: iOS (unsigniert)
+    # Nur auf Wunsch (Run workflow → Haken „iOS“) oder bei Versions-Tags. Bei Pushes übersprungen,
+    # weil GitHub-macOS-Runner oft nicht verfügbar sind und der Lauf sonst rot wird.
+    if: (github.event_name == 'workflow_dispatch' && inputs.ios) || startsWith(github.ref, 'refs/tags/v')
     runs-on: macos-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

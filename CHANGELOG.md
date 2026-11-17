@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.24.0 (Build 39) – 17.11.2026
+- **Geführtes Tutorial beim ersten Start** (statt Hilfetext): 3 Schritte auf einem vorbereiteten 6×6-Feld – nach links kippen (3 gleiche verschwinden), nach unten kippen (Combo ×2), dann freies Spiel. Pfeil zeigt die Richtung, falsche Richtung wird abgefangen, überspringbar; jederzeit erneut über Hilfe → „🎓 Tutorial starten“
+- **Musik:** ruhiger, im Spiel erzeugter Loop (Am–F–C–G), schaltbar in ⚙ „🎵 Musik“; pausiert im Hintergrund und während Werbung
+- **Mehr Wirkung:** Partikel beim Abräumen (mehr und weiter bei Combos), MEGA ruckt das Feld, MONSTER bebt, ULTRA bebt stark
+- **Hauptmenü:** die vier Logo-Steine folgen der Handy-Neigung (am PC der Maus), schaltbar in ⚙ „📱 Menü kippt mit dem Handy“; ohne Sensor bleibt die bisherige Kipp-Animation
+- Englisch: alle neuen Texte übersetzt; Rettungs-Dialog „Fast geschafft?“ vollständig übersetzt
 ## v1.23.0 (Build 38) – 17.11.2026
 - **Englisch als zweite Sprache:** Standard ist die Systemsprache (Deutsch für de-DE/AT/CH/LI/LU …, sonst Englisch); umschaltbar in ⚙ „🌐 Sprache / Language: Auto · Deutsch · English“. Alle Menüs, Spieltexte, Toasts, Benachrichtigungen, Teilen-Text, Datumsformate, Hilfe und Neuigkeiten übersetzt
 - **Rechtstexte:** Datenschutzerklärung aktualisiert (eigener Server/Supabase-Teil entfernt, lokale Speicherung nach § 25 Abs. 2 Nr. 2 TDDDG, Extra-Leben/Belohnungen/Ranglistenplatz, Abruf der Top 5); englische Fassungen `privacy.html` und `legal-notice.html`, Links folgen der Sprache

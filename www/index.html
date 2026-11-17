@@ -81,6 +81,29 @@ h1 span{color:var(--c3)}
 .board.flash::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:radial-gradient(circle,#fff6 0%,transparent 70%);animation:flash .45s ease-out forwards;z-index:4}
 @keyframes flash{from{opacity:1}to{opacity:0}}
 .board.quake{animation:quake .5s}
+.board.jolt{animation:jolt .32s}
+@keyframes jolt{30%{transform:translateY(5px) scale(.995)}65%{transform:translateY(-3px)}}
+.board.ultra{animation:ultraq .8s}
+@keyframes ultraq{10%,40%,70%{transform:translate(-10px,5px) rotate(-1.2deg) scale(1.02)}25%,55%,85%{transform:translate(10px,-5px) rotate(1.2deg) scale(1.02)}}
+.pt{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:2px;pointer-events:none;z-index:3;box-shadow:0 0 6px currentColor;
+  animation:pt .75s cubic-bezier(.15,.7,.3,1) forwards}
+@keyframes pt{0%{transform:none;opacity:1}55%{opacity:1;transform:translate(calc(var(--dx)*.8),calc(var(--dy)*.8)) rotate(140deg) scale(.85)}100%{transform:translate(var(--dx),var(--dy)) rotate(220deg) scale(.35);opacity:0}}
+.coach-arrow{position:absolute;left:50%;top:50%;width:0;height:0;z-index:5;pointer-events:none}
+.coach-arrow::before{content:"➜";position:absolute;left:0;top:0;font-size:min(30vw,150px);line-height:1;color:#fff;opacity:.85;text-shadow:0 0 24px #000c,0 0 8px #4cc9f0;
+  transform:translate(-50%,-50%) rotate(var(--a,0deg));animation:carrow 1.3s ease-in-out infinite}
+@keyframes carrow{0%{translate:calc(var(--mx,0px)*-1) calc(var(--my,0px)*-1);opacity:0}25%{opacity:.9}100%{translate:var(--mx,0px) var(--my,0px);opacity:0}}
+.coach{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,460px);z-index:60;
+  background:#121633f2;border:1px solid var(--c3);border-radius:16px;padding:14px 16px 12px;box-shadow:0 10px 40px #000a;animation:coachIn .35s ease-out}
+.coach.hidden{display:none}
+.coach .ct-step{font-size:11px;letter-spacing:.14em;color:var(--c3);font-weight:700}
+.coach p{margin:4px 0 10px;font-size:15px;line-height:1.45}
+.coach .ct-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.coach .ct-skip{background:none;border:0;color:var(--muted);font:inherit;font-size:13px;padding:6px 2px;cursor:pointer}
+.coach .btn{margin:0;padding:10px 18px}
+.coach.nudge{animation:nudge .35s}
+@keyframes coachIn{from{opacity:0;transform:translate(-50%,16px)}}
+@keyframes nudge{25%{transform:translate(calc(-50% - 6px),0)}75%{transform:translate(calc(-50% + 6px),0)}}
+.help .tutbtn{display:block;width:100%;margin:2px 0 14px}
 @keyframes quake{10%,50%,90%{transform:translate(-7px,3px) rotate(-.6deg)}30%,70%{transform:translate(7px,-3px) rotate(.6deg)}}
 @keyframes banner{0%{transform:translate(-50%,-50%) scale(.6);opacity:0}20%{transform:translate(-50%,-50%) scale(1.05);opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-70%)}}
 .overlay{position:fixed;inset:0;background:rgba(10,12,22,.9);backdrop-filter:blur(4px);overflow-y:auto;
@@ -305,7 +328,9 @@ body.pad-off .pad{display:none!important}
 @media (max-height:680px){.hero-tag{display:none}}
 /* kleine Displays: Verlauf-Raster und Tipp ausblenden, damit Spielfeld + Combo-Leiste ohne Scrollen passen */
 @media (max-height:780px) and (max-aspect-ratio:3/4){.infobar .ib-box.tap,.infobar .ib-hint{display:none!important}}
-@media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}}
+@media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}.pt{display:none}}
+.hlogo.tilt{animation:none;transform:rotate(var(--rot,-12deg))}
+.hst{translate:var(--tx,0px) var(--ty,0px)}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
@@ -486,6 +511,8 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       <div class="settings">
         <div class="set"><span>🌐 Sprache / Language</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
         <label class="set"><span>🔊 Ton</span><input type="checkbox" id="setSound"></label>
+        <label class="set"><span>🎵 Musik</span><input type="checkbox" id="setMusic"></label>
+        <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
         <label class="set"><span>📳 Vibration</span><input type="checkbox" id="setVibe"></label>
         <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
@@ -519,10 +546,13 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       <p class="hint" id="stkBest"></p>
       <button class="btn alt" id="closeStreak">SCHLIESSEN</button>
     </div>
+    <div class="coach hidden" id="coach"><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p>
+      <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
     <div class="overlay hidden" id="helpOv">
       <h2>❓ HILFE</h2>
       <div class="help" data-noi18n>
         <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hSerie">Serie</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
+        <button class="btn lvl tutbtn" id="tutBtn">🎓 TUTORIAL STARTEN</button>
         <section id="hGrund"><h3>So geht's</h3>
           <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Die <b>Zurück-Taste</b> des Handys (bzw. Esc) pausiert das Spiel. Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
           <p>Berühren sich <b>3 oder mehr gleiche Steine</b> waagerecht oder senkrecht, verschwinden sie. Größere Gruppen bringen deutlich mehr Punkte (Größe² × 10).</p>
@@ -604,7 +634,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.23.0 · Build 38 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.24.0 · Build 39 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -684,7 +714,12 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache / Language':'🌐 Sprache / Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','Ergebnis teilen':'Share result',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D',
+  '🎵 Musik':'🎵 Music','📱 Menü kippt mit dem Handy':'📱 Menu tilts with your phone','Tutorial':'Tutorial','Tutorial überspringen':'Skip tutorial','LOS GEHT’S ▶':'LET’S GO ▶',
+  'Wische nach links. Das ganze Feld kippt – alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!':'Swipe left. The whole board tilts – all stones slide along. 3 matching stones that touch disappear!',
+  'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen: Rutschen danach wieder 3 gleiche zusammen, gibt es eine Combo!':'New stones always come from the opposite side. Now swipe down: if 3 matching stones slide together again afterwards, that’s a combo!',
+  'Stark! Ist das Feld voll, ist die Runde vorbei. Tipp: Kippe öfter in dieselbe Richtung – und schau oben bei „Als Nächstes“, was kommt.':'Great! When the board is full, the round is over. Tip: tilt in the same direction more often – and check “Up next” at the top to see what’s coming.',
+  'KEINE ZÜGE MEHR':'OUT OF MOVES','Schau ein kurzes Video':'Watch a short video','Ergebnis teilen':'Share result',
   '🖱 Wischen mit gedrückter Maustaste':'🖱 Drag with the mouse button held','☰ Menü / Pause · ❓ Tippen auf den Verlauf':'☰ Menu / Pause · ❓ Tap the history',
   '– kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':'– joins from level 3 (in Endless; on 7×7 and 8×8 from the start)',
   '– nur Endlos auf 7×7 und 8×8, ab Level 40':'– Endless on 7×7 and 8×8 only, from level 40'
@@ -754,7 +789,10 @@ const I18N_PATS=(()=>{
   [/^⭐ (\d+) \/ (\d+) Sterne$/,'⭐ $1 / $2 stars'],
   [/^🎉 Welt (\d+) geschafft – weiter nach „(.+)“!$/,(m,w,n)=>`🎉 World ${w} complete – on to “${N(n)}”!`],
   [/^❤ LEBEN EINSETZEN \((\d+) übrig\)$/,'❤ USE A LIFE ($1 left)'],
-  [/^Noch eine Chance\? (.*)$/,(m,r)=>'One more chance? '+(r==='Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video'?'Use a ❤ extra life or watch a short video':r==='Setz ein ❤ Extra-Leben ein'?'Use a ❤ extra life':r==='Setz ein ❤ Extra-Leben ein – dafür gibt es'?'Use a ❤ extra life – you get':r)],
+  [/^TUTORIAL · SCHRITT (\d) \/ 3$/,'TUTORIAL · STEP $1 / 3'],
+  [/^(Fast geschafft|Noch eine Chance)\? (.*?)( – dafür gibt es)?$/,(m,h,r,y)=>{
+    const R={'Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video':'Use a ❤ extra life or watch a short video','Setz ein ❤ Extra-Leben ein':'Use a ❤ extra life','Schau ein kurzes Video':'Watch a short video'};
+    return (h==='Fast geschafft'?'Almost there? ':'One more chance? ')+(R[r]||r)+(y?' – you get':'')}],
   [/^(.*) – dafür gibt es$/,(m,a)=>(a==='Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video'?'Use a ❤ extra life or watch a short video':'Use a ❤ extra life')+' – you get'],
   [/^– dafür gibt es$/,'– you get'],
   [/^(\d+) Züge extra$/,'$1 extra moves'],
@@ -770,6 +808,7 @@ const I18N_PATS=(()=>{
   ].map(([re,f])=>[re,typeof f==='function'?(...a)=>{const v=f(...a);return v}:f]);
 })();
 const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><button data-s="hSteine">Stones &amp; colors</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Color history</button><button data-s="hModi">Modes</button><button data-s="hSerie">Streak</button><button data-s="hTipps">Tips</button><button data-s="hNeu">What's new</button></div>
+<button class="btn lvl tutbtn" id="tutBtn">🎓 START TUTORIAL</button>
 <section id="hGrund"><h3>How to play</h3>
 <p><b>Swipe</b> anywhere on the screen in one direction (or use arrow keys/WASD). The phone's <b>back button</b> (or Esc) pauses the game. The whole board tilts – <b>all stones slide</b> to the edge.</p>
 <p>When <b>3 or more matching stones</b> touch horizontally or vertically, they disappear. Bigger groups score a lot more (size² × 10).</p>
@@ -819,7 +858,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -928,6 +967,7 @@ let rescued=false,gamesDone=0,pendingInter=false,rescueKind='full';
 let lvNo=1,LV=null,prog=null;
 
 // ---------- Seeded RNG (Tagesspiel) ----------
+let tut=null;   // laufendes Tutorial (siehe unten)
 function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function hashStr(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function now(){return new Date(Date.now()+(window.KW_DAY_OFFSET||0)*864e5)}
@@ -949,7 +989,7 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={lang:'auto',sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={lang:'auto',sound:true,music:true,tilt:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -1280,6 +1320,34 @@ const sfx={
   over:()=>[392,330,262].forEach((f,i)=>tone(f,.25,'sawtooth',.04,i*.15))
 };
 
+// ---------- Musik (prozedural, ruhiger Loop: Am – F – C – G) ----------
+const Music=(()=>{
+  let on=false,hold=0,timer=null,step=0,next=0,g=null,f=null;
+  const CH=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]],ARP=[0,1,2,1,0,2,1,2],E=60/84/2;
+  const hz=m=>440*Math.pow(2,(m-69)/12);
+  function note(fr,t,d,type,vol){const o=actx.createOscillator(),e=actx.createGain();o.type=type;o.frequency.value=fr;
+    e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(vol,t+.03);e.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(e).connect(f);o.start(t);o.stop(t+d+.05)}
+  function tick(){
+    if(!actx||actx.state!=='running')return;
+    if(next<actx.currentTime)next=actx.currentTime+.05;
+    while(next<actx.currentTime+.3){
+      const bar=Math.floor(step/8)%4,s=step%8,ch=CH[bar],phrase=Math.floor(step/32)%4;
+      if(s===0){note(hz(ch[0]-12),next,E*7,'sine',.11);ch.forEach(m=>note(hz(m),next,E*8.5,'sine',.022))}
+      if(s===4)note(hz(ch[0]-12),next,E*3,'sine',.07);
+      if(phrase>0||s%2===0)note(hz(ch[ARP[s]]+12+(phrase===3&&s===7?12:0)),next,E*1.7,'triangle',.032);
+      step++;next+=E}}
+  function ensure(){actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    if(!g){g=actx.createGain();g.gain.value=.0001;f=actx.createBiquadFilter();f.type='lowpass';f.frequency.value=1900;f.connect(g);g.connect(actx.destination)}}
+  function fade(v,s){const t=actx.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),t);g.gain.linearRampToValueAtTime(v,t+s)}
+  function play(){try{ensure();if(actx.state==='suspended')actx.resume();if(!timer){next=actx.currentTime+.1;timer=setInterval(tick,100)}fade(.5,1.6)}catch(e){}}
+  function pause(){if(!g)return;try{fade(.0001,.3)}catch(e){}setTimeout(()=>{if(!(on&&!hold&&!document.hidden)){clearInterval(timer);timer=null}},350)}
+  const want=()=>on&&!hold&&!document.hidden;
+  function sync(){want()?play():pause()}
+  document.addEventListener('visibilitychange',sync);
+  return{start(){on=true;sync()},stop(){on=false;sync()},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},get playing(){return want()}};
+})();
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.music!==false&&!Music.playing)Music.start()},{passive:true}));
+
 // ---------- Rules ----------
 // Große Felder (7×7, 8×8) im Endlos-Modus: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)
 const BIG_ROCKS=30,BIG_COLOR6=40;
@@ -1432,6 +1500,16 @@ function floatText(txt,r,c,color){
   f.style.left=`calc(var(--gap) + ${(c+.5)/N*100}%)`;f.style.top=`calc(var(--gap) + ${(r+.5)/N*100}%)`;
   boardEl.appendChild(f);setTimeout(()=>f.remove(),950);
 }
+// Partikel beim Abräumen – mehr und weiter bei Combos
+let ptAlive=0;
+function burst(i,color,chain){
+  if(ptAlive>140||document.hidden)return;
+  const n=chain>=4?8:chain>=2?6:4,col=color===ROCK?'#9aa0bb':color===WILD?'#ffffff':COLORS[color];
+  const r=Math.floor(i/N),c=i%N,reach=26+Math.min(chain,6)*9;
+  for(let k=0;k<n;k++){
+    const p=document.createElement('i');p.className='pt';const a=Math.random()*6.2832,d=reach*(.55+Math.random()*.7);
+    p.style.cssText=`left:calc(var(--gap) + ${(c+.5)/N*100}%);top:calc(var(--gap) + ${(r+.5)/N*100}%);background:${col};color:${col};--dx:${(Math.cos(a)*d).toFixed(1)}px;--dy:${(Math.sin(a)*d).toFixed(1)}px`;
+    boardEl.appendChild(p);ptAlive++;setTimeout(()=>{p.remove();ptAlive--},800)}}
 function banner(txt,cls,sub){const b=document.createElement('div');b.className='banner'+(cls?' '+cls:'');b.textContent=txt;
   if(sub){const s=document.createElement('small');s.textContent=sub;b.appendChild(s)}
   boardEl.appendChild(b);setTimeout(()=>b.remove(),cls==='combo c5'?1650:cls==='combo c4'?1350:1150)}
@@ -1441,7 +1519,8 @@ function comboFx(n){
   if(n<2)return;const lv=TIER(n);
   banner(COMBOS[lv],'combo c'+lv,'COMBO ×'+n);sfx.combo(Math.min(lv,5));
   if(lv>=4){boardEl.classList.remove('flash');void boardEl.offsetWidth;boardEl.classList.add('flash');setTimeout(()=>boardEl.classList.remove('flash'),500)}
-  if(lv>=5){boardEl.classList.remove('quake');void boardEl.offsetWidth;boardEl.classList.add('quake');setTimeout(()=>boardEl.classList.remove('quake'),520)}
+  const fx=c=>{boardEl.classList.remove('jolt','quake','ultra');void boardEl.offsetWidth;boardEl.classList.add(c);setTimeout(()=>boardEl.classList.remove(c),820)};
+  if(lv>=6)fx('ultra');else if(lv>=5)fx('quake');else if(lv>=4)fx('jolt');
   haptic(lv>=5?'win':lv>=4?'heavy':'medium');
 }
 const sleep=ms=>new Promise(r=>setTimeout(r,ms*(settings.speed==='fast'?.55:1)));
@@ -1493,6 +1572,7 @@ async function resolve(dir,chain){
         const k=idx(nr,nc);if(grid[k]&&grid[k].color===ROCK)rocks.add(k)}}
     if(prog){for(const g of groups)prog.color[g.color]+=g.cells.length;prog.clear+=cells.length;prog.rocks+=rocks.size;prog.chain=Math.max(prog.chain,chain)}
     sfx.pop(chain);if(chain<2)haptic('light');
+    for(const i of [...cells,...rocks])burst(i,grid[i].color,chain);
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level()},chain>1?700:200)
@@ -1506,6 +1586,7 @@ async function resolve(dir,chain){
 
 async function move(dir){
   if(busy||over||!started)return;
+  if(tut&&tut.step<TUT_STEPS.length&&dir!==TUT_STEPS[tut.step].dir){coachNudge();return}
   if(!slide(dir)){boardEl.classList.remove('shake');void boardEl.offsetWidth;boardEl.classList.add('shake');sfx.bump();return}
   busy=true;sfx.slide();
   if(mode!=='endless')movesLeft--;
@@ -1519,6 +1600,7 @@ async function move(dir){
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
   busy=false;
+  if(tut)tutNext(total);
 }
 
 const EMO=c=>c<=0?'⬛':c===1?'🟦':c===2?'🟩':c===3?'🟨':c===4?'🟥':c===5?'🟪':'⬜';
@@ -1660,14 +1742,19 @@ function finishGame(reason){
 function newGame(){
   els.forEach(el=>el.remove());els.clear();
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
+  else if(tut){rc=mulberry32(20261117);rp=mulberry32(7);practice=false}
   else{rc=Math.random;rp=Math.random;practice=false}
-  setSize(mode==='endless'?(+settings.size||6):6);
+  setSize(mode==='endless'&&!tut?(+settings.size||6):6);
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;
   best=bestFor(N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
   $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
+  if(tut){   // feste Aufstellung für das Tutorial (6×6)
+    nextQ=[1,3,0,2,1,3];
+    TUT_GRID.forEach((row,r)=>row.forEach((col,c)=>{if(col>=0)grid[idx(r,c)]={id:++tileId,color:col,r,c}}));
+    $('modeTag').textContent='Tutorial';render();return}
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
   let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N>=7?5:4);
@@ -1706,6 +1793,7 @@ document.querySelectorAll('.pad button').forEach(b=>b.addEventListener('click',(
 function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06)}
 document.querySelectorAll('.hl[data-for]').forEach(l=>l.onclick=()=>$(l.dataset.for).click());
 function showMenu(){
+  if(tut)endTut();
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
@@ -1751,7 +1839,7 @@ function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
-  $('setSound').checked=settings.sound;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
+  $('setSound').checked=settings.sound;$('setMusic').checked=settings.music!==false;$('setTilt').checked=settings.tilt!==false;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
   renderGamesRow();
@@ -1762,6 +1850,8 @@ function openSettings(from){
   if(from==='play'){paused=true;started=false}
   renderSettings();['startOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('settingsOv').classList.remove('hidden');
 }
+$('setMusic').onchange=e=>{settings.music=e.target.checked;saveSettings();settings.music?Music.start():Music.stop()};
+$('setTilt').onchange=e=>{settings.tilt=e.target.checked;saveSettings();Tilt.wake()};
 ['setSound','setVibe','setSymbols'].forEach(id=>$(id).onchange=e=>{
   settings[{setSound:'sound',setVibe:'vibe',setSymbols:'symbols'}[id]]=e.target.checked;saveSettings();applySettings();
   if(id==='setSound'&&settings.sound)tone(660,.1,'triangle',.06);if(id==='setVibe'&&settings.vibe)haptic('medium')});
@@ -1811,6 +1901,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.24.0','Geführtes Tutorial beim ersten Start, Musik, Partikel und stärkere Combo-Effekte, Menü-Steine folgen der Handy-Neigung'],
  ['1.23.0','Englische Sprache (folgt der Systemsprache, umschaltbar in ⚙), robustere Spielstände, Tablet-Darstellung korrigiert, Datenschutzerklärung aktualisiert'],
  ['1.22.0','Endlos auf 7×7 und 8×8: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)'],
  ['1.21.0','Belohnungen für Tages- und Wochenplätze (Extra-Leben, Abzeichen) – Ranglisten-Erfolge auf der Serien-Seite'],
@@ -1852,6 +1943,7 @@ function openHelp(section,from){
   ['startOv','settingsOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('helpOv').classList.remove('hidden');
   const el=section&&$(section);$('helpOv').scrollTop=el?el.offsetTop-20:0;
 }
+$('helpOv').addEventListener('click',e=>{if(e.target.closest('#tutBtn'))startTutorial()});
 $('helpOv').onclick=e=>{const b=e.target.closest('.toc button');if(b){const el=$(b.dataset.s);$('helpOv').scrollTo({top:el.offsetTop-20,behavior:'smooth'})}};
 $('closeHelp').onclick=()=>{$('helpOv').classList.add('hidden');
   if(helpReturn==='settings')$('settingsOv').classList.remove('hidden');
@@ -1860,7 +1952,7 @@ $('closeHelp').onclick=()=>{$('helpOv').classList.add('hidden');
 $('menuHelp').onclick=()=>openHelp(null,'start');
 $('settingsHelp').onclick=()=>openHelp(null,'settings');
 $('infobar').addEventListener('click',e=>{const b=e.target.closest('[data-help]');if(b&&!busy&&!over)openHelp(b.dataset.help,'play')});
-try{if(!localStorage.getItem('kippwerk_helpseen')){localStorage.setItem('kippwerk_helpseen','1');setTimeout(()=>{if(!$('startOv').classList.contains('hidden'))openHelp(null,'start')},1200)}}catch(e){}
+try{if(!localStorage.getItem('kippwerk_helpseen')){localStorage.setItem('kippwerk_helpseen','1');setTimeout(()=>{if(!$('startOv').classList.contains('hidden'))startTutorial()},900)}}catch(e){}
 $('menuScores').onclick=()=>openScores('endless');
 $('rescueBtn').onclick=rescue;$('lifeBtn').onclick=useLife;
 $('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');finishGame('full')};
@@ -2062,9 +2154,74 @@ setTimeout(()=>Games.init(),1500);
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
 // Sprache starten (Wörterbuch I18N_EN / Muster I18N_PATS stehen am Ende)
+// ---------- Tutorial (erster Start) ----------
+const TUT_GRID=[   // -1 leer · 0 Rot · 1 Gelb · 2 Grün · 3 Blau
+  [0,-1,-1,1,-1,2],
+  [-1,-1,-1,-1,-1,-1],
+  [-1,2,-1,2,3,-1],
+  [0,-1,0,-1,-1,0],
+  [1,-1,-1,1,-1,3],
+  [-1,2,2,-1,3,-1]];
+const TUT_STEPS=[
+  {dir:'L',a:'180deg',mx:'-40px',my:'0px',txt:'Wische nach links. Das ganze Feld kippt – alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!'},
+  {dir:'D',a:'90deg',mx:'0px',my:'40px',txt:'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen: Rutschen danach wieder 3 gleiche zusammen, gibt es eine Combo!'}];
+function startTutorial(){
+  tut={step:0};['helpOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));start('endless');showTut()}
+function showTut(){
+  const c=$('coach'),st=TUT_STEPS[tut.step];c.classList.remove('hidden');
+  $('coachStep').textContent=I18N.t('TUTORIAL · SCHRITT {n} / 3',{n:tut.step+1});
+  let ar=boardEl.querySelector('.coach-arrow');
+  $('coachSkip').style.visibility=st?'':'hidden';
+  if(st){$('coachTxt').textContent=st.txt;$('coachGo').style.display='none';
+    if(!ar){ar=document.createElement('div');ar.className='coach-arrow';boardEl.appendChild(ar)}
+    ar.style.setProperty('--a',st.a);ar.style.setProperty('--mx',st.mx);ar.style.setProperty('--my',st.my)}
+  else{if(ar)ar.remove();$('coachTxt').textContent='Stark! Ist das Feld voll, ist die Runde vorbei. Tipp: Kippe öfter in dieselbe Richtung – und schau oben bei „Als Nächstes“, was kommt.';$('coachGo').style.display=''}
+}
+function tutNext(total){
+  if(!tut)return;tut.step++;
+  if(tut.step<=TUT_STEPS.length)setTimeout(()=>{if(tut)showTut()},total>=2?900:250);
+}
+function endTut(){tut=null;$('coach').classList.add('hidden');const ar=boardEl.querySelector('.coach-arrow');if(ar)ar.remove();try{localStorage.setItem('kippwerk_tutdone','1')}catch(e){}}
+function coachNudge(){const c=$('coach');c.classList.remove('nudge');void c.offsetWidth;c.classList.add('nudge');sfx.bump()}
+$('coachGo').onclick=endTut;
+$('coachSkip').onclick=endTut;
+// ---------- Menü-Steine folgen der Handy-Neigung ----------
+const Tilt=(()=>{
+  let gx=0,gy=0,cx=0,cy=0,base=null,raf=0,sensor=false,mouse=false,asked=false;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const logo=()=>document.querySelector('#homeTiles .hlogo');
+  const enabled=()=>settings.tilt!==false&&!reduce;
+  addEventListener('deviceorientation',e=>{
+    if(e.gamma==null||e.beta==null)return;sensor=true;
+    base=base==null?e.beta:base+(e.beta-base)*.008;             // Haltung langsam nachführen
+    gx=Math.max(-1,Math.min(1,e.gamma/28));gy=Math.max(-1,Math.min(1,(e.beta-base)/15));wake()});
+  if(matchMedia('(pointer:fine)').matches)addEventListener('pointermove',e=>{
+    if(sensor)return;mouse=true;gx=(e.clientX/innerWidth-.5)*1.2;gy=(e.clientY/innerHeight-.5)*1.2;wake()},{passive:true});
+  // iOS: Bewegungssensor braucht einmal eine Erlaubnis (nur nach Tippen möglich)
+  $('startOv').addEventListener('pointerdown',()=>{
+    if(asked||!enabled())return;asked=true;
+    const D=window.DeviceOrientationEvent;if(D&&typeof D.requestPermission==='function')D.requestPermission().catch(()=>{})},{passive:true});
+  function frame(){
+    const el=logo(),vis=!$('startOv').classList.contains('hidden');
+    if(!el||!vis||!enabled()||!(sensor||mouse)){raf=0;if(el){el.classList.remove('tilt');el.querySelectorAll('.hst').forEach(t=>{t.style.removeProperty('--tx');t.style.removeProperty('--ty')})}return}
+    raf=requestAnimationFrame(frame);
+    cx+=(gx-cx)*.1;cy+=(gy-cy)*.1;
+    const rot=-12+cx*7,th=rot*Math.PI/180,co=Math.cos(th),si=Math.sin(th);
+    el.classList.add('tilt');el.style.setProperty('--rot',rot.toFixed(2)+'deg');
+    el.querySelectorAll('.hst').forEach((t,i)=>{
+      const k=5.5*(1+(i%2)*.3+(i>>1)*.2),vx=cx*k,vy=cy*k;       // Steine rutschen Richtung „unten“, leicht versetzt
+      t.style.setProperty('--tx',(vx*co+vy*si).toFixed(1)+'px');t.style.setProperty('--ty',(-vx*si+vy*co).toFixed(1)+'px')})}
+  function wake(){if(!raf)raf=requestAnimationFrame(frame)}
+  new MutationObserver(wake).observe($('startOv'),{attributes:true,attributeFilter:['class']});
+  return{wake};
+})();
+// Musik während Werbung leise
+{const sr=Ads.showReward,si=Ads.showInter;
+ Ads.showReward=async(...a)=>{Music.hold(true);try{return await sr(...a)}finally{Music.hold(false)}};
+ Ads.showInter=async(...a)=>{Music.hold(true);try{return await si(...a)}finally{Music.hold(false)}};}
 try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
 I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
-window.__kw={i18n:I18N,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={i18n:I18N,music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

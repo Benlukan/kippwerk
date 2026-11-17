@@ -44,6 +44,7 @@ Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen 
 • Bestenliste mit Top 10 und Tages-Serie 🔥
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
 • Kein Konto nötig, offline spielbar
+• Geführtes Tutorial, entspannte Musik, satte Combo-Effekte
 • Farbschema und Symbole für Spieler mit Farbsehschwäche
 • Klein, schnell, akkuschonend
 
@@ -89,6 +90,7 @@ Play on 5×5 to 8×8 boards until the board is full. Every level brings new colo
 • Global leaderboards and cloud save via Google Play Games (optional)
 • Fair ads: optional videos for a rescue, never mid-game
 • No account needed, plays offline
+• Guided tutorial, relaxed music, punchy combo effects
 • Color scheme and symbols for color-blind players
 • English and German
 

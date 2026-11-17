@@ -49,7 +49,7 @@ h1 span{color:var(--c3)}
 .cells{display:grid;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);gap:var(--gap)}
 .cells div{background:#1d2238;border-radius:var(--radius)}
 .tile{position:absolute;top:0;left:0;width:calc((100% - (var(--n) - 1) * var(--gap)) / var(--n));height:calc((100% - (var(--n) - 1) * var(--gap)) / var(--n));
-  border-radius:var(--radius);display:grid;place-items:center;font-size:clamp(11px,calc(var(--W) * .27 / var(--n)),24px);color:rgba(0,0,0,.38);
+  border-radius:var(--radius);display:grid;place-items:center;font-size:clamp(13px,calc(var(--W) * .34 / var(--n)),30px);color:rgba(0,0,0,.38);
   transition:transform .14s cubic-bezier(.3,.7,.4,1);will-change:transform}
 .tile .in{width:100%;height:100%;border-radius:inherit;display:grid;place-items:center;
   box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.35),0 0 18px var(--glow)}
@@ -634,7 +634,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.24.0 · Build 39 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.24.1 · Build 40 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -858,7 +858,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1901,6 +1901,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.24.1','Symbole auf den Steinen etwas größer'],
  ['1.24.0','Geführtes Tutorial beim ersten Start, Musik, Partikel und stärkere Combo-Effekte, Menü-Steine folgen der Handy-Neigung'],
  ['1.23.0','Englische Sprache (folgt der Systemsprache, umschaltbar in ⚙), robustere Spielstände, Tablet-Darstellung korrigiert, Datenschutzerklärung aktualisiert'],
  ['1.22.0','Endlos auf 7×7 und 8×8: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)'],

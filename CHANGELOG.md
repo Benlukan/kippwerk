@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.24.1 (Build 40) – 17.11.2026
+- Symbole auf den Steinen etwa 25 % größer (alle Feldgrößen, max. 30 px)
 ## v1.24.0 (Build 39) – 17.11.2026
 - **Geführtes Tutorial beim ersten Start** (statt Hilfetext): 3 Schritte auf einem vorbereiteten 6×6-Feld – nach links kippen (3 gleiche verschwinden), nach unten kippen (Combo ×2), dann freies Spiel. Pfeil zeigt die Richtung, falsche Richtung wird abgefangen, überspringbar; jederzeit erneut über Hilfe → „🎓 Tutorial starten“
 - **Musik:** ruhiger, im Spiel erzeugter Loop (Am–F–C–G), schaltbar in ⚙ „🎵 Musik“; pausiert im Hintergrund und während Werbung

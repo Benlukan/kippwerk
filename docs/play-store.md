@@ -5,6 +5,7 @@
    GitHub → Settings → Secrets and variables → Actions → *New repository secret*
 2. Actions → „Apps bauen“ → *Run workflow*.
 3. Unter *Artifacts* → `KIPPWERK-android` liegt jetzt zusätzlich **`KIPPWERK-playstore.aab`**. Diese Datei wird in die Play Console hochgeladen.
+4. Einfacher (auch am Handy): Jeder Push auf `main` legt eine **GitHub-Release** an – https://github.com/Benlukan/kippwerk/releases/latest – mit `KIPPWERK.apk`, `KIPPWERK-release.apk` und `KIPPWERK-playstore.aab` zum direkten Herunterladen.
 
 > `kippwerk-upload.jks` ist der **Upload-Schlüssel**. Google verwaltet den eigentlichen App-Signaturschlüssel (Play App Signing, Standard). Geht der Upload-Schlüssel verloren, kann er über den Play-Support zurückgesetzt werden – trotzdem sicher aufbewahren.
 

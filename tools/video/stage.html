@@ -40,7 +40,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
 <div class="cap out" id="cap"><h1 id="capH"></h1><p id="capP"></p></div>
 <div class="phone" id="phone" style="opacity:0">
   <iframe id="game"></iframe>
-  <img id="i_levels" src="m_levels.png"><img id="i_daily" src="m_daily.png"><img id="i_8x8" src="m_8x8.png"><img id="i_streak" src="m_streak.png"><img id="i_ozean" src="m_ozean.png">
+  <img id="i_levels"><img id="i_daily"><img id="i_8x8"><img id="i_streak"><img id="i_scores">
   <div class="arrow" id="arrow">➜</div>
 </div>
 <div class="full" id="full">
@@ -49,13 +49,18 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
     <div class="lt" style="--c:#3ddc97;left:0;top:156px">■</div><div class="lt" style="--c:#4cc9f0;left:156px;top:156px">◆</div>
   </div>
   <div class="word" id="word">KIPP<span>WERK</span></div>
-  <div class="tag" id="tag">Kippen. Verbinden. Kettenreaktion.</div>
-  <div class="cta" id="cta">Jetzt kostenlos spielen</div>
-  <div class="small" id="small">Tagesrätsel · 100 Level · Endlos · offline spielbar</div>
+  <div class="tag" id="tag"></div>
+  <div class="cta" id="cta"></div>
+  <div class="small" id="small"></div>
 </div>
 <div id="fade"></div>
 <script>
 const $=id=>document.getElementById(id);
+const LANG=new URLSearchParams(location.search).get('lang')||'de';const T=(de,en)=>LANG==='en'?en:de;
+['levels','daily','8x8','streak','scores'].forEach(n=>$('i_'+n).src='m_'+n+'_'+LANG+'.png');
+$('tag').textContent=T('Kippen. Verbinden. Kettenreaktion.','Tilt. Connect. Chain reaction.');
+$('cta').textContent=T('Jetzt kostenlos spielen','Play for free now');
+$('small').textContent=T('Tagesspiel · 100 Etappen · Endlos · offline spielbar','Daily game · 100 stages · Endless · plays offline');
 const COLS=['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'];
 for(let i=0;i<9;i++){const d=document.createElement('div');d.className='deco';d.style.background=COLS[i%5];d.style.left=(i*137%1000)+'px';d.style.top=(140+i*211%1700)+'px';d.style.animationDelay=(-i*1.7)+'s';$('decos').appendChild(d)}
 const at=(ms,fn)=>setTimeout(fn,ms);
@@ -70,7 +75,7 @@ function swipe(d){const a=$('arrow'),r=ARR[d];a.style.transform='';a.style.setPr
   a.classList.remove('go');void a.offsetWidth;a.classList.add('go');G().__kw.move(d)}
 function loadGame(){return new Promise(res=>{
   localStorage.clear();localStorage.setItem('kippwerk_helpseen','1');
-  localStorage.setItem('kippwerk_settings',JSON.stringify({sound:false,vibe:false}));
+  localStorage.setItem('kippwerk_settings',JSON.stringify({lang:LANG,sfxVol:0,musicVol:0,vibe:'off',tilt:true}));localStorage.setItem('kippwerk_lives','2');
   localStorage.setItem('kippwerk_scores',JSON.stringify({endless:[{name:'Lena',score:23710,level:7,date:'09.11.26',size:6,pid:'x'}],daily:[]}));
   const d=new Date();const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   localStorage.setItem('kippwerk_streak',JSON.stringify({cur:13,best:13,last:k,shields:1,prot:[],adDay:null,ms:[3,7],seen:[3,7]}));
@@ -78,24 +83,28 @@ function loadGame(){return new Promise(res=>{
 function runMoves(list,first,gap,sw){let i=0;const step=()=>{if(i>=list.length)return;const st=G().__kw.state;if(st.busy||st.over){setTimeout(step,30);return}
   const m=list[i++];sw?swipe(m):G().__kw.move(m);setTimeout(step,gap)};setTimeout(step,first)}
 function startEndless(){G().document.getElementById('endlessBtn').click()}
+function tiltSweep(d){const w=G();let t=0;const step=()=>{if(t>d)return;const g=Math.sin(t/1000*2.4)*26,b=50+Math.sin(t/1000*1.7)*9;
+  w.dispatchEvent(Object.assign(new w.Event('deviceorientation'),{gamma:g,beta:b,alpha:0}));t+=33;setTimeout(step,33)};step()}
 const SCENES={
-  1:{d:3000,run(){fadeIn();$('full').classList.add('on');['tag','cta','small'].forEach(x=>$(x).style.display=x==='tag'?'':'none');
-     document.querySelectorAll('.lt').forEach((t,i)=>at(150+i*150,()=>t.classList.add('in')));at(950,()=>$('word').classList.add('on'));at(1500,()=>$('tag').classList.add('on'));fadeOut(3000)}},
-  2:{d:9600,async prep(){await loadGame()},run(){startEndless();$('phone').style.opacity=1;fadeIn();
-     cap('Wische – das ganze<br>Feld <em>kippt</em>','Alle Steine rutschen mit');
-     runMoves([...MOVES].slice(0,12),600,560,true);
-     at(3700,()=>cap('3 gleiche Farben<br><em>verschwinden</em>','Größere Gruppen = mehr Punkte'));
-     at(6500,()=>cap('Nachrutschen löst<br><em>Ketten</em> aus','Kombiniere bis zur MEGA-Combo'));fadeOut(9600)}},
+  1:{d:2600,run(){fadeIn();$('full').classList.add('on');['tag','cta','small'].forEach(x=>$(x).style.display=x==='tag'?'':'none');
+     document.querySelectorAll('.lt').forEach((t,i)=>at(120+i*130,()=>t.classList.add('in')));at(800,()=>$('word').classList.add('on'));at(1250,()=>$('tag').classList.add('on'));fadeOut(2600)}},
+  2:{d:8400,async prep(){await loadGame()},run(){startEndless();$('phone').style.opacity=1;fadeIn();
+     cap(T('Wische – das ganze<br>Feld <em>kippt</em>','Swipe – the whole<br>board <em>tilts</em>'),T('Alle Steine rutschen mit','Every stone slides along'));
+     runMoves([...MOVES].slice(0,12),500,520,true);
+     at(3100,()=>cap(T('3 gleiche Farben<br><em>verschwinden</em>','Match 3 colors –<br>they <em>vanish</em>'),T('Größere Gruppen = mehr Punkte','Bigger groups, more points')));
+     at(5700,()=>cap(T('Nachrutschen löst<br><em>Ketten</em> aus','Sliding stones trigger<br><em>chains</em>'),T('Bis zur MEGA-Combo','All the way to a MEGA combo')));fadeOut(8400)}},
   3:{d:3600,async prep(){await loadGame()},prepMs:12000,prepRun(){startEndless();runMoves([...MOVES].slice(0,12),300,400,false)},
-     run(){$('phone').style.opacity=1;fadeIn();cap('GOOD · SUPER ·<br>MEGA · <em>MONSTER</em>','Jede Combo-Stufe größer und lauter');
-     at(250,()=>G().__kw.comboFx(2));at(1050,()=>G().__kw.comboFx(3));at(1950,()=>G().__kw.comboFx(5));fadeOut(3600)}},
-  4:{d:6600,run(){$('phone').style.opacity=1;$('game').style.display='none';img('levels');fadeIn();cap('<em>100 Level</em><br>in 10 Welten','Ziele, Felsen und Boss-Level');
-     at(2200,()=>{img('daily');cap('Jeden Tag ein<br>neues <em>Rätsel</em>','Ergebnis teilen & vergleichen')});
-     at(4400,()=>{img('8x8');cap('<em>Endlos</em> auf<br>5×5 bis 8×8','Wie weit kommst du?')});fadeOut(6600)}},
-  5:{d:3800,run(){$('phone').style.opacity=1;$('game').style.display='none';img('streak');fadeIn();cap('Halte deine<br>🔥 <em>Serie</em>','Abzeichen & neue Designs freischalten');
-     at(1900,()=>{img('ozean');cap('6 Designs –<br>von <em>Neon</em> bis Kosmos','Rein optisch, alles fair')});fadeOut(3800)}},
-  6:{d:3000,run(){fadeIn();$('full').classList.add('on');$('tag').style.display='none';
-     document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(350,()=>$('word').classList.add('on'));at(800,()=>$('cta').classList.add('on'));at(1200,()=>$('small').classList.add('on'))}}
+     run(){$('phone').style.opacity=1;fadeIn();cap(T('GOOD · SUPER · MEGA<br>MONSTER · <em>ULTRA</em>','GOOD · SUPER · MEGA<br>MONSTER · <em>ULTRA</em>'),T('ULTRA bringt ein ❤ Extra-Leben','ULTRA earns a ❤ extra life'));
+     at(200,()=>G().__kw.comboFx(2));at(900,()=>G().__kw.comboFx(4));at(1700,()=>G().__kw.comboFx(5));at(2500,()=>G().__kw.comboFx(6));fadeOut(3600)}},
+  4:{d:6000,run(){$('phone').style.opacity=1;$('game').style.display='none';img('levels');fadeIn();cap(T('<em>100 Etappen</em><br>in 10 Welten','<em>100 stages</em><br>in 10 worlds'),T('Ziele, Felsen und Bosse','Goals, rocks and bosses'));
+     at(2000,()=>{img('daily');cap(T('Jeden Tag ein neues<br><em>Tagesspiel</em>','A new <em>daily game</em><br>every day'),T('Gleiche Steine für alle – teilen & vergleichen','Same stones for everyone – share & compare'))});
+     at(4000,()=>{img('8x8');cap(T('<em>Endlos</em> auf<br>5×5 bis 8×8','<em>Endless</em> on<br>5×5 to 8×8'),T('Wie weit kommst du?','How far can you go?'))});fadeOut(6000)}},
+  5:{d:3400,run(){$('phone').style.opacity=1;$('game').style.display='none';img('scores');fadeIn();cap(T('Bestenliste mit<br><em>Combos</em> & Zügen','Leaderboards with<br><em>combos</em> & moves'),T('Dazu weltweite Ranglisten','Plus global rankings'));
+     at(1700,()=>{img('streak');cap(T('🔥 <em>Serien</em>,<br>Abzeichen & Designs','🔥 <em>Streaks</em>,<br>badges & themes'),T('Jeden Tag zurückkommen lohnt sich','Worth coming back every day'))});fadeOut(3400)}},
+  6:{d:2600,async prep(){await loadGame()},run(){img('');$('game').style.display='';$('phone').style.opacity=1;fadeIn();
+     cap(T('Kipp dein Handy –<br>das <em>Menü</em> kippt mit','Tilt your phone –<br>the <em>menu</em> tilts too'),T('Mit Musik, Partikeln & Vibration','With music, particles & haptics'));tiltSweep(2600);fadeOut(2600)}},
+  7:{d:2600,run(){fadeIn();$('full').classList.add('on');$('tag').style.display='none';
+     document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(350,()=>$('word').classList.add('on'));at(750,()=>$('cta').classList.add('on'));at(1100,()=>$('small').classList.add('on'))}}
 };
 window.SCENES=SCENES;
 </script></body></html>

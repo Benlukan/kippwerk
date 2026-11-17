@@ -58,4 +58,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.25.1 · Build 42** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.25.2 · Build 43** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

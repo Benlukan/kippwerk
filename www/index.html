@@ -318,7 +318,7 @@ body.pad-off .pad{display:none!important}
 .hl{display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0;-webkit-tap-highlight-color:transparent}
 .hl.l{grid-column:1;text-align:right;align-items:flex-end}.hl.r{grid-column:3;text-align:left;align-items:flex-start}
 .hl b{font-size:clamp(14px,4.2vw,17px);font-weight:700;white-space:nowrap}
-.hl small{font-size:clamp(11px,3.1vw,12.5px);color:var(--muted);line-height:1.3;white-space:nowrap}
+.hl small{font-size:clamp(11px,3.1vw,12.5px);color:var(--muted);line-height:1.3}
 .hl:hover b{color:var(--c,var(--text))}
 .hbar{display:block;height:3px;width:70px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden}
 .hbar i{display:block;height:100%;background:var(--c2);border-radius:2px}
@@ -351,7 +351,7 @@ body.pad-off .pad{display:none!important}
 .ib-row.two{grid-template-columns:1fr 1fr}
 .cbox>small{display:flex!important;justify-content:space-between;align-items:center;gap:6px}
 .cbox>small>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cbox .lives{color:#ff7a8a;letter-spacing:0;text-transform:none;font-size:12px;font-weight:700}
+.cbox .lives{color:#ff7a8a;letter-spacing:0;text-transform:none;font-size:12px;font-weight:700;white-space:nowrap;flex:none}
 .ccs{display:grid;grid-template-columns:1.55fr 1fr 1fr 1fr 1.3fr 1fr;gap:4px;margin-top:6px}
 .cc{border-radius:9px;padding:5px 2px 4px;text-align:center;background:#0d1020;border:1px solid var(--line);opacity:.55;min-width:0}
 .cc.on{opacity:1;border-color:var(--cc)}
@@ -652,7 +652,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.25.1 · Build 42 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.25.2 · Build 43 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -732,7 +732,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','So geht’s':'How to play',
   'Profil':'Profile','Ton & Vibration':'Sound & vibration','Spiel':'Game','Darstellung':'Display','Hilfe & Rechtliches':'Help & legal','Daten':'Data',
   '🔊 Effekte':'🔊 Effects','Sanft':'Soft','Stark':'Strong',
   '🎵 Musik':'🎵 Music','📱 Menü kippt mit dem Handy':'📱 Menu tilts with your phone','Tutorial':'Tutorial','Tutorial überspringen':'Skip tutorial','LOS GEHT’S ▶':'LET’S GO ▶',
@@ -783,7 +783,7 @@ const I18N_PATS=(()=>{
   [/^Endlos (\d+)×(\d+) · ([\d.,]+) Punkte$/,(m,a,b,p)=>`Endless ${a}×${b} · ${num(p)} points`],
   [/^Rekord ([\d.,]+)$/,(m,p)=>'Record '+num(p)],
   [/^Noch keine Einträge auf (\d+)×(\d+) – spiel eine Runde Endlos!$/,'No entries on $1×$2 yet – play a round of Endless!'],
-  [/^Nächstes Rätsel in (\d+) h (\d+) min$/,'Next puzzle in $1 h $2 min'],
+  [/^Nächstes Tagesspiel in (\d+) h (\d+) min$/,'Next daily game in $1 h $2 min'],
   [/^Noch (\d+) bis (\S+) (.+)$/,(m,n,b,x)=>`${n} more to ${b} ${N(x)}`],
   [/^([✨⚡🌊🌋👑🌌]) (.+)$/u,(m,b,x)=>I18N_NAMES[x]?`${b} ${N(x)}`:undefined],
   [/^– noch (\d+) (Tag|Tage) · Design „(.+)“$/,(m,n,t,d)=>`– ${days(n)} to go · theme “${N(d)}”`],
@@ -878,7 +878,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1073,6 +1073,7 @@ const I18N=(()=>{
     collect(on){collect=on?new Set():null},get collected(){return collect?[...collect]:[]}};
 })();
 const LOC=()=>I18N.loc();
+I18N.setLang(I18N.resolve(settings.lang));   // Sprache schon vor dem ersten Zeichnen (Datumsangaben im Menü)
 function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings));localStorage.setItem('kippwerk_settings_at',String(Date.now()))}catch(e){}}
 function applySettings(){
   for(const th of Object.keys(THEME_NAMES))document.body.classList.toggle('th-'+th,th!=='std'&&settings.theme===th);
@@ -1241,7 +1242,7 @@ function renderStreak(){
   $('stkNum').textContent=ST.cur;$('stkSub').textContent=ST.cur===1?'Tag in Folge':'Tage in Folge';
   $('stkStatus').innerHTML=done?'✅ Heute gesichert – bis morgen!':ST.cur>0?'⏳ Heute noch offen – spiel das Tagesspiel, sonst reißt die Serie (oder ein 🛡 springt ein).':'Spiel das Tagesspiel, um eine Serie zu starten.';
   $('stkPlay').style.display=done?'none':'';
-  const wd=['So','Mo','Di','Mi','Do','Fr','Sa'];let w='';
+  const wd=I18N.lang==='en'?['Su','Mo','Tu','We','Th','Fr','Sa']:['So','Mo','Di','Mi','Do','Fr','Sa'];let w='';
   for(let i=6;i>=0;i--){const k=addDays(t,-i),[y,m,d]=k.split('-').map(Number),day=new Date(y,m-1,d).getDay();
     const ok=dailyDone(k),sh=ST.prot.includes(k);
     w+=`<div class="stk-day${ok?' ok':sh?' sh':''}${i===0?' today':''}"><i>${ok?'🔥':sh?'🛡':i===0?'·':'✕'}</i>${i===0?'Heute':wd[day]}</div>`}
@@ -1539,13 +1540,14 @@ function floatText(txt,r,c,color){
   boardEl.appendChild(f);setTimeout(()=>f.remove(),950);
 }
 // Partikel beim Abräumen – mehr und weiter bei Combos
-let ptAlive=0;
+let ptAlive=0,ptSeed=12345;
+const ptRnd=()=>(ptSeed=(ptSeed*1103515245+12345)>>>0)/4294967296;   // eigener Zufall – stört die Spiel-Zufallsfolge nicht
 function burst(i,color,chain){
   if(ptAlive>140||document.hidden)return;
   const n=chain>=4?8:chain>=2?6:4,col=color===ROCK?'#9aa0bb':color===WILD?'#ffffff':COLORS[color];
   const r=Math.floor(i/N),c=i%N,reach=26+Math.min(chain,6)*9;
   for(let k=0;k<n;k++){
-    const p=document.createElement('i');p.className='pt';const a=Math.random()*6.2832,d=reach*(.55+Math.random()*.7);
+    const p=document.createElement('i');p.className='pt';const a=ptRnd()*6.2832,d=reach*(.55+ptRnd()*.7);
     p.style.cssText=`left:calc(var(--gap) + ${(c+.5)/N*100}%);top:calc(var(--gap) + ${(r+.5)/N*100}%);background:${col};color:${col};--dx:${(Math.cos(a)*d).toFixed(1)}px;--dy:${(Math.sin(a)*d).toFixed(1)}px`;
     boardEl.appendChild(p);ptAlive++;setTimeout(()=>{p.remove();ptAlive--},800)}}
 function banner(txt,cls,sub){const b=document.createElement('div');b.className='banner'+(cls?' '+cls:'');b.textContent=txt;
@@ -1649,7 +1651,7 @@ function shareText(r){
 }
 function countdown(){
   const n=now(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
-  return `Nächstes Rätsel in ${Math.floor(m/60)} h ${m%60} min`;
+  return `Nächstes Tagesspiel in ${Math.floor(m/60)} h ${m%60} min`;
 }
 
 function gameOver(reason){
@@ -1835,7 +1837,7 @@ function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:(cur>0?`heute offen · 🔥 ${cur}`:'heute offen');
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'heute offen';
   $('dailyBtn').classList.toggle('open',!done);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
@@ -1942,6 +1944,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.25.2','Englisch: Datum im Menü und Wochentage der Serie übersetzt; kleine Darstellungs-Korrekturen'],
  ['1.25.1','Tempo-Auswahl entfernt – das Spiel läuft immer im normalen Tempo'],
  ['1.25.0','Lautstärkeregler für Effekte und Musik, Vibration Aus/Sanft/Stark (deutlich spürbarer), Bestenliste mit bester Combo, Zügen und abgeräumten Steinen, Einstellungen neu sortiert'],
  ['1.24.1','Symbole auf den Steinen etwas größer'],

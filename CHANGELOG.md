@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.25.2 (Build 43) – 17.11.2026
+- **Neue Store-Grafiken und Produktvideo** (Deutsch + Englisch, siehe `docs/store/de|en`): 7 Screenshots 1080×1920 mit Überschriften, Feature-Grafik, Video 29,2 s mit Spielmusik (Play-Store- und App-Store-Format); Werkzeuge in `tools/video`
+- Englisch: Datum im Hauptmenü war beim Start noch deutsch („Di, 17.11.“), Wochentage auf der Serien-Seite übersetzt, „So geht’s“ → „How to play“
+- Tagesspiel-Ende: „Nächstes Rätsel in …“ → „Nächstes Tagesspiel in …“
+- Hauptmenü: Hinweis unter „Tagesspiel“ ohne Serienzahl (steht schon im Flammen-Chip) – lief auf schmalen Handys über den Rand; Beschriftungen umbrechen statt abgeschnitten zu werden
+- Combo-Leiste: ❤-Anzeige bricht nicht mehr um
+- Partikel nutzen einen eigenen Zufall (beeinflusst die Spiel-Zufallsfolge nicht mehr)
 ## v1.25.1 (Build 42) – 17.11.2026
 - Einstellung „⚡ Tempo“ (Normal/Schnell) entfernt; das Spiel läuft immer im normalen Tempo, gespeicherte „Schnell“-Einstellungen werden ignoriert
 ## v1.25.0 (Build 41) – 17.11.2026

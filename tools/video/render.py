@@ -3,12 +3,13 @@ from playwright.async_api import async_playwright
 from vt import SEED_JS
 TW=open('/home/claude/video/timeweb.js').read()
 FPS=30
+LANG=os.environ.get('LANG_V','de')
 async def render(scene, out=None, probe=None):
     async with async_playwright() as p:
         b=await p.chromium.launch(); ctx=await b.new_context(viewport={'width':1080,'height':1920})
         await ctx.add_init_script(TW); await ctx.add_init_script(SEED_JS)
         pg=await ctx.new_page(); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto('http://127.0.0.1:8123/video/stage.html'); await pg.wait_for_timeout(600)
+        await pg.goto('http://127.0.0.1:8123/video/stage.html?lang='+LANG); await pg.wait_for_timeout(600)
         await pg.evaluate("document.fonts.ready")
         d=await pg.evaluate(f"SCENES[{scene}].d")
         if await pg.evaluate(f"!!SCENES[{scene}].prep"):
@@ -39,4 +40,4 @@ async def render(scene, out=None, probe=None):
 if __name__=='__main__':
     sc=int(sys.argv[1])
     if len(sys.argv)>2 and sys.argv[2]=='probe': asyncio.run(render(sc,probe=[int(x) for x in sys.argv[3].split(',')]))
-    else: asyncio.run(render(sc,out=f'/home/claude/video/s{sc}.mp4'))
+    else: asyncio.run(render(sc,out=f'/home/claude/video/s{sc}_{LANG}.mp4'))

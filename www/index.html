@@ -244,7 +244,6 @@ header h1{min-width:0;overflow:hidden;text-overflow:clip}
   border-radius:12px;padding:10px 16px;font-size:14px;z-index:50;box-shadow:0 8px 30px #0008;animation:toastIn 4.5s ease forwards;max-width:90vw;text-align:center}
 @keyframes toastIn{0%{opacity:0;transform:translate(-50%,-10px)}8%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
 body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7;--c5:#0072b2}
-body.fast .tile{transition-duration:.08s}
 body.pad-on .pad{display:flex!important}
 body.pad-off .pad{display:none!important}
 .menurow{display:flex;gap:14px;justify-content:center}
@@ -525,7 +524,6 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       </div>
       <div class="set-h">Spiel</div>
       <div class="settings">
-        <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
         <div class="set"><span>🔲 Feldgröße (Endlos)</span><div class="seg" data-key="size"><button data-v="5">5</button><button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button></div></div>
         <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
         <label class="set" id="remindRow" style="display:none"><span>🔔 Serien-Erinnerung (abends)</span><input type="checkbox" id="setRemind"></label>
@@ -654,7 +652,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.25.0 · Build 41 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.25.1 · Build 42 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -880,7 +878,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1011,14 +1009,14 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
 // ältere Spielstände: Schalter → Regler/Stufen
 if(settings.vibe===true)settings.vibe='strong';else if(settings.vibe===false)settings.vibe='off';
 if(settings.sound===false)settings.sfxVol=0;if(settings.music===false)settings.musicVol=0;
-settings.sound=settings.sfxVol>0;settings.music=settings.musicVol>0;
+settings.sound=settings.sfxVol>0;settings.music=settings.musicVol>0;delete settings.speed;   // Tempo-Auswahl entfernt (v1.25.1)
 // ---------- Sprache (Deutsch / Englisch) ----------
 // Standard = Systemsprache: Deutsch für alle deutschsprachigen Systeme (de-DE, de-AT, de-CH, de-LI, de-LU …), sonst Englisch.
 // Übersetzt wird zentral: jeder angezeigte Text läuft durch tr() (Wörterbuch + Muster für Texte mit Zahlen).
@@ -1079,7 +1077,7 @@ function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.string
 function applySettings(){
   for(const th of Object.keys(THEME_NAMES))document.body.classList.toggle('th-'+th,th!=='std'&&settings.theme===th);
   sound=settings.sound;const b=document.body.classList;
-  b.toggle('nosym',!settings.symbols);b.toggle('pal-cb',settings.palette==='cb');b.toggle('fast',settings.speed==='fast');
+  b.toggle('nosym',!settings.symbols);b.toggle('pal-cb',settings.palette==='cb');
   b.toggle('pad-on',settings.pad==='on');b.toggle('pad-off',settings.pad==='off');
 }
 let hapticPlugin=null;
@@ -1563,7 +1561,7 @@ function comboFx(n){
   if(lv>=6)fx('ultra');else if(lv>=5)fx('quake');else if(lv>=4)fx('jolt');
   haptic(lv>=5?'win':lv>=4?'heavy':'medium');
 }
-const sleep=ms=>new Promise(r=>setTimeout(r,ms*(settings.speed==='fast'?.55:1)));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 // ---------- Level-Ziele ----------
 const fmt=n=>n.toLocaleString(LOC());
@@ -1944,6 +1942,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.25.1','Tempo-Auswahl entfernt – das Spiel läuft immer im normalen Tempo'],
  ['1.25.0','Lautstärkeregler für Effekte und Musik, Vibration Aus/Sanft/Stark (deutlich spürbarer), Bestenliste mit bester Combo, Zügen und abgeräumten Steinen, Einstellungen neu sortiert'],
  ['1.24.1','Symbole auf den Steinen etwas größer'],
  ['1.24.0','Geführtes Tutorial beim ersten Start, Musik, Partikel und stärkere Combo-Effekte, Menü-Steine folgen der Handy-Neigung'],
@@ -2140,7 +2139,7 @@ const Cloud=(()=>{
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
   const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
-  const SET_KEYS=['sound','vibe','speed','palette','symbols','size','theme'];
+  const SET_KEYS=['sound','vibe','palette','symbols','size','theme'];
   function local(){
     const daily={};const cut=addDays(todayKey(),-60);
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}

@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.25.1 (Build 42) – 17.11.2026
+- Einstellung „⚡ Tempo“ (Normal/Schnell) entfernt; das Spiel läuft immer im normalen Tempo, gespeicherte „Schnell“-Einstellungen werden ignoriert
 ## v1.25.0 (Build 41) – 17.11.2026
 - **Lautstärke unabhängig vom Handy:** Regler für 🔊 Effekte und 🎵 Musik (0 % = aus). Musik standardmäßig deutlich lauter (70 %, bisher entsprach das etwa 35 %); alte Ton-/Musik-Schalter werden übernommen
 - **Vibration:** Auswahl Aus · Sanft · Stark (Standard Stark), Probe-Vibration beim Umschalten. Android vibriert jetzt mit fester Dauer und voller Stärke (vorher kaum spürbare „leichte“ Impulse beim Abräumen); iOS nutzt Taptic-Impulse

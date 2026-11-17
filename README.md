@@ -5,10 +5,12 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 **Web-Version:** https://benlukan.github.io/kippwerk/
 
 ## Modi
-- **Level** – 100 Level in 10 Welten mit Zielen (Punkte, Farben, Ketten, Felsen), steigender Schwierigkeit, Boss-Leveln und 1–3 Sternen
+- **Etappen** – 100 Etappen in 10 Welten („Etappe 2-3“ = Welt 2, dritte Etappe) mit Zielen (Punkte, Farben, Ketten, Felsen), steigender Schwierigkeit, Boss-Etappen und 1–3 Sternen
 - **🔥 Serie** – jeden Tag das Tagesspiel spielen: Flamme in der Kopfzeile, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend (App)
 - **Tagesspiel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen; Bestenliste Heute / Woche / All the best
-- **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe; Level steigern Farben, Joker und Tempo
+- **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe (mit bester Combo, Zügen, abgeräumten Steinen); Level steigern Farben, Joker und Tempo; auf 7×7/8×8 ab Level 30 Felsen, ab Level 40 eine 6. Farbe
+- **Tutorial** – geführte 3 Schritte beim ersten Start, erneut über Hilfe
+- **Sprachen** – Deutsch und Englisch (Systemsprache, umschaltbar in ⚙)
 - **🌍 Weltweite Ranglisten** (App, freiwillig) – Google Play Games (Android) und Game Center (iOS) für Endlos je Feldgröße und Tagesspiel: Einrichtung in [docs/game-services.md](docs/game-services.md)
 
 ## Projektstruktur
@@ -21,8 +23,8 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 | `.github/workflows/` | Automatische Builds: APK, iOS-IPA, GitHub Pages |
 
 ## Builds
-Jeder Push auf `main` baut automatisch – Ergebnisse unter **Actions → letzter Lauf → Artifacts**.
-Ein Tag `v*` (z. B. `v1.1.0`) erstellt zusätzlich ein GitHub-Release mit den Dateien.
+Jeder Push auf `main` baut Android automatisch und legt ein GitHub-Release an – **Download (auch am Handy): https://github.com/Benlukan/kippwerk/releases/latest** (zusätzlich unter Actions → Artifacts).
+iOS wird nur auf Wunsch gebaut (Actions → „Apps bauen“ → *Run workflow* → Haken „iOS“) oder bei einem Tag `v*`, weil macOS-Runner oft lange warten.
 
 - `KIPPWERK.apk` – direkt auf Android installierbar (Installation aus unbekannten Quellen erlauben)
 - `KIPPWERK-unsigned.ipa` – unsigniert; per Sideloadly/AltStore mit eigener Apple-ID installierbar
@@ -56,4 +58,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.24.1 · Build 40** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.25.0 · Build 41** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

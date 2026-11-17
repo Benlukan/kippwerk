@@ -20,36 +20,38 @@
 `KIPPWERK – Kipp-Puzzle`
 
 **Kurzbeschreibung (max. 80):**
-`Kippe das Feld, verbinde Farben, löse Ketten aus – mit täglichem Rätsel.`
+`Kippe das Feld, verbinde Farben, löse Ketten aus – mit täglichem Tagesspiel.`
 
 **Vollständige Beschreibung:**
 ```
 KIPPWERK ist ein Puzzle, das du in zehn Sekunden verstehst – und das dich nicht mehr loslässt.
 
 KIPPEN STATT FALLEN
-Wische in eine Richtung und das ganze Spielfeld kippt: Alle Steine rutschen mit. Berühren sich drei oder mehr gleiche Farben, verschwinden sie. Was nachrutscht, kann die nächste Gruppe auslösen – GOOD ×2, SUPER ×3, MEGA ×4, MONSTER ×5!
+Wische in eine Richtung und das ganze Spielfeld kippt: Alle Steine rutschen mit. Berühren sich drei oder mehr gleiche Farben, verschwinden sie. Was nachrutscht, kann die nächste Gruppe auslösen – GOOD ×2, SUPER ×3, MEGA ×4, MONSTER ×5, ULTRA ×6!
 
 JEDE BEWEGUNG ZÄHLT
 Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat das Feld schnell voll. Wer vorausdenkt, baut riesige Ketten.
 
-100 LEVEL IN 10 WELTEN
-Knacke Level mit klaren Zielen – von entspannt bis knallhart, mit Boss-Level am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Level.
+100 ETAPPEN IN 10 WELTEN
+Knacke Etappen mit klaren Zielen – von entspannt bis knallhart, mit Boss am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Etappe.
 
-TAGESRÄTSEL & SERIEN
+TAGESSPIEL & SERIEN
 Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
 
 ENDLOS-MODUS
-Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker und mehr Tempo.
+Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker, Felsen und mehr Tempo.
 
-• Bestenliste mit Top 10 und Tages-Serie 🔥
+• Weltweite Ranglisten und Cloud-Spielstand über Google Play Games (freiwillig)
+• Bestenliste mit bester Combo, Zügen und abgeräumten Steinen
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
 • Kein Konto nötig, offline spielbar
 • Geführtes Tutorial, entspannte Musik, satte Combo-Effekte
 • Farbschema und Symbole für Spieler mit Farbsehschwäche
+• Deutsch und Englisch
 • Klein, schnell, akkuschonend
 
-Gemacht von david.digital.
+Gemacht von david.digital · Impressum: https://benlukan.github.io/kippwerk/impressum.html
 ```
 
 **Kategorie:** Spiele → Puzzle
@@ -107,7 +109,7 @@ Made by david.digital · Legal notice: https://benlukan.github.io/kippwerk/legal
 | Werbung | **Ja, enthält Werbung** (ab v1.3.0) |
 | Einstufung (IARC-Fragebogen) | Puzzle, keine Gewalt/Glücksspiel/Chat → ergibt i. d. R. USK 0 / PEGI 3 |
 | Zielgruppe | 13+ empfohlen (bei „unter 13“ gelten zusätzlich die Familien-Richtlinien) |
-| Datensicherheit | siehe Abschnitt 4a (AdMob) und 4d (Online-Bestenliste) |
+| Datensicherheit | siehe Abschnitt 4a (AdMob) und 4d (Ranglisten & Cloud-Spielstand) |
 | Behörden-/Gesundheits-/Finanz-App | Nein |
 | Nachrichten-App | Nein |
 
@@ -176,12 +178,12 @@ Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafü
 | `docs/store/KIPPWERK_Produktvideo_1080x1920.mp4` | 1080×1920, 30 fps, 29,6 s | **Google Play**: bei YouTube hochladen (öffentlich oder „nicht gelistet“, Werbung aus) und den Link im Store-Eintrag unter „Video“ eintragen · Social Media / Shorts |
 | `docs/store/KIPPWERK_AppStore_886x1920.mp4` | 886×1920, 30 fps, 29,6 s | **App Store** – App-Vorschau für iPhone 6,5″/6,9″ |
 
-Inhalt: Logo → echtes Gameplay mit MEGA-Combo → GOOD/SUPER/MEGA/MONSTER → 100 Level, Tagesrätsel, Feldgrößen → Serie & Designs → „Jetzt kostenlos spielen“. Ohne Musik (stille Tonspur). Neu rendern: siehe `tools/video/README.md`.
+Inhalt (Stand v1.11 – zeigt noch „Tagesrätsel“/„Level“, bei Gelegenheit neu rendern): Logo → echtes Gameplay mit MEGA-Combo → GOOD/SUPER/MEGA/MONSTER → 100 Level, Tagesrätsel, Feldgrößen → Serie & Designs → „Jetzt kostenlos spielen“. Ohne Musik (stille Tonspur). Neu rendern: siehe `tools/video/README.md`.
 
 ## 6. Neue Version veröffentlichen
-Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `android/app/build.gradle` (`versionCode` muss steigen!), `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js`, dazu `CHANGELOG.md`. Pushen → AAB aus den Actions-Artifacts hochladen.
+Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `android/app/build.gradle` (`versionCode` muss steigen!), `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js`, dazu `CHANGELOG.md`. Pushen → die AAB liegt automatisch auf https://github.com/Benlukan/kippwerk/releases/latest (oder in den Actions-Artifacts) → in der Play Console hochladen.
 
-## 7. Start-Checkliste (Stand v1.23.0)
+## 7. Start-Checkliste (Stand v1.25.0)
 - [ ] GitHub Pages aktivieren (Settings → Pages → Source: GitHub Actions) und prüfen, dass `datenschutz.html`, `impressum.html`, `privacy.html`, `legal-notice.html` erreichbar sind
 - [ ] Play Console: App-Inhalte vollständig (Datenschutz-URL, Werbung „Ja“, **Werbe-ID deklarieren** – kommt über play-services-ads, Datensicherheit, Zielgruppe 13+, IARC)
 - [ ] Play Games Services: Projekt-ID + 5 Ranglisten-IDs eintragen, `GAMES_CONFIG.android.on:true`, testen

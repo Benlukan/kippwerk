@@ -141,6 +141,9 @@ h1 span{color:var(--c3)}
 .scores td.r{text-align:right}.scores td.m{color:var(--muted);font-size:12px}
 .scores tr.me td{color:var(--c1);font-weight:700}
 .scores td.rank{width:34px;color:var(--muted)}
+.scores small.sub{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-top:2px;line-height:1.35}
+.scores small.sub .cb{color:var(--c2)}
+.scores tr.me small.sub{color:var(--muted)}
 .ptag{color:var(--muted);font-size:10px;margin-left:4px;font-weight:500}
 .set input[type=text]{background:#0d1020;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:7px 10px;font:600 14px "Space Grotesk",sans-serif;width:150px;user-select:text}
 .pid{font:12px ui-monospace,monospace;color:var(--muted)}
@@ -171,6 +174,11 @@ h1 span{color:var(--c3)}
 .goals{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;min-width:240px}
 .goals div{display:flex;align-items:center;gap:8px;font-size:15px}
 .goals .ok{color:var(--c2)}
+.set-h{width:min(100%,360px);text-align:left;margin:14px 0 6px;padding-left:4px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#settingsOv h2+.set-h{margin-top:4px}
+.vol{display:flex;align-items:center;gap:8px}
+.vol input[type=range]{width:120px;accent-color:var(--c3);margin:0}
+.vol b{width:34px;text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .settings{display:flex;flex-direction:column;width:min(100%,360px);background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .set{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:0;border-bottom:1px solid var(--line);
   background:none;color:var(--text);font:500 15px "Space Grotesk",sans-serif;text-align:left;text-decoration:none;cursor:pointer}
@@ -503,32 +511,44 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
     </div>
     <div class="overlay hidden" id="settingsOv">
       <h2>⚙ EINSTELLUNGEN</h2>
+      <div class="set-h">Profil</div>
       <div class="settings">
         <label class="set"><span>👤 Spielername</span><input type="text" id="setName" maxlength="12" placeholder="Dein Name" autocomplete="nickname"></label>
         <button class="set" id="gamesRow" style="display:none"><span id="gamesName">🎮 Google Play Games</span><span class="pid" id="gamesState"></span></button>
         <button class="set" id="pidRow" title="Spieler-ID kopieren"><span>🆔 Spieler-ID</span><span class="pid" id="pidText"></span></button>
       </div>
+      <div class="set-h">Ton &amp; Vibration</div>
       <div class="settings">
-        <div class="set"><span>🌐 Sprache / Language</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
-        <label class="set"><span>🔊 Ton</span><input type="checkbox" id="setSound"></label>
-        <label class="set"><span>🎵 Musik</span><input type="checkbox" id="setMusic"></label>
-        <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
-        <label class="set"><span>📳 Vibration</span><input type="checkbox" id="setVibe"></label>
+        <label class="set"><span>🔊 Effekte</span><span class="vol"><input type="range" id="setSfxVol" min="0" max="100" step="5"><b id="sfxVolTxt"></b></span></label>
+        <label class="set"><span>🎵 Musik</span><span class="vol"><input type="range" id="setMusicVol" min="0" max="100" step="5"><b id="musicVolTxt"></b></span></label>
+        <div class="set"><span>📳 Vibration</span><div class="seg" data-key="vibe"><button data-v="off">Aus</button><button data-v="soft">Sanft</button><button data-v="strong">Stark</button></div></div>
+      </div>
+      <div class="set-h">Spiel</div>
+      <div class="settings">
         <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
-        <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
-        <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
-        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
-        <label class="set" id="remindRow" style="display:none"><span>🔔 Serien-Erinnerung (abends)</span><input type="checkbox" id="setRemind"></label>
         <div class="set"><span>🔲 Feldgröße (Endlos)</span><div class="seg" data-key="size"><button data-v="5">5</button><button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button></div></div>
         <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
+        <label class="set" id="remindRow" style="display:none"><span>🔔 Serien-Erinnerung (abends)</span><input type="checkbox" id="setRemind"></label>
       </div>
+      <div class="set-h">Darstellung</div>
+      <div class="settings">
+        <div class="set"><span>🌐 Sprache</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
+        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
+        <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
+        <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
+        <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
+      </div>
+      <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
         <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
-        <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
-        <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
         <a class="set" id="lnkPrivacy" href="datenschutz.html">📄 Datenschutzerklärung</a>
         <a class="set" id="lnkLegal" href="impressum.html">ℹ️ Impressum</a>
+      </div>
+      <div class="set-h">Daten</div>
+      <div class="settings">
+        <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
+        <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
     </div>
@@ -634,7 +654,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.24.1 · Build 40 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.25.0 · Build 41 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -713,8 +733,10 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video':'Use a ❤ extra life or watch a short video','Setz ein ❤ Extra-Leben ein':'Use a ❤ extra life',
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
-  'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache / Language':'🌐 Sprache / Language','Deutsch':'Deutsch','English':'English',
+  'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
   '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D',
+  'Profil':'Profile','Ton & Vibration':'Sound & vibration','Spiel':'Game','Darstellung':'Display','Hilfe & Rechtliches':'Help & legal','Daten':'Data',
+  '🔊 Effekte':'🔊 Effects','Sanft':'Soft','Stark':'Strong',
   '🎵 Musik':'🎵 Music','📱 Menü kippt mit dem Handy':'📱 Menu tilts with your phone','Tutorial':'Tutorial','Tutorial überspringen':'Skip tutorial','LOS GEHT’S ▶':'LET’S GO ▶',
   'Wische nach links. Das ganze Feld kippt – alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!':'Swipe left. The whole board tilts – all stones slide along. 3 matching stones that touch disappear!',
   'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen: Rutschen danach wieder 3 gleiche zusammen, gibt es eine Combo!':'New stones always come from the opposite side. Now swipe down: if 3 matching stones slide together again afterwards, that’s a combo!',
@@ -858,7 +880,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -989,10 +1011,14 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={lang:'auto',sound:true,music:true,tilt:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
+// ältere Spielstände: Schalter → Regler/Stufen
+if(settings.vibe===true)settings.vibe='strong';else if(settings.vibe===false)settings.vibe='off';
+if(settings.sound===false)settings.sfxVol=0;if(settings.music===false)settings.musicVol=0;
+settings.sound=settings.sfxVol>0;settings.music=settings.musicVol>0;
 // ---------- Sprache (Deutsch / Englisch) ----------
 // Standard = Systemsprache: Deutsch für alle deutschsprachigen Systeme (de-DE, de-AT, de-CH, de-LI, de-LU …), sonst Englisch.
 // Übersetzt wird zentral: jeder angezeigte Text läuft durch tr() (Wörterbuch + Muster für Texte mit Zahlen).
@@ -1056,12 +1082,24 @@ function applySettings(){
   b.toggle('nosym',!settings.symbols);b.toggle('pal-cb',settings.palette==='cb');b.toggle('fast',settings.speed==='fast');
   b.toggle('pad-on',settings.pad==='on');b.toggle('pad-off',settings.pad==='off');
 }
+let hapticPlugin=null;
 function haptic(kind){
-  if(!settings.vibe)return;
-  const C=window.Capacitor,H=C&&C.isNativePlatform&&C.isNativePlatform()&&((C.Plugins&&C.Plugins.Haptics)||(C.registerPlugin&&C.registerPlugin('Haptics')));
+  const v=settings.vibe;if(!v||v==='off')return;const strong=v!=='soft';
+  const ms=({light:strong?32:16,medium:strong?50:26,heavy:strong?85:45,win:strong?110:60})[kind]||24;
+  const C=window.Capacitor;
   try{
-    if(H){kind==='win'?H.notification({type:'SUCCESS'}):H.impact({style:kind==='heavy'?'HEAVY':kind==='medium'?'MEDIUM':'LIGHT'});return}
-    if(navigator.vibrate)navigator.vibrate(kind==='heavy'?[60,40,60]:kind==='win'?[30,50,30,50,60]:kind==='medium'?25:12);
+    if(C&&C.isNativePlatform&&C.isNativePlatform()){
+      hapticPlugin=hapticPlugin||(C.Plugins&&C.Plugins.Haptics)||(C.registerPlugin&&C.registerPlugin('Haptics'));
+      const H=hapticPlugin;if(!H)return;
+      if(C.getPlatform()==='ios'){   // iOS: echte Taptic-Impulse (vibrate wäre immer ein langer Summer)
+        const st=kind==='light'?(strong?'MEDIUM':'LIGHT'):kind==='medium'?(strong?'HEAVY':'MEDIUM'):'HEAVY';
+        Promise.resolve(kind==='win'?H.notification({type:'SUCCESS'}):H.impact({style:st})).catch(()=>{});return}
+      // Android: feste Dauer mit voller Stärke – leichte „Impact“-Muster spürt man auf vielen Geräten kaum
+      const p=Promise.resolve(H.vibrate({duration:ms}));
+      if(kind==='win')p.then(()=>new Promise(r=>setTimeout(r,ms+90))).then(()=>H.vibrate({duration:ms})).catch(()=>{});
+      else p.catch(()=>{try{H.impact({style:strong?'HEAVY':'MEDIUM'})}catch(e){}});
+      return}
+    if(navigator.vibrate)navigator.vibrate(kind==='win'?[ms,80,ms]:ms);
   }catch(e){}
 }
 // ---------- Level-Fortschritt ----------
@@ -1306,6 +1344,7 @@ function tone(f,d=.08,type='sine',vol=.08,delay=0){
     actx=actx||new (window.AudioContext||window.webkitAudioContext)();
     const t=actx.currentTime+delay,o=actx.createOscillator(),g=actx.createGain();
     o.type=type;o.frequency.setValueAtTime(f,t);
+    vol*=1.6*Math.pow((settings.sfxVol??80)/100,2);if(vol<=0)return;
     g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);
     o.connect(g).connect(actx.destination);o.start(t);o.stop(t+d+.02);
   }catch(e){}
@@ -1339,14 +1378,15 @@ const Music=(()=>{
   function ensure(){actx=actx||new (window.AudioContext||window.webkitAudioContext)();
     if(!g){g=actx.createGain();g.gain.value=.0001;f=actx.createBiquadFilter();f.type='lowpass';f.frequency.value=1900;f.connect(g);g.connect(actx.destination)}}
   function fade(v,s){const t=actx.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),t);g.gain.linearRampToValueAtTime(v,t+s)}
-  function play(){try{ensure();if(actx.state==='suspended')actx.resume();if(!timer){next=actx.currentTime+.1;timer=setInterval(tick,100)}fade(.5,1.6)}catch(e){}}
+  const level=()=>2*Math.pow((settings.musicVol??70)/100,2);
+  function play(){try{ensure();if(actx.state==='suspended')actx.resume();if(!timer){next=actx.currentTime+.1;timer=setInterval(tick,100)}fade(level(),1.6)}catch(e){}}
   function pause(){if(!g)return;try{fade(.0001,.3)}catch(e){}setTimeout(()=>{if(!(on&&!hold&&!document.hidden)){clearInterval(timer);timer=null}},350)}
   const want=()=>on&&!hold&&!document.hidden;
   function sync(){want()?play():pause()}
   document.addEventListener('visibilitychange',sync);
-  return{start(){on=true;sync()},stop(){on=false;sync()},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},get playing(){return want()}};
+  return{start(){on=true;sync()},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},get playing(){return want()}};
 })();
-['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.music!==false&&!Music.playing)Music.start()},{passive:true}));
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.musicVol>0&&!Music.playing)Music.start()},{passive:true}));
 
 // ---------- Rules ----------
 // Große Felder (7×7, 8×8) im Endlos-Modus: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)
@@ -1709,7 +1749,7 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Games.submit('daily',score);
+      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Games.submit('daily',score);
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
@@ -1730,7 +1770,7 @@ function finishGame(reason){
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
     Games.submit('e'+N,score);
-    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
+    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
     $('nameRow').style.display=rank?'':'none';
@@ -1839,7 +1879,7 @@ function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
-  $('setSound').checked=settings.sound;$('setMusic').checked=settings.music!==false;$('setTilt').checked=settings.tilt!==false;$('setVibe').checked=settings.vibe;$('setSymbols').checked=settings.symbols;
+  $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
   renderGamesRow();
@@ -1850,15 +1890,18 @@ function openSettings(from){
   if(from==='play'){paused=true;started=false}
   renderSettings();['startOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('settingsOv').classList.remove('hidden');
 }
-$('setMusic').onchange=e=>{settings.music=e.target.checked;saveSettings();settings.music?Music.start():Music.stop()};
+function volTxt(){$('sfxVolTxt').textContent=settings.sfxVol?settings.sfxVol+' %':I18N.tr('Aus');$('musicVolTxt').textContent=settings.musicVol?settings.musicVol+' %':I18N.tr('Aus')}
+$('setSfxVol').oninput=e=>{settings.sfxVol=+e.target.value;settings.sound=settings.sfxVol>0;volTxt()};
+$('setSfxVol').onchange=()=>{saveSettings();applySettings();tone(660,.1,'triangle',.06)};
+$('setMusicVol').oninput=e=>{settings.musicVol=+e.target.value;settings.music=settings.musicVol>0;volTxt();settings.musicVol>0?(Music.playing?Music.volume():Music.start()):Music.stop()};
+$('setMusicVol').onchange=()=>saveSettings();
 $('setTilt').onchange=e=>{settings.tilt=e.target.checked;saveSettings();Tilt.wake()};
-['setSound','setVibe','setSymbols'].forEach(id=>$(id).onchange=e=>{
-  settings[{setSound:'sound',setVibe:'vibe',setSymbols:'symbols'}[id]]=e.target.checked;saveSettings();applySettings();
-  if(id==='setSound'&&settings.sound)tone(660,.1,'triangle',.06);if(id==='setVibe'&&settings.vibe)haptic('medium')});
+$('setSymbols').onchange=e=>{settings.symbols=e.target.checked;saveSettings();applySettings()};
 document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
   settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings();
   if(sg.dataset.key==='size'&&!$('startOv').classList.contains('hidden'))showMenu();
-  if(sg.dataset.key==='lang')applyLang()});
+  if(sg.dataset.key==='lang')applyLang();
+  if(sg.dataset.key==='vibe')haptic('heavy')});
 function applyLang(boot){
   if(!boot)I18N.setLang(I18N.resolve(settings.lang));
   const en=I18N.lang==='en';
@@ -1901,6 +1944,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.25.0','Lautstärkeregler für Effekte und Musik, Vibration Aus/Sanft/Stark (deutlich spürbarer), Bestenliste mit bester Combo, Zügen und abgeräumten Steinen, Einstellungen neu sortiert'],
  ['1.24.1','Symbole auf den Steinen etwas größer'],
  ['1.24.0','Geführtes Tutorial beim ersten Start, Musik, Partikel und stärkere Combo-Effekte, Menü-Steine folgen der Handy-Neigung'],
  ['1.23.0','Englische Sprache (folgt der Systemsprache, umschaltbar in ⚙), robustere Spielstände, Tablet-Darstellung korrigiert, Datenschutzerklärung aktualisiert'],
@@ -1983,6 +2027,13 @@ $('gamesBoard').onclick=()=>Games.show(scoresTab==='endless'?'e'+scoresSize:'dai
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Zusatzzeile in der Bestenliste: Level · beste Combo · Züge · abgeräumte Steine · Datum
+function metaLine(x,lvl,date){const en=I18N.lang==='en',p=[];
+  if(lvl)p.push(lvl);
+  if(x.chain>0)p.push(`<span class="cb">Combo ×${x.chain}</span>`);
+  if(x.moves>0)p.push(`${x.moves} ${en?(x.moves===1?'move':'moves'):(x.moves===1?'Zug':'Züge')}`);
+  if(x.cleared>0)p.push(`${x.cleared} ${en?'stones':'Steine'}`);
+  if(date)p.push(date);return p.join(' · ')}
 function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
   const t=$('scoresTable'),esc=escH;
@@ -2001,8 +2052,8 @@ function renderScores(){
     $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString(LOC())}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString(LOC())}</b><small>Schnitt</small></div>`}
   t.innerHTML=list.map((x,i)=>{const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
     return scoresTab==='endless'
-      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
-      :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}</td><td class="m">${x.chain>1?'×'+x.chain:''}</td><td class="m">${dayLabel(x.no)}</td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
+      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}<small class="sub">${metaLine(x,x.level?'Lvl '+x.level:'',esc(x.date))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
+      :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,'',dayLabel(x.no))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
   $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
   $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';

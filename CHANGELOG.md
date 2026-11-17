@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.25.0 (Build 41) – 17.11.2026
+- **Lautstärke unabhängig vom Handy:** Regler für 🔊 Effekte und 🎵 Musik (0 % = aus). Musik standardmäßig deutlich lauter (70 %, bisher entsprach das etwa 35 %); alte Ton-/Musik-Schalter werden übernommen
+- **Vibration:** Auswahl Aus · Sanft · Stark (Standard Stark), Probe-Vibration beim Umschalten. Android vibriert jetzt mit fester Dauer und voller Stärke (vorher kaum spürbare „leichte“ Impulse beim Abräumen); iOS nutzt Taptic-Impulse
+- **Bestenliste:** zweite Zeile je Eintrag mit **beste Combo**, **Anzahl Züge** und **abgeräumte Steine** (Endlos zusätzlich Level, dazu Datum); ältere Einträge ohne diese Angaben zeigen nur das Vorhandene
+- **Einstellungen aufgeräumt:** Gruppen Profil · Ton & Vibration · Spiel · Darstellung · Hilfe & Rechtliches · Daten (Löschen-Knöpfe ganz unten)
 ## v1.24.1 (Build 40) – 17.11.2026
 - Symbole auf den Steinen etwa 25 % größer (alle Feldgrößen, max. 30 px)
 ## v1.24.0 (Build 39) – 17.11.2026

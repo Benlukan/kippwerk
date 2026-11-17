@@ -93,8 +93,13 @@ h1 span{color:var(--c3)}
   transform:translate(-50%,-50%) rotate(var(--a,0deg));animation:carrow 1.3s ease-in-out infinite}
 @keyframes carrow{0%{translate:calc(var(--mx,0px)*-1) calc(var(--my,0px)*-1);opacity:0}25%{opacity:.9}100%{translate:var(--mx,0px) var(--my,0px);opacity:0}}
 .coach{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,460px);z-index:60;
-  background:#121633f2;border:1px solid var(--c3);border-radius:16px;padding:14px 16px 12px;box-shadow:0 10px 40px #000a;animation:coachIn .35s ease-out}
+  background:#121633;border:1px solid var(--c3);border-radius:16px;padding:14px 16px 12px;box-shadow:0 10px 40px #000a;animation:coachIn .35s ease-out}
 .coach.hidden{display:none}
+.coach .ct-head{display:flex;gap:12px;align-items:flex-start}
+.kippi-ava{flex:none;width:48px;height:44px;margin-top:2px;animation:flyBob 2.4s ease-in-out infinite}
+.kippi-ava svg{width:48px;height:44px;overflow:visible;display:block}
+.kippi-ava .wing{transform-box:fill-box;transform-origin:50% 100%;fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1;animation:wingRest 3.2s ease-in-out infinite}
+.kippi-ava .lid{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0);animation:blink 4.3s infinite}
 .coach .ct-step{font-size:11px;letter-spacing:.14em;color:var(--c3);font-weight:700}
 .coach p{margin:4px 0 10px;font-size:15px;line-height:1.45}
 .coach .ct-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -557,7 +562,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
         <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
-        <label class="set"><span>🪰 Maskottchen (Fliege)</span><input type="checkbox" id="setFly"></label>
+        <label class="set"><span>🪰 Kippi (Maskottchen)</span><input type="checkbox" id="setFly"></label>
       </div>
       <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
@@ -602,7 +607,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
         <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
       </g></svg></div><div class="fly-bubble" id="flyBubble"></div></div>
-    <div class="coach hidden" id="coach"><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p>
+    <div class="coach hidden" id="coach"><div class="ct-head"><span class="kippi-ava" id="coachAva"></span><div><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p></div></div>
       <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
     <div class="overlay hidden" id="helpOv">
       <h2>❓ HILFE</h2>
@@ -666,7 +671,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
             <li>Schau auf <b>„Als Nächstes“</b> und denk daran: neue Steine kommen von der Gegenseite.</li>
             <li>Hebe <b>Prisma-Steine</b> auf, um zwei Gruppen zu einer großen zu verbinden.</li>
             <li>Im Level-Modus zählen <b>übrige Züge</b> – schnell fertig werden bringt Sterne.</li>
-          <li>🪰 Die <b>KIPPWERK-Fliege</b> schaut ab und zu vorbei – sie stört nie und lässt sich in ⚙ ausschalten.</li>
+          <li>🪰 <b>Kippi</b>, die KIPPWERK-Fliege, ist dein Wegbegleiter: Sie schaut ab und zu vorbei, freut sich über Combos, erinnert dich ans Tagesspiel – und stört nie. Ausschalten in ⚙.</li>
           <li>🎵 Die Musik wird schneller, je schwerer es wird – Boss-Etappen haben ein eigenes Stück.</li></ul>
         </section>
         <section id="hNeu"><h3>Neuigkeiten</h3><div id="helpChangelog"></div></section>
@@ -691,7 +696,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.26.0 · Build 44 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.27.0 · Build 45 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -771,13 +776,17 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','🪰 Maskottchen (Fliege)':'🪰 Mascot (fly)','So geht’s':'How to play',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D',
+  'Bsss! Das neue Tagesspiel ist da – ich hab schon reingeschaut 👀':'Bzzz! The new daily game is here – I already took a peek 👀',
+  'Kippi hier! Heute warten neue Steine auf dich – kommst du kippen? 🧩':'Kippi here! New stones are waiting for you today – coming to tilt? 🧩',
+  'Bsss… ich sitz schon am Spielfeldrand. Fehlt nur noch du! 😉':'Bzzz… I’m already sitting on the board’s edge. Just missing you! 😉',
+  'Bsss… ich vermisse dich! Das Tagesspiel wartet schon. 🪰':'Bzzz… I miss you! The daily game is waiting. 🪰','🪰 Kippi (Maskottchen)':'🪰 Kippi (mascot)','So geht’s':'How to play',
   'Profil':'Profile','Ton & Vibration':'Sound & vibration','Spiel':'Game','Darstellung':'Display','Hilfe & Rechtliches':'Help & legal','Daten':'Data',
   '🔊 Effekte':'🔊 Effects','Sanft':'Soft','Stark':'Strong',
   '🎵 Musik':'🎵 Music','📱 Menü kippt mit dem Handy':'📱 Menu tilts with your phone','Tutorial':'Tutorial','Tutorial überspringen':'Skip tutorial','LOS GEHT’S ▶':'LET’S GO ▶',
-  'Wische nach links. Das ganze Feld kippt – alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!':'Swipe left. The whole board tilts – all stones slide along. 3 matching stones that touch disappear!',
-  'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen: Rutschen danach wieder 3 gleiche zusammen, gibt es eine Combo!':'New stones always come from the opposite side. Now swipe down: if 3 matching stones slide together again afterwards, that’s a combo!',
-  'Stark! Ist das Feld voll, ist die Runde vorbei. Tipp: Kippe öfter in dieselbe Richtung – und schau oben bei „Als Nächstes“, was kommt.':'Great! When the board is full, the round is over. Tip: tilt in the same direction more often – and check “Up next” at the top to see what’s coming.',
+  'Hi, ich bin Kippi! Wisch mal nach links: Das ganze Feld kippt und alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!':'Hi, I’m Kippi! Swipe left: the whole board tilts and every stone slides along. 3 matching stones that touch disappear!',
+  'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen – rutschen danach wieder 3 gleiche zusammen, gibt’s eine Combo!':'New stones always come from the opposite side. Now swipe down – if 3 matching stones slide together again, that’s a combo!',
+  'Bsss, stark! Ist das Feld voll, ist die Runde vorbei. Mein Tipp: Kipp öfter in dieselbe Richtung und schau oben bei „Als Nächstes“, was kommt. Ich schau ab und zu vorbei!':'Bzzz, great! When the board is full, the round is over. My tip: tilt in the same direction more often and check “Up next” at the top. I’ll drop by now and then!',
   'KEINE ZÜGE MEHR':'OUT OF MOVES','Schau ein kurzes Video':'Watch a short video','Ergebnis teilen':'Share result',
   '🖱 Wischen mit gedrückter Maustaste':'🖱 Drag with the mouse button held','☰ Menü / Pause · ❓ Tippen auf den Verlauf':'☰ Menu / Pause · ❓ Tap the history',
   '– kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':'– joins from level 3 (in Endless; on 7×7 and 8×8 from the start)',
@@ -834,7 +843,8 @@ const I18N_PATS=(()=>{
   [/^🛡 \+1 Serienschutz für 7 Tage am Stück!$/,'🛡 +1 streak shield for 7 days in a row!'],
   [/^🛡 Serienschutz eingesetzt – deine 🔥 (\d+)er-Serie lebt weiter!$/,'🛡 Streak shield used – your 🔥 $1-day streak lives on!'],
   [/^Deine 🔥 (\d+)er-Serie ist leider gerissen\. Heute beginnt eine neue!$/,'Your 🔥 $1-day streak has ended. A new one starts today!'],
-  [/^Deine 🔥 (\d+)er-Serie läuft heute ab – noch schnell das Tagesspiel!$/,'Your 🔥 $1-day streak ends today – quick, play the daily game!'],
+  [/^Bsss! Deine 🔥 (\d+)er-Serie läuft heute ab – spiel schnell das Tagesspiel, ich halt sie solange fest!$/,'Bzzz! Your 🔥 $1-day streak ends today – play the daily game quickly, I’ll hold on to it!'],
+  [/^Bsss… deine 🔥 (\d+)er-Serie wackelt! Ein Tagesspiel heute, und sie bleibt stehen\.$/,'Bzzz… your 🔥 $1-day streak is wobbling! One daily game today keeps it standing.'],
   [/^Woche (.+) – (.+)$/,'Week $1 – $2'],
   [/^Tag (.+)$/,'Day $1'],[/^Übung (.+)$/,'Practice $1'],
   [/^Tagesspiel (.+?) · noch (\d+) Züge$/,'Daily game $1 · $2 moves left'],
@@ -848,7 +858,7 @@ const I18N_PATS=(()=>{
   [/^⭐ (\d+) \/ (\d+) Sterne$/,'⭐ $1 / $2 stars'],
   [/^🎉 Welt (\d+) geschafft – weiter nach „(.+)“!$/,(m,w,n)=>`🎉 World ${w} complete – on to “${N(n)}”!`],
   [/^❤ LEBEN EINSETZEN \((\d+) übrig\)$/,'❤ USE A LIFE ($1 left)'],
-  [/^TUTORIAL · SCHRITT (\d) \/ 3$/,'TUTORIAL · STEP $1 / 3'],
+  [/^KIPPI · SCHRITT (\d) \/ 3$/,'KIPPI · STEP $1 / 3'],
   [/^(Fast geschafft|Noch eine Chance)\? (.*?)( – dafür gibt es)?$/,(m,h,r,y)=>{
     const R={'Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video':'Use a ❤ extra life or watch a short video','Setz ein ❤ Extra-Leben ein':'Use a ❤ extra life','Schau ein kurzes Video':'Watch a short video'};
     return (h==='Fast geschafft'?'Almost there? ':'One more chance? ')+(R[r]||r)+(y?' – you get':'')}],
@@ -916,10 +926,10 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>Watch <b>“Up next”</b> and remember: new stones come from the opposite side.</li>
 <li>Save <b>prism stones</b> to join two groups into a big one.</li>
 <li>In stages, <b>moves left</b> count – finishing fast earns stars.</li>
-<li>🪰 The <b>KIPPWERK fly</b> drops by now and then to watch – it never gets in the way and can be turned off in ⚙.</li>
+<li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1377,11 +1387,15 @@ const Reminder=(()=>{
     if(done||n>=first)first.setDate(first.getDate()+1);
     const second=new Date(first);second.setDate(second.getDate()+1);
     const streakAt=d=>{const k=dk(d);return (ST.last===addDays(k,-1))?ST.cur:0};
-    const body=d=>{const c=streakAt(d);return I18N.tr(c>0?`Deine 🔥 ${c}er-Serie läuft heute ab – noch schnell das Tagesspiel!`:'Das neue Tagesspiel wartet auf dich – starte eine Serie! 🔥')};
+    // Kippi spricht – Texte wechseln von Tag zu Tag, damit es nicht eintönig wird
+    const KS=[c=>`Bsss! Deine 🔥 ${c}er-Serie läuft heute ab – spiel schnell das Tagesspiel, ich halt sie solange fest!`,
+              c=>`Bsss… deine 🔥 ${c}er-Serie wackelt! Ein Tagesspiel heute, und sie bleibt stehen.`];
+    const K0=['Bsss! Das neue Tagesspiel ist da – ich hab schon reingeschaut 👀','Kippi hier! Heute warten neue Steine auf dich – kommst du kippen? 🧩','Bsss… ich sitz schon am Spielfeldrand. Fehlt nur noch du! 😉'];
+    const body=d=>{const c=streakAt(d),k=Math.floor(d.getTime()/864e5);return I18N.tr(c>0?KS[k%KS.length](c):K0[k%K0.length])};
     try{
       await P.schedule({notifications:[
-        {id:7001,title:'KIPPWERK',body:body(first),schedule:{at:first,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false},
-        {id:7002,title:'KIPPWERK',body:I18N.tr('Ein neues Tagesspiel ist da – heute schon gekippt? 🧩'),schedule:{at:second,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false}]});
+        {id:7001,title:'🪰 Kippi · KIPPWERK',body:body(first),schedule:{at:first,allowWhileIdle:true},smallIcon:'ic_stat_kippi',isExactNotification:false},
+        {id:7002,title:'🪰 Kippi · KIPPWERK',body:I18N.tr('Bsss… ich vermisse dich! Das Tagesspiel wartet schon. 🪰'),schedule:{at:second,allowWhileIdle:true},smallIcon:'ic_stat_kippi',isExactNotification:false}]});
     }catch(e){console.warn('Erinnerung',e)}
   }
   async function enable(){if(!P)return false;try{const r=await P.requestPermissions();return r.display==='granted'}catch(e){return false}}
@@ -2066,6 +2080,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.27.0','Die Fliege heißt Kippi: Sie erklärt das Tutorial, meldet sich in den Erinnerungen und hat ein eigenes Benachrichtigungs-Symbol'],
  ['1.26.0','Neues Maskottchen: die KIPPWERK-Fliege · Musik wird mit dem Level schneller, Boss-Etappen mit eigenem Stück · Schutz gegen geschummelte Ranglisten-Einträge'],
  ['1.25.2','Englisch: Datum im Menü und Wochentage der Serie übersetzt; kleine Darstellungs-Korrekturen'],
  ['1.25.1','Tempo-Auswahl entfernt – das Spiel läuft immer im normalen Tempo'],
@@ -2340,19 +2355,20 @@ const TUT_GRID=[   // -1 leer · 0 Rot · 1 Gelb · 2 Grün · 3 Blau
   [1,-1,-1,1,-1,3],
   [-1,2,2,-1,3,-1]];
 const TUT_STEPS=[
-  {dir:'L',a:'180deg',mx:'-40px',my:'0px',txt:'Wische nach links. Das ganze Feld kippt – alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!'},
-  {dir:'D',a:'90deg',mx:'0px',my:'40px',txt:'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen: Rutschen danach wieder 3 gleiche zusammen, gibt es eine Combo!'}];
+  {dir:'L',a:'180deg',mx:'-40px',my:'0px',txt:'Hi, ich bin Kippi! Wisch mal nach links: Das ganze Feld kippt und alle Steine rutschen mit. 3 gleiche, die sich berühren, verschwinden!'},
+  {dir:'D',a:'90deg',mx:'0px',my:'40px',txt:'Neue Steine kommen immer von der Gegenseite. Jetzt nach unten wischen – rutschen danach wieder 3 gleiche zusammen, gibt’s eine Combo!'}];
 function startTutorial(){
   tut={step:0};['helpOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));start('endless');showTut()}
 function showTut(){
   const c=$('coach'),st=TUT_STEPS[tut.step];c.classList.remove('hidden');
-  $('coachStep').textContent=I18N.t('TUTORIAL · SCHRITT {n} / 3',{n:tut.step+1});
+  if(!$('coachAva').firstChild)$('coachAva').appendChild(document.querySelector('#fly svg').cloneNode(true));
+  $('coachStep').textContent=I18N.t('KIPPI · SCHRITT {n} / 3',{n:tut.step+1});
   let ar=boardEl.querySelector('.coach-arrow');
   $('coachSkip').style.visibility=st?'':'hidden';
   if(st){$('coachTxt').textContent=st.txt;$('coachGo').style.display='none';
     if(!ar){ar=document.createElement('div');ar.className='coach-arrow';boardEl.appendChild(ar)}
     ar.style.setProperty('--a',st.a);ar.style.setProperty('--mx',st.mx);ar.style.setProperty('--my',st.my)}
-  else{if(ar)ar.remove();$('coachTxt').textContent='Stark! Ist das Feld voll, ist die Runde vorbei. Tipp: Kippe öfter in dieselbe Richtung – und schau oben bei „Als Nächstes“, was kommt.';$('coachGo').style.display=''}
+  else{if(ar)ar.remove();$('coachTxt').textContent='Bsss, stark! Ist das Feld voll, ist die Runde vorbei. Mein Tipp: Kipp öfter in dieselbe Richtung und schau oben bei „Als Nächstes“, was kommt. Ich schau ab und zu vorbei!';$('coachGo').style.display=''}
 }
 function tutNext(total){
   if(!tut)return;tut.step++;

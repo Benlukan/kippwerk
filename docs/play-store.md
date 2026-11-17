@@ -39,6 +39,9 @@ TAGESSPIEL & SERIEN
 Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
 Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
 
+MIT KIPPI 🪰
+Kippi, die kleine KIPPWERK-Fliege, begleitet dich: Sie zeigt dir am Anfang, wie alles geht, schaut beim Spielen vorbei, feiert deine Combos und erinnert dich ans Tagesspiel.
+
 ENDLOS-MODUS
 Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker, Felsen und mehr Tempo.
 
@@ -46,7 +49,7 @@ Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen 
 • Bestenliste mit bester Combo, Zügen und abgeräumten Steinen
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
 • Kein Konto nötig, offline spielbar
-• Geführtes Tutorial, entspannte Musik, satte Combo-Effekte
+• Geführtes Tutorial mit Kippi, Musik, die mit dem Level schneller wird, satte Combo-Effekte
 • Farbschema und Symbole für Spieler mit Farbsehschwäche
 • Deutsch und Englisch
 • Klein, schnell, akkuschonend
@@ -87,13 +90,16 @@ Clear stages with clear goals – from relaxed to brutal, with a boss at the end
 DAILY GAME & STREAKS
 The same stones for everyone, every day – 40 moves, one counted round. Keep your 🔥 streak alive, collect badges, unlock themes and share your result as an emoji grid.
 
+WITH KIPPI 🪰
+Kippi, the little KIPPWERK fly, keeps you company: shows you the ropes, drops by while you play, cheers your combos and reminds you of the daily game.
+
 ENDLESS MODE
 Play on 5×5 to 8×8 boards until the board is full. Every level brings new colors, prism jokers, rocks and more pace.
 
 • Global leaderboards and cloud save via Google Play Games (optional)
 • Fair ads: optional videos for a rescue, never mid-game
 • No account needed, plays offline
-• Guided tutorial, relaxed music, punchy combo effects
+• Guided tutorial with Kippi, music that speeds up as you level, punchy combo effects
 • Color scheme and symbols for color-blind players
 • English and German
 

@@ -9,7 +9,8 @@ Kipp-Puzzle von david.digital: Kippe das Feld, alle Steine rutschen mit. Drei od
 - **🔥 Serie** – jeden Tag das Tagesspiel spielen: Flamme in der Kopfzeile, Serienschutz, Meilensteine mit 6 Designs, Erinnerung am Abend (App)
 - **Tagesspiel** – jeden Tag dieselben Steine für alle, 40 Züge, Ergebnis als Emoji-Raster teilen; Bestenliste Heute / Woche / All the best
 - **Endlos** – so lange, bis das Feld voll ist; Feldgröße 5×5 bis 8×8, Bestenliste je Größe (mit bester Combo, Zügen, abgeräumten Steinen); Level steigern Farben, Joker und Tempo; auf 7×7/8×8 ab Level 30 Felsen, ab Level 40 eine 6. Farbe
-- **Tutorial** – geführte 3 Schritte beim ersten Start, erneut über Hilfe
+- **Kippi** – die KIPPWERK-Fliege als Maskottchen und Wegbegleiter (Tutorial, Besuche im Spiel, Erinnerungen)
+- **Tutorial** – geführte 3 Schritte mit Kippi beim ersten Start, erneut über Hilfe
 - **Sprachen** – Deutsch und Englisch (Systemsprache, umschaltbar in ⚙)
 - **🌍 Weltweite Ranglisten** (App, freiwillig) – Google Play Games (Android) und Game Center (iOS) für Endlos je Feldgröße und Tagesspiel: Einrichtung in [docs/game-services.md](docs/game-services.md)
 
@@ -58,4 +59,4 @@ So entsteht eine neue Welt (10 Level, Level 10 = Boss):
 Schrift *Space Grotesk* unter SIL Open Font License (`www/fonts/OFL-LICENSE.txt`).
 
 ## Version
-Aktuell **v1.26.0 · Build 44** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).
+Aktuell **v1.27.0 · Build 45** – siehe [CHANGELOG.md](CHANGELOG.md). Bei jeder Auslieferung Version + Build hochzählen in: `www/index.html` (Footer), `package.json`, `android/app/build.gradle`, `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js` (Cache-Name).

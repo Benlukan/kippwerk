@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.27.0 (Build 45) – 17.11.2026
+- **Kippi**, die KIPPWERK-Fliege, ist jetzt der Wegbegleiter:
+  - Tutorial: Kippi (mit Bild) erklärt die drei Schritte („Hi, ich bin Kippi! …“), Kopfzeile „KIPPI · SCHRITT 1 / 3“
+  - Erinnerungen: Titel „🪰 Kippi · KIPPWERK“, Texte in Kippis Stimme, wechseln von Tag zu Tag (3 Texte ohne Serie, 2 mit Serie, eigener Text am zweiten Tag), Deutsch und Englisch
+  - Android: eigenes Benachrichtigungs-Symbol `ic_stat_kippi` (Fliegen-Silhouette)
+  - Einstellung heißt „🪰 Kippi (Maskottchen)“; Hilfe und Store-Texte stellen Kippi vor
+- Tutorial-Hinweis jetzt undurchsichtig (Text dahinter schien durch)
 ## v1.26.0 (Build 44) – 17.11.2026
 - **Maskottchen „KIPPWERK-Fliege“:** fliegt alle 25–50 s (Menü 15–40 s) vorbei, landet auf Rändern (Spielfeld-Ecken, Info-Boxen, Menü-Steine – nie auf dem Spielfeld), schaut aufs Feld, blinzelt, wackelt beim Kippen mit (wird manchmal „abgeschüttelt“ 😵) und reagiert: Combo „!“, MONSTER 😮, ULTRA 🤩 mit Looping, volles Feld 💦, Level 🎉, Rekord ♥, Etappe geschafft ⭐, Spielende 😢. Keine Klicks, verschwindet bei offenen Menüs, aus bei „Bewegung reduzieren“, abschaltbar in ⚙ „🪰 Maskottchen (Fliege)“
 - **Musik mit Steigerung:** drei Stücke – Menü (ruhig), Spiel, Boss. Das Spiel-Stück wird in 5 Stufen schneller und voller (88 → 110 BPM, Hi-Hats, Bass-Drum, treibender Bass, Oktave): Endlos ab Level 5/10/15/25, Etappen je zwei Welten, Tagesspiel ab Zug 15/28/36. Boss-Etappen: eigenes Stück in harmonischem Moll (112 BPM, Bass-Ostinato, Snare). Ist das Feld zu ¾ voll, zieht das Tempo um 6 % an. Wechsel immer zum nächsten Takt mit kurzer Überblendung

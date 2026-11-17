@@ -67,6 +67,29 @@ jobs:
         with:
           name: KIPPWERK-android
           path: out/*
+      - name: Version ermitteln
+        id: ver
+        run: |
+          V=$(node -p "require('./package.json').version")
+          B=$(grep -oP 'versionCode \K\d+' android/app/build.gradle)
+          echo "tag=v$V-b$B" >> "$GITHUB_OUTPUT"
+          echo "name=KIPPWERK v$V · Build $B" >> "$GITHUB_OUTPUT"
+      # Download-Seite: jede Version als GitHub-Release (auch am Handy herunterladbar)
+      - name: Download-Seite (Release) aktualisieren
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.name }}
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          files: out/*
+          body: |
+            **KIPPWERK.apk** – direkt aufs Handy installieren (Testversion)
+            **KIPPWERK-playstore.aab** – zum Hochladen in die Google Play Console
+            **KIPPWERK-release.apk** – signierte APK
+
+            Änderungen: siehe [CHANGELOG.md](https://github.com/Benlukan/kippwerk/blob/main/CHANGELOG.md)
       - name: An Release anhängen
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2

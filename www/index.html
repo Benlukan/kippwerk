@@ -350,7 +350,8 @@ body.pad-off .pad{display:none!important}
   .ib-goal{font-size:15px}
 }
 @media (max-aspect-ratio:3/4){
-  :root{--W:min(94vw,640px,calc(100vh - 330px));--W:min(94vw,640px,calc(100dvh - 330px))}
+  :root{--W:min(94vw,640px,calc(100vh - 445px));--W:min(94vw,640px,calc(100dvh - 445px))}
+  header,.hud,.infobar{width:max(var(--W),min(94vw,560px))}
   .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:12px}
   .infobar{display:flex;gap:10px;margin-top:auto}
   footer{margin-top:0}
@@ -368,6 +369,7 @@ body.pad-off .pad{display:none!important}
 }
 footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space:nowrap}
 .hint{color:var(--muted);font-size:12px}
+@media (min-width:600px) and (max-aspect-ratio:3/4){:root{--W:min(640px,calc(100vh - 500px));--W:min(640px,calc(100dvh - 500px))}}
 @media (max-height:740px) and (max-aspect-ratio:3/4){:root{--W:min(94vw,640px,calc(100vh - 385px));--W:min(94vw,640px,calc(100dvh - 385px))}header,.hud,.infobar{width:min(94vw,560px)}}
 </style>
 </head>
@@ -482,6 +484,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <button class="set" id="pidRow" title="Spieler-ID kopieren"><span>🆔 Spieler-ID</span><span class="pid" id="pidText"></span></button>
       </div>
       <div class="settings">
+        <div class="set"><span>🌐 Sprache / Language</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
         <label class="set"><span>🔊 Ton</span><input type="checkbox" id="setSound"></label>
         <label class="set"><span>📳 Vibration</span><input type="checkbox" id="setVibe"></label>
         <div class="set"><span>⚡ Tempo</span><div class="seg" data-key="speed"><button data-v="normal">Normal</button><button data-v="fast">Schnell</button></div></div>
@@ -497,8 +500,8 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
-        <a class="set" href="datenschutz.html">📄 Datenschutzerklärung</a>
-        <a class="set" href="impressum.html">ℹ️ Impressum</a>
+        <a class="set" id="lnkPrivacy" href="datenschutz.html">📄 Datenschutzerklärung</a>
+        <a class="set" id="lnkLegal" href="impressum.html">ℹ️ Impressum</a>
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
     </div>
@@ -518,7 +521,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
     </div>
     <div class="overlay hidden" id="helpOv">
       <h2>❓ HILFE</h2>
-      <div class="help">
+      <div class="help" data-noi18n>
         <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hSerie">Serie</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
         <section id="hGrund"><h3>So geht's</h3>
           <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Die <b>Zurück-Taste</b> des Handys (bzw. Esc) pausiert das Spiel. Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
@@ -601,8 +604,251 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.22.0 · Build 37 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.23.0 · Build 38 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
+<script>
+/* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
+// ---------- Englische Übersetzung (Deutsch = Quelltext) ----------
+const I18N_NAMES={'Erste Schritte':'First Steps','Felsenfeld':'Rock Field','Farbrausch':'Color Rush','Kettenwerk':'Chain Works','Steinbruch':'Quarry','Prismental':'Prism Valley','Sturmzone':'Storm Zone','Tiefenwerk':'Deep Works','Meisterklasse':'Master Class','Finale':'Finale',
+  'Funke':'Spark','Eine Woche':'One Week','Zwei Wochen':'Two Weeks','Ein Monat':'One Month','Fünfzig Tage':'Fifty Days','Hundert Tage':'Hundred Days',
+  'Standard':'Standard','Neon':'Neon','Pastell':'Pastel','Ozean':'Ocean','Lava':'Lava','Gold':'Gold','Kosmos':'Cosmos',
+  'Rot':'Red','Gelb':'Yellow','Grün':'Green','Blau':'Blue','Lila':'Purple','Orange':'Orange','Grau':'Gray','Weiß':'White',
+  'Tagessieg':'Daily win','Tag Top 3':'Day Top 3','Tag Top 10':'Day Top 10','Wochensieg':'Weekly win','Woche Top 3':'Week Top 3','Woche Top 10':'Week Top 10'};
+const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
+  'Abgeräumt':'Cleared','abgeräumt':'cleared','nichts':'nothing','Combo':'Combo','Combos':'Combos',
+  'Good':'Good','Super':'Super','Mega':'Mega','Monster':'Monster','Ultra':'Ultra',
+  'Abzeichen & Designs · tippen zum Anwenden':'Badges & themes · tap to apply',
+  'All the best':'All-time best','Alle':'All','Als Nächstes':'Up next','An':'On','Aus':'Off','Auto':'Auto','Anmelden':'Sign in',
+  'Beste Tagesspiele aller Zeiten':'Best daily games of all time','Bestenliste':'Leaderboard','Bester':'Best','Bester Tag':'Best day',
+  'COMBO ×2':'COMBO ×2',
+  'Das neue Tagesspiel wartet auf dich – starte eine Serie! 🔥':'The new daily game is waiting – start a streak! 🔥',
+  'Ein neues Tagesspiel ist da – heute schon gekippt? 🧩':'A new daily game is here – tilted yet today? 🧩',
+  'Datenschutz':'Privacy','Datenschutz-Einstellungen (Werbung)':'Privacy settings (ads)','🛡 Datenschutz-Einstellungen (Werbung)':'🛡 Privacy settings (ads)',
+  'Dein Name':'Your name','Deine Serie':'Your streak','Du':'You',
+  'Diese Woche noch kein Tagesspiel gespielt.':'No daily game played this week yet.','Diese Woche noch keine Ergebnisse.':'No results this week yet.',
+  'Noch kein Tagesspiel gespielt.':'No daily game played yet.',
+  'EINTRAGEN':'SUBMIT','ERGEBNIS TEILEN':'SHARE RESULT','ETAPPE':'STAGE','Etappe':'Stage',
+  'Eine Rettung pro Runde · freiwillig':'One rescue per round · optional',
+  'Einstellungen':'Settings','Endlos':'Endless','Endlos-Feld':'Endless board','Extra-Leben':'Extra lives',
+  'Extra-Leben (für ULTRA-Combos)':'Extra lives (from ULTRA combos)','Extra-Leben gibt es für ULTRA-Combos (×6)':'You earn extra lives with ULTRA combos (×6)',
+  'FELD VOLL':'BOARD FULL','FERTIG':'DONE','GESCHAFFT':'COMPLETE','GESCHAFFT!':'COMPLETE!','LEIDER NICHT':'NOT THIS TIME',
+  'Farbe abräumen':'Clear color','Farbschwäche':'Color blind','Felsen':'Rocks',
+  'Ganze Rangliste ›':'Full leaderboard ›','Gespielt':'Played','Gewertet':'Counted',
+  'Heute':'Today','Heute noch nicht gespielt – das Tagesspiel wartet!':'Not played yet today – the daily game is waiting!',
+  'Hilfe':'Help','Impressum':'Legal notice','ℹ️ Impressum':'ℹ️ Legal notice','📄 Datenschutzerklärung':'📄 Privacy policy',
+  'Kippen. Verbinden. Kettenreaktion.':'Tilt. Connect. Chain reaction.',
+  'Level':'Level','MENÜ':'MENU','Meilensteine:':'Milestones:','Menü / Pause':'Menu / Pause','Modi':'Modes',
+  'NEIN DANKE':'NO THANKS','NOCHMAL':'AGAIN','↻ NOCHMAL':'↻ AGAIN','Normal':'Normal','Nächster Meilenstein':'Next milestone',
+  'Noch eine Chance?':'One more chance?','Pause':'Pause','Prisma':'Prism','Prisma-Steine':'Prism stones','Punkte':'Points',
+  'Ranglisten-Erfolge':'Leaderboard achievements','Rekord':'Record','Rekord –':'Record –',
+  'Rettet automatisch einen verpassten Tag. Gratis alle 7 Serientage, zusätzlich 1× täglich per Video.':'Automatically saves a missed day. Free every 7 streak days, plus 1× daily via video.',
+  'Rettet automatisch einen verpassten Tag. Gratis alle 7 Serientage.':'Automatically saves a missed day. Free every 7 streak days.',
+  'SCHLIESSEN':'CLOSE','SERIE':'STREAK','START':'START','▶ START':'▶ START','Schnell':'Fast','Schnitt':'Average','Serie':'Streak','Serienschutz':'Streak shield',
+  'Spiel das Tagesspiel, um eine Serie zu starten.':'Play the daily game to start a streak.',
+  'Spieler-ID':'Player ID','Spieler-ID kopieren':'Copy player ID','Spielernamen':'player name','Spielmodi':'Game modes',
+  'Starte eine Serie mit dem Tagesspiel':'Start a streak with the daily game',
+  'TEXT MARKIERT – KOPIEREN':'TEXT SELECTED – COPY','Tage':'Days','Tage in Folge':'days in a row','Tag in Folge':'day in a row',
+  'Tagesspiel':'Daily game','Tipp: Wischen funktioniert überall auf dem Bildschirm':'Tip: swipe anywhere on the screen',
+  'VERSTANDEN':'GOT IT','Verlauf · letzten 40 Züge':'History · last 40 moves','WEITER ▶':'NEXT ▶','WEITER!':'CONTINUE!','❤ WEITER!':'❤ CONTINUE!',
+  'Weiterspielen':'Continue','Woche':'Week','Wochensumme':'Week total','ZURÜCK':'BACK','Ziel':'Goal','Ziele':'Goals','Züge':'Moves',
+  'Zurück-Taste':'Back button','übrige Züge':'moves left','heute offen':'open today',
+  'Wer im Tagesspiel vorne liegt, bekommt nach Ablauf des Tages bzw. der Woche eine Belohnung:':'Top daily-game players get a reward when the day or week ends:',
+  '∞ Endlos':'∞ Endless','⏳ Lade Rangliste …':'⏳ Loading leaderboard …',
+  '⏳ Heute noch offen – spiel das Tagesspiel, sonst reißt die Serie (oder ein 🛡 springt ein).':'⏳ Still open today – play the daily game or your streak breaks (unless a 🛡 steps in).',
+  '✅ Heute gesichert – bis morgen!':'✅ Secured for today – see you tomorrow!',
+  '◆ Symbole auf Steinen':'◆ Symbols on stones','☁ Spielstand mit deinen anderen Geräten abgeglichen':'☁ Progress synced with your other devices',
+  '⚙ EINSTELLUNGEN':'⚙ SETTINGS','⚠ Wirklich? Nochmal tippen':'⚠ Sure? Tap again','⚡ Tempo':'⚡ Speed','✓ Gelöscht':'✓ Deleted',
+  '❓ HILFE':'❓ HELP','❓ Hilfe & Anleitung':'❓ Help & guide','❤ Extra-Leben':'❤ Extra lives','❤ LEBEN EINSETZEN':'❤ USE A LIFE',
+  '🆔 Spieler-ID':'🆔 Player ID','🌍 WELTWEITE RANGLISTE':'🌍 GLOBAL LEADERBOARD','🌍 WELTWEIT · TAGESSPIEL':'🌍 GLOBAL · DAILY GAME',
+  '🎨 Farben':'🎨 Colors','🎬 SCHUTZ PER VIDEO HOLEN':'🎬 GET SHIELD VIA VIDEO','🎬 VIDEO ANSEHEN & WEITER':'🎬 WATCH VIDEO & CONTINUE','VIDEO LÄDT …':'VIDEO LOADING …',
+  '🎮 Steuerkreuz':'🎮 D-pad','🏆 BESTENLISTE':'🏆 LEADERBOARD','🏆 Bestenliste löschen':'🏆 Clear leaderboard','🏆 Tagesspiel · Top 5':'🏆 Daily game · Top 5',
+  '👑 Boss-Etappe – die schwerste der Welt!':'👑 Boss stage – the hardest in the world!','👤 Spielername':'👤 Player name',
+  '📅 JETZT TAGESSPIEL SPIELEN':'📅 PLAY DAILY GAME NOW','📅 Tagesspiel':'📅 Daily game','📳 Vibration':'📳 Vibration','🔊 Ton':'🔊 Sound',
+  '🔔 Serien-Erinnerung (abends)':'🔔 Streak reminder (evening)','🔥 Serie':'🔥 Streak','🔲 Feldgröße (Endlos)':'🔲 Board size (Endless)','🖌 Design':'🖌 Theme',
+  '🗺 ETAPPEN':'🗺 STAGES','🗺 Etappen':'🗺 Stages','🗺 KARTE':'🗺 MAP','🗺 ZUR KARTE':'🗺 TO MAP','🗺 Level-Fortschritt löschen':'🗺 Clear stage progress',
+  'Keine Züge mehr übrig.':'No moves left.','Das Feld ist voll.':'The board is full.',
+  'Steuerung':'Controls','Combos ·':'Combos ·',
+  '📡 Rangliste gerade nicht erreichbar.':'📡 Leaderboard unavailable right now.',
+  'Heute hat noch niemand gespielt – sei die/der Erste!':'Nobody has played today yet – be the first!',
+  'Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).':'Notifications are blocked for KIPPWERK (phone settings).',
+  '🛡 Serienschutz erhalten!':'🛡 Streak shield earned!','Zum Beenden nochmal „Zurück“ drücken':'Press “Back” again to exit',
+  '❤ Du hast schon 9 Extra-Leben – mehr passen nicht in den Vorrat.':'❤ You already have 9 extra lives – that’s the maximum.',
+  'Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.':'From level 30, rocks appear – they break when a group next to them clears.',
+  'Ab Level 40 gibt es eine 6. Farbe: Orange ★.':'From level 40 there is a 6th color: Orange ★.',
+  'NEUES ABZEICHEN':'NEW BADGE','AB JETZT IM SPIEL':'NOW IN PLAY','★ NEUE FARBE':'★ NEW COLOR','🪨 FELSEN!':'🪨 ROCKS!','EXTRA-LEBEN':'EXTRA LIFE',
+  '💡 Felsen zerbrechen, wenn direkt daneben eine Gruppe verschwindet.':'💡 Rocks break when a group next to them clears.',
+  '💡 Eine Kette entsteht, wenn nachrutschende Steine eine neue Gruppe bilden.':'💡 A chain happens when sliding stones form a new group.',
+  'Alle Welten geschafft – neue Welten folgen per Update':'All worlds complete – new worlds coming in an update',
+  'Video: einmal pro Runde · Leben: so viele du hast':'Video: once per round · Lives: as many as you have',
+  'Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video':'Use a ❤ extra life or watch a short video','Setz ein ❤ Extra-Leben ein':'Use a ❤ extra life',
+  'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
+  'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
+  'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache / Language':'🌐 Sprache / Language','Deutsch':'Deutsch','English':'English',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','Ergebnis teilen':'Share result',
+  '🖱 Wischen mit gedrückter Maustaste':'🖱 Drag with the mouse button held','☰ Menü / Pause · ❓ Tippen auf den Verlauf':'☰ Menu / Pause · ❓ Tap the history',
+  '– kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':'– joins from level 3 (in Endless; on 7×7 and 8×8 from the start)',
+  '– nur Endlos auf 7×7 und 8×8, ab Level 40':'– Endless on 7×7 and 8×8 only, from level 40'
+})));
+const I18N_PATS=(()=>{
+  const N=s=>I18N_NAMES[s]||s;
+  const num=s=>s.replace(/\.(?=\d{3}\b)/g,',');           // 3.050 → 3,050
+  const pl=(n,one,many)=>(+String(n).replace(/\D/g,'')===1?one:many);
+  const days=n=>n+' '+pl(n,'day','days');
+  const combo=s=>s.replace(/(\d+) Combos?/,(m,n)=>n+' '+pl(n,'combo','combos')).replace(/keine Combo/,'no combo');
+  const tail=s=>s.split(' · ').map(p=>{
+    let m;
+    if(m=p.match(/^(\d+) (Zug|Züge) übrig$/))return m[1]+' '+pl(m[1],'move','moves')+' left';
+    if(m=p.match(/^([\d.,]+) Punkte$/))return num(m[1])+' points';
+    if(m=p.match(/^(\d+) Steine abgeräumt$/))return m[1]+' stones cleared';
+    if(/Combo/.test(p))return combo(p);
+    if(p==='neuer Bestwert!')return 'new best!';
+    if(p==='Feld voll')return 'board full';
+    return p}).join(' · ');
+  return [
+  [/^Combos(?: (\d+) · beste ×(\d+))? · (\d+) Steine weg(?: · noch (\d+) bis Level (\d+))?$/,(m,c,b,s,r,l)=>'Combos'+(c?` ${c} · best ×${b}`:'')+` · ${s} cleared`+(r?` · ${r} to level ${l}`:'')],
+  [/^(\d+) Tage?$/,(m,n)=>days(n)],
+  [/^(\d+) (Zug|Züge)$/,(m,n)=>n+' '+pl(n,'move','moves')],
+  [/^(\d+) Steine$/,(m,n)=>n+' stones'],
+  [/^(\d+) Steine abräumen$/,(m,n)=>`Clear ${n} stones`],
+  [/^(✓ )?([\d.,]+) Punkte erreichen$/,(m,c,n)=>(c||'')+`Reach ${num(n)} points`],
+  [/^(✓ )?(\d+) Steine dieser Farbe abräumen$/,(m,c,n)=>(c||'')+`Clear ${n} stones of this color`],
+  [/^(✓ )?Eine Kette ×(\d+) auslösen$/,(m,c,n)=>(c||'')+`Trigger a ×${n} chain`],
+  [/^(✓ )?Alle (\d+) Felsen zerbrechen$/,(m,c,n)=>(c||'')+`Break all ${n} rocks`],
+  [/^(✓ )?(\d+) Steine abräumen$/,(m,c,n)=>(c||'')+`Clear ${n} stones`],
+  [/^✓ ([\d.,]+) Punkte$/,(m,n)=>`✓ ${num(n)} points`],
+  [/^(\d+ (?:Zug|Züge) übrig · .*)$/,(m,s)=>tail(s)],
+  [/^· übrige Züge für ★★: (\d+) · ★★★: (\d+)$/,'· moves left for ★★: $1 · ★★★: $2'],
+  [/^ETAPPE ([\d-]+)$/,'STAGE $1'],[/^Etappe ([\d-]+)$/,'Stage $1'],
+  [/^Etappe ([\d-]+) · noch (\d+) Züge$/,'Stage $1 · $2 moves left'],
+  [/^Ziele · Etappe ([\d-]+) · jetzt (★+)$/,'Goals · Stage $1 · now $2'],
+  [/^(👑 BOSS · )?WELT (\d+) · (BESTES ERGEBNIS|NEUE ETAPPE)$/,(m,b,w,k)=>(b||'')+`WORLD ${w} · `+(k==='NEUE ETAPPE'?'NEW STAGE':'BEST RESULT')],
+  [/^Welt (\d+) · (.+)$/,(m,w,n)=>`World ${w} · ${N(n)}`],
+  [/^LEVEL (\d+)$/,'LEVEL $1'],[/^Lvl (\d+)$/,'Lvl $1'],
+  [/^\+(\d+) ZÜGE$/,'+$1 MOVES'],
+  [/^Endlos (\d+)×(\d+) · ([\d.,]+) Punkte$/,(m,a,b,p)=>`Endless ${a}×${b} · ${num(p)} points`],
+  [/^Rekord ([\d.,]+)$/,(m,p)=>'Record '+num(p)],
+  [/^Noch keine Einträge auf (\d+)×(\d+) – spiel eine Runde Endlos!$/,'No entries on $1×$2 yet – play a round of Endless!'],
+  [/^Nächstes Rätsel in (\d+) h (\d+) min$/,'Next puzzle in $1 h $2 min'],
+  [/^Noch (\d+) bis (\S+) (.+)$/,(m,n,b,x)=>`${n} more to ${b} ${N(x)}`],
+  [/^([✨⚡🌊🌋👑🌌]) (.+)$/u,(m,b,x)=>I18N_NAMES[x]?`${b} ${N(x)}`:undefined],
+  [/^– noch (\d+) (Tag|Tage) · Design „(.+)“$/,(m,n,t,d)=>`– ${days(n)} to go · theme “${N(d)}”`],
+  [/^Längste Serie: (\d+) (Tag|Tage)$/,(m,n)=>`Longest streak: ${days(n)}`],
+  [/^Serie: (\d+) (Tag|Tage) – heute gesichert$/,(m,n)=>`Streak: ${days(n)} – secured today`],
+  [/^Serie: (\d+) (Tag|Tage) – heute noch offen!$/,(m,n)=>`Streak: ${days(n)} – still open today!`],
+  [/^🔥 Serie: (\d+) (Tag|Tage)!$/,(m,n)=>`🔥 Streak: ${days(n)}!`],
+  [/^heute offen · 🔥 (\d+)$/,'open today · 🔥 $1'],
+  [/^🛡 \+1 Serienschutz für 7 Tage am Stück!$/,'🛡 +1 streak shield for 7 days in a row!'],
+  [/^🛡 Serienschutz eingesetzt – deine 🔥 (\d+)er-Serie lebt weiter!$/,'🛡 Streak shield used – your 🔥 $1-day streak lives on!'],
+  [/^Deine 🔥 (\d+)er-Serie ist leider gerissen\. Heute beginnt eine neue!$/,'Your 🔥 $1-day streak has ended. A new one starts today!'],
+  [/^Deine 🔥 (\d+)er-Serie läuft heute ab – noch schnell das Tagesspiel!$/,'Your 🔥 $1-day streak ends today – quick, play the daily game!'],
+  [/^Woche (.+) – (.+)$/,'Week $1 – $2'],
+  [/^Tag (.+)$/,'Day $1'],[/^Übung (.+)$/,'Practice $1'],
+  [/^Tagesspiel (.+?) · noch (\d+) Züge$/,'Daily game $1 · $2 moves left'],
+  [/^Tagesspiel (.+?) · (\d+) Steine abgeräumt · (.+)$/,(m,d,s,c)=>`Daily game ${d} · ${s} stones cleared · ${combo(c)}`],
+  [/^Dein Raster · Tagesspiel (.+)$/,'Your grid · Daily game $1'],
+  [/^Tagesspiel (.+)$/,'Daily game $1'],
+  [/^Übungsrunde – gewertet bleibt dein erstes Ergebnis: ([\d.,]+)$/,(m,p)=>'Practice round – your first result counts: '+num(p)],
+  [/^(🏆 Neuer Rekord! |Platz (\d+) in der Bestenliste! )?Level (\d+) · (\d+) Steine abgeräumt · (.+?)\.( Rekord: ([\d.,]+))?$/,(m,h,r,l,s,c,x,rec)=>
+     (h?(r?`#${r} on the leaderboard! `:'🏆 New record! '):'')+`Level ${l} · ${s} stones cleared · ${combo(c)}.`+(x?' Record: '+num(rec):'')],
+  [/^(\d+ Combos?|keine Combo)( \(.+\))?$/,(m)=>combo(m)],
+  [/^⭐ (\d+) \/ (\d+) Sterne$/,'⭐ $1 / $2 stars'],
+  [/^🎉 Welt (\d+) geschafft – weiter nach „(.+)“!$/,(m,w,n)=>`🎉 World ${w} complete – on to “${N(n)}”!`],
+  [/^❤ LEBEN EINSETZEN \((\d+) übrig\)$/,'❤ USE A LIFE ($1 left)'],
+  [/^Noch eine Chance\? (.*)$/,(m,r)=>'One more chance? '+(r==='Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video'?'Use a ❤ extra life or watch a short video':r==='Setz ein ❤ Extra-Leben ein'?'Use a ❤ extra life':r==='Setz ein ❤ Extra-Leben ein – dafür gibt es'?'Use a ❤ extra life – you get':r)],
+  [/^(.*) – dafür gibt es$/,(m,a)=>(a==='Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video'?'Use a ❤ extra life or watch a short video':'Use a ❤ extra life')+' – you get'],
+  [/^– dafür gibt es$/,'– you get'],
+  [/^(\d+) Züge extra$/,'$1 extra moves'],
+  [/^🎮 Bei (.+) anmelden, um die Top 5 zu sehen ›$/,'🎮 Sign in to $1 to see the Top 5 ›'],
+  [/^✓ angemeldet · ☁ (.*)$/,'✓ signed in · ☁ $1'],
+  [/^🎁 Belohnung! (.+)$/,(m,r)=>'🎁 Reward! '+r.replace(/Tagesspiel/g,'Daily game').replace(/Woche/g,'Week').replace(/Platz/g,'Rank')],
+  [/^(\S+) (Tagesspiel|Woche): Platz (\d+)(.*)$/u,(m,b,s,r,x)=>`${b} ${s==='Woche'?'Week':'Daily game'}: rank ${r}${x}`],
+  [/^(\d+)× (\S+)$/,'$1× $2'],
+  [/^Platz (\d+)$/,'Rank $1'],
+  [/^Etappe (\d+-\d+) · (.+)$/,(m,e,r)=>`Stage ${e} · ${r}`],
+  [/^(.+) \(du\)$/,'$1 (you)'],
+  [/^Rekord: (.+)$/,'Record: $1']
+  ].map(([re,f])=>[re,typeof f==='function'?(...a)=>{const v=f(...a);return v}:f]);
+})();
+const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><button data-s="hSteine">Stones &amp; colors</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Color history</button><button data-s="hModi">Modes</button><button data-s="hSerie">Streak</button><button data-s="hTipps">Tips</button><button data-s="hNeu">What's new</button></div>
+<section id="hGrund"><h3>How to play</h3>
+<p><b>Swipe</b> anywhere on the screen in one direction (or use arrow keys/WASD). The phone's <b>back button</b> (or Esc) pauses the game. The whole board tilts – <b>all stones slide</b> to the edge.</p>
+<p>When <b>3 or more matching stones</b> touch horizontally or vertically, they disappear. Bigger groups score a lot more (size² × 10).</p>
+<p>After every move, <b>new stones arrive from the opposite side</b>. “Up next” at the top shows which colors are coming. When the board is full, the round is over.</p></section>
+<section id="hSteine"><h3>Stones &amp; colors</h3>
+<p>Every color has its own symbol – so it also works with color blindness (color scheme can be changed in ⚙).</p>
+<div id="helpColors"></div>
+<div class="row"><span class="sw wild">✦</span><span><b>Prism</b> – matches any color and connects groups (from level 2).</span></div>
+<div class="row"><span class="sw rock"></span><span><b>Rocks</b> (stages; Endless on 7×7 and 8×8 from level 30) – slide along and break when a group right next to them clears.</span></div></section>
+<section id="hCombo"><h3>Combos</h3>
+<p>When a group disappears, the remaining stones slide on. If that forms a new group, it's a <b>combo</b> – points are multiplied by the combo level.</p>
+<div class="row"><span class="sw" style="background:var(--c2)">×2</span><span><b>GOOD!</b> – second group in a row</span></div>
+<div class="row"><span class="sw" style="background:var(--c3)">×3</span><span><b>SUPER!</b> – triple chain</span></div>
+<div class="row"><span class="sw" style="background:var(--c1)">×4</span><span><b>MEGA!</b> – with a flash of light</span></div>
+<div class="row"><span class="sw wild">×5</span><span><b>MONSTER!</b> – rainbow and quake, very rare! (×5)</span></div>
+<div class="row"><span class="sw" style="background:#fff;color:#000">×6</span><span><b>ULTRA!</b> – ×6 and up, extremely rare – and you get a <b>❤ extra life</b>!</span></div>
+<p>The <b>Combos</b> bar below the board counts along each game: how often you simply <b>cleared</b> and how often GOOD, SUPER, MEGA, MONSTER and ULTRA happened. At the end you see the breakdown, e.g. “5 combos (1× MEGA, 4× GOOD)”.</p>
+<p><b>❤ Extra lives:</b> Every ULTRA combo gives you a life (store up to 9, saved). When the board is full or you're out of moves, you can use one instead of a video and keep playing – in Endless and in stages, not in the daily game. Your supply is shown in the main menu and in the combo bar.</p></section>
+<section id="hVerlauf"><h3>Color history &amp; grid</h3>
+<p>In the info bar at the bottom (and when sharing the daily game) each square stands for <b>one move</b>. The color shows what the move achieved:</p>
+<div class="row"><span class="sw d" style="background:var(--line)"></span><span><b>Gray</b> (⬛) – nothing cleared</span></div>
+<div class="row"><span class="sw d" style="background:var(--c3)"></span><span><b>Blue</b> (🟦) – one group cleared</span></div>
+<div class="row"><span class="sw d" style="background:var(--c2)"></span><span><b>Green</b> (🟩) – combo ×2 GOOD</span></div>
+<div class="row"><span class="sw d" style="background:var(--c1)"></span><span><b>Yellow</b> (🟨) – combo ×3 SUPER</span></div>
+<div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Red</b> (🟥) – combo ×4 MEGA</span></div>
+<div class="row"><span class="sw d" style="background:var(--c4)"></span><span><b>Purple</b> (🟪) – combo ×5 MONSTER</span></div>
+<div class="row"><span class="sw d" style="background:#fff"></span><span><b>White</b> (⬜) – combo ×6 or more: ULTRA (+1 ❤)</span></div>
+<p>The more colorful your grid, the better you played.</p></section>
+<section id="hModi"><h3>Game modes</h3>
+<ul><li><b>📅 Daily game</b> – new every day, the same stones for every player, 40 moves. Your first round counts, the rest are practice. Share your result as a grid!</li>
+<li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss.</li>
+<li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster.</li></ul>
+<p><b>🏆 Leaderboard:</b> Top 10 in Endless per board size. The <b>daily game</b> has three lists: <b>Today</b> (today's game), <b>Week</b> (points from Monday to Sunday added up – every day played counts) and <b>All-time best</b> (the best daily games ever) – each with your <b>player name</b>. Your name and your unique <b>player ID</b> (e.g. KW-1A2B-3C4D) are in ⚙. The short code after the name (#1A2B) tells players with the same name apart.</p>
+<p><b>🌍 Global (app):</b> Below the leaderboard, “Global” opens the leaderboard of <b>Google Play Games</b> (Android) or <b>Game Center</b> (iPhone) – with today, week and all time. Sign in once with your Google or Apple account (in ⚙ or on first launch). Your best Endless rounds per board size and your counted daily game are then submitted automatically. Android and iPhone have separate leaderboards.</p>
+<p><b>🏆 Top 5 in the menu (app):</b> When you're signed in to Google Play Games or Game Center, the main menu shows the top 5 of the daily game – switchable between Today, Week and All. If you're not in the top 5, your rank is shown below. Tap to open the full leaderboard. (On Google, “Today” resets at midnight Pacific Time; “Week” shows the best daily game of the week.)</p>
+<p><b>🎁 Leaderboard rewards:</b> Top daily-game players get a reward when the day or week ends: <b>daily win</b> 👑 +1 ❤ · day top 3 🥈 and top 10 ⭐ as badges · <b>weekly win</b> 🏆 +3 ❤ · week top 3 🥇 +1 ❤ · week top 10 🎖. The rank the app saw last counts – so feel free to open the app again in the evening. Your achievements are on the 🔥 streak page.</p>
+<p><b>☁ Progress on several devices:</b> When you're signed in to Google Play Games or Game Center, KIPPWERK saves levels, stars, records, daily games, streak, name and settings to your account. On another device with the same account (Android ↔ Android, iPhone ↔ iPad) everything is restored automatically – the better value always wins, nothing gets lost. On iPhone, iCloud must be turned on.</p>
+<p><b>🎬 Rescue:</b> Board full or out of moves? An optional video clears 6 stones or gives 5 extra moves (once per round, not in the daily game).</p></section>
+<section id="hSerie"><h3>🔥 Streak</h3>
+<p>Play the <b>daily game</b> every day (the first, counted round) – and your streak grows by one day. The flame at the top shows it: colored = secured today, gray = still open today.</p>
+<p><b>🛡 Streak shield:</b> If you miss a day, a shield saves your streak automatically. You get one free every 7 streak days, plus one per day via an optional video (at most 2 in stock).</p>
+<p><b>Milestones:</b> At 3, 7, 14, 30, 50 and 100 days you get a badge and a new theme (Neon, Pastel, Ocean, Lava, Gold, Cosmos) – purely cosmetic.</p>
+<p><b>🔔 Reminder:</b> In the app, a notification reminds you in the evening if your streak is still open (can be turned off in ⚙).</p></section>
+<section id="hTipps"><h3>Tips</h3>
+<ul><li>Tilt in the <b>same direction</b> more often – colors collect on one side and combos become more likely.</li>
+<li>Watch <b>“Up next”</b> and remember: new stones come from the opposite side.</li>
+<li>Save <b>prism stones</b> to join two groups into a big one.</li>
+<li>In stages, <b>moves left</b> count – finishing fast earns stars.</li></ul></section>
+<section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
+const CHANGES_EN={'1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+ '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
+ '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
+ '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
+ '1.20.0':'Combo bar (Cleared, Good, Super, Mega, Monster, Ultra), new ULTRA tier from ×6 with ❤ extra life, info bar at the bottom',
+ '1.19.2':'Main menu: stones sit below the top 5 list and move down for longer lists or small screens',
+ '1.19.1':'Fixed positions instead of centered; stage map uses full height; daily game shows the day\'s score instead of the Endless record',
+ '1.19.0':'Main menu: daily game top 5 (Today / Week / All) from Google Play Games / Game Center',
+ '1.18.2':'Fullscreen: status and navigation bars hidden, appear when swiping from the edge',
+ '1.18.1':'Levels are now stages: “Stage 2-3” = world 2, third stage',
+ '1.18.0':'Levels much easier (more moves, easier stars), big stars on the map, combo counter per game',
+ '1.17.0':'Cloud save: progress across devices via Google Play Games / Game Center',
+ '1.16.1':'Start screen: KIPPWERK wordmark now above the stones',
+ '1.16.0':'Main menu: the tilted logo stones are the buttons, with subtle labels',
+ '1.15.0':'Global leaderboards via Google Play Games / Game Center instead of our own server; smaller menu stones',
+ '1.14.0':'New main menu: the four logo stones are now the buttons',
+ '1.13.0':'Daily puzzle is now “daily game” (with date); leaderboard Today / Week / All-time best',
+ '1.12.0':'New start screen with mode cards, pause card and animated logo',
+ '1.11.2':'Back button pauses or returns to the menu; fixed history grid',
+ '1.11.1':'Streak reachable from the start menu',
+ '1.11.0':'Daily streaks: flame, streak shield, milestones with 6 themes, evening reminder',
+ '1.10.0':'Global online leaderboard (optional)',
+ '1.9.3':'Info bar as a sidebar on PC; scrollable menus on short screens',
+ '1.9.1':'Note about upcoming worlds after level 100',
+ '1.9.0':'Board sizes 5×5 to 8×8, leaderboard per size, player name, unique player ID, help with color guide',
+ '1.8.0':'Full screen height used, info bar with history and goals',
+ '1.7.0':'Combo tiers GOOD, SUPER, MEGA and MONSTER',
+ '1.5.0':'100 levels in 10 worlds with boss levels','1.4.0':'Level mode, settings, vibration','1.2.0':'Leaderboard','1.1.0':'Shareable daily puzzle'};
+
+</script>
 <script>
 (()=>{
 let N=6;
@@ -691,18 +937,78 @@ function addDays(k,n){const[y,m,d]=k.split('-').map(Number);return dk(new Date(y
 function todayKey(){const d=now();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 function noDate(no){return new Date(2026,9,30+(no-1))}
-function dayLabel(no,long){const d=noDate(no),dd=String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.';return long?dd+d.getFullYear():WD[d.getDay()]+', '+dd}
+const WD_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],MON_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function dayShort(no){const d=noDate(no);return I18N.lang==='en'?MON_EN[d.getMonth()]+' '+d.getDate():String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'}
+function dayLabel(no,long){const d=noDate(no);
+  if(I18N.lang==='en')return long?MON_EN[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear():WD_EN[d.getDay()]+', '+dayShort(no);
+  return long?dayShort(no)+d.getFullYear():WD[d.getDay()]+', '+dayShort(no)}
 function weekOf(no){const d=noDate(no),m=(d.getDay()+6)%7;return no-m}   // Nummer des Montags dieser Woche
 function dailyNo(){const[y,m,d]=todayKey().split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen
-function loadDaily(){try{return JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null')}catch(e){return null}}
+function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null');return d&&typeof d==='object'&&isFinite(d.score)?d:null}catch(e){return null}}
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={lang:'auto',sound:true,vibe:true,speed:'normal',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
+// ---------- Sprache (Deutsch / Englisch) ----------
+// Standard = Systemsprache: Deutsch für alle deutschsprachigen Systeme (de-DE, de-AT, de-CH, de-LI, de-LU …), sonst Englisch.
+// Übersetzt wird zentral: jeder angezeigte Text läuft durch tr() (Wörterbuch + Muster für Texte mit Zahlen).
+const I18N=(()=>{
+  const sys=()=>{try{const l=(navigator.languages&&navigator.languages[0])||navigator.language||'en';return /^de(\b|-|_)/i.test(l)?'de':'en'}catch(e){return 'en'}};
+  let lang='de';
+  const orig=new WeakMap(),setv=new WeakMap();  // Textknoten → deutscher Originaltext / zuletzt gesetzter Text
+  const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA']);
+  const skipEl=e=>e&&(e.closest&&e.closest('.tiles,.mini,.chip,[data-noi18n]'));
+  const ATTR=['title','placeholder','aria-label'];
+  let dict=null,pats=[],collect=null;
+  const norm=x=>x.replace(/\s+/g,' ').trim();
+  function tr(str){
+    if(collect&&str&&/[A-Za-zÄÖÜäöüß]/.test(str))collect.add(norm(str));
+    if(lang==='de'||!str||!dict)return str;
+    const n=norm(str);if(!n)return str;
+    let out=dict.get(n);
+    if(out===undefined){for(const [re,f] of pats){const m=n.match(re);if(m){out=typeof f==='function'?f(...m):n.replace(re,f);if(out!==undefined)break}}}
+    if(out===undefined)return str;
+    const lead=str.match(/^\s*/)[0],trail=str.match(/\s*$/)[0];return lead+out+trail}
+  function node(t){
+    const cur=t.nodeValue;if(setv.get(t)===cur)return;   // eigener Text, nichts zu tun
+    orig.set(t,cur);const v=tr(cur);if(v!==cur)t.nodeValue=v;setv.set(t,t.nodeValue)}
+  function attrs(el){for(const a of ATTR){if(!el.hasAttribute||!el.hasAttribute(a))continue;const k='data-de-'+a;
+    const cur=el.getAttribute(a);if(el.getAttribute('data-set-'+a)===cur)continue;el.setAttribute(k,cur);const v=tr(cur);el.setAttribute(a,v);el.setAttribute('data-set-'+a,v)}}
+  function walk(root){
+    if(!root)return;
+    if(root.nodeType===3){if(!skipEl(root.parentElement))node(root);return}
+    if(root.nodeType!==1||SKIP.has(root.tagName)||skipEl(root))return;
+    attrs(root);
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,{acceptNode:n=>n.nodeType===1?(SKIP.has(n.tagName)||skipEl(n)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_SKIP):NodeFilter.FILTER_ACCEPT});
+    root.querySelectorAll&&root.querySelectorAll('[title],[placeholder],[aria-label]').forEach(e=>{if(!skipEl(e))attrs(e)});
+    let t;while(t=w.nextNode())node(t)}
+  function retranslateAll(){   // nach Sprachwechsel: alle bekannten Texte aus dem deutschen Original neu setzen
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let t;
+    while(t=w.nextNode()){const o=orig.get(t);if(o!==undefined){const v=tr(o);t.nodeValue=v;setv.set(t,v)}}
+    document.querySelectorAll('[data-de-title],[data-de-placeholder],[data-de-aria-label]').forEach(el=>{for(const a of ATTR){const o=el.getAttribute('data-de-'+a);if(o!==null){const v=tr(o);el.setAttribute(a,v);el.setAttribute('data-set-'+a,v)}}});
+    walk(document.body)}
+  let obs=null;
+  function start(){
+    walk(document.body);
+    obs=new MutationObserver(ms=>{for(const m of ms){
+      if(m.type==='characterData')node(m.target);
+      else if(m.type==='attributes')attrs(m.target);
+      else m.addedNodes.forEach(walk)}});
+    obs.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:ATTR})}
+  return{
+    get lang(){return lang},
+    loc:()=>lang==='en'?'en-US':'de-DE',
+    resolve(pref){return pref==='de'||pref==='en'?pref:sys()},
+    setLang(l){lang=l==='en'?'en':'de';document.documentElement.lang=lang;if(dict)retranslateAll()},
+    init(pref,d,p){dict=d;pats=p||[];lang=this.resolve(pref);document.documentElement.lang=lang;start()},
+    tr,t:(de,vars)=>{let x=tr(de);if(vars)for(const k in vars)x=x.split('{'+k+'}').join(vars[k]);return x},
+    collect(on){collect=on?new Set():null},get collected(){return collect?[...collect]:[]}};
+})();
+const LOC=()=>I18N.loc();
 function saveSettings(){try{localStorage.setItem('kippwerk_settings',JSON.stringify(settings));localStorage.setItem('kippwerk_settings_at',String(Date.now()))}catch(e){}}
 function applySettings(){
   for(const th of Object.keys(THEME_NAMES))document.body.classList.toggle('th-'+th,th!=='std'&&settings.theme===th);
@@ -719,7 +1025,7 @@ function haptic(kind){
   }catch(e){}
 }
 // ---------- Level-Fortschritt ----------
-function loadLP(){try{return JSON.parse(localStorage.getItem('kippwerk_levels')||'{}')}catch(e){return{}}}
+function loadLP(){try{const d=JSON.parse(localStorage.getItem('kippwerk_levels')||'{}');return d&&typeof d==='object'&&!Array.isArray(d)?d:{}}catch(e){return{}}}
 let LP=loadLP();
 function saveLP(){try{localStorage.setItem('kippwerk_levels',JSON.stringify(LP))}catch(e){}}
 // Etappen-Bezeichnung: Welt-Etappe, z. B. Level 13 → „2-3“
@@ -729,7 +1035,10 @@ const totalStars=()=>Object.values(LP).reduce((a,b)=>a+b,0);
 // ---------- Bestenliste ----------
 const TOP=10;
 function loadScores(){let d=null;try{d=JSON.parse(localStorage.getItem('kippwerk_scores')||'null')}catch(e){}
-  d=d||{endless:[],daily:[]};
+  // beschädigte/fremde Daten abfangen: nur gültige Einträge behalten
+  if(!d||typeof d!=='object'||Array.isArray(d))d={};
+  const ok=x=>x&&typeof x==='object'&&isFinite(x.score);
+  d.endless=Array.isArray(d.endless)?d.endless.filter(ok):[];d.daily=Array.isArray(d.daily)?d.daily.filter(x=>ok(x)&&isFinite(x.no)):[];
   if(!d.endless.length){let old=0;try{old=+localStorage.getItem('kippwerk_best')||0}catch(e){}  // Rekord aus v1.x übernehmen
     if(old>0)d.endless.push({name:'Rekord',score:old,level:0,date:''})}
   return d}
@@ -784,7 +1093,7 @@ const Games=(()=>{
 })();
 // Migration: alle bisherigen (lokalen) Einträge gehören diesem Gerät/Spieler
 {let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
-const fmtDate=()=>now().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});
+const fmtDate=()=>now().toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit',year:'2-digit'});
 scores.endless.forEach(x=>{if(!x.size)x.size=6});   // Migration: alte Einträge = 6×6
 const sizeList=n=>scores.endless.filter(x=>x.size===n);
 const bestFor=n=>{const l=sizeList(n);return l.length?l[0].score:0};
@@ -922,11 +1231,11 @@ const Reminder=(()=>{
     if(done||n>=first)first.setDate(first.getDate()+1);
     const second=new Date(first);second.setDate(second.getDate()+1);
     const streakAt=d=>{const k=dk(d);return (ST.last===addDays(k,-1))?ST.cur:0};
-    const body=d=>{const c=streakAt(d);return c>0?`Deine 🔥 ${c}er-Serie läuft heute ab – noch schnell das Tagesspiel!`:'Das neue Tagesspiel wartet auf dich – starte eine Serie! 🔥'};
+    const body=d=>{const c=streakAt(d);return I18N.tr(c>0?`Deine 🔥 ${c}er-Serie läuft heute ab – noch schnell das Tagesspiel!`:'Das neue Tagesspiel wartet auf dich – starte eine Serie! 🔥')};
     try{
       await P.schedule({notifications:[
         {id:7001,title:'KIPPWERK',body:body(first),schedule:{at:first,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false},
-        {id:7002,title:'KIPPWERK',body:'Ein neues Tagesspiel ist da – heute schon gekippt? 🧩',schedule:{at:second,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false}]});
+        {id:7002,title:'KIPPWERK',body:I18N.tr('Ein neues Tagesspiel ist da – heute schon gekippt? 🧩'),schedule:{at:second,allowWhileIdle:true},smallIcon:'ic_stat_kippwerk',isExactNotification:false}]});
     }catch(e){console.warn('Erinnerung',e)}
   }
   async function enable(){if(!P)return false;try{const r=await P.requestPermissions();return r.display==='granted'}catch(e){return false}}
@@ -1066,15 +1375,15 @@ function render(){
     let el=els.get(t.id);
     if(!el){el=makeEl(t);els.set(t.id,el)}else place(el,t);
   }
-  $('score').textContent=score.toLocaleString('de-DE');
+  $('score').textContent=score.toLocaleString(LOC());
   const isLv=mode==='level';
   $('best').style.display=isLv?'none':'';$('goalHud').style.display=isLv?'':'none';
   const od=mode==='daily'&&practice&&loadDaily();
   $('best').parentNode.style.display=mode==='daily'&&!od?'none':'';$('hud').classList.toggle('three',mode==='daily'&&!od);
   $('bestLabel').textContent=isLv?'Ziel':od?'Gewertet':'Rekord';
   if(isLv)$('goalHud').innerHTML=goalHud();
-  else if(mode==='daily'){if(od)$('best').textContent=od.score.toLocaleString('de-DE')}
-  else $('best').textContent=Math.max(best,score).toLocaleString('de-DE');
+  else if(mode==='daily'){if(od)$('best').textContent=od.score.toLocaleString(LOC())}
+  else $('best').textContent=Math.max(best,score).toLocaleString(LOC());
   if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
   else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%perLevel())/perLevel()*100)+'%'}
   const nx=$('next');nx.innerHTML='';
@@ -1138,7 +1447,7 @@ function comboFx(n){
 const sleep=ms=>new Promise(r=>setTimeout(r,ms*(settings.speed==='fast'?.55:1)));
 
 // ---------- Level-Ziele ----------
-const fmt=n=>n.toLocaleString('de-DE');
+const fmt=n=>n.toLocaleString(LOC());
 const chip=c=>c===ROCK?'<span class="chip rock"></span>':`<span class="chip" style="background:${COLORS[c]}">${SYMBOLS[c]}</span>`;
 function goalState(g){
   switch(g.t){
@@ -1215,7 +1524,8 @@ async function move(dir){
 const EMO=c=>c<=0?'⬛':c===1?'🟦':c===2?'🟩':c===3?'🟨':c===4?'🟥':c===5?'🟪':'⬜';
 function shareText(r){
   const rows=[];for(let i=0;i<r.hist.length;i+=10)rows.push(r.hist.slice(i,i+10).map(EMO).join(''));
-  return `KIPPWERK Tagesspiel ${dayLabel(r.no,true)}\n⭐ ${r.score.toLocaleString('de-DE')} Punkte · Kette ×${Math.max(1,r.chain)}${r.full?' · Feld voll':''}${r.streak>=2?`\n🔥 ${r.streak} Tage in Folge`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
+  const en=I18N.lang==='en';
+  return `KIPPWERK ${en?'Daily':'Tagesspiel'} ${dayLabel(r.no,true)}\n⭐ ${r.score.toLocaleString(LOC())} ${en?'points · chain':'Punkte · Kette'} ×${Math.max(1,r.chain)}${r.full?(en?' · board full':' · Feld voll'):''}${r.streak>=2?`\n🔥 ${r.streak} ${en?'days in a row':'Tage in Folge'}`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
 }
 function countdown(){
   const n=now(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
@@ -1228,7 +1538,7 @@ function gameOver(reason){
   if(mode!=='daily'&&(canVideo||canLife)){
     rescueKind=reason;
     $('rescueTitle').textContent=reason==='moves'?'KEINE ZÜGE MEHR':'FELD VOLL';
-    $('rescueScore').textContent=mode==='level'?'ETAPPE '+stg(lvNo):score.toLocaleString('de-DE');
+    $('rescueScore').textContent=mode==='level'?'ETAPPE '+stg(lvNo):score.toLocaleString(LOC());
     const gain=reason==='moves'?`<b>${ADS_CONFIG.rescueMoves} Züge</b> extra`:`<b>${ADS_CONFIG.rescueTiles} Steine</b> weniger – du spielst weiter`;
     $('rescueText').innerHTML=(reason==='moves'?'Fast geschafft? ':'Noch eine Chance? ')+(canLife&&canVideo?'Setz ein ❤ Extra-Leben ein oder schau ein kurzes Video':canLife?'Setz ein ❤ Extra-Leben ein':'Schau ein kurzes Video')+` – dafür gibt es ${gain}.`;
     $('lifeBtn').style.display=canLife?'':'none';$('lifeBtn').textContent=`❤ LEBEN EINSETZEN (${lives} übrig)`;
@@ -1307,7 +1617,7 @@ function openLevels(){
 
 function finishGame(reason){
   if(mode==='endless')countRound();
-  $('finalScore').textContent=score.toLocaleString('de-DE');
+  $('finalScore').textContent=score.toLocaleString(LOC());
   const daily=mode==='daily';
   $('shareBox').style.display=$('shareBtn').style.display=daily?'':'none';
   $('countdown').textContent=daily?countdown():'';
@@ -1319,7 +1629,7 @@ function finishGame(reason){
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
       lastEntry={no:dailyNo(),score,chain:bestChain,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);Games.submit('daily',score);
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
-    $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString('de-DE')}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
+    $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
     const sn=$('streakNote');
     if(sev){
@@ -1340,7 +1650,7 @@ function finishGame(reason){
     Games.submit('e'+N,score);
     if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
-    $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString('de-DE'):'');
+    $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
     $('nameRow').style.display=rank?'':'none';
     $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
   }
@@ -1356,7 +1666,7 @@ function newGame(){
   best=bestFor(N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayLabel(dailyNo()).slice(4):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
@@ -1399,7 +1709,7 @@ function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString('de-DE')} Punkte`:(cur>0?`heute offen · 🔥 ${cur}`:'heute offen');
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:(cur>0?`heute offen · 🔥 ${cur}`:'heute offen');
   $('dailyBtn').classList.toggle('open',!done);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
@@ -1409,13 +1719,13 @@ function showMenu(){
   // Endlos
   const sz=+settings.size||6,bs=bestFor(sz);
   $('endlessSize').textContent=sz+'×'+sz;
-  $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString('de-DE'):'Rekord –';
+  $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
   document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
   $('startOv').classList.toggle('paused',!!paused);$('resumeBtn').style.display=paused?'':'none';
-  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString('de-DE')} Punkte`);
+  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString(LOC())} Punkte`);
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
@@ -1457,7 +1767,16 @@ function openSettings(from){
   if(id==='setSound'&&settings.sound)tone(660,.1,'triangle',.06);if(id==='setVibe'&&settings.vibe)haptic('medium')});
 document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
   settings[sg.dataset.key]=b.dataset.v;saveSettings();applySettings();renderSettings();
-  if(sg.dataset.key==='size'&&!$('startOv').classList.contains('hidden'))showMenu()});
+  if(sg.dataset.key==='size'&&!$('startOv').classList.contains('hidden'))showMenu();
+  if(sg.dataset.key==='lang')applyLang()});
+function applyLang(boot){
+  if(!boot)I18N.setLang(I18N.resolve(settings.lang));
+  const en=I18N.lang==='en';
+  document.querySelectorAll('a[href^="datenschutz"],a[href^="privacy"]').forEach(a=>a.href=en?'privacy.html':'datenschutz.html');
+  document.querySelectorAll('a[href^="impressum"],a[href^="legal-notice"]').forEach(a=>a.href=en?'legal-notice.html':'impressum.html');
+  if(boot)return;
+  try{render()}catch(e){}try{renderStreakChip()}catch(e){}
+  try{if(!$('startOv').classList.contains('hidden'))showMenu()}catch(e){}}
 function armReset(id,label,fn){
   if(resetArm[id]){fn();$(id).textContent='✓ Gelöscht';resetArm[id]=false;return}
   resetArm[id]=true;$(id).textContent='⚠ Wirklich? Nochmal tippen';
@@ -1492,6 +1811,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.23.0','Englische Sprache (folgt der Systemsprache, umschaltbar in ⚙), robustere Spielstände, Tablet-Darstellung korrigiert, Datenschutzerklärung aktualisiert'],
  ['1.22.0','Endlos auf 7×7 und 8×8: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)'],
  ['1.21.0','Belohnungen für Tages- und Wochenplätze (Extra-Leben, Abzeichen) – Ranglisten-Erfolge auf der Serien-Seite'],
  ['1.20.2','Verlauf: MONSTER (×5, lila) und ULTRA (×6+, weiß) eigene Farben statt wie MEGA; Endlos wieder „letzten 40 Züge“'],
@@ -1525,12 +1845,14 @@ let helpReturn=null;
 function openHelp(section,from){
   helpReturn=from||(!$('startOv').classList.contains('hidden')?'start':!$('settingsOv').classList.contains('hidden')?'settings':'play');
   if(helpReturn==='play'&&started&&!over){paused=true;started=false}
-  $('helpColors').innerHTML=COLOR_NAMES.map((n,i)=>`<div class="row"><span class="sw" style="background:${COLORS[i]}">${SYMBOLS[i]}</span><span><b>${n}</b> ${SYMBOLS[i]}${i===4?' – kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':i===5?' – nur Endlos auf 7×7 und 8×8, ab Level 40':''}</span></div>`).join('');
-  $('helpChangelog').innerHTML='<ul>'+CHANGES.map(c=>`<li><b>v${c[0]}</b> – ${c[1]}</li>`).join('')+'</ul>';
+  const hb=$('helpOv').querySelector('.help');if(!hb.dataset.de)hb.dataset.de=hb.innerHTML;
+  const hl=I18N.lang==='en'?'en':'de';if(hb.dataset.l!==hl){hb.innerHTML=hl==='en'?HELP_EN:hb.dataset.de;hb.dataset.l=hl}
+  $('helpColors').innerHTML=COLOR_NAMES.map((n,i)=>`<div class="row"><span class="sw" style="background:${COLORS[i]}">${SYMBOLS[i]}</span><span><b>${I18N.tr(n)}</b> ${SYMBOLS[i]}${I18N.tr(i===4?' – kommt ab Level 3 dazu (im Endlos-Modus; auf 7×7 und 8×8 von Anfang an)':i===5?' – nur Endlos auf 7×7 und 8×8, ab Level 40':'')}</span></div>`).join('');
+  $('helpChangelog').innerHTML='<ul>'+CHANGES.map(c=>`<li><b>v${c[0]}</b> – ${I18N.lang==='en'&&CHANGES_EN[c[0]]||c[1]}</li>`).join('')+'</ul>';
   ['startOv','settingsOv','overOv'].forEach(i=>$(i).classList.add('hidden'));$('helpOv').classList.remove('hidden');
   const el=section&&$(section);$('helpOv').scrollTop=el?el.offsetTop-20:0;
 }
-$('helpOv').querySelector('.toc').onclick=e=>{const b=e.target.closest('button');if(b){const el=$(b.dataset.s);$('helpOv').scrollTo({top:el.offsetTop-20,behavior:'smooth'})}};
+$('helpOv').onclick=e=>{const b=e.target.closest('.toc button');if(b){const el=$(b.dataset.s);$('helpOv').scrollTo({top:el.offsetTop-20,behavior:'smooth'})}};
 $('closeHelp').onclick=()=>{$('helpOv').classList.add('hidden');
   if(helpReturn==='settings')$('settingsOv').classList.remove('hidden');
   else if(helpReturn==='play'){if(paused){paused=false;started=true}}
@@ -1547,7 +1869,7 @@ $('shareBtn').onclick=async()=>{
   const txt=$('shareBox').textContent,b=$('shareBtn');
   const C=window.Capacitor;
   const Native=C&&C.isNativePlatform&&C.isNativePlatform()&&((C.Plugins&&C.Plugins.Share)||(C.registerPlugin&&C.registerPlugin('Share')));
-  if(Native){try{await Native.share({text:txt,dialogTitle:'Ergebnis teilen'})}catch(e){}return}
+  if(Native){try{await Native.share({text:txt,dialogTitle:I18N.tr('Ergebnis teilen')})}catch(e){}return}
   try{if(navigator.share&&matchMedia('(hover:none)').matches){await navigator.share({text:txt});return}}catch(e){if(e&&e.name==='AbortError')return}
   try{await navigator.clipboard.writeText(txt);b.textContent='✓ KOPIERT'}
   catch(e){const r=document.createRange();r.selectNodeContents($('shareBox'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='TEXT MARKIERT – KOPIEREN'}
@@ -1561,7 +1883,7 @@ $('saveName').onclick=()=>{
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
 let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
 $('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresPeriod=b.dataset.p;renderScores()};
-const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>'Woche '+dayLabel(weekOf(dailyNo())).slice(4)+' – '+dayLabel(weekOf(dailyNo())+6).slice(4),all:()=>'Beste Tagesspiele aller Zeiten'};
+const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>'Woche '+dayShort(weekOf(dailyNo()))+' – '+dayShort(weekOf(dailyNo())+6),all:()=>'Beste Tagesspiele aller Zeiten'};
 function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available?'':'none';
   b.textContent='🌍 WELTWEIT · '+(scoresTab==='endless'?scoresSize+'×'+scoresSize:'TAGESSPIEL');b.title=Games.label}
 $('gamesBoard').onclick=()=>Games.show(scoresTab==='endless'?'e'+scoresSize:'daily');
@@ -1581,13 +1903,13 @@ function renderScores(){
   const list=(scoresTab==='endless'?sizeList(scoresSize):dl).slice(0,TOP);
   $('dailyStats').style.display=scoresTab==='daily'?'':'none';
   if(scoresTab==='daily'&&scoresPeriod==='week'){const sum=dl.reduce((a,x)=>a+x.score,0),bst=dl.reduce((a,x)=>Math.max(a,x.score),0);
-    $('dailyStats').innerHTML=`<div><b>${sum.toLocaleString('de-DE')}</b><small>Wochensumme</small></div><div><b>${dl.length}/7</b><small>Tage</small></div><div><b>${bst.toLocaleString('de-DE')}</b><small>Bester Tag</small></div>`}
+    $('dailyStats').innerHTML=`<div><b>${sum.toLocaleString(LOC())}</b><small>Wochensumme</small></div><div><b>${dl.length}/7</b><small>Tage</small></div><div><b>${bst.toLocaleString(LOC())}</b><small>Bester Tag</small></div>`}
   else if(scoresTab==='daily'){const st=dailyStats();
-    $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString('de-DE')}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString('de-DE')}</b><small>Schnitt</small></div>`}
+    $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString(LOC())}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString(LOC())}</b><small>Schnitt</small></div>`}
   t.innerHTML=list.map((x,i)=>{const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
     return scoresTab==='endless'
-      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`
-      :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}</td><td class="m">${x.chain>1?'×'+x.chain:''}</td><td class="m">${dayLabel(x.no)}</td><td class="r">${x.score.toLocaleString('de-DE')}</td></tr>`}).join('');
+      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}</td><td class="m">${x.level?'Lvl '+x.level:''}</td><td class="m">${esc(x.date)}</td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
+      :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}</td><td class="m">${x.chain>1?'×'+x.chain:''}</td><td class="m">${dayLabel(x.no)}</td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
   $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
   $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';
@@ -1619,7 +1941,7 @@ const Top5=(()=>{
   const SK='kippwerk_top5span',cache={};let span='day';try{span=localStorage.getItem(SK)||'day'}catch(e){}
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
-  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString('de-DE')}</span></div>`};
+  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
     if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}
@@ -1725,7 +2047,7 @@ const Cloud=(()=>{
         if(ms!==ls(HK)&&ms!==stable(R)){const pl=await P.getPlayer();
           await P.saveSnapshot({name:NAME,data:JSON.stringify(M),description:'KIPPWERK Spielstand',expectedPlayerId:pl.playerId});lsSet(HK,ms)}
         else lsSet(HK,ms);
-        last=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}
+        last=new Date().toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}
       catch(e){}
     })().finally(()=>{busy=null;try{renderGamesRow()}catch(e){}});
     return busy}
@@ -1739,7 +2061,10 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)Cloud.sync(
 setTimeout(()=>Games.init(),1500);
 setTimeout(()=>Ads.init(()=>{if(!$('startOv').classList.contains('hidden'))showMenu()}),800);
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.Capacitor){try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
-window.__kw={setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+// Sprache starten (Wörterbuch I18N_EN / Muster I18N_PATS stehen am Ende)
+try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
+I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
+window.__kw={i18n:I18N,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

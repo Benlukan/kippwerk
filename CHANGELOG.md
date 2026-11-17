@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.23.0 (Build 38) – 17.11.2026
+- **Englisch als zweite Sprache:** Standard ist die Systemsprache (Deutsch für de-DE/AT/CH/LI/LU …, sonst Englisch); umschaltbar in ⚙ „🌐 Sprache / Language: Auto · Deutsch · English“. Alle Menüs, Spieltexte, Toasts, Benachrichtigungen, Teilen-Text, Datumsformate, Hilfe und Neuigkeiten übersetzt
+- **Rechtstexte:** Datenschutzerklärung aktualisiert (eigener Server/Supabase-Teil entfernt, lokale Speicherung nach § 25 Abs. 2 Nr. 2 TDDDG, Extra-Leben/Belohnungen/Ranglistenplatz, Abruf der Top 5); englische Fassungen `privacy.html` und `legal-notice.html`, Links folgen der Sprache
+- **Robuster Spielstand:** beschädigte, aber gültige JSON-Daten im Speicher (z. B. `null`-Einträge) brachten das Spiel zum Absturz – Laden ist jetzt abgesichert
+- **Tablet (z. B. 768×1024):** Spielfeld lief 112 px über den Bildschirm – korrigiert
 ## v1.22.0 (Build 37) – 11.11.2026
 - **Endlos auf 7×7 und 8×8 – neue Steinarten:**
   - ab **Level 30 Felsen** 🪨: kommen zufällig mit den neuen Steinen (6 %, je Level +0,5 %, höchstens 15 %), rutschen mit und zerbrechen, wenn direkt daneben eine Gruppe verschwindet

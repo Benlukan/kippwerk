@@ -57,6 +57,45 @@ Gemacht von david.digital.
 **Datenschutzerklärung:** `https://benlukan.github.io/kippwerk/datenschutz.html`
 **Impressum:** `https://benlukan.github.io/kippwerk/impressum.html`
 
+> Der Impressum-Link gehört zusätzlich in die **Beschreibung** (letzte Zeile, siehe unten) – im Play Store gibt es kein eigenes Impressum-Feld.
+
+## 3b. Store-Eintrag (Englisch, ab v1.23.0)
+Play Console → Haupteintrag → *Übersetzungen verwalten* → **Englisch (USA) – en-US** hinzufügen.
+
+**App name:** `KIPPWERK – Tilt Puzzle`
+
+**Short description (max. 80):**
+`Tilt the board, match colors, trigger chain reactions – with a daily game.`
+
+**Full description:**
+```
+KIPPWERK is a puzzle you understand in ten seconds – and can't put down.
+
+TILT, DON'T DROP
+Swipe in any direction and the whole board tilts: every stone slides along. When three or more of the same color touch, they vanish. What slides in next can trigger the next group – GOOD ×2, SUPER ×3, MEGA ×4, MONSTER ×5, ULTRA ×6!
+
+EVERY MOVE COUNTS
+New stones always arrive from the opposite side. Swipe on instinct and the board fills up fast. Think ahead and you build huge chains.
+
+100 STAGES IN 10 WORLDS
+Clear stages with clear goals – from relaxed to brutal, with a boss at the end of every world. Earn up to three stars per stage.
+
+DAILY GAME & STREAKS
+The same stones for everyone, every day – 40 moves, one counted round. Keep your 🔥 streak alive, collect badges, unlock themes and share your result as an emoji grid.
+
+ENDLESS MODE
+Play on 5×5 to 8×8 boards until the board is full. Every level brings new colors, prism jokers, rocks and more pace.
+
+• Global leaderboards and cloud save via Google Play Games (optional)
+• Fair ads: optional videos for a rescue, never mid-game
+• No account needed, plays offline
+• Color scheme and symbols for color-blind players
+• English and German
+
+Made by david.digital · Legal notice: https://benlukan.github.io/kippwerk/legal-notice.html
+```
+**Privacy policy (EN):** `https://benlukan.github.io/kippwerk/privacy.html` (in der Play Console gibt es nur ein Feld – dort die deutsche URL eintragen; die Seite verlinkt die englische Fassung)
+
 ## 4. Formulare in der Play Console
 
 | Abschnitt | Antwort |
@@ -138,3 +177,11 @@ Inhalt: Logo → echtes Gameplay mit MEGA-Combo → GOOD/SUPER/MEGA/MONSTER → 
 
 ## 6. Neue Version veröffentlichen
 Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `android/app/build.gradle` (`versionCode` muss steigen!), `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js`, dazu `CHANGELOG.md`. Pushen → AAB aus den Actions-Artifacts hochladen.
+
+## 7. Start-Checkliste (Stand v1.23.0)
+- [ ] GitHub Pages aktivieren (Settings → Pages → Source: GitHub Actions) und prüfen, dass `datenschutz.html`, `impressum.html`, `privacy.html`, `legal-notice.html` erreichbar sind
+- [ ] Play Console: App-Inhalte vollständig (Datenschutz-URL, Werbung „Ja“, **Werbe-ID deklarieren** – kommt über play-services-ads, Datensicherheit, Zielgruppe 13+, IARC)
+- [ ] Play Games Services: Projekt-ID + 5 Ranglisten-IDs eintragen, `GAMES_CONFIG.android.on:true`, testen
+- [ ] Geschlossener Test: ≥ 12 Tester, 14 Tage am Stück → Produktionszugang beantragen
+- [ ] Erst zum öffentlichen Start: `ADS_CONFIG.testing:false`, echte iOS-Anzeigenblöcke, neue Version bauen, `app-ads.txt`
+- [ ] iOS: Apple-Developer-Konto, Signatur, Game Center, App-Store-Datenschutzangaben

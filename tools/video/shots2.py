@@ -6,6 +6,12 @@ G='http://127.0.0.1:8123/kippwerk/www/index.html'
 DAY="(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})()"
 async def settle(pg):
     while (await pg.evaluate('__kw.state'))['busy']: await pg.wait_for_timeout(20)
+async def kippi(pg):
+    await pg.evaluate("__kw.fly.away(true)"); await pg.evaluate("__kw.fly.visit()")
+    for _ in range(80):
+        if await pg.evaluate("__kw.fly.state")=='sit': break
+        await pg.wait_for_timeout(50)
+    await pg.wait_for_timeout(250)
 async def fresh(b,lang,ls='',hash=''):
     ctx=await b.new_context(viewport={'width':412,'height':844},device_scale_factor=2.5,locale='de-DE' if lang=='de' else 'en-US')
     await ctx.add_init_script(SEED_JS)
@@ -21,7 +27,11 @@ async def main(lang):
         lp=json.dumps({str(i+1):(3 if i%4 else 2) for i in range(23)})
         # Menü
         pg=await fresh(b,lang,f"localStorage.setItem('kippwerk_levels','{lp}')")
-        await pg.wait_for_timeout(500); await pg.screenshot(path=out('menu'))
+        await pg.wait_for_timeout(500); await kippi(pg); await pg.screenshot(path=out('menu'))
+        # Tutorial mit Kippi (erster Start)
+        tp=await (await b.new_context(viewport={'width':412,'height':844},device_scale_factor=2.5,locale='de-DE' if lang=='de' else 'en-US')).new_page()
+        await tp.goto(G); await tp.evaluate(f"localStorage.clear();localStorage.setItem('kippwerk_settings',JSON.stringify({{lang:'{lang}',musicVol:0,sfxVol:0,vibe:'off'}}))")
+        await tp.reload(); await tp.wait_for_timeout(2200); await tp.screenshot(path=out('tutorial'))
         # Etappen-Karte
         await pg.click('#levelBtn'); await pg.wait_for_timeout(500); await pg.screenshot(path=out('levels'))
         # Spiel mit Combo (Seed wie im Video)
@@ -29,7 +39,7 @@ async def main(lang):
         pg=await fresh(b,lang,'',f"#seed={best['seed']}")
         await pg.click('#endlessBtn'); await pg.wait_for_timeout(300)
         for m in best['moves'][:9]: await pg.evaluate(f"__kw.move('{m}')"); await settle(pg); await pg.wait_for_timeout(60)
-        await pg.wait_for_timeout(600)
+        await pg.wait_for_timeout(600); await kippi(pg)
         await pg.evaluate(f"__kw.move('{best['moves'][9]}')")
         for _ in range(300):
             if await pg.evaluate("!!document.querySelector('.banner.combo.c4')"): break
@@ -41,7 +51,7 @@ async def main(lang):
         pg=await fresh(b,lang,"localStorage.setItem('kippwerk_settings',JSON.stringify(Object.assign(JSON.parse(localStorage.getItem('kippwerk_settings')),{size:'8'})))",'#seed=7')
         await pg.click('#endlessBtn')
         for m in 'LDLRDLDRLDLDRL': await pg.evaluate(f"__kw.move('{m}')"); await settle(pg)
-        await pg.wait_for_timeout(1300); await pg.screenshot(path=out('8x8'))
+        await pg.wait_for_timeout(1300); await kippi(pg); await pg.screenshot(path=out('8x8'))
         # Tagesspiel-Ergebnis
         pg=await fresh(b,lang,'','#seed=3')
         await pg.click('#dailyBtn')

@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.28.1','Kippi landet nur noch dort, wo er nichts verdeckt – Spielfeld, Anzeigen und Knöpfe bleiben immer frei'],
  ['1.28.0','Neuer Aufbau des Quellcodes in Module (keine sichtbaren Änderungen) – Grundlage für künftige Updates'],
  ['1.27.1','Vibration auf Android repariert (eigene Ansteuerung) + Knopf „Vibration testen“ in den Einstellungen'],
  ['1.27.0','Die Fliege heißt Kippi: Sie erklärt das Tutorial, meldet sich in den Erinnerungen und hat ein eigenes Benachrichtigungs-Symbol'],

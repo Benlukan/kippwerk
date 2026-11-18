@@ -171,12 +171,12 @@ Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafü
    und `https://benlukan.github.io` als Website im Store-Eintrag angeben.
 7. **Nie auf eigene Anzeigen klicken** – solange `testing:true` gesetzt ist, kommen nur Testanzeigen. Eigene Testgeräte können zusätzlich in AdMob registriert werden.
 
-## 5. Grafiken (Stand v1.25.2, je Sprache in `docs/store/de/` und `docs/store/en/`)
+## 5. Grafiken (Stand v1.28.1, je Sprache in `docs/store/de/` und `docs/store/en/`)
 | Asset | Format | Datei |
 |---|---|---|
 | App-Symbol | 512×512 PNG | `www/icon-512.png` |
 | Feature-Grafik | 1024×500 PNG | `feature-graphic.png` |
-| Screenshots Smartphone (7) | 1080×1920 PNG | `1-menu` · `2-play` (MEGA-Combo) · `3-daily` · `4-levels` · `5-scores` · `6-streak` · `7-8x8` |
+| Screenshots Smartphone (8) | 1080×1920 PNG | `1-menu` · `2-tutorial` (Kippi) · `3-play` (MEGA-Combo) · `4-daily` · `5-levels` · `6-scores` · `7-streak` · `8-8x8` |
 
 Play Console → Haupteintrag: deutsche Dateien im deutschen Eintrag, englische in der Übersetzung **en-US** hochladen (Reihenfolge wie die Nummern).
 
@@ -186,7 +186,7 @@ Play Console → Haupteintrag: deutsche Dateien im deutschen Eintrag, englische 
 | `KIPPWERK_Produktvideo_1080x1920_de.mp4` / `_en.mp4` | 1080×1920, 30 fps | **Google Play**: auf YouTube hochladen (öffentlich oder „nicht gelistet“, Werbung aus) und den Link im jeweiligen Store-Eintrag unter „Video“ eintragen · Social Media / Shorts |
 | `KIPPWERK_AppStore_886x1920_de.mp4` / `_en.mp4` | 886×1920, 30 fps | **App Store** – App-Vorschau (15–30 s) |
 
-Inhalt: Logo → echtes Gameplay mit MEGA-Combo → GOOD bis ULTRA → 100 Etappen, Tagesspiel, Endlos 8×8 → Bestenliste mit Combos & Serie → Menü kippt mit dem Handy → „Jetzt kostenlos spielen“. Musik = die Spielmusik. Neu erstellen: `tools/video/README.md`.
+Inhalt: Kippi fliegt aufs Logo → echtes Gameplay mit Kippi und MEGA-Combo → GOOD bis ULTRA → 100 Etappen, Tagesspiel, Endlos 8×8 → Bestenliste & „Kippi – dein Wegbegleiter“ → Menü kippt mit dem Handy → „Jetzt kostenlos spielen“. Musik = die Spielmusik. Neu erstellen: `tools/video/README.md`.
 
 ## 6. Neue Version veröffentlichen
 Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `android/app/build.gradle` (`versionCode` muss steigen!), `ios/App/App.xcodeproj/project.pbxproj`, `www/sw.js`, dazu `CHANGELOG.md`. Pushen → die AAB liegt automatisch auf https://github.com/Benlukan/kippwerk/releases/latest (oder in den Actions-Artifacts) → in der Play Console hochladen.

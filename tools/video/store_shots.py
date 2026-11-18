@@ -1,13 +1,15 @@
 import asyncio, urllib.parse, os
 from playwright.async_api import async_playwright
-S={'de':[('menu','Kippen. Verbinden.<br><em>Kettenreaktion.</em>','Das Puzzle, das du in 10 Sekunden verstehst'),
+S={'de':[('menu','Kippen. Verbinden.<br><em>Kettenreaktion.</em>','Das Puzzle mit Kippi, der kleinen Fliege'),
+ ('tutorial','Kippi zeigt dir,<br>wie’s <em>geht</em>','Und schaut beim Spielen immer mal vorbei 🪰'),
  ('play','Combos bis<br><em>ULTRA ×6</em>','Nachrutschende Steine lösen Ketten aus'),
  ('daily','Jeden Tag ein neues<br><em>Tagesspiel</em>','Gleiche Steine für alle – teile dein Ergebnis'),
  ('levels','<em>100 Etappen</em><br>in 10 Welten','Ziele, Felsen, Bosse und bis zu 3 Sterne'),
  ('scores','Bestenliste mit<br><em>Combos</em> &amp; Zügen','Dazu weltweite Ranglisten über Google Play Games'),
  ('streak','Halte deine<br>🔥 <em>Serie</em>','Abzeichen, Belohnungen &amp; 6 Designs'),
  ('8x8','<em>Endlos</em> auf<br>5×5 bis 8×8','Felsen und eine 6. Farbe für Profis')],
-'en':[('menu','Tilt. Connect.<br><em>Chain reaction.</em>','The puzzle you get in 10 seconds'),
+'en':[('menu','Tilt. Connect.<br><em>Chain reaction.</em>','The puzzle with Kippi, the little fly'),
+ ('tutorial','Kippi shows you<br>the <em>ropes</em>','…and drops by while you play 🪰'),
  ('play','Combos up to<br><em>ULTRA ×6</em>','Sliding stones set off chain reactions'),
  ('daily','A new <em>daily game</em><br>every day','Same stones for everyone – share your result'),
  ('levels','<em>100 stages</em><br>in 10 worlds','Goals, rocks, bosses and up to 3 stars'),

@@ -24,6 +24,13 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
 .full.on{opacity:1}
 .logo{position:relative;width:300px;height:300px;transform:rotate(-12deg)}
 .lt{position:absolute;width:136px;height:136px;border-radius:30px;box-shadow:inset 0 -9px 0 #0003,inset 0 4px 0 #fff5,0 0 40px var(--c);background:var(--c);opacity:0;display:grid;place-items:center;font-size:44px;color:#0006}
+.kfly{position:absolute;left:50%;top:50%;width:170px;height:154px;margin:-330px 0 0 40px;opacity:0;z-index:5;filter:drop-shadow(0 10px 14px #000a)}
+.kfly svg{width:100%;height:100%;overflow:visible}.kfly .wing{fill:#cfefff;fill-opacity:.6;stroke:#e9f8ff;stroke-width:1;transform-box:fill-box;transform-origin:50% 100%}
+.kfly .lid{display:none}
+.kfly.in{animation:kin 1.1s cubic-bezier(.2,.8,.3,1) forwards}.kfly.in .wing{animation:kw .07s linear 15 alternate}
+.kfly.sit{opacity:1;transform:none}
+@keyframes kin{0%{opacity:1;transform:translate(560px,-420px) rotate(25deg)}60%{transform:translate(-40px,30px) rotate(-8deg)}100%{opacity:1;transform:none}}
+@keyframes kw{to{transform:scaleY(.25)}}
 .lt.in{animation:drop .55s cubic-bezier(.3,1.5,.5,1) forwards}
 @keyframes drop{from{opacity:0;transform:translateY(-260px)}to{opacity:1;transform:none}}
 .word{font-size:132px;font-weight:700;letter-spacing:.16em;opacity:0;transform:scale(.85);transition:opacity .5s,transform .6s cubic-bezier(.3,1.4,.5,1)}
@@ -40,7 +47,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
 <div class="cap out" id="cap"><h1 id="capH"></h1><p id="capP"></p></div>
 <div class="phone" id="phone" style="opacity:0">
   <iframe id="game"></iframe>
-  <img id="i_levels"><img id="i_daily"><img id="i_8x8"><img id="i_streak"><img id="i_scores">
+  <img id="i_levels"><img id="i_daily"><img id="i_8x8"><img id="i_streak"><img id="i_scores"><img id="i_tutorial">
   <div class="arrow" id="arrow">➜</div>
 </div>
 <div class="full" id="full">
@@ -48,6 +55,20 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
     <div class="lt" style="--c:#ff5d73;left:0;top:0">●</div><div class="lt" style="--c:#ffc145;left:156px;top:0">▲</div>
     <div class="lt" style="--c:#3ddc97;left:0;top:156px">■</div><div class="lt" style="--c:#4cc9f0;left:156px;top:156px">◆</div>
   </div>
+  <div class="kfly" id="kfly"><svg viewBox="0 0 64 58"><g>
+        <ellipse class="wing" cx="21" cy="17" rx="13" ry="8" transform="rotate(-28 21 17)"/><ellipse class="wing" cx="43" cy="17" rx="13" ry="8" transform="rotate(28 43 17)"/>
+        <g stroke="#141831" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M24 46l-5 8"/><path d="M30 48l-2 8"/><path d="M34 48l2 8"/><path d="M40 46l5 8"/></g>
+        <ellipse cx="32" cy="38" rx="15" ry="12" fill="#262d52"/>
+        <path d="M18.5 36q13.5 6 27 0" stroke="#4cc9f0" stroke-width="3" fill="none"/><path d="M21 42q11 5 22 0" stroke="#ffc145" stroke-width="2.6" fill="none"/>
+        <g stroke="#2e3661" stroke-width="2" fill="none" stroke-linecap="round"><path d="M27 15q-2-7-7-9"/><path d="M37 15q2-7 7-9"/></g>
+        <circle cx="20" cy="6" r="2.6" fill="#ff5d73"/><circle cx="44" cy="6" r="2.6" fill="#3ddc97"/>
+        <circle cx="32" cy="25" r="12.5" fill="#2e3661"/>
+        <circle cx="25.5" cy="23" r="6.6" fill="#fff"/><circle cx="38.5" cy="23" r="6.6" fill="#fff"/>
+        <g class="pupils"><circle cx="25.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="38.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="26.7" cy="22.6" r="1.1" fill="#fff"/><circle cx="39.7" cy="22.6" r="1.1" fill="#fff"/></g>
+        <ellipse class="lid" cx="25.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/><ellipse class="lid" cx="38.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/>
+        <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
+        <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </g></svg></div>
   <div class="word" id="word">KIPP<span>WERK</span></div>
   <div class="tag" id="tag"></div>
   <div class="cta" id="cta"></div>
@@ -57,7 +78,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0d0f1a
 <script>
 const $=id=>document.getElementById(id);
 const LANG=new URLSearchParams(location.search).get('lang')||'de';const T=(de,en)=>LANG==='en'?en:de;
-['levels','daily','8x8','streak','scores'].forEach(n=>$('i_'+n).src='m_'+n+'_'+LANG+'.png');
+['levels','daily','8x8','streak','scores','tutorial'].forEach(n=>$('i_'+n).src='m_'+n+'_'+LANG+'.png');
 $('tag').textContent=T('Kippen. Verbinden. Kettenreaktion.','Tilt. Connect. Chain reaction.');
 $('cta').textContent=T('Jetzt kostenlos spielen','Play for free now');
 $('small').textContent=T('Tagesspiel · 100 Etappen · Endlos · offline spielbar','Daily game · 100 stages · Endless · plays offline');
@@ -87,10 +108,10 @@ function tiltSweep(d){const w=G();let t=0;const step=()=>{if(t>d)return;const g=
   w.dispatchEvent(Object.assign(new w.Event('deviceorientation'),{gamma:g,beta:b,alpha:0}));t+=33;setTimeout(step,33)};step()}
 const SCENES={
   1:{d:2600,run(){fadeIn();$('full').classList.add('on');['tag','cta','small'].forEach(x=>$(x).style.display=x==='tag'?'':'none');
-     document.querySelectorAll('.lt').forEach((t,i)=>at(120+i*130,()=>t.classList.add('in')));at(800,()=>$('word').classList.add('on'));at(1250,()=>$('tag').classList.add('on'));fadeOut(2600)}},
+     document.querySelectorAll('.lt').forEach((t,i)=>at(120+i*130,()=>t.classList.add('in')));at(650,()=>$('kfly').classList.add('in'));at(900,()=>$('word').classList.add('on'));at(1350,()=>$('tag').classList.add('on'));fadeOut(2600)}},
   2:{d:8400,async prep(){await loadGame()},run(){startEndless();$('phone').style.opacity=1;fadeIn();
      cap(T('Wische – das ganze<br>Feld <em>kippt</em>','Swipe – the whole<br>board <em>tilts</em>'),T('Alle Steine rutschen mit','Every stone slides along'));
-     runMoves([...MOVES].slice(0,12),500,520,true);
+     runMoves([...MOVES].slice(0,12),500,520,true);at(150,()=>G().__kw.fly.visit());
      at(3100,()=>cap(T('3 gleiche Farben<br><em>verschwinden</em>','Match 3 colors –<br>they <em>vanish</em>'),T('Größere Gruppen = mehr Punkte','Bigger groups, more points')));
      at(5700,()=>cap(T('Nachrutschen löst<br><em>Ketten</em> aus','Sliding stones trigger<br><em>chains</em>'),T('Bis zur MEGA-Combo','All the way to a MEGA combo')));fadeOut(8400)}},
   3:{d:3600,async prep(){await loadGame()},prepMs:12000,prepRun(){startEndless();runMoves([...MOVES].slice(0,12),300,400,false)},
@@ -100,11 +121,11 @@ const SCENES={
      at(2000,()=>{img('daily');cap(T('Jeden Tag ein neues<br><em>Tagesspiel</em>','A new <em>daily game</em><br>every day'),T('Gleiche Steine für alle – teilen & vergleichen','Same stones for everyone – share & compare'))});
      at(4000,()=>{img('8x8');cap(T('<em>Endlos</em> auf<br>5×5 bis 8×8','<em>Endless</em> on<br>5×5 to 8×8'),T('Wie weit kommst du?','How far can you go?'))});fadeOut(6000)}},
   5:{d:3400,run(){$('phone').style.opacity=1;$('game').style.display='none';img('scores');fadeIn();cap(T('Bestenliste mit<br><em>Combos</em> & Zügen','Leaderboards with<br><em>combos</em> & moves'),T('Dazu weltweite Ranglisten','Plus global rankings'));
-     at(1700,()=>{img('streak');cap(T('🔥 <em>Serien</em>,<br>Abzeichen & Designs','🔥 <em>Streaks</em>,<br>badges & themes'),T('Jeden Tag zurückkommen lohnt sich','Worth coming back every day'))});fadeOut(3400)}},
+     at(1700,()=>{img('tutorial');cap(T('🪰 <em>Kippi</em> – dein<br>Wegbegleiter','🪰 <em>Kippi</em> – your<br>companion'),T('Erklärt, schaut vorbei, feiert mit','Explains, drops by, cheers you on'))});fadeOut(3400)}},
   6:{d:2600,async prep(){await loadGame()},run(){img('');$('game').style.display='';$('phone').style.opacity=1;fadeIn();
-     cap(T('Kipp dein Handy –<br>das <em>Menü</em> kippt mit','Tilt your phone –<br>the <em>menu</em> tilts too'),T('Mit Musik, Partikeln & Vibration','With music, particles & haptics'));tiltSweep(2600);fadeOut(2600)}},
+     cap(T('Kipp dein Handy –<br>das <em>Menü</em> kippt mit','Tilt your phone –<br>the <em>menu</em> tilts too'),T('Mit Musik, Partikeln & Vibration','With music, particles & haptics'));tiltSweep(2600);at(100,()=>G().__kw.fly.visit());fadeOut(2600)}},
   7:{d:2600,run(){fadeIn();$('full').classList.add('on');$('tag').style.display='none';
-     document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(350,()=>$('word').classList.add('on'));at(750,()=>$('cta').classList.add('on'));at(1100,()=>$('small').classList.add('on'))}}
+     document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(300,()=>$('kfly').classList.add('in'));at(350,()=>$('word').classList.add('on'));at(750,()=>$('cta').classList.add('on'));at(1100,()=>$('small').classList.add('on'))}}
 };
 window.SCENES=SCENES;
 </script></body></html>

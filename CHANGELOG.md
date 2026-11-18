@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.28.1 (Build 48) – 18.11.2026
+- **Kippi verdeckt nichts mehr:** Landeplätze werden geprüft – nie über Spielfeld, Punkte-Anzeigen, Knöpfen, Info-Boxen oder Steuerkreuz. Bevorzugt auf Box-Oberkanten mit freiem Platz darüber, über der Fußzeile oder (PC/Tablet) neben dem Spielfeld; gibt es keinen freien Platz, landet er auf dem KIPPWERK-Schriftzug. Geprüft auf 360×640 bis 1280×720 (vorher saß er z. B. über „Als Nächstes“)
+- Kippi nutzt einen eigenen Zufall (beeinflusst die Spiel-Zufallsfolge nicht mehr); „Abgeschüttelt“ etwas seltener
+- **Neue Store-Grafiken mit Kippi** (DE/EN): 8 Screenshots (neu: „Kippi zeigt dir, wie’s geht“), Feature-Grafik mit Kippi auf dem Logo, Produktvideo 29,2 s – Kippi fliegt im Intro aufs Logo, landet beim Spielen, eigene Szene „Kippi – dein Wegbegleiter“
 ## v1.28.0 (Build 47) – 18.11.2026
 - **Modulaufbau:** Quellcode liegt jetzt in `src/` – 11 CSS-Module, englisches Wörterbuch und 30 Logik-Module (Werbung, Sprache, Vibration, Ranglisten-Schutz, Play Games, Serie, Musik, Regeln, Ablauf, Kippi …). `tools/build.mjs` setzt daraus `www/index.html` zusammen (weiterhin eine Datei, offline). Erster Bau byte-genau identisch mit v1.27.1 → keine Verhaltensänderung
 - `npm run build` / `npm run build:check`; `npm run sync` und `npm run android` bauen vorher automatisch

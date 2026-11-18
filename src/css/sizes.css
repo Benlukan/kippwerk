@@ -1,0 +1,9 @@
+/* Feldgrößen */
+.board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}
+.sizepick{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sizepick small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.seg.big button{padding:8px 12px;font-size:13px}
+.subtabs{display:flex;gap:4px}
+.subtabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 9px;font:700 12px "Space Grotesk",sans-serif;cursor:pointer}
+.subtabs button.on{border-color:var(--c3);color:var(--text)}
+.scores tr.gap td{color:var(--muted);text-align:center;padding:2px;border:0}

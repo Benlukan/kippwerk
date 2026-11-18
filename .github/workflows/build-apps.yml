@@ -31,6 +31,8 @@ jobs:
       - name: Android-SDK prüfen
         run: echo "ANDROID_HOME=$ANDROID_HOME" && ls "$ANDROID_HOME/platforms"
       - run: npm ci
+      - name: Quellcode-Module prüfen (src/ → www/index.html)
+        run: node tools/build.mjs --check
       - run: npx cap sync android
 
       - name: Debug-APK bauen (sofort installierbar)
@@ -113,6 +115,7 @@ jobs:
         with:
           xcode-version: latest-stable
       - run: npm ci
+      - run: node tools/build.mjs --check
       - run: npx cap sync ios
       - name: App bauen (ohne Signatur)
         run: |

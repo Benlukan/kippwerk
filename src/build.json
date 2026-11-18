@@ -1,0 +1,50 @@
+{
+ "css": [
+  "css/base.css",
+  "css/combos-board.css",
+  "css/themes.css",
+  "css/streak.css",
+  "css/sizes.css",
+  "css/help.css",
+  "css/menu.css",
+  "css/small-screens.css",
+  "css/kippi.css",
+  "css/infobar.css",
+  "css/wide-screens.css"
+ ],
+ "i18n": [
+  "js/i18n-en.js"
+ ],
+ "app": [
+  "js/app/00-core.js",
+  "js/app/01-ads.js",
+  "js/app/02-rng.js",
+  "js/app/03-settings.js",
+  "js/app/04-i18n.js",
+  "js/app/05-settings-apply.js",
+  "js/app/06-haptics.js",
+  "js/app/07-level-progress.js",
+  "js/app/08-scores.js",
+  "js/app/09-anticheat.js",
+  "js/app/10-play-games.js",
+  "js/app/11-streak.js",
+  "js/app/12-back-pause.js",
+  "js/app/13-reminder.js",
+  "js/app/14-audio.js",
+  "js/app/15-music.js",
+  "js/app/16-rules.js",
+  "js/app/17-render.js",
+  "js/app/18-level-goals.js",
+  "js/app/19-flow.js",
+  "js/app/20-level-screens.js",
+  "js/app/21-input.js",
+  "js/app/22-help-settings-ui.js",
+  "js/app/23-top5.js",
+  "js/app/24-rewards.js",
+  "js/app/25-cloud-save.js",
+  "js/app/26-tutorial.js",
+  "js/app/27-menu-tilt.js",
+  "js/app/28-kippi.js",
+  "js/app/29-boot.js"
+ ]
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>KIPPWERK</title>
+<meta name="description" content="Kippe das Feld, verbinde Farben, baue Ketten. Mit täglichem Rätsel.">
+<meta name="theme-color" content="#0d0f1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KIPPWERK">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+<!-- @include css -->
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
+    <div class="icons">
+      <button class="streakchip" id="streakBtn" title="Deine Serie"><span class="fl">🔥</span><span id="streakNum">0</span></button>
+      <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
+      <button class="icon-btn" id="settingsBtn" title="Einstellungen">⚙</button>
+      <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
+    </div>
+  </header>
+  <div class="hud" id="hud">
+    <div class="stat"><small>Punkte</small><b id="score">0</b></div>
+    <div class="stat"><small id="bestLabel">Rekord</small><b id="best">0</b><div class="goalline" id="goalHud" style="display:none"></div></div>
+    <div class="stat"><small id="levelLabel">Level</small><b id="level">1</b><div class="levelbar"><i id="lvlbar"></i></div></div>
+    <div class="stat"><small>Als Nächstes</small><div class="next" id="next"></div></div>
+  </div>
+  <div class="playrow">
+  <div class="board-wrap">
+    <div class="board" id="board">
+      <div class="cells" id="cells"></div>
+      <div class="tiles" id="tiles"></div>
+    </div>
+    <div class="overlay home" id="startOv">
+      <div class="home-top">
+        <div class="home-chips"><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
+        <div class="home-icons">
+          <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
+          <button class="icon-btn" id="menuSettings" title="Einstellungen">⚙</button>
+        </div>
+      </div>
+      <button class="resume" id="resumeBtn" style="display:none"><span class="rs-play">▶</span><span class="rs-txt"><b>Weiterspielen</b><small id="resumeInfo"></small></span></button>
+      <div class="home-upper">
+      <div class="hero">
+        <div class="hero-word">KIPP<span>WERK</span></div>
+        <div class="hero-tag" id="heroTag">Kippen. Verbinden. Kettenreaktion.</div>
+      </div>
+      <div class="top5" id="homeTop5" style="display:none">
+        <div class="t5-head"><span>🏆 Tagesspiel · Top 5</span><div class="seg t5seg" id="top5Seg"><button data-p="day">Heute</button><button data-p="week">Woche</button><button data-p="all">Alle</button></div></div>
+        <div id="top5List"></div>
+        <button class="t5-more" id="top5More">Ganze Rangliste ›</button>
+      </div>
+      </div>
+      <div class="hmenu" id="homeTiles">
+        <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></div>
+        <div class="hlogo">
+          <button class="hst" id="dailyBtn" style="--c:var(--c0)" aria-label="Tagesspiel">●</button>
+          <button class="hst" id="levelBtn" style="--c:var(--c1)" aria-label="Level">▲</button>
+          <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
+          <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
+        </div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars"></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></div>
+        <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b><small>So geht’s</small></div>
+      </div>
+      <div class="home-size"><small>Endlos-Feld</small><div class="seg" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
+      <div class="home-foot">
+        <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
+        <div class="home-ver" id="homeVer"></div>
+      </div>
+    </div>
+    <div class="overlay hidden" id="overOv">
+      <h2 id="overTitle">FELD VOLL</h2>
+      <div class="big" id="finalScore">0</div>
+      <p id="overText"></p>
+      <div class="namerow" id="nameRow" style="display:none">
+        <input id="nameInput" maxlength="12" placeholder="Dein Name" autocomplete="nickname" enterkeyhint="done">
+        <button class="btn" id="saveName">EINTRAGEN</button>
+      </div>
+      <div class="streaknote" id="streakNote" style="display:none"></div>
+      <pre class="share" id="shareBox" style="display:none"></pre>
+      <button class="btn" id="shareBtn" style="display:none">ERGEBNIS TEILEN</button>
+      <div class="modes">
+        <button class="btn alt" id="againBtn">NOCHMAL</button>
+        <button class="btn alt" id="menuBtn">MENÜ</button>
+        <button class="btn alt" id="overScoresBtn">🏆</button>
+      </div>
+      <p class="hint" id="countdown"></p>
+    </div>
+    <div class="overlay hidden" id="rescueOv">
+      <h2 id="rescueTitle">FELD VOLL</h2>
+      <div class="big" id="rescueScore">0</div>
+      <p id="rescueText"></p>
+      <button class="btn lvl" id="lifeBtn" style="display:none">❤ LEBEN EINSETZEN</button>
+      <button class="btn" id="rescueBtn">🎬 VIDEO ANSEHEN &amp; WEITER</button>
+      <button class="btn alt" id="noRescueBtn">NEIN DANKE</button>
+      <p class="hint" id="rescueHint">Eine Rettung pro Runde · freiwillig</p>
+    </div>
+    <div class="overlay hidden" id="levelsOv">
+      <h2>🗺 ETAPPEN</h2>
+      <p id="levelsTotal"></p>
+      <div class="lvscroll" id="lvScroll"><div class="lvgrid" id="lvGrid"></div></div>
+      <button class="btn alt" id="closeLevels">ZURÜCK</button>
+    </div>
+    <div class="overlay hidden" id="lvlOv">
+      <p class="hint" id="lvlKicker">ETAPPE</p>
+      <h2 id="lvlTitle">LEVEL 1</h2>
+      <div class="stars" id="lvlStars"></div>
+      <div class="goals" id="lvlGoals"></div>
+      <p id="lvlText"></p>
+      <button class="btn" id="lvlMain">START</button>
+      <div class="modes"><button class="btn alt" id="lvlRetry">NOCHMAL</button><button class="btn alt" id="lvlMap">🗺 KARTE</button></div>
+    </div>
+    <div class="overlay hidden" id="settingsOv">
+      <h2>⚙ EINSTELLUNGEN</h2>
+      <div class="set-h">Profil</div>
+      <div class="settings">
+        <label class="set"><span>👤 Spielername</span><input type="text" id="setName" maxlength="12" placeholder="Dein Name" autocomplete="nickname"></label>
+        <button class="set" id="gamesRow" style="display:none"><span id="gamesName">🎮 Google Play Games</span><span class="pid" id="gamesState"></span></button>
+        <button class="set" id="pidRow" title="Spieler-ID kopieren"><span>🆔 Spieler-ID</span><span class="pid" id="pidText"></span></button>
+      </div>
+      <div class="set-h">Ton &amp; Vibration</div>
+      <div class="settings">
+        <label class="set"><span>🔊 Effekte</span><span class="vol"><input type="range" id="setSfxVol" min="0" max="100" step="5"><b id="sfxVolTxt"></b></span></label>
+        <label class="set"><span>🎵 Musik</span><span class="vol"><input type="range" id="setMusicVol" min="0" max="100" step="5"><b id="musicVolTxt"></b></span></label>
+        <div class="set"><span>📳 Vibration</span><div class="seg" data-key="vibe"><button data-v="off">Aus</button><button data-v="soft">Sanft</button><button data-v="strong">Stark</button></div></div>
+        <div class="set set-diag"><button class="linkbtn" id="vibeTest">📳 Vibration testen</button><small id="vibeDiag"></small></div>
+      </div>
+      <div class="set-h">Spiel</div>
+      <div class="settings">
+        <div class="set"><span>🔲 Feldgröße (Endlos)</span><div class="seg" data-key="size"><button data-v="5">5</button><button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button></div></div>
+        <div class="set"><span>🎮 Steuerkreuz</span><div class="seg" data-key="pad"><button data-v="auto">Auto</button><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
+        <label class="set" id="remindRow" style="display:none"><span>🔔 Serien-Erinnerung (abends)</span><input type="checkbox" id="setRemind"></label>
+      </div>
+      <div class="set-h">Darstellung</div>
+      <div class="settings">
+        <div class="set"><span>🌐 Sprache</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
+        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
+        <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
+        <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
+        <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
+        <label class="set"><span>🪰 Kippi (Maskottchen)</span><input type="checkbox" id="setFly"></label>
+      </div>
+      <div class="set-h">Hilfe &amp; Rechtliches</div>
+      <div class="settings">
+        <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
+        <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
+        <a class="set" id="lnkPrivacy" href="datenschutz.html">📄 Datenschutzerklärung</a>
+        <a class="set" id="lnkLegal" href="impressum.html">ℹ️ Impressum</a>
+      </div>
+      <div class="set-h">Daten</div>
+      <div class="settings">
+        <button class="set danger" id="resetScores">🏆 Bestenliste löschen</button>
+        <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
+      </div>
+      <button class="btn alt" id="closeSettings">FERTIG</button>
+    </div>
+    <div class="overlay hidden" id="streakOv">
+      <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
+      <p id="stkSub">Tage in Folge</p>
+      <p id="stkStatus"></p>
+      <button class="btn" id="stkPlay" style="display:none">📅 JETZT TAGESSPIEL SPIELEN</button>
+      <div class="stk-week" id="stkWeek"></div>
+      <div class="stk-card"><small>Serienschutz</small><div id="stkShield"></div>
+        <button class="btn alt" id="stkAd" style="display:none;margin-top:8px">🎬 SCHUTZ PER VIDEO HOLEN</button></div>
+      <div class="stk-card"><small>Nächster Meilenstein</small><div id="stkNext"></div></div>
+      <div class="stk-card" id="stkAwardsCard" style="display:none"><small>Ranglisten-Erfolge</small><div class="aw-grid" id="stkAwards"></div></div>
+      <div class="stk-card"><small>Abzeichen &amp; Designs · tippen zum Anwenden</small><div class="ms-grid" id="stkMs"></div></div>
+      <p class="hint" id="stkBest"></p>
+      <button class="btn alt" id="closeStreak">SCHLIESSEN</button>
+    </div>
+    <div class="fly hidden" id="fly" aria-hidden="true"><div class="fly-in">
+      <svg viewBox="0 0 64 58"><g>
+        <ellipse class="wing" cx="21" cy="17" rx="13" ry="8" transform="rotate(-28 21 17)"/><ellipse class="wing" cx="43" cy="17" rx="13" ry="8" transform="rotate(28 43 17)"/>
+        <g stroke="#141831" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M24 46l-5 8"/><path d="M30 48l-2 8"/><path d="M34 48l2 8"/><path d="M40 46l5 8"/></g>
+        <ellipse cx="32" cy="38" rx="15" ry="12" fill="#262d52"/>
+        <path d="M18.5 36q13.5 6 27 0" stroke="#4cc9f0" stroke-width="3" fill="none"/><path d="M21 42q11 5 22 0" stroke="#ffc145" stroke-width="2.6" fill="none"/>
+        <g stroke="#2e3661" stroke-width="2" fill="none" stroke-linecap="round"><path d="M27 15q-2-7-7-9"/><path d="M37 15q2-7 7-9"/></g>
+        <circle cx="20" cy="6" r="2.6" fill="#ff5d73"/><circle cx="44" cy="6" r="2.6" fill="#3ddc97"/>
+        <circle cx="32" cy="25" r="12.5" fill="#2e3661"/>
+        <circle cx="25.5" cy="23" r="6.6" fill="#fff"/><circle cx="38.5" cy="23" r="6.6" fill="#fff"/>
+        <g class="pupils"><circle cx="25.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="38.5" cy="24" r="3.3" fill="#0d1022"/><circle cx="26.7" cy="22.6" r="1.1" fill="#fff"/><circle cx="39.7" cy="22.6" r="1.1" fill="#fff"/></g>
+        <ellipse class="lid" cx="25.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/><ellipse class="lid" cx="38.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/>
+        <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
+        <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </g></svg></div><div class="fly-bubble" id="flyBubble"></div></div>
+    <div class="coach hidden" id="coach"><div class="ct-head"><span class="kippi-ava" id="coachAva"></span><div><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p></div></div>
+      <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
+    <div class="overlay hidden" id="helpOv">
+      <h2>❓ HILFE</h2>
+      <div class="help" data-noi18n>
+        <div class="toc"><button data-s="hGrund">So geht's</button><button data-s="hSteine">Steine &amp; Farben</button><button data-s="hCombo">Combos</button><button data-s="hVerlauf">Farb-Verlauf</button><button data-s="hModi">Modi</button><button data-s="hSerie">Serie</button><button data-s="hTipps">Tipps</button><button data-s="hNeu">Neuigkeiten</button></div>
+        <button class="btn lvl tutbtn" id="tutBtn">🎓 TUTORIAL STARTEN</button>
+        <section id="hGrund"><h3>So geht's</h3>
+          <p><b>Wische</b> irgendwo auf dem Bildschirm in eine Richtung (oder Pfeiltasten/WASD). Die <b>Zurück-Taste</b> des Handys (bzw. Esc) pausiert das Spiel. Das ganze Feld kippt – <b>alle Steine rutschen</b> bis zum Rand.</p>
+          <p>Berühren sich <b>3 oder mehr gleiche Steine</b> waagerecht oder senkrecht, verschwinden sie. Größere Gruppen bringen deutlich mehr Punkte (Größe² × 10).</p>
+          <p>Nach jedem Zug kommen <b>neue Steine von der Gegenseite</b> dazu. Oben bei „Als Nächstes“ siehst du, welche Farben kommen. Ist das Feld voll, ist die Runde vorbei.</p>
+        </section>
+        <section id="hSteine"><h3>Steine &amp; Farben</h3>
+          <p>Jede Farbe hat ein eigenes Symbol – so klappt es auch bei Farbschwäche (Farbschema in ⚙ umstellbar).</p>
+          <div id="helpColors"></div>
+          <div class="row"><span class="sw wild">✦</span><span><b>Prisma</b> – passt zu jeder Farbe und verbindet Gruppen (ab Level 2).</span></div>
+          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos auf 7×7 und 8×8 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
+        </section>
+        <section id="hCombo"><h3>Combos</h3>
+          <p>Verschwindet eine Gruppe, rutschen die übrigen Steine nach. Entsteht dabei eine neue Gruppe, ist das eine <b>Combo</b> – die Punkte werden mit der Combo-Stufe multipliziert.</p>
+          <div class="row"><span class="sw" style="background:var(--c2)">×2</span><span><b>GOOD!</b> – zweite Gruppe in Folge</span></div>
+          <div class="row"><span class="sw" style="background:var(--c3)">×3</span><span><b>SUPER!</b> – dreifache Kette</span></div>
+          <div class="row"><span class="sw" style="background:var(--c1)">×4</span><span><b>MEGA!</b> – mit Lichtblitz</span></div>
+          <div class="row"><span class="sw wild">×5</span><span><b>MONSTER!</b> – Regenbogen und Beben, sehr selten! (×5)</span></div>
+          <div class="row"><span class="sw" style="background:#fff;color:#000">×6</span><span><b>ULTRA!</b> – ab ×6, extrem selten – und du bekommst ein <b>❤ Extra-Leben</b>!</span></div>
+          <p>Unter dem Feld zählt die Leiste <b>Combos</b> für jedes Spiel mit: wie oft du einfach <b>abgeräumt</b> hast und wie oft GOOD, SUPER, MEGA, MONSTER und ULTRA kamen. Am Ende siehst du die Aufteilung, z. B. „5 Combos (1× MEGA, 4× GOOD)“.</p>
+          <p><b>❤ Extra-Leben:</b> Für jede ULTRA-Combo bekommst du ein Leben (Vorrat bis 9, wird gespeichert). Ist das Feld voll bzw. sind die Züge alle, kannst du es statt eines Videos einsetzen und weiterspielen – im Endlos-Modus und in den Etappen, nicht im Tagesspiel. Dein Vorrat steht im Hauptmenü und in der Combo-Leiste.</p>
+        </section>
+        <section id="hVerlauf"><h3>Farb-Verlauf &amp; Raster</h3>
+          <p>Unten in der Info-Leiste (und beim Teilen des Tagesspiels) steht jedes Kästchen für <b>einen Zug</b>. Die Farbe zeigt, was der Zug gebracht hat:</p>
+          <div class="row"><span class="sw d" style="background:var(--line)"></span><span><b>Grau</b> (⬛) – nichts abgeräumt</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c3)"></span><span><b>Blau</b> (🟦) – eine Gruppe abgeräumt</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c2)"></span><span><b>Grün</b> (🟩) – Combo ×2 GOOD</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c1)"></span><span><b>Gelb</b> (🟨) – Combo ×3 SUPER</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Rot</b> (🟥) – Combo ×4 MEGA</span></div>
+          <div class="row"><span class="sw d" style="background:var(--c4)"></span><span><b>Lila</b> (🟪) – Combo ×5 MONSTER</span></div>
+          <div class="row"><span class="sw d" style="background:#fff"></span><span><b>Weiß</b> (⬜) – Combo ×6 oder mehr: ULTRA (+1 ❤)</span></div>
+          <p>Je bunter dein Raster, desto besser hast du gespielt.</p>
+        </section>
+        <section id="hModi"><h3>Spielmodi</h3>
+          <ul>
+            <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
+            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss.</li>
+            <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
+          </ul>
+          <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
+          <p><b>🌍 Weltweit (App):</b> Unter der Bestenliste öffnet „Weltweit“ die Rangliste von <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) – mit Heute, Woche und Gesamt. Dafür meldest du dich einmal mit deinem Google- bzw. Apple-Konto an (in ⚙ oder beim ersten Öffnen). Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden dann automatisch eingetragen. Android und iPhone haben getrennte Ranglisten.</p>
+          <p><b>🏆 Top 5 im Menü (App):</b> Bist du bei Google Play Games bzw. Game Center angemeldet, zeigt das Hauptmenü die besten 5 im Tagesspiel – umschaltbar zwischen Heute, Woche und Alle. Bist du nicht unter den ersten 5, steht deine Platzierung darunter. Antippen öffnet die ganze Rangliste. (Bei Google beginnt „Heute“ gegen 9 Uhr deutscher Zeit; „Woche“ zeigt das beste Tagesspiel der Woche.)</p>
+          <p><b>🎁 Belohnungen für die Rangliste:</b> Wer im Tagesspiel vorne liegt, bekommt nach Ablauf des Tages bzw. der Woche eine Belohnung: <b>Tagessieg</b> 👑 +1 ❤ · Tag Top 3 🥈 und Top 10 ⭐ als Abzeichen · <b>Wochensieg</b> 🏆 +3 ❤ · Woche Top 3 🥇 +1 ❤ · Woche Top 10 🎖. Gewertet wird der Platz, den die App zuletzt gesehen hat – öffne die App also ruhig noch einmal am Abend. Deine Erfolge stehen auf der 🔥 Serien-Seite.</p>
+          <p><b>☁ Spielstand auf mehreren Geräten:</b> Bist du bei Google Play Games bzw. Game Center angemeldet, speichert KIPPWERK Level, Sterne, Rekorde, Tagesspiele, Serie, Name und Einstellungen in deinem Konto. Auf einem anderen Gerät mit demselben Konto (Android ↔ Android, iPhone ↔ iPad) wird alles automatisch übernommen – dabei zählt immer das Bessere, nichts geht verloren. Auf dem iPhone muss dafür iCloud eingeschaltet sein.</p>
+          <p><b>🎬 Rettung:</b> Feld voll oder keine Züge mehr? Ein freiwilliges Video räumt 6 Steine weg bzw. gibt 5 Extra-Züge (einmal pro Runde, nicht im Tagesspiel).</p>
+        </section>
+        <section id="hSerie"><h3>🔥 Serie</h3>
+          <p>Spiel jeden Tag das <b>Tagesspiel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
+          <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und ein neues Design (Neon, Pastell, Ozean, Lava, Gold, Kosmos) – rein optisch.</p>
+          <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
+        </section>
+        <section id="hTipps"><h3>Tipps</h3>
+          <ul>
+            <li>Kippe öfter in <b>dieselbe Richtung</b> – dann sammeln sich Farben an einer Seite und Combos werden wahrscheinlicher.</li>
+            <li>Schau auf <b>„Als Nächstes“</b> und denk daran: neue Steine kommen von der Gegenseite.</li>
+            <li>Hebe <b>Prisma-Steine</b> auf, um zwei Gruppen zu einer großen zu verbinden.</li>
+            <li>Im Level-Modus zählen <b>übrige Züge</b> – schnell fertig werden bringt Sterne.</li>
+          <li>🪰 <b>Kippi</b>, die KIPPWERK-Fliege, ist dein Wegbegleiter: Sie schaut ab und zu vorbei, freut sich über Combos, erinnert dich ans Tagesspiel – und stört nie. Ausschalten in ⚙.</li>
+          <li>🎵 Die Musik wird schneller, je schwerer es wird – Boss-Etappen haben ein eigenes Stück.</li></ul>
+        </section>
+        <section id="hNeu"><h3>Neuigkeiten</h3><div id="helpChangelog"></div></section>
+      </div>
+      <div class="helpclose"><button class="btn" id="closeHelp">VERSTANDEN</button></div>
+    </div>
+    <div class="overlay hidden" id="scoresOv">
+      <h2>🏆 BESTENLISTE</h2>
+      <div class="tabs"><button id="tabEndless" class="on">∞ Endlos</button><button id="tabDaily">📅 Tagesspiel</button></div>
+      <div class="subtabs" id="periodTabs" style="display:none"><button data-p="day">Heute</button><button data-p="week">Woche</button><button data-p="all">All the best</button></div>
+      <div class="subtabs" id="sizeTabs"><button data-n="5">5×5</button><button data-n="6">6×6</button><button data-n="7">7×7</button><button data-n="8">8×8</button></div>
+      <p class="hint" id="periodInfo" style="display:none;margin:0"></p>
+      <div id="dailyStats" class="statsrow" style="display:none"></div>
+      <table class="scores" id="scoresTable"></table>
+      <p class="hint" id="scoresEmpty" style="display:none"></p>
+      <button class="btn lvl" id="gamesBoard" style="display:none">🌍 WELTWEITE RANGLISTE</button>
+      <button class="btn alt" id="closeScores">SCHLIESSEN</button>
+    </div>
+  </div>
+  <div class="infobar" id="infobar"></div>
+  </div>
+  <div class="pad">
+    <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
+  </div>
+  <footer>KIPPWERK v1.28.0 · Build 47 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+</div>
+<script>
+<!-- @include i18n -->
+</script>
+<script>
+(()=>{
+<!-- @include app -->
+})();
+</script>
+</body>
+</html>

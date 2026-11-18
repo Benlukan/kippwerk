@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.28.0 (Build 47) – 18.11.2026
+- **Modulaufbau:** Quellcode liegt jetzt in `src/` – 11 CSS-Module, englisches Wörterbuch und 30 Logik-Module (Werbung, Sprache, Vibration, Ranglisten-Schutz, Play Games, Serie, Musik, Regeln, Ablauf, Kippi …). `tools/build.mjs` setzt daraus `www/index.html` zusammen (weiterhin eine Datei, offline). Erster Bau byte-genau identisch mit v1.27.1 → keine Verhaltensänderung
+- `npm run build` / `npm run build:check`; `npm run sync` und `npm run android` bauen vorher automatisch
+- CI prüft vor jedem App-Build, ob `www/index.html` zu `src/` passt
+- Übersicht aller Module: `docs/architektur.md`
 ## v1.27.1 (Build 46) – 18.11.2026
 - **Vibration (Android) neu:** eigenes natives Plugin `KwVibePlugin` (in `MainActivity` registriert). Vibriert ausdrücklich als Spiel-/Medien-Vibration (`VibrationAttributes.USAGE_MEDIA` ab Android 13, sonst `AudioAttributes.USAGE_GAME`) mit voller Stärke; bei Combos/Gewinnen zusätzlich System-Haptik. Hintergrund: Das Standard-Plugin vibriert ohne Verwendungszweck – viele Geräte dämpfen oder ignorieren das. Fallback auf das Standard-Plugin bleibt
 - `VIBRATE`-Berechtigung ausdrücklich im App-Manifest

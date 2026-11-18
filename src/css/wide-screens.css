@@ -1,0 +1,33 @@
+/* Breite Bildschirme (PC, Tablet quer): Info-Leiste als Seitenleiste rechts neben dem Feld */
+.playrow{display:contents}
+@media (min-aspect-ratio:1/1) and (min-width:760px) and (min-height:520px){
+  :root{--W:min(600px,calc(100vh - 230px),calc(100vw - 380px));--W:min(600px,calc(100dvh - 230px),calc(100vw - 380px))}
+  header,.hud{width:calc(var(--W) + 316px)}
+  .playrow{display:flex;gap:16px;align-items:stretch}
+  .infobar{display:flex;width:300px;justify-content:flex-start}
+  .infobar .ib-row{grid-template-columns:1fr}
+  .ib-tile b{font-size:22px}
+  .ib-goal{font-size:15px}
+}
+@media (max-aspect-ratio:3/4){
+  :root{--W:min(94vw,640px,calc(100vh - 445px));--W:min(94vw,640px,calc(100dvh - 445px))}
+  header,.hud,.infobar{width:max(var(--W),min(94vw,560px))}
+  .wrap{justify-content:flex-start;min-height:100vh;min-height:100dvh;gap:12px}
+  .infobar{display:flex;gap:10px;margin-top:auto}
+  footer{margin-top:0}
+  h1{font-size:clamp(19px,min(7vw,3.4vh),32px)}
+  .icon-btn{width:clamp(32px,min(10.5vw,5vh),46px);height:clamp(32px,min(10.5vw,5vh),46px);font-size:clamp(16px,2.2vh,20px)}
+  .hud{gap:clamp(6px,1vh,10px)}
+  .stat{padding:clamp(8px,1.5vh,14px) clamp(8px,2.4vw,12px)}
+  .stat b{font-size:clamp(18px,min(6vw,3vh),28px)}
+  .next .mini{width:clamp(20px,min(6vw,3vh),28px);height:clamp(20px,min(6vw,3vh),28px);font-size:clamp(11px,1.5vh,14px)}
+  .ib-tile,.ib-box{padding:clamp(8px,1.5vh,14px) clamp(10px,2.6vw,14px)}
+  .ib-tile b{font-size:clamp(17px,min(5.4vw,2.7vh),26px)}
+  .ib-tile small,.ib-box small,.stat small{font-size:clamp(10px,1.25vh,12px)}
+  .ib-goal{font-size:clamp(14px,1.9vh,17px)}
+  .ib-goal .bar{height:clamp(5px,.8vh,8px)}
+}
+footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacity:.7;white-space:nowrap}
+.hint{color:var(--muted);font-size:12px}
+@media (min-width:600px) and (max-aspect-ratio:3/4){:root{--W:min(640px,calc(100vh - 500px));--W:min(640px,calc(100dvh - 500px))}}
+@media (max-height:740px) and (max-aspect-ratio:3/4){:root{--W:min(94vw,640px,calc(100vh - 385px));--W:min(94vw,640px,calc(100dvh - 385px))}header,.hud,.infobar{width:min(94vw,560px)}}

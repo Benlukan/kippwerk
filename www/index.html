@@ -699,7 +699,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.27.1 · Build 46 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.28.0 · Build 47 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -932,7 +932,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1198,9 +1198,6 @@ function makeId(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}
 let playerId='';try{playerId=localStorage.getItem('kippwerk_pid')||'';if(!playerId){playerId=makeId();localStorage.setItem('kippwerk_pid',playerId)}}catch(e){playerId=playerId||makeId()}
 const shortId=id=>'KW-'+String(id).replace(/-/g,'').slice(0,8).toUpperCase().replace(/(.{4})(.{4})/,'$1-$2');
 const myTag=()=>'#'+String(playerId).replace(/-/g,'').slice(0,4).toUpperCase();
-// ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
-// IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
-// on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 // ---------- Schutz gegen geschummelte Ranglisten-Einträge ----------
 // 1) Jeder Punktgewinn wird in einem geschlossenen Protokoll nachgerechnet (Gruppengröße² × 10 × Combo).
 //    Weicht der Punktestand am Ende davon ab (z. B. durch Speicher-Manipulation), wird nichts gemeldet.
@@ -1227,6 +1224,9 @@ const Audit=(()=>{
     sign,
     off(){on=false}};
 })();
+// ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
+// IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
+// on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
   android:{on:false,saves:true,e5:'',e6:'',e7:'',e8:'',daily:''},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
@@ -2098,6 +2098,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.28.0','Neuer Aufbau des Quellcodes in Module (keine sichtbaren Änderungen) – Grundlage für künftige Updates'],
  ['1.27.1','Vibration auf Android repariert (eigene Ansteuerung) + Knopf „Vibration testen“ in den Einstellungen'],
  ['1.27.0','Die Fliege heißt Kippi: Sie erklärt das Tutorial, meldet sich in den Erinnerungen und hat ein eigenes Benachrichtigungs-Symbol'],
  ['1.26.0','Neues Maskottchen: die KIPPWERK-Fliege · Musik wird mit dem Level schneller, Boss-Etappen mit eigenem Stück · Schutz gegen geschummelte Ranglisten-Einträge'],

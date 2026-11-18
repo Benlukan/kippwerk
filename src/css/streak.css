@@ -1,0 +1,37 @@
+/* Serie */
+header h1{min-width:0;overflow:hidden;text-overflow:clip}
+@media (max-width:430px){.icons{gap:4px}.mode-tag{display:none}.streakchip{padding:0 6px;font-size:13px}}
+.streakchip{display:flex;align-items:center;gap:3px;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;height:clamp(32px,9.5vw,38px);padding:0 9px;font:700 15px "Space Grotesk",sans-serif;cursor:pointer;flex:none}
+.streakchip .fl{filter:grayscale(1);opacity:.6}
+.streakchip.done{color:var(--text);border-color:#ff8a3d88;box-shadow:0 0 14px #ff6a0040}
+.streakchip.done .fl{filter:none;opacity:1}
+.streakchip.open{animation:pulseOpen 2s ease-in-out infinite}
+@keyframes pulseOpen{50%{border-color:#ff8a3d}}
+.stk-big{font-size:64px;font-weight:700;line-height:1}
+.stk-big .fl{display:inline-block;animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{50%{transform:scale(1.08) rotate(-3deg)}}
+.stk-week{display:flex;gap:8px;justify-content:center}
+.stk-day{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.stk-day i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;background:var(--line);color:var(--text)}
+.stk-day.ok i{background:linear-gradient(160deg,#ff9a3d,#ff5d2e);box-shadow:0 0 10px #ff6a0066}
+.stk-day.sh i{background:#3a5a8a}
+.stk-day.today i{outline:2px solid var(--c3);outline-offset:2px}
+.stk-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;width:min(100%,400px);text-align:left}
+.stk-card small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.stk-bar{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px}
+.stk-bar i{display:block;height:100%;background:linear-gradient(90deg,#ff9a3d,#ff5d2e)}
+.ms-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ms{background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;color:var(--text);font:600 11px "Space Grotesk",sans-serif}
+.ms b{display:block;font-size:22px;margin-bottom:2px}
+.ms.lock{opacity:.38;cursor:default}
+.ms.on{border-color:var(--c2);box-shadow:0 0 10px #3ddc9744}
+.ms .sw5{display:flex;justify-content:center;gap:2px;margin-top:4px}.ms .sw5 span{width:7px;height:7px;border-radius:2px}
+.streaknote{background:linear-gradient(135deg,#ff9a3d22,#ff5d2e22);border:1px solid #ff8a3d66;border-radius:14px;padding:10px 14px;max-width:340px}
+.streaknote b{color:#ffb36b}
+.toast{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);color:var(--text);
+  border-radius:12px;padding:10px 16px;font-size:14px;z-index:50;box-shadow:0 8px 30px #0008;animation:toastIn 4.5s ease forwards;max-width:90vw;text-align:center}
+@keyframes toastIn{0%{opacity:0;transform:translate(-50%,-10px)}8%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7;--c5:#0072b2}
+body.pad-on .pad{display:flex!important}
+body.pad-off .pad{display:none!important}
+.menurow{display:flex;gap:14px;justify-content:center}

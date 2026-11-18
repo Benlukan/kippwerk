@@ -1,0 +1,3 @@
+/* kleine Displays: Verlauf-Raster und Tipp ausblenden, damit Spielfeld + Combo-Leiste ohne Scrollen passen */
+@media (max-height:780px) and (max-aspect-ratio:3/4){.infobar .ib-box.tap,.infobar .ib-hint{display:none!important}}
+@media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}.pt{display:none}}

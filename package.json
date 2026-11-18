@@ -1,13 +1,15 @@
 {
   "name": "kippwerk",
-  "version": "1.27.1",
+  "version": "1.28.0",
   "private": true,
   "description": "KIPPWERK – Kipp-Puzzle mit Tagesrätsel",
   "scripts": {
-    "sync": "cap sync",
-    "android": "cap sync android && cd android && ./gradlew assembleDebug",
+    "sync": "node tools/build.mjs && cap sync",
+    "android": "node tools/build.mjs && cap sync android && cd android && ./gradlew assembleDebug",
     "icons": "capacitor-assets generate --iconBackgroundColor '#0d0f1a' --iconBackgroundColorDark '#0d0f1a' --splashBackgroundColor '#0d0f1a' --splashBackgroundColorDark '#0d0f1a'",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "build": "node tools/build.mjs",
+    "build:check": "node tools/build.mjs --check"
   },
   "dependencies": {
     "@capacitor-community/admob": "^8.3.0",

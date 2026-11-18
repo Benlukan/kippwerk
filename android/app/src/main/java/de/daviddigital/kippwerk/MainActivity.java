@@ -16,6 +16,7 @@ public class MainActivity extends BridgeActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        registerPlugin(KwVibePlugin.class);   // eigene, zuverlässigere Vibration
         super.onCreate(savedInstanceState);
         // Inhalt darf neben die Kamera-Aussparung (sonst bleibt dort ein Streifen)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

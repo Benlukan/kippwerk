@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.27.1 (Build 46) – 18.11.2026
+- **Vibration (Android) neu:** eigenes natives Plugin `KwVibePlugin` (in `MainActivity` registriert). Vibriert ausdrücklich als Spiel-/Medien-Vibration (`VibrationAttributes.USAGE_MEDIA` ab Android 13, sonst `AudioAttributes.USAGE_GAME`) mit voller Stärke; bei Combos/Gewinnen zusätzlich System-Haptik. Hintergrund: Das Standard-Plugin vibriert ohne Verwendungszweck – viele Geräte dämpfen oder ignorieren das. Fallback auf das Standard-Plugin bleibt
+- `VIBRATE`-Berechtigung ausdrücklich im App-Manifest
+- **Einstellungen → „📳 Vibration testen“:** vibriert kräftig und zeigt, was das Gerät meldet (Android-Version, Hersteller, Klingelmodus, Stärkeregelung) bzw. die Fehlermeldung – zur Fehlersuche
 ## v1.27.0 (Build 45) – 17.11.2026
 - **Kippi**, die KIPPWERK-Fliege, ist jetzt der Wegbegleiter:
   - Tutorial: Kippi (mit Bild) erklärt die drei Schritte („Hi, ich bin Kippi! …“), Kopfzeile „KIPPI · SCHRITT 1 / 3“

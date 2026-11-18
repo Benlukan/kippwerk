@@ -42,6 +42,7 @@
 
     <!-- Permissions -->
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Erinnerung nutzt nur ungefähre Zeitplanung: exakte Wecker-Berechtigung des Plugins entfernen (Play-Richtlinie) -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" tools:node="remove" />

@@ -20,7 +20,7 @@
 `KIPPWERK – Kipp-Puzzle`
 
 **Kurzbeschreibung (max. 80):**
-`Kippe das Feld, verbinde Farben, löse Ketten aus – mit täglichem Tagesspiel.`
+`Kippe das Feld, verbinde Farben, löse Ketten aus – mit Tagesspiel und Kippi!`
 
 **Vollständige Beschreibung:**
 ```
@@ -36,8 +36,7 @@ Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat da
 Knacke Etappen mit klaren Zielen – von entspannt bis knallhart, mit Boss am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Etappe.
 
 TAGESSPIEL & SERIEN
-Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
-Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden.
+Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden. Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
 
 MIT KIPPI 🪰
 Kippi, die kleine KIPPWERK-Fliege, begleitet dich: Sie zeigt dir am Anfang, wie alles geht, schaut beim Spielen vorbei, feiert deine Combos und erinnert dich ans Tagesspiel.

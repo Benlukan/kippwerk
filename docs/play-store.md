@@ -71,7 +71,7 @@ Play Console → Haupteintrag → *Übersetzungen verwalten* → **Englisch (USA
 **App name:** `KIPPWERK – Tilt Puzzle`
 
 **Short description (max. 80):**
-`Tilt the board, match colors, trigger chain reactions – with a daily game.`
+`Tilt the board, match colors, trigger chain reactions – daily game & Kippi!`
 
 **Full description:**
 ```
@@ -96,6 +96,7 @@ ENDLESS MODE
 Play on 5×5 to 8×8 boards until the board is full. Every level brings new colors, prism jokers, rocks and more pace.
 
 • Global leaderboards and cloud save via Google Play Games (optional)
+• Leaderboard with best combo, moves and stones cleared
 • Fair ads: optional videos for a rescue, never mid-game
 • No account needed, plays offline
 • Guided tutorial with Kippi, music that speeds up as you level, punchy combo effects

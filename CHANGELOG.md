@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.29.0 (Build 49) – 19.11.2026
+- **Google Play Games aktiv (Android):** Projekt-ID 414239949537 in `games-ids.xml`, fünf Bestenlisten in `GAMES_CONFIG.android` eingetragen und eingeschaltet – Endless 5×5/6×6/7×7/8×8 (Obergrenze 5 000 000) und Daily game (100 000), Manipulationsschutz an
+- Anmeldung mit Play Games, weltweite Ranglisten im Spiel, Spielstand in der Cloud („Gespeicherte Spiele“)
+- Ergebnisse gehen weiterhin nur nach erfolgreicher Prüfung durch den Ranglisten-Schutz raus; ohne Anmeldung bleiben sie signiert in der Warteschlange
+- Doku: `docs/game-services.md` auf den Modulaufbau (`src/js/app/10-play-games.js`) und die eingetragenen IDs aktualisiert
 ## v1.28.1 (Build 48) – 18.11.2026
 - **Kippi verdeckt nichts mehr:** Landeplätze werden geprüft – nie über Spielfeld, Punkte-Anzeigen, Knöpfen, Info-Boxen oder Steuerkreuz. Bevorzugt auf Box-Oberkanten mit freiem Platz darüber, über der Fußzeile oder (PC/Tablet) neben dem Spielfeld; gibt es keinen freien Platz, landet er auf dem KIPPWERK-Schriftzug. Geprüft auf 360×640 bis 1280×720 (vorher saß er z. B. über „Als Nächstes“)
 - Kippi nutzt einen eigenen Zufall (beeinflusst die Spiel-Zufallsfolge nicht mehr); „Abgeschüttelt“ etwas seltener

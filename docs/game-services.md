@@ -3,7 +3,8 @@
 Ab v1.15.0 nutzt KIPPWERK statt eines eigenen Servers die Ranglisten von **Google Play Games** (Android) und **Apple Game Center** (iOS). Plugin: `@idleflowgames/capacitor-play-games` (MIT).
 
 - Android und iPhone haben **getrennte** Ranglisten, die Web-Version hat nur die lokale Bestenliste.
-- Solange in `www/index.html` → `GAMES_CONFIG` `on:false` steht, ist alles ausgeblendet.
+- Konfiguration in `src/js/app/10-play-games.js` → `GAMES_CONFIG` (danach `npm run build`). Steht dort `on:false`, ist alles ausgeblendet.
+- **Stand v1.29.0:** Android aktiv. Projekt-ID `414239949537`. Bestenlisten: Endless 5×5 `CgkI4YWAlYcMEAIQAQ`, 6×6 `CgkI4YWAlYcMEAIQAg`, 7×7 `CgkI4YWAlYcMEAIQAw`, 8×8 `CgkI4YWAlYcMEAIQBA`, Daily game `CgkI4YWAlYcMEAIQBQ`. Standardsprache der Bestenlisten in der Play Console: Englisch (en-US), deutsche Namen als Übersetzung. iOS noch aus.
 - Die Plattformen behalten pro Spieler automatisch den **Bestwert** und zeigen von sich aus **Heute / Woche / Gesamt**.
   Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (Tageswechsel ca. 9:00 Uhr deutscher Zeit). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
 
@@ -58,14 +59,14 @@ Game Center (iOS): je Rangliste **Wertebereich** 1–5 000 000 bzw. 1–100 000 
 7. **Tester** → deine Google-Adresse (und die deiner Tester) eintragen. Bis zur Veröffentlichung funktioniert die Anmeldung nur für Tester.
 8. Die **Projekt-ID** (Ziffern, oben auf der Konfigurationsseite) und die 5 Ranglisten-IDs an Claude schicken bzw. selbst eintragen:
    - `android/app/src/main/res/values/games-ids.xml` → `game_services_project_id`
-   - `www/index.html` → `GAMES_CONFIG.android` → IDs eintragen, `on:true`
+   - `src/js/app/10-play-games.js` → `GAMES_CONFIG.android` → IDs eintragen, `on:true`, dann `npm run build`
 9. Vor dem öffentlichen Start: Play Games-Dienste → **Überprüfen und veröffentlichen**.
 
 ## iOS – App Store Connect (braucht Apple Developer Program, 99 €/Jahr)
 1. App in App Store Connect anlegen (Bundle-ID `de.daviddigital.kippwerk`).
 2. **Funktionen → Game Center** → 5 **klassische Ranglisten** mit genau den iOS-IDs aus der Tabelle anlegen (Score-Format „Ganzzahl“, Sortierung „hoch nach niedrig“), je eine deutsche Lokalisierung.
 3. Unter Certificates, IDs & Profiles für die App-ID **Game Center** und **iCloud** aktivieren und den iCloud-Container `iCloud.de.daviddigital.kippwerk` anlegen. Die Berechtigungen (`ios/App/App/App.entitlements`) sind schon im Projekt.
-4. In `www/index.html` → `GAMES_CONFIG.ios` `on:true` setzen.
+4. In `src/js/app/10-play-games.js` → `GAMES_CONFIG.ios` `on:true` setzen, dann `npm run build`.
 5. Für einen installierbaren iOS-Build braucht der Workflow noch Signatur-Zertifikat und Provisioning Profile (bisher baut er unsigniert).
 
 ## Datenschutz

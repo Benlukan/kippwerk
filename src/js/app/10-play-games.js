@@ -1,8 +1,8 @@
 // ---------- Weltweite Ranglisten: Google Play Games (Android) / Game Center (iOS) ----------
-// IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
+// Android: Projekt-ID 414239949537 (games-ids.xml). IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:false,saves:true,e5:'',e6:'',e7:'',e8:'',daily:''},
+  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ'},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 const Games=(()=>{
   const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';

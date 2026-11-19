@@ -8,6 +8,12 @@ Ab v1.15.0 nutzt KIPPWERK statt eines eigenen Servers die Ranglisten von **Googl
 - Die Plattformen behalten pro Spieler automatisch den **Bestwert** und zeigen von sich aus **Heute / Woche / Gesamt**.
   Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (Tageswechsel ca. 9:00 Uhr deutscher Zeit). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
 
+## Fehlersuche (ab v1.29.2)
+Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund einer gescheiterten Anmeldung, Warteschlange, eigene Einträge je Bestenliste und die letzten Meldungen.
+- `cancelled` / `not_authenticated` → Konto in **Play Games-Dienste → Tester** fehlt (solange das Projekt nicht veröffentlicht ist) oder SHA-1 passt nicht.
+- `10` / `DEVELOPER_ERROR` → SHA-1 oder Paketname passen nicht zu einem Android-Client.
+- Pro Signatur ein Android-Client nötig: **App-Signaturschlüssel** (Play-Store-Version), **Upload-Schlüssel** `02:62:CF:8A:4D:8E:C4:FA:BD:57:84:1A:95:68:A3:0D:1A:19:5C:74` (KIPPWERK-release.apk), **Debug** `F6:C8:F4:34:6C:29:8F:34:B4:A1:8E:33:03:A0:9F:3D:A0:0E:8A:33` (KIPPWERK.apk).
+
 ## Top 5 im Hauptmenü (ab v1.19.0)
 Lädt die besten 5 der Rangliste „Tagesspiel“ (Zeitraum Heute / Woche / Alle) plus die eigene Platzierung über `loadTopScores` – eine Erweiterung des Plugins per `patches/@idleflowgames+capacitor-play-games+0.3.3.patch` (wird bei `npm install` automatisch angewendet). Bei einem Plugin-Update den Patch prüfen.
 

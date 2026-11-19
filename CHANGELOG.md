@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.29.3 (Build 52) – 19.11.2026
+- **„Ranglisten prüfen“ zeigt den Grund einer gescheiterten Anmeldung** (Rückmeldung von Google, z. B. `cancelled`, `not_authenticated`, `10: DEVELOPER_ERROR`) samt Hinweis, was zu prüfen ist – Tester-Konto oder Fingerabdruck (SHA-1)
+- Doku `docs/game-services.md`: Abschnitt Fehlersuche, SHA-1 des Upload-Schlüssels ergänzt
 ## v1.29.2 (Build 51) – 19.11.2026
 - **Einstellungen → „🌍 Ranglisten prüfen“** (nur mit Play Games): zeigt Anmeldestatus, Warteschlange, je Bestenliste den eigenen sichtbaren Bestwert/Platz (öffentliche Liste, Zeitraum „Gesamt“) und die letzten 8 Meldungen mit Ergebnis – „gesendet“, Fehlermeldung von Google oder „⛔ Grund“, wenn der Ranglisten-Schutz ein Ergebnis zurückgehalten hat
 - Fehler beim Senden wurden bisher still verschluckt; sie werden jetzt protokolliert (`kippwerk_games_log`), das Ergebnis bleibt wie bisher in der Warteschlange und wird später erneut gesendet

@@ -15,7 +15,8 @@ const Games=(()=>{
   const note=(key,score,what)=>{try{const l=JSON.parse(localStorage.getItem(LK)||'[]');const d=new Date();
       l.unshift({t:d.toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'}),k:key,s:score,w:String(what).slice(0,140)});
       localStorage.setItem(LK,JSON.stringify(l.slice(0,8)))}catch(e){}};
-  let ready=null,signedIn=false;
+  let ready=null,signedIn=false,why='';   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
+  const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
   const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
       for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===Audit.sign(k,v.s,playerId))r[k]=v.s}   // nur unveränderte, signierte Werte
       return r}catch(e){return{}}};
@@ -23,7 +24,7 @@ const Games=(()=>{
   function init(){if(!available)return Promise.resolve(false);
     if(!ready)ready=(async()=>{try{await P.initialize();
         try{P.addListener('signInStateChanged',r=>{const was=signedIn;signedIn=!!(r&&r.signedIn);if(signedIn){flush();if(!was)afterSignIn()}onChange()})}catch(e){}
-        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);if(signedIn){flush();afterSignIn()}}catch(e){signedIn=false}
+        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);why=signedIn?'':'still: '+((r&&r.reason)||'?');if(signedIn){flush();afterSignIn()}}catch(e){signedIn=false;why='still: '+errTxt(e)}
       onChange();return signedIn})();
     return ready}
   let onChange=()=>{};
@@ -33,13 +34,17 @@ const Games=(()=>{
       try{await P.submitScore({leaderboardId:id,score:o[k]});note(k,o[k],'ok');delete o[k]}catch(e){note(k,o[k],'⚠ '+(e&&e.message||e))}}
     savePend(o)}
   async function signIn(){if(!available)return false;await init();if(signedIn)return true;
-    try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn)}catch(e){signedIn=false}
+    try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn);why=signedIn?'':((r&&r.reason)||'?')}catch(e){signedIn=false;why=errTxt(e)}
     if(signedIn){flush();afterSignIn()}onChange();return signedIn}
   const NAMES={e5:'5×5',e6:'6×6',e7:'7×7',e8:'8×8',daily:'Tagesspiel'};
   async function diag(){const T=I18N.tr,out=[];
     out.push(label+': '+(available?(signedIn?T('angemeldet'):T('nicht angemeldet')):T('ausgeschaltet')));
     if(!available)return out.join('\n');
     if(!signedIn){await signIn();out[0]=label+': '+(signedIn?T('angemeldet'):T('nicht angemeldet'))}
+    if(!signedIn){out.push(T('Grund')+': '+(why||'?'));
+      const h={cancelled:'Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht',not_authenticated:'Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen',unavailable:'Google Play-Dienste fehlen oder sind veraltet'};
+      const k=Object.keys(h).find(x=>String(why).includes(x));if(k)out.push('→ '+T(h[k]))
+      else if(/DEVELOPER_ERROR|10:|SIGN_IN_REQUIRED|4:/.test(why))out.push('→ '+T('Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console'))}
     if(signedIn)await flush();
     const p=pend(),pk=Object.keys(p);out.push(T('Warteschlange')+': '+(pk.length?pk.map(k=>T(NAMES[k])+' '+p[k]).join(', '):T('leer')));
     if(signedIn)for(const k of ['e5','e6','e7','e8','daily']){if(!cfg[k])continue;

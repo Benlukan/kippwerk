@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.29.1 (Build 50) – 19.11.2026
+- **Play Console: Geräte-Sperre behoben.** Durch `screenOrientation="portrait"` galt Hochformat als Pflicht-Hardware (`android.hardware.screen.portrait`) – Google Play blockiert damit das Einreichen. Jetzt im Manifest als `required="false"` erklärt; die App bleibt im Hochformat
 ## v1.29.0 (Build 49) – 19.11.2026
 - **Google Play Games aktiv (Android):** Projekt-ID 414239949537 in `games-ids.xml`, fünf Bestenlisten in `GAMES_CONFIG.android` eingetragen und eingeschaltet – Endless 5×5/6×6/7×7/8×8 (Obergrenze 5 000 000) und Daily game (100 000), Manipulationsschutz an
 - Anmeldung mit Play Games, weltweite Ranglisten im Spiel, Spielstand in der Cloud („Gespeicherte Spiele“)

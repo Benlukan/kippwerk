@@ -42,6 +42,8 @@
 
     <!-- Permissions -->
 
+    <!-- Hochformat ist gewünscht, aber keine Pflicht-Hardware: sonst sperrt Google Play Tablets, Chromebooks, PC und XR aus -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Erinnerung nutzt nur ungefähre Zeitplanung: exakte Wecker-Berechtigung des Plugins entfernen (Play-Richtlinie) -->

@@ -58,7 +58,7 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score);else console.warn('Ergebnis nicht gemeldet:',Audit.reason);
+      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score);else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
       if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
@@ -78,7 +78,7 @@ function finishGame(reason){
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score);else console.warn('Ergebnis nicht gemeldet:',Audit.reason);
+    if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score);else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}
     if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');

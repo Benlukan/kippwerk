@@ -89,6 +89,7 @@ $('setMusicVol').oninput=e=>{settings.musicVol=+e.target.value;settings.music=se
 $('setMusicVol').onchange=()=>saveSettings();
 $('setTilt').onchange=e=>{settings.tilt=e.target.checked;saveSettings();Tilt.wake()};
 $('vibeTest').onclick=testVibration;
+$('gamesTest').onclick=async()=>{const o=$('gamesDiag');o.textContent='…';try{o.textContent=await Games.diag()}catch(e){o.textContent='⚠ '+(e&&e.message||e)}renderGamesRow()};
 $('setFly').onchange=e=>{settings.fly=e.target.checked;saveSettings();if(!settings.fly)Fly.away(true)};
 $('setSymbols').onchange=e=>{settings.symbols=e.target.checked;saveSettings();applySettings()};
 document.querySelectorAll('.seg').forEach(sg=>sg.onclick=e=>{const b=e.target.closest('button');if(!b)return;
@@ -111,7 +112,7 @@ function armReset(id,label,fn){
 $('resetScores').onclick=()=>armReset('resetScores','🏆 Bestenliste löschen',()=>{scores={endless:[],daily:[]};saveScores();best=0;try{localStorage.removeItem('kippwerk_best')}catch(e){};render()});
 $('resetLevels').onclick=()=>armReset('resetLevels','🗺 Level-Fortschritt löschen',()=>{LP={};saveLP()});
 $('privacyBtn2').onclick=()=>Ads.privacy();
-function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';
+function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';$('gamesDiagRow').style.display=Games.available?'':'none';
   $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?('✓ angemeldet'+(Games.savesOn?' · ☁ '+(Cloud.last||'…'):'')):'Anmelden'}
 $('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
 Games.onChange=()=>{try{renderGamesRow();renderGamesBtn();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};

@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.29.2','Einstellungen → „Ranglisten prüfen“: zeigt, ob deine Ergebnisse bei Google Play Games angekommen sind'],
  ['1.29.1','Auch auf Tablets, Chromebooks und PC über Google Play installierbar'],
  ['1.29.0','Weltweite Bestenlisten über Google Play Games: Endlos 5×5 bis 8×8 und Tagesspiel, dazu Spielstand-Sicherung in der Cloud'],
  ['1.28.1','Kippi landet nur noch dort, wo er nichts verdeckt – Spielfeld, Anzeigen und Knöpfe bleiben immer frei'],

@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.29.2 (Build 51) – 19.11.2026
+- **Einstellungen → „🌍 Ranglisten prüfen“** (nur mit Play Games): zeigt Anmeldestatus, Warteschlange, je Bestenliste den eigenen sichtbaren Bestwert/Platz (öffentliche Liste, Zeitraum „Gesamt“) und die letzten 8 Meldungen mit Ergebnis – „gesendet“, Fehlermeldung von Google oder „⛔ Grund“, wenn der Ranglisten-Schutz ein Ergebnis zurückgehalten hat
+- Fehler beim Senden wurden bisher still verschluckt; sie werden jetzt protokolliert (`kippwerk_games_log`), das Ergebnis bleibt wie bisher in der Warteschlange und wird später erneut gesendet
+- Hinweis: Etappen (Level-Modus) werden nicht an Bestenlisten gemeldet – nur Endlos (bei „Feld voll“) und Tagesspiel
 ## v1.29.1 (Build 50) – 19.11.2026
 - **Play Console: Geräte-Sperre behoben.** Durch `screenOrientation="portrait"` galt Hochformat als Pflicht-Hardware (`android.hardware.screen.portrait`) – Google Play blockiert damit das Einreichen. Jetzt im Manifest als `required="false"` erklärt; die App bleibt im Hochformat
 ## v1.29.0 (Build 49) – 19.11.2026

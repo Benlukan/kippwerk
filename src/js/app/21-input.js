@@ -72,7 +72,7 @@ function renderSettings(){
   $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
   $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setFly').checked=settings.fly!==false;$('setSymbols').checked=settings.symbols;
-  document.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
+  document.querySelectorAll('.seg[data-key]').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
   $('privacyBtn2').style.display=Ads.privacyRequired?'':'none';
   renderGamesRow();
   $('resetScores').textContent='🏆 Bestenliste löschen';$('resetLevels').textContent='🗺 Level-Fortschritt löschen';resetArm={};

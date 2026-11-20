@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.30.1','Top 5 im Hauptmenü jetzt auch für Endlos (Feldgröße wie im Menü) – und der Hinweis, wann bei Google ein neuer Tag beginnt'],
  ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
  ['1.29.3','„Ranglisten prüfen“ zeigt jetzt auch, warum die Anmeldung bei Google Play Games scheitert'],
  ['1.29.2','Einstellungen → „Ranglisten prüfen“: zeigt, ob deine Ergebnisse bei Google Play Games angekommen sind'],
@@ -103,7 +104,7 @@ function renderOnline(){
   const k=scoresTab==='endless'?'e'+scoresSize:'daily',sp=scoresTab==='endless'?endlessSpan:scoresPeriod,ck=k+'|'+sp;
   $('periodTabs').style.display='';$('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===sp));
   $('dailyStats').style.display='none';
-  $('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp]);$('periodInfo').style.display='';
+  const ds=sp==='day'&&googleDayStart();$('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp])+(ds?' · '+I18N.tr('Neuer Tag ab')+' '+ds:'');$('periodInfo').style.display='';
   const c=onlineCache[ck];
   if(c)drawOnline(c.d);else{$('scoresTable').innerHTML='';$('scoresEmpty').style.display='';$('scoresEmpty').textContent=I18N.tr('⏳ Bestenliste wird geladen …')}
   if(!c||Date.now()-c.t>30000){const my=++onlineReq;

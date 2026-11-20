@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.30.1 (Build 54) – 20.11.2026
+- **Top 5 im Hauptmenü auch für Endlos:** Umschalter „Tagesspiel | Endlos N×N“ (Feldgröße folgt dem Endlos-Feld im Menü), Auswahl wird gemerkt; Heute/Woche/Alle wie bisher
+- „Ganze Rangliste ›“ öffnet jetzt die passende Liste direkt in 🏆 (gleiche Feldgröße, gleicher Zeitraum) statt der Google-Ansicht
+- **Hinweis „Neuer Tag ab 09:00“:** Google wertet „Heute“ nach Pazifikzeit; die App zeigt, ab wann bei dir ein neuer Ranglisten-Tag beginnt (Top 5 und 🏆)
+- Behoben: Das Aktualisieren der Einstellungs-Schalter konnte die Markierung der Top-5-Auswahl entfernen
 ## v1.30.0 (Build 53) – 20.11.2026
 - **Eine Bestenliste statt zwei:** Mit Google Play Games zeigt 🏆 direkt die **weltweite** Rangliste im Spiel – Endlos je Feldgröße und Tagesspiel, jeweils **Heute / Diese Woche / Gesamt**, bis Platz 25 plus dein eigener Platz (mit „⋯“, falls weiter unten). Der Knopf „Weltweit“ entfällt
 - **Details auch online:** Level, beste Combo, Züge und abgeräumte Steine werden als Score-Tag mitgesendet (`c…m…s…l…`) und in der Liste angezeigt. Dafür erweitert der Plugin-Patch `submitScore` um `scoreTag` und `loadTopScores` um `tag`

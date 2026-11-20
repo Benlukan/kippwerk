@@ -1,8 +1,13 @@
-// ---------- Top 5 des Tagesspiels im Hauptmenü (Play Games / Game Center) ----------
+// ---------- Top 5 im Hauptmenü: Tagesspiel oder Endlos (Feldgröße wie im Menü) – Play Games / Game Center ----------
+// Google-„Heute“ wechselt um Mitternacht Pazifikzeit → lokale Uhrzeit dafür:
+function googleDayStart(){try{const now=new Date(),pt=new Date(now.toLocaleString('en-US',{timeZone:'America/Los_Angeles'})),m=new Date(pt);m.setHours(24,0,0,0);
+  return new Date(m.getTime()+(now-pt)).toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
 const Top5=(()=>{
-  const SK='kippwerk_top5span',cache={};let span='day';try{span=localStorage.getItem(SK)||'day'}catch(e){}
+  const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
+  const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
+  const ck=sp=>key()+'|'+sp;
   const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
@@ -15,14 +20,21 @@ const Top5=(()=>{
   async function refresh(force){
     const box=$('homeTop5');if(!Games.available){box.style.display='none';return}
     box.style.display='';$('top5Seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===span));
+    const n=+settings.size||6;$('top5Endless').textContent=I18N.tr('Endlos')+' '+n+'×'+n;
+    $('top5Board').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.b===board));
+    const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('Neuer Tag ab')+' '+t:'';
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
-    const c=cache[span];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
+    const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
     if(!c)draw(null);else draw(c.d);
-    const want=span;let d;try{d=await Games.top('daily',want,5)}catch(e){d={err:1}}
-    if(!d.err){cache[want]={t:Date.now(),d};Awards.note(want,d.me)}if(want===span)draw(d);
-    for(const other of ['day','week'])if(other!==want&&!(cache[other]&&Date.now()-cache[other].t<60000))Games.top('daily',other,5).then(o=>{cache[other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
+    const want=span,wk=key(),daily=wk==='daily';let d;try{d=await Games.top(wk,want,5)}catch(e){d={err:1}}
+    if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
+    // Auszeichnungen (Tagesspiel Heute/Woche) auch dann aktuell halten, wenn gerade Endlos angezeigt wird
+    for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))Games.top('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
   $('top5Seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();span=b.dataset.p;try{localStorage.setItem(SK,span)}catch(x){}refresh()};
-  const open=async()=>{if(!Games.signedIn){if(await Games.signIn())refresh(true);return}Games.show('daily')};
+  $('top5Board').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();board=b.dataset.b;try{localStorage.setItem(BK,board)}catch(x){}refresh()};
+  // „Ganze Rangliste“ öffnet dieselbe Liste in 🏆 (gleiche Liste, gleicher Zeitraum)
+  const open=async()=>{if(!Games.signedIn){if(await Games.signIn())refresh(true);return}
+    openScores(board==='daily'?'daily':'endless');if(board==='daily')scoresPeriod=span;else endlessSpan=span;scoresSize=+settings.size||6;renderScores()};
   $('top5List').onclick=open;$('top5More').onclick=open;
   return{refresh,get span(){return span},clear(){for(const k in cache)delete cache[k]}};
 })();

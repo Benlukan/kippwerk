@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.30.0 (Build 53) – 20.11.2026
+- **Eine Bestenliste statt zwei:** Mit Google Play Games zeigt 🏆 direkt die **weltweite** Rangliste im Spiel – Endlos je Feldgröße und Tagesspiel, jeweils **Heute / Diese Woche / Gesamt**, bis Platz 25 plus dein eigener Platz (mit „⋯“, falls weiter unten). Der Knopf „Weltweit“ entfällt
+- **Details auch online:** Level, beste Combo, Züge und abgeräumte Steine werden als Score-Tag mitgesendet (`c…m…s…l…`) und in der Liste angezeigt. Dafür erweitert der Plugin-Patch `submitScore` um `scoreTag` und `loadTopScores` um `tag`
+- **Spielername aus Google:** angemeldet übernimmt KIPPWERK den Namen aus dem Play-Games-Profil; das Namensfeld in ⚙ ist dann gesperrt, die Namensabfrage nach dem Spiel entfällt
+- Ohne Anmeldung (bzw. Web-Version) bleibt die Liste dieses Geräts – mit Knopf „🎮 Mit Google Play Games anmelden“. Ist Google nicht erreichbar, wird automatisch die Geräte-Liste gezeigt
+- Warteschlange speichert die Details mit; bisher wartende Ergebnisse (z. B. aus v1.29) bleiben gültig
+- Hilfe (DE/EN) angepasst
 ## v1.29.3 (Build 52) – 19.11.2026
 - **„Ranglisten prüfen“ zeigt den Grund einer gescheiterten Anmeldung** (Rückmeldung von Google, z. B. `cancelled`, `not_authenticated`, `10: DEVELOPER_ERROR`) samt Hinweis, was zu prüfen ist – Tester-Konto oder Fingerabdruck (SHA-1)
 - Doku `docs/game-services.md`: Abschnitt Fehlersuche, SHA-1 des Upload-Schlüssels ergänzt

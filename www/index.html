@@ -200,6 +200,7 @@ h1 span{color:var(--c3)}
 .seg button.on{background:var(--line);color:var(--text)}
 .tile.rock .in{background:repeating-linear-gradient(135deg,#5b6079 0 7px,#4a4e66 7px 14px);box-shadow:inset 0 -5px 0 rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.15)}
 body.nosym .tile:not(.wild) .in,body.nosym .mini:not(.w),body.nosym .chip{color:transparent!important}
+#setName[readonly]{opacity:.75;cursor:default}
 /* Designs (Serien-Belohnungen) – Farben nur, wenn kein Farbschwäche-Schema aktiv ist */
 body.th-neon{--bg:#05050c;--bg2:#1a0d33}
 body.th-neon:not(.pal-cb){--c0:#ff2e63;--c1:#ffe600;--c2:#00ff9d;--c3:#00d4ff;--c4:#c84bff}
@@ -657,7 +658,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
-          <p><b>🌍 Weltweit (App):</b> Unter der Bestenliste öffnet „Weltweit“ die Rangliste von <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) – mit Heute, Woche und Gesamt. Dafür meldest du dich einmal mit deinem Google- bzw. Apple-Konto an (in ⚙ oder beim ersten Öffnen). Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden dann automatisch eingetragen. Android und iPhone haben getrennte Ranglisten.</p>
+          <p><b>🌍 Weltweit (App):</b> Bist du bei <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) angemeldet, zeigt die Bestenliste direkt die <b>weltweite Rangliste</b> – mit Heute, Diese Woche und Gesamt, deinem Platz und Details wie Combo, Züge und Steine. Dein Spielername kommt dann aus deinem Profil. Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden automatisch eingetragen. Ohne Anmeldung (oder offline) siehst du die Ergebnisse auf diesem Gerät. Android und iPhone haben getrennte Ranglisten.</p>
           <p><b>🏆 Top 5 im Menü (App):</b> Bist du bei Google Play Games bzw. Game Center angemeldet, zeigt das Hauptmenü die besten 5 im Tagesspiel – umschaltbar zwischen Heute, Woche und Alle. Bist du nicht unter den ersten 5, steht deine Platzierung darunter. Antippen öffnet die ganze Rangliste. (Bei Google beginnt „Heute“ gegen 9 Uhr deutscher Zeit; „Woche“ zeigt das beste Tagesspiel der Woche.)</p>
           <p><b>🎁 Belohnungen für die Rangliste:</b> Wer im Tagesspiel vorne liegt, bekommt nach Ablauf des Tages bzw. der Woche eine Belohnung: <b>Tagessieg</b> 👑 +1 ❤ · Tag Top 3 🥈 und Top 10 ⭐ als Abzeichen · <b>Wochensieg</b> 🏆 +3 ❤ · Woche Top 3 🥇 +1 ❤ · Woche Top 10 🎖. Gewertet wird der Platz, den die App zuletzt gesehen hat – öffne die App also ruhig noch einmal am Abend. Deine Erfolge stehen auf der 🔥 Serien-Seite.</p>
           <p><b>☁ Spielstand auf mehreren Geräten:</b> Bist du bei Google Play Games bzw. Game Center angemeldet, speichert KIPPWERK Level, Sterne, Rekorde, Tagesspiele, Serie, Name und Einstellungen in deinem Konto. Auf einem anderen Gerät mit demselben Konto (Android ↔ Android, iPhone ↔ iPad) wird alles automatisch übernommen – dabei zählt immer das Bessere, nichts geht verloren. Auf dem iPhone muss dafür iCloud eingeschaltet sein.</p>
@@ -700,7 +701,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.29.3 · Build 52 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.30.0 · Build 53 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -780,7 +781,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','Weltweit':'Worldwide','Diese Woche':'This week','Gesamt':'All time','🎮 Mit Google Play Games anmelden – weltweite Bestenliste':'🎮 Sign in with Google Play Games – worldwide leaderboard','⏳ Bestenliste wird geladen …':'⏳ Loading leaderboard …','Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.':'Worldwide leaderboard not reachable right now – showing results on this device.','Heute noch keine Einträge – hol dir Platz 1!':'No entries today yet – grab first place!','Diese Woche noch keine Einträge – hol dir Platz 1!':'No entries this week yet – grab first place!','Noch keine Einträge – hol dir Platz 1!':'No entries yet – grab first place!','Name aus deinem Google Play Games-Profil':'Name from your Google Play Games profile','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
   'Bsss! Das neue Tagesspiel ist da – ich hab schon reingeschaut 👀':'Bzzz! The new daily game is here – I already took a peek 👀',
   'Kippi hier! Heute warten neue Steine auf dich – kommst du kippen? 🧩':'Kippi here! New stones are waiting for you today – coming to tilt? 🧩',
   'Bsss… ich sitz schon am Spielfeldrand. Fehlt nur noch du! 😉':'Bzzz… I’m already sitting on the board’s edge. Just missing you! 😉',
@@ -915,7 +916,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss.</li>
 <li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster.</li></ul>
 <p><b>🏆 Leaderboard:</b> Top 10 in Endless per board size. The <b>daily game</b> has three lists: <b>Today</b> (today's game), <b>Week</b> (points from Monday to Sunday added up – every day played counts) and <b>All-time best</b> (the best daily games ever) – each with your <b>player name</b>. Your name and your unique <b>player ID</b> (e.g. KW-1A2B-3C4D) are in ⚙. The short code after the name (#1A2B) tells players with the same name apart.</p>
-<p><b>🌍 Global (app):</b> Below the leaderboard, “Global” opens the leaderboard of <b>Google Play Games</b> (Android) or <b>Game Center</b> (iPhone) – with today, week and all time. Sign in once with your Google or Apple account (in ⚙ or on first launch). Your best Endless rounds per board size and your counted daily game are then submitted automatically. Android and iPhone have separate leaderboards.</p>
+<p><b>🌍 Worldwide (app):</b> When you are signed in to <b>Google Play Games</b> (Android) or <b>Game Center</b> (iPhone), the leaderboard shows the <b>worldwide ranking</b> right away – today, this week and all time, with your rank and details like combo, moves and stones. Your player name then comes from your profile. Your best Endless rounds per board size and your scored daily game are entered automatically. Without signing in (or offline) you see the results on this device. Android and iPhone have separate leaderboards.</p>
 <p><b>🏆 Top 5 in the menu (app):</b> When you're signed in to Google Play Games or Game Center, the main menu shows the top 5 of the daily game – switchable between Today, Week and All. If you're not in the top 5, your rank is shown below. Tap to open the full leaderboard. (On Google, “Today” resets at midnight Pacific Time; “Week” shows the best daily game of the week.)</p>
 <p><b>🎁 Leaderboard rewards:</b> Top daily-game players get a reward when the day or week ends: <b>daily win</b> 👑 +1 ❤ · day top 3 🥈 and top 10 ⭐ as badges · <b>weekly win</b> 🏆 +3 ❤ · week top 3 🥇 +1 ❤ · week top 10 🎖. The rank the app saw last counts – so feel free to open the app again in the evening. Your achievements are on the 🔥 streak page.</p>
 <p><b>☁ Progress on several devices:</b> When you're signed in to Google Play Games or Game Center, KIPPWERK saves levels, stars, records, daily games, streak, name and settings to your account. On another device with the same account (Android ↔ Android, iPhone ↔ iPad) everything is restored automatically – the better value always wins, nothing gets lost. On iPhone, iCloud must be turned on.</p>
@@ -933,7 +934,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1231,6 +1232,9 @@ const Audit=(()=>{
 const GAMES_CONFIG={
   android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ'},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
+// Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen): c=Combo m=Züge s=Steine l=Level
+const ScoreTag={enc:x=>['c'+(x.chain|0),'m'+(x.moves|0),'s'+(x.cleared|0)].concat(x.level?['l'+(x.level|0)]:[]).join(''),
+  dec(t){const r={},m=String(t||'').match(/[cmsl]\d+/g)||[];for(const p of m){const v=+p.slice(1);({c:()=>r.chain=v,m:()=>r.moves=v,s:()=>r.cleared=v,l:()=>r.level=v})[p[0]]()}return r}};
 const Games=(()=>{
   const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';
   const cfg=GAMES_CONFIG[plat];
@@ -1242,26 +1246,28 @@ const Games=(()=>{
   const note=(key,score,what)=>{try{const l=JSON.parse(localStorage.getItem(LK)||'[]');const d=new Date();
       l.unshift({t:d.toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'}),k:key,s:score,w:String(what).slice(0,140)});
       localStorage.setItem(LK,JSON.stringify(l.slice(0,8)))}catch(e){}};
-  let ready=null,signedIn=false,why='';   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
+  let ready=null,signedIn=false,why='',me=null;   // me = {id,name} aus dem Play-Games-Profil   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
+  const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
   const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
-      for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===Audit.sign(k,v.s,playerId))r[k]=v.s}   // nur unveränderte, signierte Werte
+      for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===sig(k,v.s,v.t))r[k]={s:v.s,t:v.t||''}}   // nur unveränderte, signierte Werte
       return r}catch(e){return{}}};
-  const savePend=o=>{try{const w={};for(const k in o)w[k]={s:o[k],h:Audit.sign(k,o[k],playerId)};localStorage.setItem(PK,JSON.stringify(w))}catch(e){}};
+  const savePend=o=>{try{const w={};for(const k in o)w[k]={s:o[k].s,t:o[k].t||'',h:sig(k,o[k].s,o[k].t)};localStorage.setItem(PK,JSON.stringify(w))}catch(e){}};
   function init(){if(!available)return Promise.resolve(false);
     if(!ready)ready=(async()=>{try{await P.initialize();
-        try{P.addListener('signInStateChanged',r=>{const was=signedIn;signedIn=!!(r&&r.signedIn);if(signedIn){flush();if(!was)afterSignIn()}onChange()})}catch(e){}
-        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);why=signedIn?'':'still: '+((r&&r.reason)||'?');if(signedIn){flush();afterSignIn()}}catch(e){signedIn=false;why='still: '+errTxt(e)}
+        try{P.addListener('signInStateChanged',r=>{const was=signedIn;signedIn=!!(r&&r.signedIn);takePlayer(r);if(signedIn){flush();if(!was)afterSignIn()}onChange()})}catch(e){}
+        const r=await P.signIn({silent:true});signedIn=!!(r&&r.signedIn);takePlayer(r);why=signedIn?'':'still: '+((r&&r.reason)||'?');if(signedIn){flush();afterSignIn()}}catch(e){signedIn=false;why='still: '+errTxt(e)}
       onChange();return signedIn})();
     return ready}
   let onChange=()=>{};
+  const takePlayer=r=>{const p=r&&r.player;if(p&&(p.displayName||p.playerId))me={id:p.playerId||'',name:String(p.displayName||'').trim()}};
   const afterSignIn=()=>{try{if(typeof Cloud!=='undefined')setTimeout(()=>Cloud.sync(),300)}catch(e){}};
   async function flush(){if(!signedIn)return;const o=pend();
     for(const k of Object.keys(o)){const id=cfg[k];if(!id){delete o[k];continue}
-      try{await P.submitScore({leaderboardId:id,score:o[k]});note(k,o[k],'ok');delete o[k]}catch(e){note(k,o[k],'⚠ '+(e&&e.message||e))}}
+      const x=o[k];try{await P.submitScore(x.t?{leaderboardId:id,score:x.s,scoreTag:x.t}:{leaderboardId:id,score:x.s});note(k,x.s,'ok');delete o[k]}catch(e){note(k,x.s,'⚠ '+(e&&e.message||e))}}
     savePend(o)}
   async function signIn(){if(!available)return false;await init();if(signedIn)return true;
-    try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn);why=signedIn?'':((r&&r.reason)||'?')}catch(e){signedIn=false;why=errTxt(e)}
+    try{const r=await P.signIn({silent:false});signedIn=!!(r&&r.signedIn);takePlayer(r);why=signedIn?'':((r&&r.reason)||'?')}catch(e){signedIn=false;why=errTxt(e)}
     if(signedIn){flush();afterSignIn()}onChange();return signedIn}
   const NAMES={e5:'5×5',e6:'6×6',e7:'7×7',e8:'8×8',daily:'Tagesspiel'};
   async function diag(){const T=I18N.tr,out=[];
@@ -1273,7 +1279,7 @@ const Games=(()=>{
       const k=Object.keys(h).find(x=>String(why).includes(x));if(k)out.push('→ '+T(h[k]))
       else if(/DEVELOPER_ERROR|10:|SIGN_IN_REQUIRED|4:/.test(why))out.push('→ '+T('Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console'))}
     if(signedIn)await flush();
-    const p=pend(),pk=Object.keys(p);out.push(T('Warteschlange')+': '+(pk.length?pk.map(k=>T(NAMES[k])+' '+p[k]).join(', '):T('leer')));
+    const p=pend(),pk=Object.keys(p);out.push(T('Warteschlange')+': '+(pk.length?pk.map(k=>T(NAMES[k])+' '+p[k].s).join(', '):T('leer')));
     if(signedIn)for(const k of ['e5','e6','e7','e8','daily']){if(!cfg[k])continue;
       try{const r=await P.loadTopScores({leaderboardId:cfg[k],timeSpan:'all',maxResults:1});
         out.push(T(NAMES[k])+': '+(r&&r.me?T('dein Bestwert')+' '+r.me.score+' · '+T('Platz')+' '+r.me.rank:T('kein Eintrag sichtbar'))+' · '+((r&&r.entries&&r.entries.length)?T('Liste')+' ✓':T('Liste leer')))}
@@ -1282,9 +1288,12 @@ const Games=(()=>{
     out.push(T('Letzte Meldungen')+':'+(l.length?'':' –'));
     for(const x of l.slice(0,5))out.push('· '+x.t+' '+T(NAMES[x.k]||x.k)+' '+x.s+' → '+(x.w==='ok'?T('gesendet'):x.w));
     return out.join('\n')}
-  return{available,label,plugin:P,note,diag,savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
+  return{available,label,plugin:P,note,diag,get player(){return me},savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
-    submit(key,score){if(!available||!(score>0)||!cfg[key])return;const o=pend();o[key]=Math.max(o[key]||0,Math.round(score));savePend(o);flush().then(()=>{if(key==='daily')try{Top5.clear()}catch(e){}})},
+    // tag = Details für die Anzeige (Combo, Züge, Steine, Level) – siehe ScoreTag
+    submit(key,score,tag){if(!available||!(score>0)||!cfg[key])return;const o=pend(),s=Math.round(score);
+      if(!o[key]||s>=o[key].s)o[key]={s,t:tag||''};savePend(o);try{clearOnline()}catch(e){}
+      flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
     async top(key,span,n){if(!available||!signedIn||!cfg[key])throw new Error('n/a');return await P.loadTopScores({leaderboardId:cfg[key],timeSpan:span,maxResults:n||5})},
     async show(key){if(!available)return;if(!(await signIn()))return false;
       try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
@@ -1925,8 +1934,8 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score);else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
-      if(!playerName){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
+      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
+      if(!playerName&&!(Games.signedIn&&Games.player&&Games.player.name)){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
     const sn=$('streakNote');
@@ -1945,11 +1954,11 @@ function finishGame(reason){
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score);else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}
+    if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}
     if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
     best=bestFor(N);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
-    $('nameRow').style.display=rank?'':'none';
+    $('nameRow').style.display=rank&&!(Games.signedIn&&Games.player&&Games.player.name)?'':'none';
     $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
   }
   setTimeout(()=>$('overOv').classList.remove('hidden'),500);
@@ -2100,8 +2109,13 @@ $('privacyBtn2').onclick=()=>Ads.privacy();
 function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';$('gamesDiagRow').style.display=Games.available?'':'none';
   $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?('✓ angemeldet'+(Games.savesOn?' · ☁ '+(Cloud.last||'…'):'')):'Anmelden'}
 $('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
-Games.onChange=()=>{try{renderGamesRow();renderGamesBtn();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
-$('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
+// Angemeldet bei Play Games: Spielername kommt aus dem Google-Profil (Feld gesperrt)
+function applyGoogleName(){const g=Games.signedIn&&Games.player&&Games.player.name,inp=$('setName');
+  inp.readOnly=!!g;inp.title=g?I18N.tr('Name aus deinem Google Play Games-Profil'):'';
+  if(g&&g!==playerName){playerName=g.slice(0,24);try{localStorage.setItem('kippwerk_name',playerName);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(e){}}
+  if(g)inp.value=playerName}
+Games.onChange=()=>{try{applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
+$('setName').onchange=e=>{if(e.target.readOnly)return;const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
   setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};
@@ -2124,6 +2138,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
  ['1.29.3','„Ranglisten prüfen“ zeigt jetzt auch, warum die Anmeldung bei Google Play Games scheitert'],
  ['1.29.2','Einstellungen → „Ranglisten prüfen“: zeigt, ob deine Ergebnisse bei Google Play Games angekommen sind'],
  ['1.29.1','Auch auf Tablets, Chromebooks und PC über Google Play installierbar'],
@@ -2210,11 +2225,38 @@ $('saveName').onclick=()=>{
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
 let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
-$('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresPeriod=b.dataset.p;renderScores()};
+let endlessSpan='all';   // Zeitraum der weltweiten Endlos-Listen (Tagesspiel nutzt scoresPeriod)
+$('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(scoresTab==='endless')endlessSpan=b.dataset.p;else scoresPeriod=b.dataset.p;renderScores()};
 const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>'Woche '+dayShort(weekOf(dailyNo()))+' – '+dayShort(weekOf(dailyNo())+6),all:()=>'Beste Tagesspiele aller Zeiten'};
-function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available?'':'none';
-  b.textContent='🌍 WELTWEIT · '+(scoresTab==='endless'?scoresSize+'×'+scoresSize:'TAGESSPIEL');b.title=Games.label}
-$('gamesBoard').onclick=()=>Games.show(scoresTab==='endless'?'e'+scoresSize:'daily');
+// Mit Play Games: EINE Bestenliste = die weltweite. Ohne Anmeldung (oder offline/Web): die Liste dieses Geräts.
+const onlineOn=()=>Games.available&&Games.signedIn;
+function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available&&!Games.signedIn?'':'none';
+  b.textContent=I18N.tr('🎮 Mit Google Play Games anmelden – weltweite Bestenliste');b.title=Games.label}
+$('gamesBoard').onclick=async()=>{const b=$('gamesBoard');b.textContent='⏳';await Games.signIn();renderScores()};
+const onlineCache={};let onlineReq=0;
+function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
+const SPAN_TXT={day:'Heute',week:'Diese Woche',all:'Gesamt'};
+function renderOnline(){
+  const k=scoresTab==='endless'?'e'+scoresSize:'daily',sp=scoresTab==='endless'?endlessSpan:scoresPeriod,ck=k+'|'+sp;
+  $('periodTabs').style.display='';$('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===sp));
+  $('dailyStats').style.display='none';
+  $('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp]);$('periodInfo').style.display='';
+  const c=onlineCache[ck];
+  if(c)drawOnline(c.d);else{$('scoresTable').innerHTML='';$('scoresEmpty').style.display='';$('scoresEmpty').textContent=I18N.tr('⏳ Bestenliste wird geladen …')}
+  if(!c||Date.now()-c.t>30000){const my=++onlineReq;
+    Games.top(k,sp,25).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
+      .catch(()=>{if(my===onlineReq&&!c)renderLocal(I18N.tr('Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.'))})}}
+function drawOnline(d){
+  const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
+  const row=(x,mine)=>{const r=x.rank|0,medal=['🥇','🥈','🥉'][r-1]||(r?r+'.':'–'),t=ScoreTag.dec(x.tag);
+    const name=mine?(me&&me.name||x.name||playerName||'Spieler'):(x.name||'Spieler');
+    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:'',''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
+  let h=en.map(x=>row(x,!!mid&&x.playerId===mid)).join('');
+  const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=`<tr class="gap"><td colspan="3">⋯</td></tr>`+row(my,true);
+  $('scoresTable').innerHTML=h;
+  const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
+  $('scoresEmpty').style.display=h?'none':'';
+  $('scoresEmpty').textContent=I18N.tr(sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche noch keine Einträge – hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -2227,8 +2269,12 @@ function metaLine(x,lvl,date){const en=I18N.lang==='en',p=[];
   if(date)p.push(date);return p.join(' · ')}
 function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
-  const t=$('scoresTable'),esc=escH;
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
+  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderGamesBtn();
+  if(onlineOn())renderOnline();else renderLocal()}
+function renderLocal(note){
+  const t=$('scoresTable'),esc=escH;
   $('periodTabs').style.display=scoresTab==='daily'?'':'none';
   $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===scoresPeriod));
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
@@ -2248,6 +2294,7 @@ function renderScores(){
   $('scoresEmpty').style.display=list.length?'none':'';
   $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
   $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';
+  if(note){$('periodInfo').textContent=note+(scoresTab==='daily'?' · '+PERIOD_TXT[scoresPeriod]():'');$('periodInfo').style.display=''}
 }
 function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;

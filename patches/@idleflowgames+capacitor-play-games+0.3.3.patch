@@ -18,7 +18,7 @@ index 0fcbe5c..7533781 100644
  android {
      namespace = "com.idleflowgames.playgames"
 diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
-index 0e973d6..0fa110d 100644
+index 0e973d6..ac46e1c 100644
 --- a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 +++ b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 @@ -1,7 +1,9 @@
@@ -31,7 +31,20 @@ index 0e973d6..0fa110d 100644
  
  internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
      private val client get() = PlayGames.getLeaderboardsClient(activity)
-@@ -20,4 +22,44 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
+@@ -9,7 +11,11 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
+     fun submit(call: PluginCall) {
+         val id = call.getString("leaderboardId") ?: return call.reject("missing leaderboardId")
+         val score = call.getDouble("score") ?: return call.reject("missing score")
+-        client.submitScoreImmediate(id, score.toLong()).bind(call, "submitScore failed")
++        // KIPPWERK-Patch: optionaler Score-Tag (Details wie Combo/Züge/Steine, max. 64 URL-sichere Zeichen)
++        val tag = call.getString("scoreTag")?.filter { it.isLetterOrDigit() || it in "-._~" }?.take(64)
++        val task = if (tag.isNullOrEmpty()) client.submitScoreImmediate(id, score.toLong())
++                   else client.submitScoreImmediate(id, score.toLong(), tag)
++        task.bind(call, "submitScore failed")
+     }
+ 
+     fun show(call: PluginCall) {
+@@ -20,4 +26,46 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
      fun showAll(call: PluginCall) {
          plugin.launchUiIntent(client.allLeaderboardsIntent, call, "onLeaderboardUiResult")
      }
@@ -44,7 +57,7 @@ index 0e973d6..0fa110d 100644
 +            "week" -> LeaderboardVariant.TIME_SPAN_WEEKLY
 +            else -> LeaderboardVariant.TIME_SPAN_ALL_TIME
 +        }
-+        val count = (call.getInt("maxResults") ?: 5).coerceIn(1, 25)
++        val count = (call.getInt("maxResults") ?: 5).coerceIn(1, 25)   // Google liefert höchstens 25 je Seite
 +        client.loadTopScores(id, span, LeaderboardVariant.COLLECTION_PUBLIC, count, true)
 +            .settle(call, "loadTopScores failed") { annotated ->
 +                val entries = JSArray()
@@ -56,6 +69,7 @@ index 0e973d6..0fa110d 100644
 +                            put("name", s.scoreHolderDisplayName ?: "")
 +                            put("score", s.rawScore)
 +                            put("playerId", s.scoreHolder?.playerId ?: "")
++                            put("tag", s.scoreTag ?: "")
 +                        })
 +                    }
 +                } finally {
@@ -70,6 +84,7 @@ index 0e973d6..0fa110d 100644
 +                                put("rank", me.rank)
 +                                put("score", me.rawScore)
 +                                put("playerId", me.scoreHolder?.playerId ?: "")
++                                put("tag", me.scoreTag ?: "")
 +                            })
 +                        })
 +                    }

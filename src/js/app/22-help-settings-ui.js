@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
  ['1.29.3','„Ranglisten prüfen“ zeigt jetzt auch, warum die Anmeldung bei Google Play Games scheitert'],
  ['1.29.2','Einstellungen → „Ranglisten prüfen“: zeigt, ob deine Ergebnisse bei Google Play Games angekommen sind'],
  ['1.29.1','Auch auf Tablets, Chromebooks und PC über Google Play installierbar'],
@@ -87,11 +88,38 @@ $('saveName').onclick=()=>{
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
 let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
-$('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresPeriod=b.dataset.p;renderScores()};
+let endlessSpan='all';   // Zeitraum der weltweiten Endlos-Listen (Tagesspiel nutzt scoresPeriod)
+$('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(scoresTab==='endless')endlessSpan=b.dataset.p;else scoresPeriod=b.dataset.p;renderScores()};
 const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>'Woche '+dayShort(weekOf(dailyNo()))+' – '+dayShort(weekOf(dailyNo())+6),all:()=>'Beste Tagesspiele aller Zeiten'};
-function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available?'':'none';
-  b.textContent='🌍 WELTWEIT · '+(scoresTab==='endless'?scoresSize+'×'+scoresSize:'TAGESSPIEL');b.title=Games.label}
-$('gamesBoard').onclick=()=>Games.show(scoresTab==='endless'?'e'+scoresSize:'daily');
+// Mit Play Games: EINE Bestenliste = die weltweite. Ohne Anmeldung (oder offline/Web): die Liste dieses Geräts.
+const onlineOn=()=>Games.available&&Games.signedIn;
+function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.available&&!Games.signedIn?'':'none';
+  b.textContent=I18N.tr('🎮 Mit Google Play Games anmelden – weltweite Bestenliste');b.title=Games.label}
+$('gamesBoard').onclick=async()=>{const b=$('gamesBoard');b.textContent='⏳';await Games.signIn();renderScores()};
+const onlineCache={};let onlineReq=0;
+function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
+const SPAN_TXT={day:'Heute',week:'Diese Woche',all:'Gesamt'};
+function renderOnline(){
+  const k=scoresTab==='endless'?'e'+scoresSize:'daily',sp=scoresTab==='endless'?endlessSpan:scoresPeriod,ck=k+'|'+sp;
+  $('periodTabs').style.display='';$('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===sp));
+  $('dailyStats').style.display='none';
+  $('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp]);$('periodInfo').style.display='';
+  const c=onlineCache[ck];
+  if(c)drawOnline(c.d);else{$('scoresTable').innerHTML='';$('scoresEmpty').style.display='';$('scoresEmpty').textContent=I18N.tr('⏳ Bestenliste wird geladen …')}
+  if(!c||Date.now()-c.t>30000){const my=++onlineReq;
+    Games.top(k,sp,25).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
+      .catch(()=>{if(my===onlineReq&&!c)renderLocal(I18N.tr('Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.'))})}}
+function drawOnline(d){
+  const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
+  const row=(x,mine)=>{const r=x.rank|0,medal=['🥇','🥈','🥉'][r-1]||(r?r+'.':'–'),t=ScoreTag.dec(x.tag);
+    const name=mine?(me&&me.name||x.name||playerName||'Spieler'):(x.name||'Spieler');
+    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:'',''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
+  let h=en.map(x=>row(x,!!mid&&x.playerId===mid)).join('');
+  const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=`<tr class="gap"><td colspan="3">⋯</td></tr>`+row(my,true);
+  $('scoresTable').innerHTML=h;
+  const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
+  $('scoresEmpty').style.display=h?'none':'';
+  $('scoresEmpty').textContent=I18N.tr(sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche noch keine Einträge – hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -104,8 +132,12 @@ function metaLine(x,lvl,date){const en=I18N.lang==='en',p=[];
   if(date)p.push(date);return p.join(' · ')}
 function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
-  const t=$('scoresTable'),esc=escH;
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
+  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderGamesBtn();
+  if(onlineOn())renderOnline();else renderLocal()}
+function renderLocal(note){
+  const t=$('scoresTable'),esc=escH;
   $('periodTabs').style.display=scoresTab==='daily'?'':'none';
   $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===scoresPeriod));
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
@@ -125,6 +157,7 @@ function renderScores(){
   $('scoresEmpty').style.display=list.length?'none':'';
   $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
   $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';
+  if(note){$('periodInfo').textContent=note+(scoresTab==='daily'?' · '+PERIOD_TXT[scoresPeriod]():'');$('periodInfo').style.display=''}
 }
 function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;

@@ -14,6 +14,12 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 - `10` / `DEVELOPER_ERROR` → SHA-1 oder Paketname passen nicht zu einem Android-Client.
 - Pro Signatur ein Android-Client nötig: **App-Signaturschlüssel** (Play-Store-Version), **Upload-Schlüssel** `02:62:CF:8A:4D:8E:C4:FA:BD:57:84:1A:95:68:A3:0D:1A:19:5C:74` (KIPPWERK-release.apk), **Debug** `F6:C8:F4:34:6C:29:8F:34:B4:A1:8E:33:03:A0:9F:3D:A0:0E:8A:33` (KIPPWERK.apk).
 
+## Eine Bestenliste (ab v1.30.0)
+- Angemeldet: 🏆 zeigt die weltweite Liste (`loadTopScores`, Zeitraum `day`/`week`/`all`, 25 Einträge + eigener Platz). Abgemeldet/Web/offline: lokale Liste.
+- Score-Tag je Ergebnis: `c<Combo>m<Züge>s<Steine>l<Level>` (max. 64 Zeichen, nur Buchstaben/Ziffern) – `ScoreTag.enc/dec` in `src/js/app/10-play-games.js`.
+- Plugin-Patch (`patches/@idleflowgames+capacitor-play-games+0.3.3.patch`): `submitScore({scoreTag})`, `loadTopScores` liefert `tag` je Eintrag und bei `me`.
+- Spielername kommt aus dem Play-Games-Profil (`Games.player.name`).
+
 ## Top 5 im Hauptmenü (ab v1.19.0)
 Lädt die besten 5 der Rangliste „Tagesspiel“ (Zeitraum Heute / Woche / Alle) plus die eigene Platzierung über `loadTopScores` – eine Erweiterung des Plugins per `patches/@idleflowgames+capacitor-play-games+0.3.3.patch` (wird bei `npm install` automatisch angewendet). Bei einem Plugin-Update den Patch prüfen.
 

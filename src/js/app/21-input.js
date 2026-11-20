@@ -115,8 +115,13 @@ $('privacyBtn2').onclick=()=>Ads.privacy();
 function renderGamesRow(){$('gamesRow').style.display=Games.available?'':'none';$('gamesDiagRow').style.display=Games.available?'':'none';
   $('gamesName').textContent='🎮 '+Games.label;$('gamesState').textContent=Games.signedIn?('✓ angemeldet'+(Games.savesOn?' · ☁ '+(Cloud.last||'…'):'')):'Anmelden'}
 $('gamesRow').onclick=async()=>{if(Games.signedIn){Games.show(null);return}$('gamesState').textContent='⏳';await Games.signIn();renderGamesRow()};
-Games.onChange=()=>{try{renderGamesRow();renderGamesBtn();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
-$('setName').onchange=e=>{const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
+// Angemeldet bei Play Games: Spielername kommt aus dem Google-Profil (Feld gesperrt)
+function applyGoogleName(){const g=Games.signedIn&&Games.player&&Games.player.name,inp=$('setName');
+  inp.readOnly=!!g;inp.title=g?I18N.tr('Name aus deinem Google Play Games-Profil'):'';
+  if(g&&g!==playerName){playerName=g.slice(0,24);try{localStorage.setItem('kippwerk_name',playerName);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(e){}}
+  if(g)inp.value=playerName}
+Games.onChange=()=>{try{applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
+$('setName').onchange=e=>{if(e.target.readOnly)return;const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
   setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};

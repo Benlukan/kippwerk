@@ -198,3 +198,9 @@ Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `andro
 - [ ] Geschlossener Test: ≥ 12 Tester, 14 Tage am Stück → Produktionszugang beantragen
 - [ ] Erst zum öffentlichen Start: `ADS_CONFIG.testing:false`, echte iOS-Anzeigenblöcke, neue Version bauen, `app-ads.txt`
 - [ ] iOS: Apple-Developer-Konto, Signatur, Game Center, App-Store-Datenschutzangaben
+
+### Vorschauvideo (Google Play)
+- Google Play nimmt nur einen **YouTube-Link** (Store-Präsenz → Haupteintrag im Store → Grafiken → „Video“).
+- Dafür das **Querformat** hochladen: `docs/store/de/KIPPWERK_Produktvideo_1920x1080_de.mp4` (EN: `docs/store/en/…_en.mp4`). Hochformat unter 60 s wird bei YouTube zum Short – Shorts nimmt Google Play nicht an.
+- YouTube: Sichtbarkeit **Öffentlich** oder **Nicht gelistet**, **keine Werbung/Monetarisierung**, **Einbetten erlauben**, keine Altersbeschränkung. In die Play Console nur die reine Video-URL eintragen (ohne Playlist/Zeitmarke).
+- Die Vorstellungsgrafik (1024 × 500) dient als Vorschaubild des Videos.

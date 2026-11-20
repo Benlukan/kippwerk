@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.31.0 (Build 56) – 20.11.2026
+- **Neuer Spieltag um 9:00 Uhr:** Das Tagesspiel (Steine, Serie, Belohnungen, Listen „Heute“) wechselt jetzt weltweit gleichzeitig um Mitternacht Pazifikzeit – in Deutschland 9:00 Uhr. Damit passt es zu Googles Rangliste „Heute“, und alle Spieler weltweit spielen zur selben Zeit dasselbe Tagesspiel
+- **Hinweise:** Menü „offen bis 09:00“ (statt „heute offen“), nach dem Tagesspiel „Nächstes Tagesspiel in … · um 09:00“, Top 5 „Neuer Tag ab 09:00“, Hilfe (DE/EN) ergänzt. Die Uhrzeit wird in Ortszeit angezeigt (z. B. 17:00 in Japan)
+- Statistik „Serie“ im Tagesspiel zählt nach Spieltagen statt Kalendertagen
 ## v1.30.2 (Build 55) – 20.11.2026
 - **Datum beim Tagesspiel:** Ergebnisse senden das Datum des Tagesspiels im Score-Tag mit (`d20261120`); die weltweite Tagesspiel-Liste in 🏆 und die Top 5 im Menü zeigen es an (z. B. „Fr., 20.11.“). Wichtig bei „Woche“/„Alle“ und vor 9 Uhr, wenn Googles „Heute“ noch das Tagesspiel vom Vortag enthält
 - Ergebnisse von vor v1.30.2 haben kein Datum und werden ohne angezeigt

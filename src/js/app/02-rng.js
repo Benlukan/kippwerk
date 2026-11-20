@@ -6,7 +6,15 @@ function now(){return new Date(Date.now()+(window.KW_DAY_OFFSET||0)*864e5)}
 function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dayDiff(a,b){const[x,y,z]=a.split('-').map(Number),[u,v,w]=b.split('-').map(Number);return Math.round((Date.UTC(u,v-1,w)-Date.UTC(x,y-1,z))/864e5)}
 function addDays(k,n){const[y,m,d]=k.split('-').map(Number);return dk(new Date(y,m-1,d+n))}
-function todayKey(){const d=now();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+// Der Spieltag richtet sich nach Google Play Games: neuer Tag um Mitternacht Pazifikzeit
+// (in Deutschland 9:00 Uhr) – weltweit für alle zur selben Zeit, passend zur Rangliste „Heute“.
+const DAY_TZ='America/Los_Angeles';
+function todayKey(){const n=now();try{const p={};for(const x of new Intl.DateTimeFormat('en-US',{timeZone:DAY_TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(n))p[x.type]=x.value;
+  if(p.year&&p.month&&p.day)return p.year+'-'+p.month+'-'+p.day}catch(e){}return dk(n)}
+// Beginn des nächsten Spieltags (Date) und dessen Uhrzeit in Ortszeit, z. B. „09:00“
+function nextDayStart(){const n=now();try{const pt=new Date(n.toLocaleString('en-US',{timeZone:DAY_TZ})),m=new Date(pt);m.setHours(24,0,0,0);
+  const t=new Date(n.getTime()+(m-pt));if(t>n&&t-n<=26*36e5)return t}catch(e){}const t=new Date(n);t.setHours(24,0,0,0);return t}
+function dayStartTime(){return nextDayStart().toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}
 const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 function noDate(no){return new Date(2026,9,30+(no-1))}
 const WD_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],MON_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

@@ -656,7 +656,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         </section>
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
-            <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
+            <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Der neue Tag beginnt weltweit gleichzeitig um <b>9:00 Uhr</b> deutscher Zeit (Mitternacht an der US-Westküste) – passend zur weltweiten Rangliste. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
             <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss.</li>
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
           </ul>
@@ -704,7 +704,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.30.2 · Build 55 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.31.0 · Build 56 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -839,7 +839,7 @@ const I18N_PATS=(()=>{
   [/^Endlos (\d+)×(\d+) · ([\d.,]+) Punkte$/,(m,a,b,p)=>`Endless ${a}×${b} · ${num(p)} points`],
   [/^Rekord ([\d.,]+)$/,(m,p)=>'Record '+num(p)],
   [/^Noch keine Einträge auf (\d+)×(\d+) – spiel eine Runde Endlos!$/,'No entries on $1×$2 yet – play a round of Endless!'],
-  [/^Nächstes Tagesspiel in (\d+) h (\d+) min$/,'Next daily game in $1 h $2 min'],
+  [/^Nächstes Tagesspiel in (\d+) h (\d+) min$/,'Next daily game in $1 h $2 min'],[/^Nächstes Tagesspiel in (\d+) h (\d+) min · um (.+)$/,'Next daily game in $1 h $2 min · at $3'],[/^offen bis (.+)$/,'open until $1'],
   [/^Noch (\d+) bis (\S+) (.+)$/,(m,n,b,x)=>`${n} more to ${b} ${N(x)}`],
   [/^([✨⚡🌊🌋👑🌌]) (.+)$/u,(m,b,x)=>I18N_NAMES[x]?`${b} ${N(x)}`:undefined],
   [/^– noch (\d+) (Tag|Tage) · Design „(.+)“$/,(m,n,t,d)=>`– ${days(n)} to go · theme “${N(d)}”`],
@@ -915,7 +915,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <div class="row"><span class="sw d" style="background:#fff"></span><span><b>White</b> (⬜) – combo ×6 or more: ULTRA (+1 ❤)</span></div>
 <p>The more colorful your grid, the better you played.</p></section>
 <section id="hModi"><h3>Game modes</h3>
-<ul><li><b>📅 Daily game</b> – new every day, the same stones for every player, 40 moves. Your first round counts, the rest are practice. Share your result as a grid!</li>
+<ul><li><b>📅 Daily game</b> – new every day, the same stones for every player, 40 moves. The new day starts worldwide at the same moment: <b>midnight Pacific Time</b> (9:00 in Germany) – matching the worldwide leaderboard. Your first round counts, the rest are practice. Share your result as a grid!</li>
 <li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss.</li>
 <li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster.</li></ul>
 <p><b>🏆 Leaderboard:</b> Top 10 in Endless per board size. The <b>daily game</b> has three lists: <b>Today</b> (today's game), <b>Week</b> (points from Monday to Sunday added up – every day played counts) and <b>All-time best</b> (the best daily games ever) – each with your <b>player name</b>. Your name and your unique <b>player ID</b> (e.g. KW-1A2B-3C4D) are in ⚙. The short code after the name (#1A2B) tells players with the same name apart.</p>
@@ -937,7 +937,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1053,7 +1053,15 @@ function now(){return new Date(Date.now()+(window.KW_DAY_OFFSET||0)*864e5)}
 function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dayDiff(a,b){const[x,y,z]=a.split('-').map(Number),[u,v,w]=b.split('-').map(Number);return Math.round((Date.UTC(u,v-1,w)-Date.UTC(x,y-1,z))/864e5)}
 function addDays(k,n){const[y,m,d]=k.split('-').map(Number);return dk(new Date(y,m-1,d+n))}
-function todayKey(){const d=now();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+// Der Spieltag richtet sich nach Google Play Games: neuer Tag um Mitternacht Pazifikzeit
+// (in Deutschland 9:00 Uhr) – weltweit für alle zur selben Zeit, passend zur Rangliste „Heute“.
+const DAY_TZ='America/Los_Angeles';
+function todayKey(){const n=now();try{const p={};for(const x of new Intl.DateTimeFormat('en-US',{timeZone:DAY_TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(n))p[x.type]=x.value;
+  if(p.year&&p.month&&p.day)return p.year+'-'+p.month+'-'+p.day}catch(e){}return dk(n)}
+// Beginn des nächsten Spieltags (Date) und dessen Uhrzeit in Ortszeit, z. B. „09:00“
+function nextDayStart(){const n=now();try{const pt=new Date(n.toLocaleString('en-US',{timeZone:DAY_TZ})),m=new Date(pt);m.setHours(24,0,0,0);
+  const t=new Date(n.getTime()+(m-pt));if(t>n&&t-n<=26*36e5)return t}catch(e){}const t=new Date(n);t.setHours(24,0,0,0);return t}
+function dayStartTime(){return nextDayStart().toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}
 const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 function noDate(no){return new Date(2026,9,30+(no-1))}
 const WD_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],MON_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1462,9 +1470,9 @@ const Reminder=(()=>{
 
 function dailyStats(){
   const keys=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))keys.push(k.slice(15))}}catch(e){}
-  const set=new Set(keys);let streak=0;const d=now();
-  if(!set.has(todayKey()))d.setDate(d.getDate()-1);
-  while(true){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!set.has(k))break;streak++;d.setDate(d.getDate()-1)}
+  const set=new Set(keys);let streak=0,k=todayKey();   // Spieltage (siehe todayKey), nicht Kalendertage
+  if(!set.has(k))k=addDays(k,-1);
+  while(set.has(k)){streak++;k=addDays(k,-1)}
   const sc=scores.daily.map(x=>x.score);
   return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 
@@ -1840,8 +1848,8 @@ function shareText(r){
   return `KIPPWERK ${en?'Daily':'Tagesspiel'} ${dayLabel(r.no,true)}\n⭐ ${r.score.toLocaleString(LOC())} ${en?'points · chain':'Punkte · Kette'} ×${Math.max(1,r.chain)}${r.full?(en?' · board full':' · Feld voll'):''}${r.streak>=2?`\n🔥 ${r.streak} ${en?'days in a row':'Tage in Folge'}`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
 }
 function countdown(){
-  const n=now(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
-  return `Nächstes Tagesspiel in ${Math.floor(m/60)} h ${m%60} min`;
+  const n=now(),t=nextDayStart();const m=Math.max(0,Math.ceil((t-n)/6e4));
+  return `Nächstes Tagesspiel in ${Math.floor(m/60)} h ${m%60} min · um ${dayStartTime()}`;
 }
 
 function gameOver(reason){
@@ -2030,7 +2038,7 @@ function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'heute offen';
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'offen bis '+dayStartTime();
   $('dailyBtn').classList.toggle('open',!done);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
@@ -2145,6 +2153,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],
  ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],
  ['1.30.1','Top 5 im Hauptmenü jetzt auch für Endlos (Feldgröße wie im Menü) – und der Hinweis, wann bei Google ein neuer Tag beginnt'],
  ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
@@ -2328,9 +2337,8 @@ try{const A=AppPlugin();if(A)A.addListener('backButton',()=>handleBack())}catch(
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!over&&!adBusy){const go=()=>{if(busy)return setTimeout(go,200);pauseToMenu()};go()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const m=checkStreak();renderStreakChip();if(m&&!$('startOv').classList.contains('hidden'))showMenu()}});
 // ---------- Top 5 im Hauptmenü: Tagesspiel oder Endlos (Feldgröße wie im Menü) – Play Games / Game Center ----------
-// Google-„Heute“ wechselt um Mitternacht Pazifikzeit → lokale Uhrzeit dafür:
-function googleDayStart(){try{const now=new Date(),pt=new Date(now.toLocaleString('en-US',{timeZone:'America/Los_Angeles'})),m=new Date(pt);m.setHours(24,0,0,0);
-  return new Date(m.getTime()+(now-pt)).toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
+// Google-„Heute“ = Spieltag (siehe todayKey): Wechsel um Mitternacht Pazifikzeit
+const googleDayStart=()=>dayStartTime();
 const Top5=(()=>{
   const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
   const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);

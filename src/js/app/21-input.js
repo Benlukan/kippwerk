@@ -29,7 +29,7 @@ function showMenu(){
   const done=loadDaily(),cur=ST?ST.cur:0;
   // Tagesspiel
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
-  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'heute offen';
+  $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'offen bis '+dayStartTime();
   $('dailyBtn').classList.toggle('open',!done);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);

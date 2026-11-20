@@ -29,9 +29,9 @@ const Reminder=(()=>{
 
 function dailyStats(){
   const keys=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))keys.push(k.slice(15))}}catch(e){}
-  const set=new Set(keys);let streak=0;const d=now();
-  if(!set.has(todayKey()))d.setDate(d.getDate()-1);
-  while(true){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!set.has(k))break;streak++;d.setDate(d.getDate()-1)}
+  const set=new Set(keys);let streak=0,k=todayKey();   // Spieltage (siehe todayKey), nicht Kalendertage
+  if(!set.has(k))k=addDays(k,-1);
+  while(set.has(k)){streak++;k=addDays(k,-1)}
   const sc=scores.daily.map(x=>x.score);
   return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 

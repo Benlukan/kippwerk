@@ -59,8 +59,8 @@ function shareText(r){
   return `KIPPWERK ${en?'Daily':'Tagesspiel'} ${dayLabel(r.no,true)}\n⭐ ${r.score.toLocaleString(LOC())} ${en?'points · chain':'Punkte · Kette'} ×${Math.max(1,r.chain)}${r.full?(en?' · board full':' · Feld voll'):''}${r.streak>=2?`\n🔥 ${r.streak} ${en?'days in a row':'Tage in Folge'}`:''}\n${rows.join('\n')}\n${SHARE_URL}`;
 }
 function countdown(){
-  const n=now(),t=new Date(n);t.setHours(24,0,0,0);const m=Math.ceil((t-n)/6e4);
-  return `Nächstes Tagesspiel in ${Math.floor(m/60)} h ${m%60} min`;
+  const n=now(),t=nextDayStart();const m=Math.max(0,Math.ceil((t-n)/6e4));
+  return `Nächstes Tagesspiel in ${Math.floor(m/60)} h ${m%60} min · um ${dayStartTime()}`;
 }
 
 function gameOver(reason){

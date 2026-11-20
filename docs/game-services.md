@@ -20,6 +20,9 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 - Plugin-Patch (`patches/@idleflowgames+capacitor-play-games+0.3.3.patch`): `submitScore({scoreTag})`, `loadTopScores` liefert `tag` je Eintrag und bei `me`.
 - Spielername kommt aus dem Play-Games-Profil (`Games.player.name`).
 
+## Spieltag (ab v1.31.0)
+- `todayKey()` rechnet in **America/Los_Angeles** – das Tagesspiel, die Serie, „Heute“-Listen und Belohnungen wechseln damit weltweit gleichzeitig um Mitternacht Pazifikzeit (Deutschland: 9:00 Uhr) und passen zu Googles Zeitraum „Heute“. `nextDayStart()`/`dayStartTime()` liefern den nächsten Wechsel in Ortszeit (Menü „offen bis …“, Countdown nach dem Tagesspiel, Top 5).
+
 ## Top 5 im Hauptmenü
 - Ab v1.30.1 umschaltbar: **Tagesspiel** oder **Endlos N×N** (N = Endlos-Feld im Menü), jeweils Heute/Woche/Alle. „Ganze Rangliste“ öffnet dieselbe Liste in 🏆.
 - Google-„Heute“ beginnt um Mitternacht Pazifikzeit (in Deutschland 9:00 Uhr, im Sommer ebenfalls 9:00 Uhr) – die App zeigt die lokale Uhrzeit dazu an („Neuer Tag ab …“).

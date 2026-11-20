@@ -1,7 +1,6 @@
 // ---------- Top 5 im Hauptmenü: Tagesspiel oder Endlos (Feldgröße wie im Menü) – Play Games / Game Center ----------
-// Google-„Heute“ wechselt um Mitternacht Pazifikzeit → lokale Uhrzeit dafür:
-function googleDayStart(){try{const now=new Date(),pt=new Date(now.toLocaleString('en-US',{timeZone:'America/Los_Angeles'})),m=new Date(pt);m.setHours(24,0,0,0);
-  return new Date(m.getTime()+(now-pt)).toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
+// Google-„Heute“ = Spieltag (siehe todayKey): Wechsel um Mitternacht Pazifikzeit
+const googleDayStart=()=>dayStartTime();
 const Top5=(()=>{
   const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
   const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);

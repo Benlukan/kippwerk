@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.32.0 (Build 58) – 20.11.2026
+- **Das KIPPWERK-Thema:** eigene, gleichbleibende Melodie (16 Takte, A – A' – B – A) über Am – F – C – G, im Spiel als heller Puls-Ton, im Menü leise und weich. Vorher gab es nur Akkord-Arpeggios ohne Melodie
+- **Tempo nur noch aufwärts:** Die Stufe (88 → 93 → 98 → 104 → 110 BPM) kann in einer Partie nicht mehr sinken
+- **Gefahr ohne Tempo-Sprung:** Bei fast vollem Feld (≥ 78 %) wird die Musik dichter (Hi-Hat + Snare), aber nicht mehr 6 % schneller – das ständige schnell/langsam beim Füllen und Abräumen entfällt
+- Begleit-Arpeggio eine Oktave tiefer, damit die Melodie Platz hat; Boss-Musik unverändert
 ## v1.31.1 (Build 57) – 20.11.2026
 - **Eigenes Ergebnis immer sichtbar:** Liefert Google den eigenen Eintrag ohne öffentlichen Platz (Rang ≤ 0, z. B. weil das Play-Games-Profil nicht „für alle sichtbar“ ist), zeigt KIPPWERK ihn trotzdem – in den Top 5 im Menü und in 🏆 – mit „–“ statt „-1.“ und dem Hinweis „Nur für dich sichtbar“ samt Anleitung
 - Top 5 zeigen den eigenen Eintrag jetzt auch, wenn die öffentliche Liste leer ist; „⋯“ erscheint nur noch, wenn darüber Einträge stehen

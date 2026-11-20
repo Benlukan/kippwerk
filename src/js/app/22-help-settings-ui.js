@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.32.0','Das KIPPWERK-Thema: eine eigene Melodie zum Mitsummen in Menü und Spiel. Das Tempo steigt mit dem Level und wird in einer Partie nie wieder langsamer'],
  ['1.31.1','Dein eigenes Ergebnis erscheint jetzt auch dann in den Top 5 und der Bestenliste, wenn Google es nicht öffentlich wertet – mit Hinweis, wie du sichtbar wirst'],
  ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],
  ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],

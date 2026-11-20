@@ -704,7 +704,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.31.1 · Build 57 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.32.0 · Build 58 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -937,7 +937,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1507,8 +1507,10 @@ const sfx={
   over:()=>[392,330,262].forEach((f,i)=>tone(f,.25,'sawtooth',.04,i*.15))
 };
 
-// ---------- Musik (prozedural, ruhiger Loop: Am – F – C – G) ----------
+// ---------- Musik (prozedural, Loop: Am – F – C – G) ----------
 // Drei Stücke: Menü (ruhig), Spiel (wird mit dem Level schneller und voller – in Stufen, nicht bei jedem Level), Boss (eigenes, dunkleres Stück)
+// Das KIPPWERK-Thema: eine eigene, gleichbleibende Melodie (16 Takte, A – A' – B – A), die in Menü und Spiel immer wiederkehrt –
+// wie ein Ohrwurm. Das Tempo steigt in einer Partie nur an, nie zurück; „Gefahr“ (Feld fast voll) macht die Musik dichter, nicht schneller.
 const Music=(()=>{
   let on=false,hold=0,timer=null,step=0,next=0,g=null,f=null,noise=null;
   let cur='menu',stage=0,danger=false,E=60/84/2;
@@ -1516,6 +1518,13 @@ const Music=(()=>{
   const TR={menu:{bpm:[84],ch:POP},game:{bpm:[88,93,98,104,110],ch:POP},
             boss:{bpm:[112],ch:[[57,60,64],[53,57,60],[50,53,57],[52,56,59]]}};   // Am – F – Dm – E (harmonisch Moll)
   const ARP=[0,1,2,1,0,2,1,2],BARP=[0,1,2,0,1,2,1,2];
+  // Melodie in Achteln (MIDI-Noten, 0 = halten, -1 = Pause), je Phrase 4 Takte über Am – F – C – G
+  const _=0,P=-1,MEL_SRC=[
+    [76,_,72,74,76,_,74,72, 69,_,69,72,77,_,76,74, 72,_,_,76,79,_,76,72, 74,_,71,72,74,_,_,P],   // A
+    [76,_,72,74,76,_,74,72, 69,_,69,72,77,_,76,74, 72,_,_,76,79,_,76,72, 74,_,76,74,71,_,_,P],   // A'
+    [81,_,_,79,76,_,72,P,   77,_,76,77,81,_,_,P,   79,_,76,72,76,_,79,P,   71,_,72,74,76,_,_,P],   // B (höher)
+    [76,_,72,74,76,_,74,72, 69,_,69,72,77,_,76,74, 72,_,_,76,79,_,76,72, 74,_,71,74,69,_,_,P]];  // A'' (endet auf A)
+  const MEL=MEL_SRC.map(ph=>ph.map((n,i)=>{if(n<=0)return null;let l=1;while(i+l<ph.length&&ph[i+l]===0)l++;return{n,l}}));
   const hz=m=>440*Math.pow(2,(m-69)/12);
   function note(fr,t,d,type,vol){const o=actx.createOscillator(),e=actx.createGain();o.type=type;o.frequency.value=fr;
     e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(vol,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(e).connect(f);o.start(t);o.stop(t+d+.05)}
@@ -1524,7 +1533,12 @@ const Music=(()=>{
   const hat=(t,v)=>nz(t,.045,v,'highpass',7000),snare=(t,v)=>nz(t,.12,v,'bandpass',1800);
   function kick(t,v){const o=actx.createOscillator(),e=actx.createGain();o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(42,t+.12);
     e.gain.setValueAtTime(v,t);e.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(e).connect(g);o.start(t);o.stop(t+.22)}
-  function bar0(){const tr=TR[cur];E=60/(tr.bpm[Math.min(stage,tr.bpm.length-1)]*(danger?1.06:1))/2}
+  function bar0(){const tr=TR[cur];E=60/tr.bpm[Math.min(stage,tr.bpm.length-1)]/2}   // kein Tempo-Sprung bei Gefahr
+  // Melodie-Ton: weich (Menü) bzw. kräftiger Puls (Spiel)
+  function lead(ph,s,t,soft){const m=MEL[ph][s];if(!m)return;const d=E*m.l*.92;
+    if(soft){note(hz(m.n),t,d,'sine',.05);return}
+    note(hz(m.n),t,d,'square',.016);note(hz(m.n),t,d,'triangle',.028);
+    if(stage>=4)note(hz(m.n+12),t,d*.8,'triangle',.008)}
   function tick(){
     if(!actx||actx.state!=='running')return;
     if(next<actx.currentTime)next=actx.currentTime+.05;
@@ -1534,16 +1548,17 @@ const Music=(()=>{
       if(cur==='menu'){
         if(s===0){note(hz(ch[0]-12),t,E*7,'sine',.11);ch.forEach(m=>note(hz(m),t,E*8.5,'sine',.022))}
         if(s===4)note(hz(ch[0]-12),t,E*3,'sine',.07);
-        if(phrase>0||s%2===0)note(hz(ch[ARP[s]]+12+(phrase===3&&s===7?12:0)),t,E*1.7,'triangle',.032);
+        if(s%2===0)note(hz(ch[ARP[s]]+12),t,E*1.7,'triangle',.02);
+        lead(Math.floor(step/32)%4,step%32,t,true);
       }else if(cur==='game'){
         if(s===0)ch.forEach(m=>note(hz(m),t,E*8.5,'sine',.02));
         if(stage<3){if(s===0)note(hz(ch[0]-12),t,E*7,'sine',.11);if(s===4)note(hz(ch[0]-12),t,E*3,'sine',.07)}
         else note(hz(ch[s%2?2:0]-12),t,E*.9,'sine',.08);                       // ab Stufe 3: treibender Bass
-        note(hz(ch[ARP[s]]+12),t,E*1.5,'triangle',.032);
-        if(stage>=4&&s%2)note(hz(ch[ARP[s]]+24),t,E*.8,'triangle',.014);         // Stufe 4: Oktave darüber
+        note(hz(ch[ARP[s]]),t,E*1.5,'triangle',.02);                            // Begleitung eine Oktave tiefer, Platz für die Melodie
+        lead(Math.floor(step/32)%4,step%32,t,false);
         if(stage>=1&&s%2===1)hat(t,.02);
         if(stage>=2&&(s===0||s===4))kick(t,.16);
-        if(danger&&s%2===0)hat(t,.013);
+        if(danger){hat(t,.012);if(s===2||s===6)snare(t,.03)}                    // Gefahr: dichter, nicht schneller
       }else{   // Boss
         note(hz(ch[0]-12),t,E*.85,'sawtooth',.035);note(hz(ch[0]-24),t,E*.9,'sine',.07);
         if(s===0)ch.forEach(m=>note(hz(m),t,E*8,'sine',.018));
@@ -1564,6 +1579,7 @@ const Music=(()=>{
   // Stückwechsel: kurz leiser, neues Stück beginnt mit einem neuen Takt
   function setTrack(t,st){st=st|0;
     if(t===cur&&st===stage)return;
+    if(t===cur&&t==='game'&&st<stage)return;                        // innerhalb einer Partie wird es nie wieder langsamer
     if(t!==cur){cur=t;step=0;stage=st;if(g&&want())try{const v=level(),n=actx.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),n);g.gain.linearRampToValueAtTime(v*.25,n+.2);g.gain.linearRampToValueAtTime(v,n+1.2)}catch(e){}}
     else stage=st}                                                   // Stufe greift ab dem nächsten Takt
   return{start(){on=true;sync()},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},
@@ -2153,6 +2169,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.32.0','Das KIPPWERK-Thema: eine eigene Melodie zum Mitsummen in Menü und Spiel. Das Tempo steigt mit dem Level und wird in einer Partie nie wieder langsamer'],
  ['1.31.1','Dein eigenes Ergebnis erscheint jetzt auch dann in den Top 5 und der Bestenliste, wenn Google es nicht öffentlich wertet – mit Hinweis, wie du sichtbar wirst'],
  ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],
  ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],

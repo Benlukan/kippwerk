@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.33.1 (Build 60) – 20.11.2026
+- **Retro 8-Bit:** Auswahl war unsichtbar (weiße Schrift auf weißem Grund, weil die Linienfarbe weiß war). Linienfarbe jetzt gedämpft, gewählte Knöpfe pink mit blauem Pixel-Schatten, eingeschaltete Schalter grün; Spielfeld behält den weißen Pixel-Rahmen
 ## v1.33.0 (Build 59) – 20.11.2026
 - **Sammlung (⚙ → Design & Kippi):** 17 Designs mit eigener Oberfläche (Holz, Pixel, Papier, Streifen, Edelstein-Facetten, Schnee …) – auch auf den großen Menü-Steinen – und 8 Kippi-Outfits (Sonnenbrille, Kopfhörer, Bauhelm, Zauberhut, Schal, Krone, Partyhut, Hasenohren)
 - **Neue Designs:** Werkstatt, Retro 8-Bit, Papier, Wald, Bonbon, Kristall, Prisma, Winter, Feuerwerk, Frühling; überarbeitet: Pastell, Neon (unterschiedliche Symbole sichtbar), Ozean, Lava, Gold, Kosmos

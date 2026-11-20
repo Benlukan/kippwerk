@@ -20,7 +20,7 @@ body.th-pastell .tile .in{box-shadow:inset 0 -4px 0 #0000001a,inset 0 3px 0 #fff
 body.th-pastell .cells div{background:#2a2439;border-radius:16px}
 
 /* --- Retro 8-Bit: Pixel, Scanlines --- */
-body.th-retro{--bg:#000;--bg2:#101020;--panel:#0a0a14;--line:#fcfcfc;--radius:0px;--gap:6px;
+body.th-retro{--bg:#000;--bg2:#101020;--panel:#0a0a14;--line:#4a4a86;--radius:0px;--gap:6px;
   --bgimg:repeating-linear-gradient(0deg,#ffffff08 0 2px,transparent 2px 4px)}
 body.th-retro:not(.pal-cb){--c0:#e40058;--c1:#f8b800;--c2:#00b800;--c3:#0078f8;--c4:#9878f8}
 body.th-retro .board{border:4px solid #fcfcfc;border-radius:0;box-shadow:8px 8px 0 #3cbcfc}
@@ -124,3 +124,6 @@ body.th-fruehling{--bg:#0c1410;--bg2:#2c4a35;--panel:#15241b;--line:#2f4a38;--ra
 body.th-fruehling:not(.pal-cb){--c0:#ff7aa2;--c1:#ffd36e;--c2:#7ddf8f;--c3:#7cc4ff;--c4:#c9a2ff}
 body.th-fruehling .tile .in::after,body.th-fruehling .hst::after{background:repeating-linear-gradient(0deg,#0000 0 30%,#ffffff33 30% 38%,#0000 38% 62%,#ffffff22 62% 66%,#0000 66%),radial-gradient(35% 25% at 35% 25%,#fff7,#0000 70%)}
 body.th-fruehling .cells div{border-radius:45% 45% 40% 40% / 55% 55% 40% 40%}
+/* Retro: Auswahl klar erkennbar (Pixel-Look ohne weiße Flächen) */
+body.th-retro :is(.seg,.tabs) button.on{background:#e40058;color:#fff;box-shadow:3px 3px 0 #3cbcfc}
+body.th-retro .set input[type=checkbox]:checked{background:#00b800}

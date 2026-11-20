@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.33.0','Neue Sammlung: 17 Designs und 8 Kippi-Outfits – freischaltbar über Welten, Serie, Endlos, Tagesspiele, Dezember, Silvester und Ostern. 6×6 bekommt ab Level 30 Felsen, die Musik wird je Feldgröße passend schneller'],
  ['1.32.0','Das KIPPWERK-Thema: eine eigene Melodie zum Mitsummen in Menü und Spiel. Das Tempo steigt mit dem Level und wird in einer Partie nie wieder langsamer'],
  ['1.31.1','Dein eigenes Ergebnis erscheint jetzt auch dann in den Top 5 und der Bestenliste, wenn Google es nicht öffentlich wertet – mit Hinweis, wie du sichtbar wirst'],
  ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],

@@ -1,14 +1,21 @@
 // ---------- Serie ----------
 const MILESTONES=[
-  {d:3,badge:'✨',name:'Funke',theme:'neon'},
-  {d:7,badge:'⚡',name:'Eine Woche',theme:'pastell'},
-  {d:14,badge:'🌊',name:'Zwei Wochen',theme:'ozean'},
+  {d:3,badge:'✨',name:'Funke',theme:'pastell'},
+  {d:7,badge:'⚡',name:'Eine Woche',theme:'neon'},
+  {d:14,badge:'🌊',name:'Zwei Wochen',kippi:'kopfhoerer'},
   {d:30,badge:'🌋',name:'Ein Monat',theme:'lava'},
   {d:50,badge:'👑',name:'Fünfzig Tage',theme:'gold'},
   {d:100,badge:'🌌',name:'Hundert Tage',theme:'kosmos'}];
-const THEME_NAMES={std:'Standard',neon:'Neon',pastell:'Pastell',ozean:'Ozean',lava:'Lava',gold:'Gold',kosmos:'Kosmos'};
+const THEME_NAMES={std:'Standard',werkstatt:'Werkstatt',pastell:'Pastell',retro:'Retro 8-Bit',neon:'Neon',ozean:'Ozean',papier:'Papier',wald:'Wald',lava:'Lava',bonbon:'Bonbon',
+  gold:'Gold',kristall:'Kristall',kosmos:'Kosmos',prisma:'Prisma',winter:'Winter',feuerwerk:'Feuerwerk',fruehling:'Frühling'};
+// Belohnung eines Serien-Meilensteins als Text („Design „Neon““ / „Kippi: Kopfhörer“)
+const msReward=m=>m.theme?`Design „${THEME_NAMES[m.theme]}“`:`Kippi: ${KIPPI_NAMES[m.kippi]}`;
 const THEME_SW={std:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],neon:['#ff2e63','#ffe600','#00ff9d','#00d4ff','#c84bff'],pastell:['#ff8fa3','#ffd6a5','#a8e6cf','#9bd0f5','#cdb4ff'],
-  ozean:['#ef476f','#ffd166','#06d6a0','#2bb3e0','#8c9eff'],lava:['#ff4d2e','#ffb703','#a7f432','#5ad1f5','#ff5fa2'],gold:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],kosmos:['#ff5d8f','#ffd23f','#3ee8b5','#5ec8ff','#b98cff']};
+  ozean:['#ef476f','#ffd166','#06d6a0','#2bb3e0','#8c9eff'],lava:['#ff4d2e','#ffb703','#a7f432','#5ad1f5','#ff5fa2'],gold:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],kosmos:['#ff5d8f','#ffd23f','#3ee8b5','#5ec8ff','#b98cff'],
+  werkstatt:['#d64541','#e9a23b','#5aa457','#3f8fc4','#8f68c0'],retro:['#e40058','#f8b800','#00b800','#0078f8','#9878f8'],papier:['#e76f6f','#f2b35b','#7bbf7b','#6aa7d8','#a98bd6'],
+  wald:['#e5533d','#e9c46a','#7cc46a','#58b4ae','#b083d6'],bonbon:['#ff4f81','#ffcf3f','#4ee08f','#43c6f5','#b77bff'],kristall:['#e0115f','#ffc04d','#22c97a','#2f7dff','#a066e0'],
+  prisma:['#ff5c7a','#ffd447','#4be08f','#47c7ff','#b48bff'],winter:['#ff6b8b','#ffd27a','#72dcae','#7cc8ff','#c3a6ff'],feuerwerk:['#ff3d6e','#ffd23f','#3df0a0','#3dc3ff','#c77dff'],
+  fruehling:['#ff7aa2','#ffd36e','#7ddf8f','#7cc4ff','#c9a2ff']};
 const MAX_SHIELDS=2;
 function loadStreak(){let s=null;try{s=JSON.parse(localStorage.getItem('kippwerk_streak')||'null')}catch(e){}return s}
 function saveStreak(){try{localStorage.setItem('kippwerk_streak',JSON.stringify(ST))}catch(e){}}
@@ -49,7 +56,7 @@ function streakOnDaily(){
   for(const m of MILESTONES)if(ST.cur>=m.d&&!ST.ms.includes(m.d)){ST.ms.push(m.d);ev.ms=m}
   saveStreak();renderStreakChip();Reminder.schedule();return ev;
 }
-const themeUnlocked=th=>th==='std'||MILESTONES.some(m=>m.theme===th&&ST.ms.includes(m.d));
+const themeUnlocked=th=>{try{return Unlocks.has('theme',th)}catch(e){return th==='std'}};
 function renderStreakChip(){
   if(!ST)return;const done=ST.last===todayKey();
   $('streakNum').textContent=ST.cur;const b=$('streakBtn');
@@ -69,10 +76,12 @@ function renderStreak(){
   $('stkShield').innerHTML=`${'🛡'.repeat(ST.shields)}${'<span style="opacity:.25">🛡</span>'.repeat(MAX_SHIELDS-ST.shields)} &nbsp;<b>${ST.shields}/${MAX_SHIELDS}</b><br><span class="hint">Rettet automatisch einen verpassten Tag. Gratis alle 7 Serientage${Ads.native?', zusätzlich 1× täglich per Video':''}.</span>`;
   $('stkAd').style.display=(Ads.canRescue&&ST.shields<MAX_SHIELDS&&ST.adDay!==t)?'':'none';
   const nx=MILESTONES.find(m=>m.d>ST.cur);
-  $('stkNext').innerHTML=nx?`<b>${nx.badge} ${nx.name}</b> – noch ${nx.d-ST.cur} ${nx.d-ST.cur===1?'Tag':'Tage'} · Design „${THEME_NAMES[nx.theme]}“<div class="stk-bar"><i style="width:${Math.min(100,ST.cur/nx.d*100)}%"></i></div>`:'🏆 Alle Meilensteine erreicht – unglaublich!';
+  $('stkNext').innerHTML=nx?`<b>${nx.badge} ${nx.name}</b> – noch ${nx.d-ST.cur} ${nx.d-ST.cur===1?'Tag':'Tage'} · ${msReward(nx)}<div class="stk-bar"><i style="width:${Math.min(100,ST.cur/nx.d*100)}%"></i></div>`:'🏆 Alle Meilensteine erreicht – unglaublich!';
   const cur=settings.theme||'std';
-  $('stkMs').innerHTML=`<button class="ms${cur==='std'?' on':''}" data-th="std"><b>🎨</b>Standard${sw5('std')}</button>`+MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
-    return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('');
+  $('stkMs').innerHTML=MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
+    if(m.kippi)return `<button class="ms${un?'':' lock'}" data-coll="1" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>🪰 ${KIPPI_NAMES[m.kippi]}</button>`;
+    return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('')+
+    `<button class="ms" data-coll="1"><b>🎨</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
   {const aw=Awards.all(),ks=Object.keys(Awards.BADGE).filter(k=>aw[k]);$('stkAwardsCard').style.display=ks.length||Games.available?'':'none';
    $('stkAwards').innerHTML=ks.length?ks.map(k=>`<div class="aw"><b>${Awards.BADGE[k][0]}</b><span>${aw[k]}×</span><small>${Awards.BADGE[k][1]}</small></div>`).join(''):'<p class="hint" style="margin:4px 0">Noch keine – landet im Tagesspiel vorne: Tagessieg +1 ❤ · Wochensieg +3 ❤ · Woche Top 3 +1 ❤</p>'}
   $('stkBest').textContent=`Längste Serie: ${ST.best} ${ST.best===1?'Tag':'Tage'}`;

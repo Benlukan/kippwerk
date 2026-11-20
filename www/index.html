@@ -201,23 +201,132 @@ h1 span{color:var(--c3)}
 .tile.rock .in{background:repeating-linear-gradient(135deg,#5b6079 0 7px,#4a4e66 7px 14px);box-shadow:inset 0 -5px 0 rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.15)}
 body.nosym .tile:not(.wild) .in,body.nosym .mini:not(.w),body.nosym .chip{color:transparent!important}
 #setName[readonly]{opacity:.75;cursor:default}
-/* Designs (Serien-Belohnungen) – Farben nur, wenn kein Farbschwäche-Schema aktiv ist */
-body.th-neon{--bg:#05050c;--bg2:#1a0d33}
-body.th-neon:not(.pal-cb){--c0:#ff2e63;--c1:#ffe600;--c2:#00ff9d;--c3:#00d4ff;--c4:#c84bff}
-body.th-neon .tile .in{box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.4),0 0 26px var(--glow)}
-body.th-pastell{--bg:#17141f;--bg2:#2e2742;--panel:#221d30;--line:#3a3150}
+/* Designs – Farben nur, wenn kein Farbschwäche-Schema aktiv ist. Oberflächen (Holz, Streifen …) als Ebene unter dem Symbol */
+body:is([class^="th-"],[class*=" th-"]) .tile .in,body:is([class^="th-"],[class*=" th-"]) .hst{position:relative;overflow:hidden;isolation:isolate}
+body:is([class^="th-"],[class*=" th-"]) .tile .in::after,body:is([class^="th-"],[class*=" th-"]) .hst::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1}
+
+/* --- Werkstatt: Holzbrett, lackierte Holzklötze --- */
+body.th-werkstatt{--bg:#150d07;--bg2:#3d2614;--panel:#2a1b0f;--line:#5a3a1e;--text:#f6ead9;--muted:#c4a27f;
+  --radius:7px;
+  --bgimg:repeating-linear-gradient(90deg,#ffffff05 0 2px,transparent 2px 38px)}
+body.th-werkstatt:not(.pal-cb){--c0:#d64541;--c1:#e9a23b;--c2:#5aa457;--c3:#3f8fc4;--c4:#8f68c0}
+body.th-werkstatt .board{background:repeating-linear-gradient(8deg,#3a2614 0 9px,#33210f 9px 15px,#3e2a17 15px 26px);border:3px solid #6b4422;box-shadow:inset 0 0 30px #0008,0 10px 0 #24160b}
+body.th-werkstatt .cells div{background:#24170c;box-shadow:inset 0 2px 4px #000a}
+body.th-werkstatt .tile .in::after,body.th-werkstatt .hst::after{background:repeating-linear-gradient(100deg,#0000 0 6px,#0000001c 6px 8px,#0000 8px 15px),linear-gradient(180deg,#ffffff38,#0000 40%)}
+body.th-werkstatt .tile .in{box-shadow:inset 0 -5px 0 #0000003a,0 3px 0 #0000006b}
+body.th-werkstatt :is(h1,.hero-word) span{color:#e9a23b}
+
+/* --- Pastell: matt, weich --- */
+body.th-pastell{--bg:#17141f;--bg2:#2e2742;--panel:#221d30;--line:#3a3150;--radius:16px}
 body.th-pastell:not(.pal-cb){--c0:#ff8fa3;--c1:#ffd6a5;--c2:#a8e6cf;--c3:#9bd0f5;--c4:#cdb4ff}
-body.th-ozean{--bg:#03101c;--bg2:#0b3354;--panel:#0b1e30;--line:#16344f}
+body.th-pastell .tile .in{box-shadow:inset 0 -4px 0 #0000001a,inset 0 3px 0 #ffffff55}
+body.th-pastell .cells div{background:#2a2439;border-radius:16px}
+
+/* --- Retro 8-Bit: Pixel, Scanlines --- */
+body.th-retro{--bg:#000;--bg2:#101020;--panel:#0a0a14;--line:#fcfcfc;--radius:0px;--gap:6px;
+  --bgimg:repeating-linear-gradient(0deg,#ffffff08 0 2px,transparent 2px 4px)}
+body.th-retro:not(.pal-cb){--c0:#e40058;--c1:#f8b800;--c2:#00b800;--c3:#0078f8;--c4:#9878f8}
+body.th-retro .board{border:4px solid #fcfcfc;border-radius:0;box-shadow:8px 8px 0 #3cbcfc}
+body.th-retro .cells div{background:#16162a;border-radius:0}
+body.th-retro .tile .in{box-shadow:inset -5px -5px 0 #00000055,inset 5px 5px 0 #ffffff55;image-rendering:pixelated}
+body.th-retro .tile .in::after,body.th-retro .hst::after{background:linear-gradient(#0000 0 0)}
+body.th-retro h1,body.th-retro .tagline{text-shadow:4px 4px 0 #e40058}
+
+/* --- Neon: Leuchtröhren --- */
+body.th-neon{--bg:#05050c;--bg2:#1a0d33;--panel:#08080f;--line:#2a1f55}
+body.th-neon:not(.pal-cb){--c0:#ff2e63;--c1:#ffe600;--c2:#00ff9d;--c3:#00d4ff;--c4:#c84bff}
+body.th-neon .tile .in{box-shadow:0 0 22px var(--glow),0 0 6px #fff8 inset}
+body.th-neon .tile .in::after,body.th-neon .hst::after{background:radial-gradient(circle at 50% 50%,#05050ccc 0 46%,#0000 58%)}
+body.th-neon .tile .in{color:#fff;text-shadow:0 0 8px #fff}
+body.th-neon .cells div{background:#0d0d1a;box-shadow:inset 0 0 0 1px #2a1f55}
+body.th-neon .board{box-shadow:0 0 40px #c84bff33}
+
+/* --- Ozean: Wasser, Blasen --- */
+body.th-ozean{--bg:#03101c;--bg2:#0b3354;--panel:#0b1e30;--line:#16344f;--radius:14px;
+  --bgimg:radial-gradient(6px 6px at 12% 70%,#ffffff1a 50%,transparent 52%),radial-gradient(4px 4px at 85% 40%,#ffffff1f 50%,transparent 52%),radial-gradient(9px 9px at 70% 85%,#ffffff12 50%,transparent 52%),radial-gradient(3px 3px at 30% 25%,#ffffff22 50%,transparent 52%)}
 body.th-ozean:not(.pal-cb){--c0:#ef476f;--c1:#ffd166;--c2:#06d6a0;--c3:#2bb3e0;--c4:#8c9eff}
-body.th-lava{--bg:#120604;--bg2:#3d1206;--panel:#22110c;--line:#43211a}
+body.th-ozean .tile .in::after,body.th-ozean .hst::after{background:radial-gradient(30% 22% at 30% 25%,#ffffff55,#0000 70%),radial-gradient(120% 60% at 50% 120%,#00000040,#0000 60%)}
+body.th-ozean .board{background:linear-gradient(180deg,#0e2b45,#071827)}
+
+/* --- Papier: Origami --- */
+body.th-papier{--bg:#2b231c;--bg2:#4a3b2c;--panel:#3a2f25;--line:#5c4b3a;--text:#f3ead9;--muted:#cdb999;
+  --radius:3px}
+body.th-papier:not(.pal-cb){--c0:#e76f6f;--c1:#f2b35b;--c2:#7bbf7b;--c3:#6aa7d8;--c4:#a98bd6}
+body.th-papier .board{background:linear-gradient(135deg,#e6d9c2,#cdbd9f);box-shadow:0 12px 30px #0008}
+body.th-papier .cells div{background:#c2b294;box-shadow:inset 0 1px 2px #0003}
+body.th-papier .tile .in{box-shadow:0 3px 4px #0005}
+body.th-papier .tile .in::after,body.th-papier .hst::after{background:linear-gradient(135deg,#ffffff40 0 49.5%,#0000001f 50.5% 100%)}
+
+/* --- Wald --- */
+body.th-wald{--bg:#06120a;--bg2:#163b22;--panel:#0d2215;--line:#24432c;--radius:14px;
+  --bgimg:radial-gradient(160px 90px at 0% 100%,#1f4d2b55,transparent 70%),radial-gradient(200px 120px at 100% 0%,#2a5e3355,transparent 70%)}
+body.th-wald:not(.pal-cb){--c0:#e5533d;--c1:#e9c46a;--c2:#7cc46a;--c3:#58b4ae;--c4:#b083d6}
+body.th-wald .tile .in::after,body.th-wald .hst::after{background:radial-gradient(60% 40% at 30% 20%,#ffffff35,#0000 70%)}
+body.th-wald .tile .in{box-shadow:inset 0 -5px 0 #0003,0 4px 0 #02080488}
+body.th-wald .board{border:2px solid #355c3c}
+
+/* --- Lava --- */
+body.th-lava{--bg:#120604;--bg2:#3d1206;--panel:#1b0d09;--line:#43211a;--radius:10px;
+  --bgimg:radial-gradient(3px 3px at 20% 85%,#ff6a0080 50%,transparent 52%),radial-gradient(2px 2px at 75% 70%,#ffb70370 50%,transparent 52%),radial-gradient(2px 2px at 55% 92%,#ff4d2e70 50%,transparent 52%)}
 body.th-lava:not(.pal-cb){--c0:#ff4d2e;--c1:#ffb703;--c2:#a7f432;--c3:#5ad1f5;--c4:#ff5fa2}
+body.th-lava .tile .in::after,body.th-lava .hst::after{background:linear-gradient(115deg,#0000 40%,#00000050 41% 43%,#0000 44%),linear-gradient(35deg,#0000 62%,#00000045 63% 65%,#0000 66%),radial-gradient(60% 50% at 50% 110%,#ffe0a040,#0000 70%)}
+body.th-lava .board{box-shadow:0 0 40px #ff4d2e30,inset 0 -20px 40px #ff4d2e18}
+
+/* --- Bonbon --- */
+body.th-bonbon{--bg:#1c0a1a;--bg2:#4a1640;--panel:#2a1027;--line:#5a2350;--radius:40%}
+body.th-bonbon:not(.pal-cb){--c0:#ff4f81;--c1:#ffcf3f;--c2:#4ee08f;--c3:#43c6f5;--c4:#b77bff}
+body.th-bonbon .tile .in::after,body.th-bonbon .hst::after{background:repeating-linear-gradient(45deg,#ffffff2e 0 5px,#0000 5px 11px),radial-gradient(35% 25% at 30% 22%,#fff8,#0000 70%)}
+body.th-bonbon .cells div{border-radius:40%;background:#36152f}
+
+/* --- Gold --- */
 body.th-gold{--bg:#0f0c04;--bg2:#30270d;--panel:#1b170b;--line:#4a3d16}
-body.th-gold .board{border-color:#d4af37;box-shadow:0 0 34px #d4af3740}
-body.th-gold h1 span{color:#e8c25a}
-body.th-gold .tile .in{box-shadow:inset 0 -5px 0 rgba(0,0,0,.2),inset 0 0 0 2px #f4d77a88,0 0 18px var(--glow)}
-body.th-kosmos{--bg:#04020c;--bg2:#2a1052;--panel:#130d26;--line:#2c2150;
-  --bgimg:radial-gradient(1px 1px at 10% 20%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 70% 35%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 40% 80%,#fffa 50%,transparent 51%),radial-gradient(1px 1px at 85% 75%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 25% 55%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 60% 10%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 92% 12%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 5% 90%,#fff7 50%,transparent 51%)}
+body.th-gold .board{border:3px solid #d4af37;box-shadow:0 0 34px #d4af3740}
+body.th-gold :is(h1,.hero-word) span{color:#e8c25a}
+body.th-gold .tile .in{box-shadow:inset 0 -5px 0 #0003,inset 0 0 0 3px #f4d77acc,0 0 18px var(--glow)}
+body.th-gold .tile .in::after,body.th-gold .hst::after{background:linear-gradient(120deg,#0000 30%,#fff5 45%,#0000 60%)}
+
+/* --- Kristall: Edelsteine --- */
+body.th-kristall{--bg:#050b14;--bg2:#12304a;--panel:#0a1626;--line:#1f3b5c;--radius:4px}
+body.th-kristall:not(.pal-cb){--c0:#e0115f;--c1:#ffc04d;--c2:#22c97a;--c3:#2f7dff;--c4:#a066e0}
+body.th-kristall .tile .in{clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%);box-shadow:none}
+body.th-kristall .tile .in::after,body.th-kristall .hst::after{background:conic-gradient(from 45deg at 50% 50%,#ffffff2a 0 25%,#0000001c 25% 50%,#ffffff10 50% 75%,#0000002c 75% 100%)}
+body.th-kristall .cells div{clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%)}
+
+/* --- Kosmos --- */
+body.th-kosmos{--bg:#04020c;--bg2:#2a1052;--panel:#130d26;--line:#2c2150;--radius:50%;
+  --bgimg:radial-gradient(1px 1px at 10% 20%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 70% 35%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 40% 80%,#fffa 50%,transparent 51%),radial-gradient(1px 1px at 85% 75%,#fff9 50%,transparent 51%),radial-gradient(1.5px 1.5px at 25% 55%,#fff7 50%,transparent 51%)}
 body.th-kosmos:not(.pal-cb){--c0:#ff5d8f;--c1:#ffd23f;--c2:#3ee8b5;--c3:#5ec8ff;--c4:#b98cff}
+body.th-kosmos .tile .in::after,body.th-kosmos .hst::after{background:radial-gradient(circle at 35% 30%,#ffffff55,#0000 45%),radial-gradient(circle at 65% 75%,#00000055,#0000 55%)}
+body.th-kosmos .cells div{border-radius:50%;background:#1a1233}
+
+/* --- Prisma: Regenbogen-Glas --- */
+body.th-prisma{--bg:#07070f;--bg2:#1c1c3a;--panel:#0d0d1c;--line:#2a2a4a;--radius:12px}
+body.th-prisma:not(.pal-cb){--c0:#ff5c7a;--c1:#ffd447;--c2:#4be08f;--c3:#47c7ff;--c4:#b48bff}
+body.th-prisma .board{border:3px solid transparent;background:linear-gradient(#0d0d1c,#0d0d1c) padding-box,conic-gradient(#ff5c7a,#ffd447,#4be08f,#47c7ff,#b48bff,#ff5c7a) border-box}
+body.th-prisma .tile .in::after,body.th-prisma .hst::after{background:linear-gradient(120deg,#ffffff55,#0000 35%,#ffffff22 60%,#0000 75%),linear-gradient(300deg,#ff5c7a22,#47c7ff22)}
+body.th-prisma :is(h1,.hero-word) span{background:linear-gradient(90deg,#ff5c7a,#ffd447,#4be08f,#47c7ff,#b48bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* --- Winter: Schnee, Frost --- */
+body.th-winter{--bg:#061220;--bg2:#1d3c5c;--panel:#0d2033;--line:#2b4b6b;--radius:12px;
+  --bgimg:radial-gradient(2px 2px at 10% 15%,#fffc 50%,transparent 52%),radial-gradient(3px 3px at 80% 25%,#fff9 50%,transparent 52%),radial-gradient(2px 2px at 30% 60%,#fffb 50%,transparent 52%),radial-gradient(2.5px 2.5px at 65% 80%,#fffa 50%,transparent 52%),radial-gradient(2px 2px at 90% 55%,#fffc 50%,transparent 52%),radial-gradient(2px 2px at 45% 35%,#fff9 50%,transparent 52%)}
+body.th-winter:not(.pal-cb){--c0:#ff6b8b;--c1:#ffd27a;--c2:#72dcae;--c3:#7cc8ff;--c4:#c3a6ff}
+body.th-winter .tile .in::after,body.th-winter .hst::after{background:radial-gradient(70% 28% at 50% 0%,#ffffffee 0 55%,#0000 60%),radial-gradient(40% 30% at 70% 80%,#ffffff22,#0000 70%)}
+body.th-winter .board{border:2px solid #9fd4ff55;box-shadow:0 0 30px #7cc8ff22}
+
+/* --- Feuerwerk (Silvester) --- */
+body.th-feuerwerk{--bg:#03030a;--bg2:#1a1240;--panel:#0b0b1a;--line:#2a2350;
+  --bgimg:radial-gradient(2px 2px at 15% 20%,#ffd23f 50%,transparent 52%),radial-gradient(2px 2px at 18% 24%,#ff5d73 50%,transparent 52%),radial-gradient(2px 2px at 12% 25%,#4cc9f0 50%,transparent 52%),radial-gradient(2px 2px at 80% 15%,#3ddc97 50%,transparent 52%),radial-gradient(2px 2px at 84% 19%,#ffd23f 50%,transparent 52%),radial-gradient(2px 2px at 77% 20%,#b57bff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 50% 8%,#fff 50%,transparent 52%)}
+body.th-feuerwerk:not(.pal-cb){--c0:#ff3d6e;--c1:#ffd23f;--c2:#3df0a0;--c3:#3dc3ff;--c4:#c77dff}
+body.th-feuerwerk .tile .in::after,body.th-feuerwerk .hst::after{background:radial-gradient(circle at 50% 50%,#0000 0 30%,#ffffff26 31% 33%,#0000 34%),repeating-conic-gradient(from 0deg,#ffffff1c 0 6deg,#0000 6deg 30deg)}
+body.th-feuerwerk .board{box-shadow:0 0 40px #ffd23f22}
+body.th-feuerwerk :is(h1,.hero-word) span{color:#ffd23f}
+
+/* --- Frühling (Ostern) --- */
+body.th-fruehling{--bg:#0c1410;--bg2:#2c4a35;--panel:#15241b;--line:#2f4a38;--radius:45% 45% 40% 40% / 55% 55% 40% 40%;
+  --bgimg:radial-gradient(5px 5px at 12% 80%,#ffd6e5aa 50%,transparent 52%),radial-gradient(4px 4px at 88% 30%,#fff3b0aa 50%,transparent 52%),radial-gradient(5px 5px at 70% 88%,#d6c8ffaa 50%,transparent 52%)}
+body.th-fruehling:not(.pal-cb){--c0:#ff7aa2;--c1:#ffd36e;--c2:#7ddf8f;--c3:#7cc4ff;--c4:#c9a2ff}
+body.th-fruehling .tile .in::after,body.th-fruehling .hst::after{background:repeating-linear-gradient(0deg,#0000 0 30%,#ffffff33 30% 38%,#0000 38% 62%,#ffffff22 62% 66%,#0000 66%),radial-gradient(35% 25% at 35% 25%,#fff7,#0000 70%)}
+body.th-fruehling .cells div{border-radius:45% 45% 40% 40% / 55% 55% 40% 40%}
 /* Serie */
 header h1{min-width:0;overflow:hidden;text-overflow:clip}
 @media (max-width:430px){.icons{gap:4px}.mode-tag{display:none}.streakchip{padding:0 6px;font-size:13px}}
@@ -255,6 +364,15 @@ body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7;--c
 body.pad-on .pad{display:flex!important}
 body.pad-off .pad{display:none!important}
 .menurow{display:flex;gap:14px;justify-content:center}
+.ms small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px;line-height:1.2}
+#collOv h3{margin:14px 0 8px;font-size:13px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.kc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kc{background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:6px 4px 8px;text-align:center;cursor:pointer;color:var(--text);font:600 12px "Space Grotesk",sans-serif}
+.kc small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px}
+.kc.on{border-color:var(--c2);box-shadow:0 0 10px #3ddc9744}
+.kc.lock{opacity:.5;cursor:default}.kc.lock .kv{filter:grayscale(1)}
+.kc .kv svg{width:60px;height:55px;overflow:visible;display:block;margin:4px auto 2px}
+.kc .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
 /* Feldgrößen */
 .board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}
 .sizepick{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -566,7 +684,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       <div class="set-h">Darstellung</div>
       <div class="settings">
         <div class="set"><span>🌐 Sprache</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
-        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
+        <button class="set" id="setTheme"><span>🖌 Design &amp; Kippi</span><span class="pid" id="themeName">Standard</span></button>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
         <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
@@ -585,6 +703,15 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
+    </div>
+    <div class="overlay hidden" id="collOv">
+      <div class="card">
+        <h2>🎨 Sammlung <span class="pid" id="collCount"></span></h2>
+        <p class="hint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
+        <h3>Designs</h3><div class="ms-grid coll" id="collThemes"></div>
+        <h3>🪰 Kippi</h3><div class="kc-grid" id="collKippi"></div>
+        <button class="btn" id="collClose">ZURÜCK</button>
+      </div>
     </div>
     <div class="overlay hidden" id="streakOv">
       <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
@@ -614,6 +741,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <ellipse class="lid" cx="25.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/><ellipse class="lid" cx="38.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/>
         <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
         <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <g class="fly-acc"></g>
       </g></svg></div><div class="fly-bubble" id="flyBubble"></div></div>
     <div class="coach hidden" id="coach"><div class="ct-head"><span class="kippi-ava" id="coachAva"></span><div><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p></div></div>
       <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
@@ -631,7 +759,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
           <p>Jede Farbe hat ein eigenes Symbol – so klappt es auch bei Farbschwäche (Farbschema in ⚙ umstellbar).</p>
           <div id="helpColors"></div>
           <div class="row"><span class="sw wild">✦</span><span><b>Prisma</b> – passt zu jeder Farbe und verbindet Gruppen (ab Level 2).</span></div>
-          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos auf 7×7 und 8×8 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
+          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos ab 6×6 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
         </section>
         <section id="hCombo"><h3>Combos</h3>
           <p>Verschwindet eine Gruppe, rutschen die übrigen Steine nach. Entsteht dabei eine neue Gruppe, ist das eine <b>Combo</b> – die Punkte werden mit der Combo-Stufe multipliziert.</p>
@@ -670,7 +798,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <section id="hSerie"><h3>🔥 Serie</h3>
           <p>Spiel jeden Tag das <b>Tagesspiel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
           <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
-          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und ein neues Design (Neon, Pastell, Ozean, Lava, Gold, Kosmos) – rein optisch.</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 8 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p>
           <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
         </section>
         <section id="hTipps"><h3>Tipps</h3>
@@ -704,12 +832,12 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.32.0 · Build 58 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.33.0 · Build 59 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
 // ---------- Englische Übersetzung (Deutsch = Quelltext) ----------
-const I18N_NAMES={'Erste Schritte':'First Steps','Felsenfeld':'Rock Field','Farbrausch':'Color Rush','Kettenwerk':'Chain Works','Steinbruch':'Quarry','Prismental':'Prism Valley','Sturmzone':'Storm Zone','Tiefenwerk':'Deep Works','Meisterklasse':'Master Class','Finale':'Finale',
+const I18N_NAMES={'Werkstatt':'Workshop','Retro 8-Bit':'Retro 8-Bit','Papier':'Paper','Wald':'Forest','Bonbon':'Candy','Kristall':'Crystal','Prisma':'Prism','Winter':'Winter','Feuerwerk':'Fireworks','Frühling':'Spring','Ohne':'None','Sonnenbrille':'Sunglasses','Kopfhörer':'Headphones','Bauhelm':'Hard hat','Zauberhut':'Wizard hat','Schal':'Scarf','Krone':'Crown','Partyhut':'Party hat','Hasenohren':'Bunny ears','Erste Schritte':'First Steps','Felsenfeld':'Rock Field','Farbrausch':'Color Rush','Kettenwerk':'Chain Works','Steinbruch':'Quarry','Prismental':'Prism Valley','Sturmzone':'Storm Zone','Tiefenwerk':'Deep Works','Meisterklasse':'Master Class','Finale':'Finale',
   'Funke':'Spark','Eine Woche':'One Week','Zwei Wochen':'Two Weeks','Ein Monat':'One Month','Fünfzig Tage':'Fifty Days','Hundert Tage':'Hundred Days',
   'Standard':'Standard','Neon':'Neon','Pastell':'Pastel','Ozean':'Ocean','Lava':'Lava','Gold':'Gold','Kosmos':'Cosmos',
   'Rot':'Red','Gelb':'Yellow','Grün':'Green','Blau':'Blue','Lila':'Purple','Orange':'Orange','Grau':'Gray','Weiß':'White',
@@ -784,7 +912,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','Nur für dich sichtbar: Stell in der App „Google Play Spiele“ unter Profil → Einstellungen dein Profil auf „Für alle sichtbar“, dann erscheinst du in der weltweiten Liste.':'Only visible to you: in the “Google Play Games” app, set your profile to “Visible to everyone” under Profile → Settings, then you will appear in the worldwide list.','🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.':'🔒 Only visible to you – set your profile in “Google Play Games” to “Visible to everyone”.','Neuer Tag ab':'New day from','🏆 Top 5':'🏆 Top 5','Weltweit':'Worldwide','Diese Woche':'This week','Gesamt':'All time','🎮 Mit Google Play Games anmelden – weltweite Bestenliste':'🎮 Sign in with Google Play Games – worldwide leaderboard','⏳ Bestenliste wird geladen …':'⏳ Loading leaderboard …','Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.':'Worldwide leaderboard not reachable right now – showing results on this device.','Heute noch keine Einträge – hol dir Platz 1!':'No entries today yet – grab first place!','Diese Woche noch keine Einträge – hol dir Platz 1!':'No entries this week yet – grab first place!','Noch keine Einträge – hol dir Platz 1!':'No entries yet – grab first place!','Name aus deinem Google Play Games-Profil':'Name from your Google Play Games profile','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','Neues Design':'New theme','Neu für Kippi':'New for Kippi','Sammlung':'Collection','aktiv':'active','frei':'unlocked','immer':'always','Welt 1 geschafft':'World 1 complete','Welt 2 geschafft':'World 2 complete','Welt 3 geschafft':'World 3 complete','Welt 4 geschafft':'World 4 complete','Welt 5 geschafft':'World 5 complete','Welt 6 geschafft':'World 6 complete','Welt 7 geschafft':'World 7 complete','Welt 8 geschafft':'World 8 complete','Welt 9 geschafft':'World 9 complete','Welt 10 geschafft':'World 10 complete','3 Tage Serie':'3-day streak','7 Tage Serie':'7-day streak','14 Tage Serie':'14-day streak','30 Tage Serie':'30-day streak','50 Tage Serie':'50-day streak','100 Tage Serie':'100-day streak','Endlos Level 20':'Endless level 20','25 Tagesspiele':'25 daily games','im Dezember spielen':'play in December','an Silvester spielen':'play on New Year’s Eve','an Ostern spielen':'play at Easter','🎨 Sammlung':'🎨 Collection','Designs':'Themes','🪰 Kippi':'🪰 Kippi','🖌 Design & Kippi':'🖌 Theme & Kippi','Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.':'You unlock themes and Kippi outfits through stage worlds, your streak, Endless, daily games and on holidays.','Werkstatt':'Workshop','Retro 8-Bit':'Retro 8-Bit','Papier':'Paper','Wald':'Forest','Bonbon':'Candy','Kristall':'Crystal','Winter':'Winter','Feuerwerk':'Fireworks','Frühling':'Spring','Ohne':'None','Sonnenbrille':'Sunglasses','Kopfhörer':'Headphones','Bauhelm':'Hard hat','Zauberhut':'Wizard hat','Schal':'Scarf','Krone':'Crown','Partyhut':'Party hat','Hasenohren':'Bunny ears','Nur für dich sichtbar: Stell in der App „Google Play Spiele“ unter Profil → Einstellungen dein Profil auf „Für alle sichtbar“, dann erscheinst du in der weltweiten Liste.':'Only visible to you: in the “Google Play Games” app, set your profile to “Visible to everyone” under Profile → Settings, then you will appear in the worldwide list.','🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.':'🔒 Only visible to you – set your profile in “Google Play Games” to “Visible to everyone”.','Neuer Tag ab':'New day from','🏆 Top 5':'🏆 Top 5','Weltweit':'Worldwide','Diese Woche':'This week','Gesamt':'All time','🎮 Mit Google Play Games anmelden – weltweite Bestenliste':'🎮 Sign in with Google Play Games – worldwide leaderboard','⏳ Bestenliste wird geladen …':'⏳ Loading leaderboard …','Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.':'Worldwide leaderboard not reachable right now – showing results on this device.','Heute noch keine Einträge – hol dir Platz 1!':'No entries today yet – grab first place!','Diese Woche noch keine Einträge – hol dir Platz 1!':'No entries this week yet – grab first place!','Noch keine Einträge – hol dir Platz 1!':'No entries yet – grab first place!','Name aus deinem Google Play Games-Profil':'Name from your Google Play Games profile','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
   'Bsss! Das neue Tagesspiel ist da – ich hab schon reingeschaut 👀':'Bzzz! The new daily game is here – I already took a peek 👀',
   'Kippi hier! Heute warten neue Steine auf dich – kommst du kippen? 🧩':'Kippi here! New stones are waiting for you today – coming to tilt? 🧩',
   'Bsss… ich sitz schon am Spielfeldrand. Fehlt nur noch du! 😉':'Bzzz… I’m already sitting on the board’s edge. Just missing you! 😉',
@@ -843,6 +971,9 @@ const I18N_PATS=(()=>{
   [/^Noch (\d+) bis (\S+) (.+)$/,(m,n,b,x)=>`${n} more to ${b} ${N(x)}`],
   [/^([✨⚡🌊🌋👑🌌]) (.+)$/u,(m,b,x)=>I18N_NAMES[x]?`${b} ${N(x)}`:undefined],
   [/^– noch (\d+) (Tag|Tage) · Design „(.+)“$/,(m,n,t,d)=>`– ${days(n)} to go · theme “${N(d)}”`],
+  [/^– noch (\d+) (Tag|Tage) · Kippi: (.+)$/,(m,n,t,d)=>`– ${days(n)} to go · Kippi: ${N(d)}`],
+  [/^ – Kippi-Outfit „(.+)“ freigeschaltet! $/,(m,d)=>` – Kippi outfit “${N(d)}” unlocked! `],[/^ – Kippi-Outfit „(.+)“ freigeschaltet!$/,(m,d)=>` – Kippi outfit “${N(d)}” unlocked!`],
+  [/^🪰 (.+)$/,(m,d)=>'🪰 '+N(d)],
   [/^Längste Serie: (\d+) (Tag|Tage)$/,(m,n)=>`Longest streak: ${days(n)}`],
   [/^Serie: (\d+) (Tag|Tage) – heute gesichert$/,(m,n)=>`Streak: ${days(n)} – secured today`],
   [/^Serie: (\d+) (Tag|Tage) – heute noch offen!$/,(m,n)=>`Streak: ${days(n)} – still open today!`],
@@ -894,7 +1025,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <p>Every color has its own symbol – so it also works with color blindness (color scheme can be changed in ⚙).</p>
 <div id="helpColors"></div>
 <div class="row"><span class="sw wild">✦</span><span><b>Prism</b> – matches any color and connects groups (from level 2).</span></div>
-<div class="row"><span class="sw rock"></span><span><b>Rocks</b> (stages; Endless on 7×7 and 8×8 from level 30) – slide along and break when a group right next to them clears.</span></div></section>
+<div class="row"><span class="sw rock"></span><span><b>Rocks</b> (stages; Endless from 6×6, from level 30) – slide along and break when a group right next to them clears.</span></div></section>
 <section id="hCombo"><h3>Combos</h3>
 <p>When a group disappears, the remaining stones slide on. If that forms a new group, it's a <b>combo</b> – points are multiplied by the combo level.</p>
 <div class="row"><span class="sw" style="background:var(--c2)">×2</span><span><b>GOOD!</b> – second group in a row</span></div>
@@ -927,7 +1058,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <section id="hSerie"><h3>🔥 Streak</h3>
 <p>Play the <b>daily game</b> every day (the first, counted round) – and your streak grows by one day. The flame at the top shows it: colored = secured today, gray = still open today.</p>
 <p><b>🛡 Streak shield:</b> If you miss a day, a shield saves your streak automatically. You get one free every 7 streak days, plus one per day via an optional video (at most 2 in stock).</p>
-<p><b>Milestones:</b> At 3, 7, 14, 30, 50 and 100 days you get a badge and a new theme (Neon, Pastel, Ocean, Lava, Gold, Cosmos) – purely cosmetic.</p>
+<p><b>Milestones:</b> At 3, 7, 14, 30, 50 and 100 days you get a badge and a reward (Pastel, Neon, headphones for Kippi, Lava, Gold, Cosmos) – purely cosmetic.</p><p><b>🎨 Collection</b> (⚙ → Theme &amp; Kippi): 17 themes and 8 Kippi outfits. Every completed stage world unlocks something, plus Endless level 20, 25 daily games, December, New Year’s Eve and Easter.</p>
 <p><b>🔔 Reminder:</b> In the app, a notification reminds you in the evening if your streak is still open (can be turned off in ⚙).</p></section>
 <section id="hTipps"><h3>Tips</h3>
 <ul><li>Tilt in the <b>same direction</b> more often – colors collect on one side and combos become more likely.</li>
@@ -937,7 +1068,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1076,7 +1207,7 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={fly:true,lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',remind:true};
+const DEF_SETTINGS={fly:true,lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',kippi:'none',remind:true};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -1326,15 +1457,22 @@ function addScore(list,entry,key='score'){
   saveScores();const i=scores[list].indexOf(entry);return i<0?0:i+1}
 // ---------- Serie ----------
 const MILESTONES=[
-  {d:3,badge:'✨',name:'Funke',theme:'neon'},
-  {d:7,badge:'⚡',name:'Eine Woche',theme:'pastell'},
-  {d:14,badge:'🌊',name:'Zwei Wochen',theme:'ozean'},
+  {d:3,badge:'✨',name:'Funke',theme:'pastell'},
+  {d:7,badge:'⚡',name:'Eine Woche',theme:'neon'},
+  {d:14,badge:'🌊',name:'Zwei Wochen',kippi:'kopfhoerer'},
   {d:30,badge:'🌋',name:'Ein Monat',theme:'lava'},
   {d:50,badge:'👑',name:'Fünfzig Tage',theme:'gold'},
   {d:100,badge:'🌌',name:'Hundert Tage',theme:'kosmos'}];
-const THEME_NAMES={std:'Standard',neon:'Neon',pastell:'Pastell',ozean:'Ozean',lava:'Lava',gold:'Gold',kosmos:'Kosmos'};
+const THEME_NAMES={std:'Standard',werkstatt:'Werkstatt',pastell:'Pastell',retro:'Retro 8-Bit',neon:'Neon',ozean:'Ozean',papier:'Papier',wald:'Wald',lava:'Lava',bonbon:'Bonbon',
+  gold:'Gold',kristall:'Kristall',kosmos:'Kosmos',prisma:'Prisma',winter:'Winter',feuerwerk:'Feuerwerk',fruehling:'Frühling'};
+// Belohnung eines Serien-Meilensteins als Text („Design „Neon““ / „Kippi: Kopfhörer“)
+const msReward=m=>m.theme?`Design „${THEME_NAMES[m.theme]}“`:`Kippi: ${KIPPI_NAMES[m.kippi]}`;
 const THEME_SW={std:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],neon:['#ff2e63','#ffe600','#00ff9d','#00d4ff','#c84bff'],pastell:['#ff8fa3','#ffd6a5','#a8e6cf','#9bd0f5','#cdb4ff'],
-  ozean:['#ef476f','#ffd166','#06d6a0','#2bb3e0','#8c9eff'],lava:['#ff4d2e','#ffb703','#a7f432','#5ad1f5','#ff5fa2'],gold:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],kosmos:['#ff5d8f','#ffd23f','#3ee8b5','#5ec8ff','#b98cff']};
+  ozean:['#ef476f','#ffd166','#06d6a0','#2bb3e0','#8c9eff'],lava:['#ff4d2e','#ffb703','#a7f432','#5ad1f5','#ff5fa2'],gold:['#ff5d73','#ffc145','#3ddc97','#4cc9f0','#b57bff'],kosmos:['#ff5d8f','#ffd23f','#3ee8b5','#5ec8ff','#b98cff'],
+  werkstatt:['#d64541','#e9a23b','#5aa457','#3f8fc4','#8f68c0'],retro:['#e40058','#f8b800','#00b800','#0078f8','#9878f8'],papier:['#e76f6f','#f2b35b','#7bbf7b','#6aa7d8','#a98bd6'],
+  wald:['#e5533d','#e9c46a','#7cc46a','#58b4ae','#b083d6'],bonbon:['#ff4f81','#ffcf3f','#4ee08f','#43c6f5','#b77bff'],kristall:['#e0115f','#ffc04d','#22c97a','#2f7dff','#a066e0'],
+  prisma:['#ff5c7a','#ffd447','#4be08f','#47c7ff','#b48bff'],winter:['#ff6b8b','#ffd27a','#72dcae','#7cc8ff','#c3a6ff'],feuerwerk:['#ff3d6e','#ffd23f','#3df0a0','#3dc3ff','#c77dff'],
+  fruehling:['#ff7aa2','#ffd36e','#7ddf8f','#7cc4ff','#c9a2ff']};
 const MAX_SHIELDS=2;
 function loadStreak(){let s=null;try{s=JSON.parse(localStorage.getItem('kippwerk_streak')||'null')}catch(e){}return s}
 function saveStreak(){try{localStorage.setItem('kippwerk_streak',JSON.stringify(ST))}catch(e){}}
@@ -1375,7 +1513,7 @@ function streakOnDaily(){
   for(const m of MILESTONES)if(ST.cur>=m.d&&!ST.ms.includes(m.d)){ST.ms.push(m.d);ev.ms=m}
   saveStreak();renderStreakChip();Reminder.schedule();return ev;
 }
-const themeUnlocked=th=>th==='std'||MILESTONES.some(m=>m.theme===th&&ST.ms.includes(m.d));
+const themeUnlocked=th=>{try{return Unlocks.has('theme',th)}catch(e){return th==='std'}};
 function renderStreakChip(){
   if(!ST)return;const done=ST.last===todayKey();
   $('streakNum').textContent=ST.cur;const b=$('streakBtn');
@@ -1395,10 +1533,12 @@ function renderStreak(){
   $('stkShield').innerHTML=`${'🛡'.repeat(ST.shields)}${'<span style="opacity:.25">🛡</span>'.repeat(MAX_SHIELDS-ST.shields)} &nbsp;<b>${ST.shields}/${MAX_SHIELDS}</b><br><span class="hint">Rettet automatisch einen verpassten Tag. Gratis alle 7 Serientage${Ads.native?', zusätzlich 1× täglich per Video':''}.</span>`;
   $('stkAd').style.display=(Ads.canRescue&&ST.shields<MAX_SHIELDS&&ST.adDay!==t)?'':'none';
   const nx=MILESTONES.find(m=>m.d>ST.cur);
-  $('stkNext').innerHTML=nx?`<b>${nx.badge} ${nx.name}</b> – noch ${nx.d-ST.cur} ${nx.d-ST.cur===1?'Tag':'Tage'} · Design „${THEME_NAMES[nx.theme]}“<div class="stk-bar"><i style="width:${Math.min(100,ST.cur/nx.d*100)}%"></i></div>`:'🏆 Alle Meilensteine erreicht – unglaublich!';
+  $('stkNext').innerHTML=nx?`<b>${nx.badge} ${nx.name}</b> – noch ${nx.d-ST.cur} ${nx.d-ST.cur===1?'Tag':'Tage'} · ${msReward(nx)}<div class="stk-bar"><i style="width:${Math.min(100,ST.cur/nx.d*100)}%"></i></div>`:'🏆 Alle Meilensteine erreicht – unglaublich!';
   const cur=settings.theme||'std';
-  $('stkMs').innerHTML=`<button class="ms${cur==='std'?' on':''}" data-th="std"><b>🎨</b>Standard${sw5('std')}</button>`+MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
-    return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('');
+  $('stkMs').innerHTML=MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
+    if(m.kippi)return `<button class="ms${un?'':' lock'}" data-coll="1" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>🪰 ${KIPPI_NAMES[m.kippi]}</button>`;
+    return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('')+
+    `<button class="ms" data-coll="1"><b>🎨</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
   {const aw=Awards.all(),ks=Object.keys(Awards.BADGE).filter(k=>aw[k]);$('stkAwardsCard').style.display=ks.length||Games.available?'':'none';
    $('stkAwards').innerHTML=ks.length?ks.map(k=>`<div class="aw"><b>${Awards.BADGE[k][0]}</b><span>${aw[k]}×</span><small>${Awards.BADGE[k][1]}</small></div>`).join(''):'<p class="hint" style="margin:4px 0">Noch keine – landet im Tagesspiel vorne: Tagessieg +1 ❤ · Wochensieg +3 ❤ · Woche Top 3 +1 ❤</p>'}
   $('stkBest').textContent=`Längste Serie: ${ST.best} ${ST.best===1?'Tag':'Tage'}`;
@@ -1586,12 +1726,14 @@ const Music=(()=>{
     track:setTrack,danger(b){danger=!!b},get playing(){return want()},get state(){return{track:cur,stage,danger,bpm:Math.round(30/E)}}};
 })();
 // Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
+// Ab welchem Endlos-Level die Musik eine Stufe schneller wird – je Feldgröße (aus Bot-Simulation, v1.32)
+const MUSIC_STEPS={5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32]};
 function musicSync(){
   const menu=!$('startOv').classList.contains('hidden')||!started||over;
   if(menu){Music.track('menu');Music.danger(false);return}
   if(mode==='level'&&lvNo%10===0)Music.track('boss',0);
   else{let st=0;
-    if(mode==='endless')st=level<5?0:level<10?1:level<15?2:level<25?3:4;
+    if(mode==='endless'){const T=MUSIC_STEPS[N]||MUSIC_STEPS[6];st=T.filter(x=>level>=x).length}
     else if(mode==='level')st=Math.min(4,Math.floor((Math.ceil(lvNo/10)-1)/2));
     else if(mode==='daily'){const u=history.length;st=u<15?0:u<28?1:u<36?2:3}
     Music.track('game',st)}
@@ -1601,10 +1743,10 @@ function musicSync(){
 ['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.musicVol>0&&!Music.playing)Music.start()},{passive:true}));
 
 // ---------- Rules ----------
-// Große Felder (7×7, 8×8) im Endlos-Modus: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)
+// Endlos ab 6×6: ab Level 30 Felsen; große Felder (7×7, 8×8) zusätzlich ab Level 40 eine 6. Farbe (★ Orange)
 const BIG_ROCKS=30,BIG_COLOR6=40;
 const numColors=()=>mode==='level'?LV.colors:(N>=7&&level>=BIG_COLOR6)?6:(N>=7||level>=3)?5:4;
-const rockChance=()=>mode==='endless'&&N>=7&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
+const rockChance=()=>mode==='endless'&&N>=6&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}
@@ -1819,6 +1961,7 @@ async function resolve(dir,chain){
     score+=gained;Audit.step(sizes,chain,gained,cells.length);
     const lvBefore=level;
     cleared+=cells.length;level=1+Math.floor(cleared/perLevel());
+    if(mode==='endless'&&level!==lvBefore&&level>=20)setTimeout(()=>Unlocks.check(),600);   // z. B. Design „Retro 8-Bit“
     // Felsen neben abgeräumten Steinen zerbrechen
     const rocks=new Set();
     for(const i of cells){const r=Math.floor(i/N),c=i%N;
@@ -1830,7 +1973,7 @@ async function resolve(dir,chain){
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level();try{Fly.react('level')}catch(e){}},chain>1?700:200)
-      if(N>=7&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
+      if(N>=6&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
       if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
     await sleep(230);
@@ -1930,7 +2073,7 @@ function levelWin(){
   setTimeout(musicSync,0);try{Fly.react('win')}catch(e){}
   over=true;busy=false;started=false;countRound();
   const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
-  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP()}
+  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();if(lvNo%10===0)setTimeout(()=>Unlocks.check(),900)}   // Welt geschafft → Belohnung
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
   setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'ETAPPE '+stg(lvNo),stars:st,goalsProg:true,
@@ -1964,7 +2107,7 @@ function finishGame(reason){
     let official=loadDaily();
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
-    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
+    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);setTimeout(()=>Unlocks.check(),1500);
       lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared,day:todayKey()}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
       if(!playerName&&!(Games.signedIn&&Games.player&&Games.player.name)){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
@@ -1972,7 +2115,8 @@ function finishGame(reason){
     const sn=$('streakNote');
     if(sev){
       let h=`<b>🔥 Serie: ${sev.cur} ${sev.cur===1?'Tag':'Tage'}!</b>`;
-      if(sev.ms)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Design „${THEME_NAMES[sev.ms.theme]}“ freigeschaltet! <button class="linkbtn" id="applyMsTheme" data-th="${sev.ms.theme}">Jetzt anwenden</button>`;
+      if(sev.ms&&sev.ms.theme)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Design „${THEME_NAMES[sev.ms.theme]}“ freigeschaltet! <button class="linkbtn" id="applyMsTheme" data-th="${sev.ms.theme}">Jetzt anwenden</button>`;
+      else if(sev.ms)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Kippi-Outfit „${KIPPI_NAMES[sev.ms.kippi]}“ freigeschaltet!`;
       if(sev.shield)h+=`<br>🛡 +1 Serienschutz für 7 Tage am Stück!`;
       if(!sev.ms){const nx=MILESTONES.find(m=>m.d>sev.cur);if(nx)h+=`<br><span class="hint">Noch ${nx.d-sev.cur} bis ${nx.badge} ${nx.name}</span>`}
       sn.innerHTML=h;sn.style.display='';
@@ -2094,7 +2238,7 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 let settingsReturn=null,resetArm={};
 function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
-  $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
+  $('themeName').textContent=I18N.tr(THEME_NAMES[settings.theme]||'Standard')+(settings.kippi&&settings.kippi!=='none'?' · 🪰':'');
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
   $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setFly').checked=settings.fly!==false;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg[data-key]').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
@@ -2159,16 +2303,17 @@ $('closeStreak').onclick=closeStreak;
 $('menuStreak').onclick=()=>openStreak();
 
 $('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
-$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;setTheme(b.dataset.th);renderStreak()};
+$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection();return}setTheme(b.dataset.th);renderStreak()};
 $('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
   if(ok&&ST.shields<MAX_SHIELDS){ST.shields++;ST.adDay=todayKey();saveStreak();toast('🛡 Serienschutz erhalten!')}renderStreak()};
 $('overOv').addEventListener('click',e=>{const b=e.target.closest('#applyMsTheme');if(b){setTheme(b.dataset.th);b.textContent='✓ angewendet'}});
-$('setTheme').onclick=()=>openStreak();
+$('setTheme').onclick=()=>openCollection();
 $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
   saveSettings();Reminder.schedule()};
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.33.0','Neue Sammlung: 17 Designs und 8 Kippi-Outfits – freischaltbar über Welten, Serie, Endlos, Tagesspiele, Dezember, Silvester und Ostern. 6×6 bekommt ab Level 30 Felsen, die Musik wird je Feldgröße passend schneller'],
  ['1.32.0','Das KIPPWERK-Thema: eine eigene Melodie zum Mitsummen in Menü und Spiel. Das Tempo steigt mit dem Level und wird in einer Partie nie wieder langsamer'],
  ['1.31.1','Dein eigenes Ergebnis erscheint jetzt auch dann in den Top 5 und der Bestenliste, wenn Google es nicht öffentlich wertet – mit Hinweis, wie du sichtbar wirst'],
  ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],
@@ -2420,6 +2565,110 @@ const Awards=(()=>{
     return msgs}
   return{note,check,BADGE,all:()=>J(AK,{}),merge(o){const a=J(AK,{});for(const k in o||{})a[k]=Math.max(a[k]||0,o[k]||0);put(AK,a)}};
 })();
+// ---------- Freischaltungen: Designs & Kippi-Outfits ----------
+// Quellen: Welten (Etappen), Serie, Endlos-Level, Anzahl Tagesspiele und Feiertage (Dezember, Silvester, Ostern).
+// Einmal freigeschaltet bleibt freigeschaltet (kippwerk_unlocks, auch in der Cloud-Sicherung).
+const KIPPI_NAMES={none:'Ohne',brille:'Sonnenbrille',kopfhoerer:'Kopfhörer',helm:'Bauhelm',zauberhut:'Zauberhut',schal:'Schal',krone:'Krone',partyhut:'Partyhut',hasen:'Hasenohren'};
+const KIPPI_SVG={none:'',
+  brille:'<rect x="17" y="18.5" width="13" height="8" rx="3" fill="#111"/><rect x="34" y="18.5" width="13" height="8" rx="3" fill="#111"/><path d="M30 21h4" stroke="#111" stroke-width="2"/><path d="M19 20h4" stroke="#fff6" stroke-width="1.4"/>',
+  kopfhoerer:'<path d="M19 25q0-17 13-17t13 17" fill="none" stroke="#4cc9f0" stroke-width="3"/><rect x="15" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/><rect x="42" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/>',
+  helm:'<path d="M18 17q0-12 14-12t14 12z" fill="#ffc145"/><rect x="15" y="15.5" width="34" height="3.5" rx="1.7" fill="#e0a52e"/><rect x="30" y="5" width="4" height="11" rx="2" fill="#e0a52e"/>',
+  zauberhut:'<path d="M21 15l11-19 11 19z" fill="#6c4bd1"/><ellipse cx="32" cy="15" rx="15" ry="3.5" fill="#5536b3"/><circle cx="31" cy="4" r="1.5" fill="#ffc145"/><circle cx="35" cy="9" r="1.2" fill="#ffc145"/>',
+  schal:'<path d="M19 33q13 7 26 0l1 4q-14 8-28 0z" fill="#ff5d73"/><path d="M38 36l4 10-5 1-3-10z" fill="#ff5d73"/><path d="M22 35l2 1M27 37l2 .5M33 37.5l2-.3M39 36l2-1" stroke="#fff8" stroke-width="1.2"/>',
+  krone:'<path d="M20 15l2-11 6 6 4-8 4 8 6-6 2 11z" fill="#ffc145" stroke="#e0a52e" stroke-width="1"/><circle cx="32" cy="9" r="1.6" fill="#ff5d73"/><circle cx="25" cy="11" r="1.2" fill="#4cc9f0"/><circle cx="39" cy="11" r="1.2" fill="#3ddc97"/>',
+  partyhut:'<path d="M24 15l8-18 8 18z" fill="#ff5d73"/><path d="M26.5 9.5l11 0M28.8 4.3l6.4 0" stroke="#ffd23f" stroke-width="2"/><circle cx="32" cy="-3" r="2.6" fill="#ffd23f"/><path d="M22 15h20" stroke="#4cc9f0" stroke-width="2.4" stroke-linecap="round"/>',
+  hasen:'<ellipse cx="24" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(-14 24 2)"/><ellipse cx="24" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(-14 24 3)"/><ellipse cx="40" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(14 40 2)"/><ellipse cx="40" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(14 40 3)"/>'};
+
+// Ostersonntag (Gauß/Meeus, gregorianisch)
+function easterSunday(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
+  h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;
+  return new Date(y,mo-1,da)}
+const Holiday={
+  now:()=>now(),
+  december(){return this.now().getMonth()===11},
+  silvester(){const d=this.now();return (d.getMonth()===11&&d.getDate()===31)||(d.getMonth()===0&&d.getDate()===1)},
+  easter(){const d=this.now(),e=easterSunday(d.getFullYear()),t=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+    const diff=Math.round((t-e)/864e5);return diff>=-2&&diff<=1}};           // Karfreitag bis Ostermontag
+
+const worldDone=w=>!!LP[w*10];
+const dailyCount=()=>{let n=0;try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_'))n++}}catch(e){}return n};
+const bestEndlessLevel=()=>{let m=0;try{for(const x of (JSON.parse(localStorage.getItem('kippwerk_scores')||'{}').endless||[]))m=Math.max(m,+x.level||0)}catch(e){}
+  if(mode==='endless')m=Math.max(m,level||0);return m};
+const msHas=d=>!!(ST&&ST.ms&&ST.ms.includes(d));
+
+// Reihenfolge = Anzeige in der Sammlung
+const REWARDS=[
+  {t:'theme',id:'std',how:'immer',test:()=>true},
+  {t:'theme',id:'werkstatt',how:'Welt 1 geschafft',test:()=>worldDone(1)},
+  {t:'theme',id:'pastell',how:'3 Tage Serie',test:()=>msHas(3)},
+  {t:'theme',id:'retro',how:'Endlos Level 20',test:()=>bestEndlessLevel()>=20},
+  {t:'theme',id:'neon',how:'7 Tage Serie',test:()=>msHas(7)},
+  {t:'theme',id:'ozean',how:'Welt 3 geschafft',test:()=>worldDone(3)},
+  {t:'theme',id:'papier',how:'25 Tagesspiele',test:()=>dailyCount()>=25},
+  {t:'theme',id:'wald',how:'Welt 5 geschafft',test:()=>worldDone(5)},
+  {t:'theme',id:'lava',how:'30 Tage Serie',test:()=>msHas(30)},
+  {t:'theme',id:'bonbon',how:'Welt 7 geschafft',test:()=>worldDone(7)},
+  {t:'theme',id:'gold',how:'50 Tage Serie',test:()=>msHas(50)},
+  {t:'theme',id:'kristall',how:'Welt 9 geschafft',test:()=>worldDone(9)},
+  {t:'theme',id:'kosmos',how:'100 Tage Serie',test:()=>msHas(100)},
+  {t:'theme',id:'prisma',how:'Welt 10 geschafft',test:()=>worldDone(10)},
+  {t:'theme',id:'winter',how:'im Dezember spielen',test:()=>Holiday.december()},
+  {t:'theme',id:'feuerwerk',how:'an Silvester spielen',test:()=>Holiday.silvester()},
+  {t:'theme',id:'fruehling',how:'an Ostern spielen',test:()=>Holiday.easter()},
+  {t:'kippi',id:'none',how:'immer',test:()=>true},
+  {t:'kippi',id:'brille',how:'Welt 2 geschafft',test:()=>worldDone(2)},
+  {t:'kippi',id:'kopfhoerer',how:'14 Tage Serie',test:()=>msHas(14)},
+  {t:'kippi',id:'helm',how:'Welt 4 geschafft',test:()=>worldDone(4)},
+  {t:'kippi',id:'zauberhut',how:'Welt 6 geschafft',test:()=>worldDone(6)},
+  {t:'kippi',id:'schal',how:'Welt 8 geschafft',test:()=>worldDone(8)},
+  {t:'kippi',id:'krone',how:'Welt 10 geschafft',test:()=>worldDone(10)},
+  {t:'kippi',id:'partyhut',how:'an Silvester spielen',test:()=>Holiday.silvester()},
+  {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()}];
+
+const Unlocks=(()=>{
+  const K='kippwerk_unlocks';
+  const load=()=>{try{const a=JSON.parse(localStorage.getItem(K)||'[]');return Array.isArray(a)?a.filter(x=>typeof x==='string'):[]}catch(e){return[]}};
+  let have=new Set(load());
+  const save=()=>{try{localStorage.setItem(K,JSON.stringify([...have]))}catch(e){}};
+  const key=r=>r.t+':'+r.id;
+  // Bestandsschutz: Designs aus der alten Serien-Zuordnung (3 Neon, 7 Pastell, 14 Ozean) bleiben erhalten
+  if(!localStorage.getItem('kippwerk_unlocks_v2')){
+    try{if(msHas(3))have.add('theme:neon');if(msHas(7))have.add('theme:pastell');if(msHas(14))have.add('theme:ozean');
+      if(settings.theme&&settings.theme!=='std')have.add('theme:'+settings.theme);save();localStorage.setItem('kippwerk_unlocks_v2','1')}catch(e){}}
+  const name=r=>I18N.tr(r.t==='theme'?(THEME_NAMES[r.id]||r.id):KIPPI_NAMES[r.id]);
+  return{
+    has(t,id){return id==='std'||id==='none'||have.has(t+':'+id)},
+    // prüft alle Bedingungen; neue Freischaltungen melden (Toast), außer silent
+    check(silent){const neu=[];for(const r of REWARDS){if(r.id==='std'||r.id==='none'||have.has(key(r)))continue;let ok=false;try{ok=r.test()}catch(e){}
+        if(ok){have.add(key(r));neu.push(r)}}
+      if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – ⚙ '+I18N.tr('Sammlung')),i*1800))}
+      return neu},
+    all:()=>[...have],merge(list){let ch=false;for(const x of list||[])if(typeof x==='string'&&!have.has(x)){have.add(x);ch=true}if(ch)save()},
+    name};
+})();
+
+// Kippi-Outfit anlegen
+function applyKippi(){const id=Unlocks.has('kippi',settings.kippi)?settings.kippi:'none';document.querySelectorAll('.fly-acc').forEach(g=>g.innerHTML=KIPPI_SVG[id]||'')}
+
+// ---------- Sammlung (Designs & Kippi) ----------
+function kippiSvg(id){const s=document.querySelector('#fly svg');if(!s)return '';const c=s.cloneNode(true);const a=c.querySelector('.fly-acc');if(a)a.innerHTML=KIPPI_SVG[id]||'';
+  c.querySelectorAll('.lid').forEach(l=>l.remove());return c.outerHTML}
+let collReturn=null;
+function renderCollection(){
+  const cur=settings.theme||'std',ck=settings.kippi||'none';
+  $('collThemes').innerHTML=REWARDS.filter(r=>r.t==='theme').map(r=>{const un=Unlocks.has('theme',r.id);
+    return `<button class="ms${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><b>${un?'🎨':'🔒'}</b>${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${sw5(r.id)}</button>`}).join('');
+  $('collKippi').innerHTML=REWARDS.filter(r=>r.t==='kippi').map(r=>{const un=Unlocks.has('kippi',r.id);
+    return `<button class="kc${un?'':' lock'}${ck===r.id?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${I18N.tr(KIPPI_NAMES[r.id])}<small>${un?(ck===r.id?I18N.tr('aktiv'):I18N.tr('frei')):'🔒 '+I18N.tr(r.how)}</small></button>`}).join('');
+  const n=REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length;$('collCount').textContent=`${n} / ${REWARDS.length}`}
+function openCollection(){Unlocks.check(true);
+  collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
+  ['settingsOv','streakOv','startOv'].forEach(i=>$(i).classList.add('hidden'));renderCollection();$('collOv').classList.remove('hidden');$('collOv').scrollTop=0}
+function closeCollection(){$('collOv').classList.add('hidden');
+  if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else showMenu()}
+$('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
+$('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('happy')}catch(x){}};
+$('collClose').onclick=closeCollection;
 // ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
 // Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
 const Cloud=(()=>{
@@ -2428,14 +2677,14 @@ const Cloud=(()=>{
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
   const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
-  const SET_KEYS=['sound','vibe','palette','symbols','size','theme'];
+  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi'];
   function local(){
     const daily={};const cut=addDays(todayKey(),-60);
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -2456,6 +2705,7 @@ const Cloud=(()=>{
       set:setR?{...L.set,...R.set}:L.set,setAt:Math.max(L.setAt||0,R.setAt||0),levels:lv,scores:{endless,daily},daily:dk,
       streak:mergeStreak(L.streak,R.streak),
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
+      unlocks:uni(L.unlocks,R.unlocks),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -2464,6 +2714,7 @@ const Cloud=(()=>{
     for(const k in M.daily)if(M.daily[k])lsSet('kippwerk_daily_'+k,JSON.stringify(M.daily[k]));
     if(M.streak)lsSet('kippwerk_streak',JSON.stringify(M.streak));
     if(M.awards)lsSet('kippwerk_awards',JSON.stringify(M.awards));
+    if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);
@@ -2652,7 +2903,8 @@ const Fly=(()=>{
  Ads.showInter=async(...a)=>{Music.hold(true);try{return await si(...a)}finally{Music.hold(false)}};}
 try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
 I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
-window.__kw={fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+applyKippi();setTimeout(()=>{Unlocks.check();applyKippi()},2500);   // Feiertage, Welten, Serie … (Toast bei Neuem)
+window.__kw={unlocks:Unlocks,openCollection,holiday:Holiday,fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

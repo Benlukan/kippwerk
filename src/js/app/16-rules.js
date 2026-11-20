@@ -1,8 +1,8 @@
 // ---------- Rules ----------
-// Große Felder (7×7, 8×8) im Endlos-Modus: ab Level 30 Felsen, ab Level 40 eine 6. Farbe (★ Orange)
+// Endlos ab 6×6: ab Level 30 Felsen; große Felder (7×7, 8×8) zusätzlich ab Level 40 eine 6. Farbe (★ Orange)
 const BIG_ROCKS=30,BIG_COLOR6=40;
 const numColors=()=>mode==='level'?LV.colors:(N>=7&&level>=BIG_COLOR6)?6:(N>=7||level>=3)?5:4;
-const rockChance=()=>mode==='endless'&&N>=7&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
+const rockChance=()=>mode==='endless'&&N>=6&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}

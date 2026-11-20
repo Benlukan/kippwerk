@@ -69,7 +69,7 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 let settingsReturn=null,resetArm={};
 function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
-  $('themeName').textContent=THEME_NAMES[settings.theme]||'Standard';
+  $('themeName').textContent=I18N.tr(THEME_NAMES[settings.theme]||'Standard')+(settings.kippi&&settings.kippi!=='none'?' · 🪰':'');
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
   $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setFly').checked=settings.fly!==false;$('setSymbols').checked=settings.symbols;
   document.querySelectorAll('.seg[data-key]').forEach(sg=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[sg.dataset.key]===b.dataset.v)));
@@ -134,10 +134,10 @@ $('closeStreak').onclick=closeStreak;
 $('menuStreak').onclick=()=>openStreak();
 
 $('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
-$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;setTheme(b.dataset.th);renderStreak()};
+$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection();return}setTheme(b.dataset.th);renderStreak()};
 $('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
   if(ok&&ST.shields<MAX_SHIELDS){ST.shields++;ST.adDay=todayKey();saveStreak();toast('🛡 Serienschutz erhalten!')}renderStreak()};
 $('overOv').addEventListener('click',e=>{const b=e.target.closest('#applyMsTheme');if(b){setTheme(b.dataset.th);b.textContent='✓ angewendet'}});
-$('setTheme').onclick=()=>openStreak();
+$('setTheme').onclick=()=>openCollection();
 $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
   saveSettings();Reminder.schedule()};

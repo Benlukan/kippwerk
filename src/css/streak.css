@@ -35,3 +35,12 @@ body.pal-cb{--c0:#e69f00;--c1:#f0e442;--c2:#009e73;--c3:#56b4e9;--c4:#cc79a7;--c
 body.pad-on .pad{display:flex!important}
 body.pad-off .pad{display:none!important}
 .menurow{display:flex;gap:14px;justify-content:center}
+.ms small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px;line-height:1.2}
+#collOv h3{margin:14px 0 8px;font-size:13px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.kc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kc{background:#0d1020;border:1px solid var(--line);border-radius:12px;padding:6px 4px 8px;text-align:center;cursor:pointer;color:var(--text);font:600 12px "Space Grotesk",sans-serif}
+.kc small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px}
+.kc.on{border-color:var(--c2);box-shadow:0 0 10px #3ddc9744}
+.kc.lock{opacity:.5;cursor:default}.kc.lock .kv{filter:grayscale(1)}
+.kc .kv svg{width:60px;height:55px;overflow:visible;display:block;margin:4px auto 2px}
+.kc .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}

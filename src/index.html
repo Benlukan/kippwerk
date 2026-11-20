@@ -146,7 +146,7 @@
       <div class="set-h">Darstellung</div>
       <div class="settings">
         <div class="set"><span>🌐 Sprache</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
-        <button class="set" id="setTheme"><span>🖌 Design</span><span class="pid" id="themeName">Standard</span></button>
+        <button class="set" id="setTheme"><span>🖌 Design &amp; Kippi</span><span class="pid" id="themeName">Standard</span></button>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
         <label class="set"><span>◆ Symbole auf Steinen</span><input type="checkbox" id="setSymbols"></label>
         <label class="set"><span>📱 Menü kippt mit dem Handy</span><input type="checkbox" id="setTilt"></label>
@@ -165,6 +165,15 @@
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
+    </div>
+    <div class="overlay hidden" id="collOv">
+      <div class="card">
+        <h2>🎨 Sammlung <span class="pid" id="collCount"></span></h2>
+        <p class="hint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
+        <h3>Designs</h3><div class="ms-grid coll" id="collThemes"></div>
+        <h3>🪰 Kippi</h3><div class="kc-grid" id="collKippi"></div>
+        <button class="btn" id="collClose">ZURÜCK</button>
+      </div>
     </div>
     <div class="overlay hidden" id="streakOv">
       <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
@@ -194,6 +203,7 @@
         <ellipse class="lid" cx="25.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/><ellipse class="lid" cx="38.5" cy="23" rx="6.9" ry="6.9" fill="#2e3661"/>
         <circle cx="21" cy="30" r="2" fill="#ff8fa3" opacity=".55"/><circle cx="43" cy="30" r="2" fill="#ff8fa3" opacity=".55"/>
         <path class="mouth" d="M29 31q3 2.6 6 0" stroke="#ff8fa3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <g class="fly-acc"></g>
       </g></svg></div><div class="fly-bubble" id="flyBubble"></div></div>
     <div class="coach hidden" id="coach"><div class="ct-head"><span class="kippi-ava" id="coachAva"></span><div><div class="ct-step" id="coachStep"></div><p id="coachTxt"></p></div></div>
       <div class="ct-row"><button class="ct-skip" id="coachSkip">Tutorial überspringen</button><button class="btn" id="coachGo" style="display:none">LOS GEHT’S ▶</button></div></div>
@@ -211,7 +221,7 @@
           <p>Jede Farbe hat ein eigenes Symbol – so klappt es auch bei Farbschwäche (Farbschema in ⚙ umstellbar).</p>
           <div id="helpColors"></div>
           <div class="row"><span class="sw wild">✦</span><span><b>Prisma</b> – passt zu jeder Farbe und verbindet Gruppen (ab Level 2).</span></div>
-          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos auf 7×7 und 8×8 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
+          <div class="row"><span class="sw rock"></span><span><b>Felsen</b> (Etappen; Endlos ab 6×6 ab Level 30) – rutscht mit, zerbricht, wenn direkt daneben eine Gruppe verschwindet.</span></div>
         </section>
         <section id="hCombo"><h3>Combos</h3>
           <p>Verschwindet eine Gruppe, rutschen die übrigen Steine nach. Entsteht dabei eine neue Gruppe, ist das eine <b>Combo</b> – die Punkte werden mit der Combo-Stufe multipliziert.</p>
@@ -250,7 +260,7 @@
         <section id="hSerie"><h3>🔥 Serie</h3>
           <p>Spiel jeden Tag das <b>Tagesspiel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
           <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
-          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und ein neues Design (Neon, Pastell, Ozean, Lava, Gold, Kosmos) – rein optisch.</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 8 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p>
           <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
         </section>
         <section id="hTipps"><h3>Tipps</h3>
@@ -284,7 +294,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.32.0 · Build 58 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.33.0 · Build 59 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

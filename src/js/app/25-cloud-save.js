@@ -6,14 +6,14 @@ const Cloud=(()=>{
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
   const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
-  const SET_KEYS=['sound','vibe','palette','symbols','size','theme'];
+  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi'];
   function local(){
     const daily={};const cut=addDays(todayKey(),-60);
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -34,6 +34,7 @@ const Cloud=(()=>{
       set:setR?{...L.set,...R.set}:L.set,setAt:Math.max(L.setAt||0,R.setAt||0),levels:lv,scores:{endless,daily},daily:dk,
       streak:mergeStreak(L.streak,R.streak),
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
+      unlocks:uni(L.unlocks,R.unlocks),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -42,6 +43,7 @@ const Cloud=(()=>{
     for(const k in M.daily)if(M.daily[k])lsSet('kippwerk_daily_'+k,JSON.stringify(M.daily[k]));
     if(M.streak)lsSet('kippwerk_streak',JSON.stringify(M.streak));
     if(M.awards)lsSet('kippwerk_awards',JSON.stringify(M.awards));
+    if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);

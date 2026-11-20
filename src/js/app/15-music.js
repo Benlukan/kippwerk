@@ -77,12 +77,14 @@ const Music=(()=>{
     track:setTrack,danger(b){danger=!!b},get playing(){return want()},get state(){return{track:cur,stage,danger,bpm:Math.round(30/E)}}};
 })();
 // Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
+// Ab welchem Endlos-Level die Musik eine Stufe schneller wird – je Feldgröße (aus Bot-Simulation, v1.32)
+const MUSIC_STEPS={5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32]};
 function musicSync(){
   const menu=!$('startOv').classList.contains('hidden')||!started||over;
   if(menu){Music.track('menu');Music.danger(false);return}
   if(mode==='level'&&lvNo%10===0)Music.track('boss',0);
   else{let st=0;
-    if(mode==='endless')st=level<5?0:level<10?1:level<15?2:level<25?3:4;
+    if(mode==='endless'){const T=MUSIC_STEPS[N]||MUSIC_STEPS[6];st=T.filter(x=>level>=x).length}
     else if(mode==='level')st=Math.min(4,Math.floor((Math.ceil(lvNo/10)-1)/2));
     else if(mode==='daily'){const u=history.length;st=u<15?0:u<28?1:u<36?2:3}
     Music.track('game',st)}

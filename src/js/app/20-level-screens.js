@@ -23,7 +23,7 @@ function levelWin(){
   setTimeout(musicSync,0);try{Fly.react('win')}catch(e){}
   over=true;busy=false;started=false;countRound();
   const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
-  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP()}
+  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();if(lvNo%10===0)setTimeout(()=>Unlocks.check(),900)}   // Welt geschafft → Belohnung
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
   setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'ETAPPE '+stg(lvNo),stars:st,goalsProg:true,
@@ -57,7 +57,7 @@ function finishGame(reason){
     let official=loadDaily();
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
-    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
+    if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);setTimeout(()=>Unlocks.check(),1500);
       lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared,day:todayKey()}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
       if(!playerName&&!(Games.signedIn&&Games.player&&Games.player.name)){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
@@ -65,7 +65,8 @@ function finishGame(reason){
     const sn=$('streakNote');
     if(sev){
       let h=`<b>🔥 Serie: ${sev.cur} ${sev.cur===1?'Tag':'Tage'}!</b>`;
-      if(sev.ms)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Design „${THEME_NAMES[sev.ms.theme]}“ freigeschaltet! <button class="linkbtn" id="applyMsTheme" data-th="${sev.ms.theme}">Jetzt anwenden</button>`;
+      if(sev.ms&&sev.ms.theme)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Design „${THEME_NAMES[sev.ms.theme]}“ freigeschaltet! <button class="linkbtn" id="applyMsTheme" data-th="${sev.ms.theme}">Jetzt anwenden</button>`;
+      else if(sev.ms)h+=`<br>🏅 Neues Abzeichen <b>${sev.ms.badge} ${sev.ms.name}</b> – Kippi-Outfit „${KIPPI_NAMES[sev.ms.kippi]}“ freigeschaltet!`;
       if(sev.shield)h+=`<br>🛡 +1 Serienschutz für 7 Tage am Stück!`;
       if(!sev.ms){const nx=MILESTONES.find(m=>m.d>sev.cur);if(nx)h+=`<br><span class="hint">Noch ${nx.d-sev.cur} bis ${nx.badge} ${nx.name}</span>`}
       sn.innerHTML=h;sn.style.display='';

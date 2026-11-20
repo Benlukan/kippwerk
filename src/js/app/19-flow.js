@@ -14,6 +14,7 @@ async function resolve(dir,chain){
     score+=gained;Audit.step(sizes,chain,gained,cells.length);
     const lvBefore=level;
     cleared+=cells.length;level=1+Math.floor(cleared/perLevel());
+    if(mode==='endless'&&level!==lvBefore&&level>=20)setTimeout(()=>Unlocks.check(),600);   // z. B. Design „Retro 8-Bit“
     // Felsen neben abgeräumten Steinen zerbrechen
     const rocks=new Set();
     for(const i of cells){const r=Math.floor(i/N),c=i%N;
@@ -25,7 +26,7 @@ async function resolve(dir,chain){
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level();try{Fly.react('level')}catch(e){}},chain>1?700:200)
-      if(N>=7&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
+      if(N>=6&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
       if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
     await sleep(230);

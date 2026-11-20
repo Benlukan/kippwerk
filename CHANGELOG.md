@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.33.0 (Build 59) – 20.11.2026
+- **Sammlung (⚙ → Design & Kippi):** 17 Designs mit eigener Oberfläche (Holz, Pixel, Papier, Streifen, Edelstein-Facetten, Schnee …) – auch auf den großen Menü-Steinen – und 8 Kippi-Outfits (Sonnenbrille, Kopfhörer, Bauhelm, Zauberhut, Schal, Krone, Partyhut, Hasenohren)
+- **Neue Designs:** Werkstatt, Retro 8-Bit, Papier, Wald, Bonbon, Kristall, Prisma, Winter, Feuerwerk, Frühling; überarbeitet: Pastell, Neon (unterschiedliche Symbole sichtbar), Ozean, Lava, Gold, Kosmos
+- **Freischaltung:** jede Welt (Etappe x-10) – abwechselnd Design und Kippi-Outfit, Welt 10 beides; Serie 3/7/14/30/50/100 Tage → Pastell, Neon, Kopfhörer, Lava, Gold, Kosmos; Endlos Level 20 → Retro; 25 Tagesspiele → Papier; im Dezember → Winter; an Silvester (31.12./1.1.) → Feuerwerk + Partyhut; an Ostern (Karfreitag–Ostermontag) → Frühling + Hasenohren. Hinweis per Einblendung, freigeschaltet bleibt freigeschaltet (`kippwerk_unlocks`, Cloud-Sicherung führt zusammen)
+- Bestandsschutz: Wer nach der alten Zuordnung schon Neon/Pastell/Ozean hatte oder ein Design nutzt, behält es
+- **6×6 schwerer:** Endlos ab Level 30 Felsen (wie 7×7 und 8×8)
+- **Musik je Feldgröße:** Tempo-Stufen nach Bot-Simulation – 5×5 ab Level 3/5/7/10, 6×6 ab 5/10/16/22, 7×7 ab 4/8/13/18, 8×8 ab 8/15/23/32
+- Hilfe (DE/EN) ergänzt
 ## v1.32.0 (Build 58) – 20.11.2026
 - **Das KIPPWERK-Thema:** eigene, gleichbleibende Melodie (16 Takte, A – A' – B – A) über Am – F – C – G, im Spiel als heller Puls-Ton, im Menü leise und weich. Vorher gab es nur Akkord-Arpeggios ohne Melodie
 - **Tempo nur noch aufwärts:** Die Stufe (88 → 93 → 98 → 104 → 110 BPM) kann in einer Partie nicht mehr sinken

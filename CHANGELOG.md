@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.31.1 (Build 57) – 20.11.2026
+- **Eigenes Ergebnis immer sichtbar:** Liefert Google den eigenen Eintrag ohne öffentlichen Platz (Rang ≤ 0, z. B. weil das Play-Games-Profil nicht „für alle sichtbar“ ist), zeigt KIPPWERK ihn trotzdem – in den Top 5 im Menü und in 🏆 – mit „–“ statt „-1.“ und dem Hinweis „Nur für dich sichtbar“ samt Anleitung
+- Top 5 zeigen den eigenen Eintrag jetzt auch, wenn die öffentliche Liste leer ist; „⋯“ erscheint nur noch, wenn darüber Einträge stehen
 ## v1.31.0 (Build 56) – 20.11.2026
 - **Neuer Spieltag um 9:00 Uhr:** Das Tagesspiel (Steine, Serie, Belohnungen, Listen „Heute“) wechselt jetzt weltweit gleichzeitig um Mitternacht Pazifikzeit – in Deutschland 9:00 Uhr. Damit passt es zu Googles Rangliste „Heute“, und alle Spieler weltweit spielen zur selben Zeit dasselbe Tagesspiel
 - **Hinweise:** Menü „offen bis 09:00“ (statt „heute offen“), nach dem Tagesspiel „Nächstes Tagesspiel in … · um 09:00“, Top 5 „Neuer Tag ab 09:00“, Hilfe (DE/EN) ergänzt. Die Uhrzeit wird in Ortszeit angezeigt (z. B. 17:00 in Japan)

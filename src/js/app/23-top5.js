@@ -7,14 +7,15 @@ const Top5=(()=>{
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
-  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
+  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3||!(r>0)?' class="m"':''}>${r>0?(['🥇','🥈','🥉'][r-1]||r+'.'):'–'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
     if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}
     const myId=d.me&&d.me.playerId,ent=d.entries||[];
-    if(!ent.length){L.innerHTML=`<div class="t5-msg">${EMPTY[span]}</div>`;return}
+    if(!ent.length&&!d.me){L.innerHTML=`<div class="t5-msg">${EMPTY[span]}</div>`;return}
     let h=ent.map(x=>row(x,myId&&x.playerId===myId)).join('');
-    if(d.me&&d.me.rank>0&&!ent.some(x=>x.playerId===myId))h+=row({...d.me,name:playerName||'Du'},'extra');
+    if(d.me&&!ent.some(x=>x.playerId===myId))h+=row({...d.me,name:playerName||'Du'},'extra');
+    if(d.me&&!(d.me.rank>0))h+=`<div class="t5-msg">${'🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.'}</div>`;
     L.innerHTML=h}
   async function refresh(force){
     const box=$('homeTop5');if(!Games.available){box.style.display='none';return}

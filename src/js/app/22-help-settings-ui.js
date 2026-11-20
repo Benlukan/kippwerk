@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.31.1','Dein eigenes Ergebnis erscheint jetzt auch dann in den Top 5 und der Bestenliste, wenn Google es nicht öffentlich wertet – mit Hinweis, wie du sichtbar wirst'],
  ['1.31.0','Das Tagesspiel wechselt jetzt weltweit gleichzeitig um 9:00 Uhr (passend zur Google-Rangliste „Heute“) – im Menü steht „offen bis 09:00“'],
  ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],
  ['1.30.1','Top 5 im Hauptmenü jetzt auch für Endlos (Feldgröße wie im Menü) – und der Hinweis, wann bei Google ein neuer Tag beginnt'],
@@ -114,11 +115,13 @@ function renderOnline(){
       .catch(()=>{if(my===onlineReq&&!c)renderLocal(I18N.tr('Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.'))})}}
 function drawOnline(d){
   const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
-  const row=(x,mine)=>{const r=x.rank|0,medal=['🥇','🥈','🥉'][r-1]||(r?r+'.':'–'),t=ScoreTag.dec(x.tag);
+  const row=(x,mine)=>{const r=x.rank|0,medal=r>0?(['🥇','🥈','🥉'][r-1]||r+'.'):'–',t=ScoreTag.dec(x.tag);
     const name=mine?(me&&me.name||x.name||playerName||'Spieler'):(x.name||'Spieler');
     return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:ScoreTag.date(t),''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
   let h=en.map(x=>row(x,!!mid&&x.playerId===mid)).join('');
-  const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=`<tr class="gap"><td colspan="3">⋯</td></tr>`+row(my,true);
+  const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=(en.length?`<tr class="gap"><td colspan="3">⋯</td></tr>`:'')+row(my,true);
+  // Platz ≤ 0: Google wertet den Eintrag nicht öffentlich (meist Play-Games-Profil nicht „für alle sichtbar“)
+  if(my&&!((my.rank|0)>0))h+=`<tr class="gap"><td colspan="3"><small class="sub">${I18N.tr('Nur für dich sichtbar: Stell in der App „Google Play Spiele“ unter Profil → Einstellungen dein Profil auf „Für alle sichtbar“, dann erscheinst du in der weltweiten Liste.')}</small></td></tr>`;
   $('scoresTable').innerHTML=h;
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';

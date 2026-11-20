@@ -24,6 +24,7 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 - `todayKey()` rechnet in **America/Los_Angeles** – das Tagesspiel, die Serie, „Heute“-Listen und Belohnungen wechseln damit weltweit gleichzeitig um Mitternacht Pazifikzeit (Deutschland: 9:00 Uhr) und passen zu Googles Zeitraum „Heute“. `nextDayStart()`/`dayStartTime()` liefern den nächsten Wechsel in Ortszeit (Menü „offen bis …“, Countdown nach dem Tagesspiel, Top 5).
 
 ## Top 5 im Hauptmenü
+- Liefert Google den eigenen Eintrag mit Platz ≤ 0 (leere öffentliche Liste), ist das Play-Games-Profil nicht öffentlich: Die App zeigt den Eintrag mit „–“ und den Hinweis „Nur für dich sichtbar“ (ab v1.31.1).
 - Ab v1.30.1 umschaltbar: **Tagesspiel** oder **Endlos N×N** (N = Endlos-Feld im Menü), jeweils Heute/Woche/Alle. „Ganze Rangliste“ öffnet dieselbe Liste in 🏆.
 - Google-„Heute“ beginnt um Mitternacht Pazifikzeit (in Deutschland 9:00 Uhr, im Sommer ebenfalls 9:00 Uhr) – die App zeigt die lokale Uhrzeit dazu an („Neuer Tag ab …“).
  (ab v1.19.0)

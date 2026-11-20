@@ -8,7 +8,7 @@ const Top5=(()=>{
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
-  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
+  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
     if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}

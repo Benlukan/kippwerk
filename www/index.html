@@ -342,6 +342,7 @@ body.pad-off .pad{display:none!important}
 .home.paused .hero-tag{color:var(--c4)}
 @media (max-height:680px){.hero-tag{display:none}}
 .t5-sub{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:-2px 0 6px;font-size:11px;color:var(--muted)}
+.t5d{color:var(--muted);font-size:11px;font-weight:400;margin-left:4px;white-space:nowrap}
 /* kleine Displays: Verlauf-Raster und Tipp ausblenden, damit Spielfeld + Combo-Leiste ohne Scrollen passen */
 @media (max-height:780px) and (max-aspect-ratio:3/4){.infobar .ib-box.tap,.infobar .ib-hint{display:none!important}}
 @media (prefers-reduced-motion:reduce){.hlogo,.hst.open{animation:none}.pt{display:none}}
@@ -703,7 +704,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.30.1 · Build 54 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.30.2 · Build 55 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -936,7 +937,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1234,9 +1235,13 @@ const Audit=(()=>{
 const GAMES_CONFIG={
   android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ'},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
-// Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen): c=Combo m=Züge s=Steine l=Level
-const ScoreTag={enc:x=>['c'+(x.chain|0),'m'+(x.moves|0),'s'+(x.cleared|0)].concat(x.level?['l'+(x.level|0)]:[]).join(''),
-  dec(t){const r={},m=String(t||'').match(/[cmsl]\d+/g)||[];for(const p of m){const v=+p.slice(1);({c:()=>r.chain=v,m:()=>r.moves=v,s:()=>r.cleared=v,l:()=>r.level=v})[p[0]]()}return r}};
+// Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
+// c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
+const ScoreTag={enc:x=>['c'+(x.chain|0),'m'+(x.moves|0),'s'+(x.cleared|0)].concat(x.level?['l'+(x.level|0)]:[]).concat(x.day?['d'+String(x.day).replace(/\D/g,'')]:[]).join(''),
+  dec(t){const r={},m=String(t||'').match(/[cmsld]\d+/g)||[];for(const p of m){const v=+p.slice(1);({c:()=>r.chain=v,m:()=>r.moves=v,s:()=>r.cleared=v,l:()=>r.level=v,d:()=>r.day=p.slice(1)})[p[0]]()}return r},
+  // Datum fürs Anzeigen, z. B. „Fr, 20.11.“ / „Fri, 11/20“
+  date(t){const d=(typeof t==='string'?ScoreTag.dec(t):t||{}).day;if(!d||d.length!==8)return '';
+    const x=new Date(+d.slice(0,4),+d.slice(4,6)-1,+d.slice(6,8));return isNaN(x)?'':x.toLocaleDateString(LOC(),{weekday:'short',day:'2-digit',month:'2-digit'})}};
 const Games=(()=>{
   const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';
   const cfg=GAMES_CONFIG[plat];
@@ -1936,7 +1941,7 @@ function finishGame(reason){
     $('nameRow').style.display='none';lastEntry=null;
     let sev=null;
     if(!practice){official={no:dailyNo(),score,chain:bestChain,hist:history,full:reason==='full'};saveDaily(official);sev=streakOnDaily();if(sev)official.streak=sev.cur,saveDaily(official);
-      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
+      lastEntry={no:dailyNo(),score,chain:bestChain,moves:history.length,cleared,date:fmtDate(),name:playerName||'Spieler',pid:playerId};addScore('daily',lastEntry);if(Audit.ok(score,cleared,history.length,DAILY_MOVES))Games.submit('daily',score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared,day:todayKey()}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('daily',score,'⛔ '+Audit.reason)}
       if(!playerName&&!(Games.signedIn&&Games.player&&Games.player.name)){$('nameRow').style.display='';$('nameInput').value='';$('saveName').textContent='EINTRAGEN'}}
     $('overText').textContent=practice?`Übungsrunde – gewertet bleibt dein erstes Ergebnis: ${official.score.toLocaleString(LOC())}`:`Tagesspiel ${dayLabel(dailyNo())} · ${cleared} Steine abgeräumt · ${comboSummary()}`;
     $('shareBox').textContent=shareText(official);
@@ -2140,6 +2145,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],
  ['1.30.1','Top 5 im Hauptmenü jetzt auch für Endlos (Feldgröße wie im Menü) – und der Hinweis, wann bei Google ein neuer Tag beginnt'],
  ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
  ['1.29.3','„Ranglisten prüfen“ zeigt jetzt auch, warum die Anmeldung bei Google Play Games scheitert'],
@@ -2253,7 +2259,7 @@ function drawOnline(d){
   const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
   const row=(x,mine)=>{const r=x.rank|0,medal=['🥇','🥈','🥉'][r-1]||(r?r+'.':'–'),t=ScoreTag.dec(x.tag);
     const name=mine?(me&&me.name||x.name||playerName||'Spieler'):(x.name||'Spieler');
-    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:'',''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
+    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:ScoreTag.date(t),''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
   let h=en.map(x=>row(x,!!mid&&x.playerId===mid)).join('');
   const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=`<tr class="gap"><td colspan="3">⋯</td></tr>`+row(my,true);
   $('scoresTable').innerHTML=h;
@@ -2331,7 +2337,7 @@ const Top5=(()=>{
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
-  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
+  const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3?' class="m"':''}>${['🥇','🥈','🥉'][r-1]||r+'.'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
     if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}

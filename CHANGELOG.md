@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.30.2 (Build 55) – 20.11.2026
+- **Datum beim Tagesspiel:** Ergebnisse senden das Datum des Tagesspiels im Score-Tag mit (`d20261120`); die weltweite Tagesspiel-Liste in 🏆 und die Top 5 im Menü zeigen es an (z. B. „Fr., 20.11.“). Wichtig bei „Woche“/„Alle“ und vor 9 Uhr, wenn Googles „Heute“ noch das Tagesspiel vom Vortag enthält
+- Ergebnisse von vor v1.30.2 haben kein Datum und werden ohne angezeigt
 ## v1.30.1 (Build 54) – 20.11.2026
 - **Top 5 im Hauptmenü auch für Endlos:** Umschalter „Tagesspiel | Endlos N×N“ (Feldgröße folgt dem Endlos-Feld im Menü), Auswahl wird gemerkt; Heute/Woche/Alle wie bisher
 - „Ganze Rangliste ›“ öffnet jetzt die passende Liste direkt in 🏆 (gleiche Feldgröße, gleicher Zeitraum) statt der Google-Ansicht

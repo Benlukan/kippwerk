@@ -16,7 +16,7 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 
 ## Eine Bestenliste (ab v1.30.0)
 - Angemeldet: 🏆 zeigt die weltweite Liste (`loadTopScores`, Zeitraum `day`/`week`/`all`, 25 Einträge + eigener Platz). Abgemeldet/Web/offline: lokale Liste.
-- Score-Tag je Ergebnis: `c<Combo>m<Züge>s<Steine>l<Level>` (max. 64 Zeichen, nur Buchstaben/Ziffern) – `ScoreTag.enc/dec` in `src/js/app/10-play-games.js`.
+- Score-Tag je Ergebnis: `c<Combo>m<Züge>s<Steine>l<Level>d<JJJJMMTT>` (`d` = Datum des Tagesspiels, ab v1.30.2) (max. 64 Zeichen, nur Buchstaben/Ziffern) – `ScoreTag.enc/dec` in `src/js/app/10-play-games.js`.
 - Plugin-Patch (`patches/@idleflowgames+capacitor-play-games+0.3.3.patch`): `submitScore({scoreTag})`, `loadTopScores` liefert `tag` je Eintrag und bei `me`.
 - Spielername kommt aus dem Play-Games-Profil (`Games.player.name`).
 

@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.30.2','Weltweite Tagesspiel-Liste und Top 5 zeigen jetzt das Datum des jeweiligen Tagesspiels'],
  ['1.30.1','Top 5 im Hauptmenü jetzt auch für Endlos (Feldgröße wie im Menü) – und der Hinweis, wann bei Google ein neuer Tag beginnt'],
  ['1.30.0','Eine Bestenliste: Mit Google Play Games siehst du direkt die weltweite Rangliste (Heute/Woche/Gesamt) mit deinem Platz, Combo, Zügen und Steinen – dein Name kommt aus deinem Profil'],
  ['1.29.3','„Ranglisten prüfen“ zeigt jetzt auch, warum die Anmeldung bei Google Play Games scheitert'],
@@ -114,7 +115,7 @@ function drawOnline(d){
   const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
   const row=(x,mine)=>{const r=x.rank|0,medal=['🥇','🥈','🥉'][r-1]||(r?r+'.':'–'),t=ScoreTag.dec(x.tag);
     const name=mine?(me&&me.name||x.name||playerName||'Spieler'):(x.name||'Spieler');
-    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:'',''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
+    return `<tr class="${mine?'me':''}"><td class="rank">${medal}</td><td>${esc(name)}${(m=>m?'<small class="sub">'+m+'</small>':'')(metaLine(t,t.level?'Lvl '+t.level:ScoreTag.date(t),''))}</td><td class="r">${(+x.score||0).toLocaleString(LOC())}</td></tr>`};
   let h=en.map(x=>row(x,!!mid&&x.playerId===mid)).join('');
   const my=d&&d.me;if(my&&!en.some(x=>x.playerId===my.playerId))h+=`<tr class="gap"><td colspan="3">⋯</td></tr>`+row(my,true);
   $('scoresTable').innerHTML=h;

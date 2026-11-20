@@ -4,9 +4,13 @@
 const GAMES_CONFIG={
   android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ'},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
-// Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen): c=Combo m=Züge s=Steine l=Level
-const ScoreTag={enc:x=>['c'+(x.chain|0),'m'+(x.moves|0),'s'+(x.cleared|0)].concat(x.level?['l'+(x.level|0)]:[]).join(''),
-  dec(t){const r={},m=String(t||'').match(/[cmsl]\d+/g)||[];for(const p of m){const v=+p.slice(1);({c:()=>r.chain=v,m:()=>r.moves=v,s:()=>r.cleared=v,l:()=>r.level=v})[p[0]]()}return r}};
+// Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
+// c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
+const ScoreTag={enc:x=>['c'+(x.chain|0),'m'+(x.moves|0),'s'+(x.cleared|0)].concat(x.level?['l'+(x.level|0)]:[]).concat(x.day?['d'+String(x.day).replace(/\D/g,'')]:[]).join(''),
+  dec(t){const r={},m=String(t||'').match(/[cmsld]\d+/g)||[];for(const p of m){const v=+p.slice(1);({c:()=>r.chain=v,m:()=>r.moves=v,s:()=>r.cleared=v,l:()=>r.level=v,d:()=>r.day=p.slice(1)})[p[0]]()}return r},
+  // Datum fürs Anzeigen, z. B. „Fr, 20.11.“ / „Fri, 11/20“
+  date(t){const d=(typeof t==='string'?ScoreTag.dec(t):t||{}).day;if(!d||d.length!==8)return '';
+    const x=new Date(+d.slice(0,4),+d.slice(4,6)-1,+d.slice(6,8));return isNaN(x)?'':x.toLocaleDateString(LOC(),{weekday:'short',day:'2-digit',month:'2-digit'})}};
 const Games=(()=>{
   const C=window.Capacitor,native=!!(C&&C.isNativePlatform&&C.isNativePlatform()),plat=native?C.getPlatform():'web';
   const cfg=GAMES_CONFIG[plat];

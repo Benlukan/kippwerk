@@ -154,6 +154,7 @@
       </div>
       <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
+        <button class="set" id="settingsNews"><span>🆕 Was ist neu?</span><span class="pid" id="newsVer"></span></button>
         <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
         <a class="set" id="lnkPrivacy" href="datenschutz.html">📄 Datenschutzerklärung</a>
@@ -165,6 +166,14 @@
         <button class="set danger" id="resetLevels">🗺 Level-Fortschritt löschen</button>
       </div>
       <button class="btn alt" id="closeSettings">FERTIG</button>
+    </div>
+    <div class="overlay hidden" id="newsOv">
+      <div class="card">
+        <h2>🆕 Was ist neu?</h2>
+        <div id="newsBody" class="news"></div>
+        <button class="linkbtn" id="newsAll">Alle Versionen anzeigen</button>
+        <button class="btn" id="newsClose">OK</button>
+      </div>
     </div>
     <div class="overlay hidden" id="collOv">
       <div class="card">
@@ -294,7 +303,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.33.1 · Build 60 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.34.0 · Build 61 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

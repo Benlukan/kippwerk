@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.34.0','Neu: „Was ist neu?“ in den Einstellungen – und nach jedem Update einmal automatisch mit allen Neuerungen seit deiner letzten Version'],
  ['1.33.1','Design „Retro 8-Bit“: Auswahl-Knöpfe und Schalter jetzt gut erkennbar'],
  ['1.33.0','Neue Sammlung: 17 Designs und 8 Kippi-Outfits – freischaltbar über Welten, Serie, Endlos, Tagesspiele, Dezember, Silvester und Ostern. 6×6 bekommt ab Level 30 Felsen, die Musik wird je Feldgröße passend schneller'],
  ['1.32.0','Das KIPPWERK-Thema: eine eigene Melodie zum Mitsummen in Menü und Spiel. Das Tempo steigt mit dem Level und wird in einer Partie nie wieder langsamer'],
@@ -53,6 +54,31 @@ const CHANGES=[
  ['1.5.0','100 Level in 10 Welten mit Boss-Leveln'],
  ['1.4.0','Level-Modus, Einstellungen, Vibration'],
  ['1.2.0','Bestenliste'],['1.1.0','Tagesrätsel zum Teilen']];
+// ---------- Was ist neu? (eigenes Fenster, nach einem Update einmal automatisch) ----------
+const APP_VER=CHANGES[0][0];
+const verCmp=(a,b)=>{const x=String(a).split('.').map(Number),y=String(b).split('.').map(Number);for(let i=0;i<3;i++){const d=(x[i]||0)-(y[i]||0);if(d)return d}return 0};
+let newsReturn=null;
+// Bestandsspieler? Muss vor dem Start geprüft werden – danach legen Serie/Tutorial ihre Daten selbst an
+const WAS_KNOWN=(()=>{try{return !!localStorage.getItem('kippwerk_helpseen')&&!!(localStorage.getItem('kippwerk_scores')||localStorage.getItem('kippwerk_levels')||localStorage.getItem('kippwerk_streak'))}catch(e){return false}})();
+if(!WAS_KNOWN)try{if(!localStorage.getItem('kippwerk_seenver'))localStorage.setItem('kippwerk_seenver',APP_VER)}catch(e){}   // Neuinstallation: nichts nachholen
+function openNews(since,all){
+  newsReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('startOv').classList.contains('hidden')?'start':null;
+  const txt=c=>I18N.lang==='en'&&CHANGES_EN[c[0]]||c[1];
+  let list=all?CHANGES:since?CHANGES.filter(c=>verCmp(c[0],since)>0).slice(0,8):CHANGES.slice(0,5);if(!list.length)list=CHANGES.slice(0,1);
+  $('newsBody').innerHTML=list.map((c,i)=>`<div class="nv${i===0?' cur':''}"><b>v${c[0]}${i===0?' · '+I18N.tr('aktuell'):''}</b><p>${txt(c)}</p></div>`).join('');
+  $('newsAll').style.display=all?'none':'';
+  ['startOv','settingsOv'].forEach(i=>$(i).classList.add('hidden'));$('newsOv').classList.remove('hidden');$('newsOv').scrollTop=0;
+  try{localStorage.setItem('kippwerk_seenver',APP_VER)}catch(e){}}
+function closeNews(){$('newsOv').classList.add('hidden');if(newsReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else showMenu()}
+$('newsAll').onclick=()=>{const r=newsReturn;openNews(null,true);newsReturn=r};
+$('newsClose').onclick=closeNews;
+$('settingsNews').onclick=()=>openNews();
+// Nach einem Update einmal zeigen (nicht bei Neuinstallation – da kommt das Tutorial)
+function newsAfterUpdate(){let seen=null;try{seen=localStorage.getItem('kippwerk_seenver')}catch(e){}
+  const known=WAS_KNOWN;
+  if(!known){try{localStorage.setItem('kippwerk_seenver',APP_VER)}catch(e){}return}
+  if(seen===APP_VER)return;
+  if(!$('startOv').classList.contains('hidden')&&!document.querySelector('.overlay:not(.hidden):not(#startOv)'))openNews(seen||CHANGES[1][0])}
 let helpReturn=null;
 function openHelp(section,from){
   helpReturn=from||(!$('startOv').classList.contains('hidden')?'start':!$('settingsOv').classList.contains('hidden')?'settings':'play');

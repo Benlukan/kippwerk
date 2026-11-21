@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.34.0 (Build 61) – 21.11.2026
+- **„🆕 Was ist neu?“** in ⚙ (Hilfe & Rechtliches) mit aktueller Versionsnummer: zeigt die letzten 5 Versionen, „Alle Versionen anzeigen“ für die komplette Liste (DE/EN)
+- **Nach einem Update einmal automatisch** im Hauptmenü – mit allen Neuerungen seit der zuletzt gesehenen Version (max. 8). Nicht bei Neuinstallation (dort kommt das Tutorial); gemerkt in `kippwerk_seenver`
 ## v1.33.1 (Build 60) – 20.11.2026
 - **Retro 8-Bit:** Auswahl war unsichtbar (weiße Schrift auf weißem Grund, weil die Linienfarbe weiß war). Linienfarbe jetzt gedämpft, gewählte Knöpfe pink mit blauem Pixel-Schatten, eingeschaltete Schalter grün; Spielfeld behält den weißen Pixel-Rahmen
 ## v1.33.0 (Build 59) – 20.11.2026

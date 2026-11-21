@@ -69,6 +69,7 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 let settingsReturn=null,resetArm={};
 function renderSettings(){
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
+  $('newsVer').textContent='v'+APP_VER;
   $('themeName').textContent=I18N.tr(THEME_NAMES[settings.theme]||'Standard')+(settings.kippi&&settings.kippi!=='none'?' · 🪰':'');
   $('remindRow').style.display=Reminder.native?'':'none';$('setRemind').checked=!!settings.remind;
   $('setSfxVol').value=settings.sfxVol;$('setMusicVol').value=settings.musicVol;volTxt();$('setTilt').checked=settings.tilt!==false;$('setFly').checked=settings.fly!==false;$('setSymbols').checked=settings.symbols;

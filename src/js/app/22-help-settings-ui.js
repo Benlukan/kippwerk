@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.35.1','„Meine Tage“ zeigt jetzt auch deine Endlos-Runden – nach Tagen sortiert, mit Feldgröße, Level, Combo, Zügen und Steinen'],
  ['1.35.0','Bestenliste: neuer Reiter „Meine Tage“ mit all deinen Tagesspielen, Tag für Tag. Vorbereitet: „Gestern“ weltweit im Tagesspiel'],
  ['1.34.0','Neu: „Was ist neu?“ in den Einstellungen – und nach jedem Update einmal automatisch mit allen Neuerungen seit deiner letzten Version'],
  ['1.33.1','Design „Retro 8-Bit“: Auswahl-Knöpfe und Schalter jetzt gut erkennbar'],
@@ -180,16 +181,28 @@ function renderScores(){
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
   renderGamesBtn();
   if(onlineOn())renderOnline();else renderLocal()}
-// ---------- Meine Tage: eigene Tagesspiele, Tag für Tag (nur dieses Gerät / Cloud-Sicherung) ----------
+// ---------- Meine Tage: eigene Tagesspiele und Endlos-Runden, Tag für Tag ----------
+// Altes Datumsformat der Endlos-Bestenliste (21.11.26 bzw. 11/21/26) → JJJJ-MM-TT
+const legacyKey=s=>{let m=String(s||'').match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/),y,mo,d;
+  if(m){d=+m[1];mo=+m[2];y=+m[3]}else{m=String(s||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);if(!m)return '';mo=+m[1];d=+m[2];y=+m[3]}
+  if(y<100)y+=2000;return y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0')};
+function myDays(){const days={},put=(k,x)=>{if(!k)return;(days[k]=days[k]||[]).push(x)};
+  for(const x of scores.daily)put(dk(noDate(x.no)),{...x,t:'d'});
+  const hist=History.all();for(const x of hist)put(x.d,x);
+  // ältere Endlos-Rekorde (vor dem Verlauf) nur, wenn nicht schon im Verlauf
+  for(const x of scores.endless){const k=legacyKey(x.date);if(!k||!x.size)continue;if(hist.some(h=>h.d===k&&h.size===x.size&&h.score===x.score))continue;put(k,{...x,t:'e',d:k})}
+  return Object.keys(days).sort().reverse().map(k=>({k,items:days[k].sort((a,b)=>(a.t===b.t?b.score-a.score:a.t==='d'?-1:1))}))}
 function renderMine(){
   $('periodTabs').style.display='none';$('gamesBoard').style.display='none';
-  const mine=scores.daily.slice().sort((a,b)=>b.no-a.no);   // lokale Liste = nur eigene Tagesspiele (Gerät + Cloud)
-  const st=dailyStats(),esc=escH,best=mine.reduce((a,x)=>Math.max(a,x.score),0);
+  const list=myDays(),all=list.flatMap(d=>d.items),bd=all.filter(x=>x.t==='d').reduce((a,x)=>Math.max(a,x.score),0),be=all.filter(x=>x.t==='e').reduce((a,x)=>Math.max(a,x.score),0);
   $('dailyStats').style.display='';
-  $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString(LOC())}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString(LOC())}</b><small>Schnitt</small></div>`;
-  $('periodInfo').textContent=I18N.tr('Deine Tagesspiele, neueste zuerst');$('periodInfo').style.display='';
-  $('scoresTable').innerHTML=mine.slice(0,60).map(x=>`<tr class="${x===lastEntry?'me':''}"><td class="rank">${x.score===best&&best>0?'🏆':'📅'}</td><td>${dayLabel(x.no)}<small class="sub">${metaLine(x,'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`).join('');
-  $('scoresEmpty').style.display=mine.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Tagesspiel gespielt.')}
+  $('dailyStats').innerHTML=`<div><b>${list.length}</b><small>Spieltage</small></div><div><b>${all.length}</b><small>Spiele</small></div><div><b>${bd.toLocaleString(LOC())}</b><small>Bestes Tagesspiel</small></div><div><b>${be.toLocaleString(LOC())}</b><small>Bestes Endlos</small></div>`;
+  $('periodInfo').textContent=I18N.tr('Deine Spiele, neueste zuerst');$('periodInfo').style.display='';
+  const row=x=>{const top=x.t==='d'?x.score===bd&&bd>0:x.score===be&&be>0;
+    const what=x.t==='d'?'📅 '+I18N.tr('Tagesspiel'):'∞ '+I18N.tr('Endlos')+' '+x.size+'×'+x.size;
+    return `<tr class="${x===lastEntry?'me':''}"><td class="rank">${top?'🏆':''}</td><td>${what}<small class="sub">${metaLine(x,x.t==='e'&&x.level?'Lvl '+x.level:'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`};
+  $('scoresTable').innerHTML=list.slice(0,45).map(d=>`<tr class="dayhd"><td colspan="3">${dayLabel(dailyNoOf(d.k))}</td></tr>`+d.items.map(row).join('')).join('');
+  $('scoresEmpty').style.display=list.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Spiel gespielt.')}
 function renderLocal(note){
   const t=$('scoresTable'),esc=escH;
   $('periodTabs').style.display=scoresTab==='daily'?'':'none';

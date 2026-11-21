@@ -25,7 +25,8 @@ function dayLabel(no,long){const d=noDate(no);
   if(I18N.lang==='en')return long?MON_EN[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear():WD_EN[d.getDay()]+', '+dayShort(no);
   return long?dayShort(no)+d.getFullYear():WD[d.getDay()]+', '+dayShort(no)}
 function weekOf(no){const d=noDate(no),m=(d.getDay()+6)%7;return no-m}   // Nummer des Montags dieser Woche
-function dailyNo(){const[y,m,d]=todayKey().split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
+function dailyNoOf(k){const[y,m,d]=String(k).split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
+function dailyNo(){return dailyNoOf(todayKey())}
 let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen
 function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily_'+todayKey())||'null');return d&&typeof d==='object'&&isFinite(d.score)?d:null}catch(e){return null}}
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}

@@ -77,6 +77,7 @@ function finishGame(reason){
     $('streakNote').style.display='none';
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
+    if(score>0)History.add({d:todayKey(),t:'e',size:N,score,level,chain:bestChain,moves:history.length,cleared});
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
     if(Audit.ok(score,cleared,history.length))Games.submit('e'+N,score,ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level}));else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}

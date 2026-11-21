@@ -20,3 +20,4 @@
 .news .nv b{display:block;color:var(--c3);font-size:13px;margin-bottom:3px}.news .nv p{margin:0;font-size:13px;line-height:1.45;color:var(--text)}
 .news .nv.cur{border-color:var(--c3);box-shadow:0 0 14px #4cc9f022}#newsAll{display:block;margin:4px auto 10px}
 #scoresOv .tabs button{padding-left:12px;padding-right:12px}
+#scoresTable tr.dayhd td{padding:12px 6px 4px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--c3);font-weight:700;border-bottom:1px solid var(--line)}

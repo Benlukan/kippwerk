@@ -10,6 +10,10 @@ function loadScores(){let d=null;try{d=JSON.parse(localStorage.getItem('kippwerk
   return d}
 function saveScores(){try{localStorage.setItem('kippwerk_scores',JSON.stringify(scores))}catch(e){}}
 let scores=loadScores(), lastEntry=null;
+// Verlauf aller Endlos-Runden (für „Meine Tage“) – nur auf diesem Gerät, die letzten 400
+const History={K:'kippwerk_history',
+  all(){try{const a=JSON.parse(localStorage.getItem(this.K)||'[]');return Array.isArray(a)?a.filter(x=>x&&isFinite(x.score)&&typeof x.d==='string'):[]}catch(e){return[]}},
+  add(e){const a=this.all();a.push(e);try{localStorage.setItem(this.K,JSON.stringify(a.slice(-400)))}catch(x){}}};
 let playerName='';try{playerName=localStorage.getItem('kippwerk_name')||''}catch(e){}
 // Einmalige Spieler-ID (zufällig, 128 Bit) – wird einmal pro Installation erzeugt und nie geändert
 function makeId(){try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}

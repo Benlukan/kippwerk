@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.35.1 (Build 63) – 21.11.2026
+- **„Meine Tage“ mit Endlos:** Tagesspiel und alle Endlos-Runden, nach Spieltag gruppiert (neueste zuerst), je Runde Feldgröße, Level, Combo, Züge, Steine; 🏆 markiert das beste Tagesspiel und die beste Endlos-Runde. Kennzahlen: Spieltage, Spiele, Bestes Tagesspiel, Bestes Endlos
+- Neuer Verlauf `kippwerk_history` (letzte 400 Endlos-Runden, nur auf diesem Gerät); ältere Endlos-Rekorde aus der Bestenliste werden einmalig mit angezeigt
 ## v1.35.0 (Build 62) – 21.11.2026
 - **🗓 Meine Tage:** dritter Reiter in der Bestenliste – alle eigenen Tagesspiele, neueste zuerst, mit Datum, Combo, Zügen und Steinen (🏆 = bester Tag) und Kennzahlen (Gespielt, Serie, Bester, Schnitt). Neue Tagesspiele speichern auch die abgeräumten Steine
 - **„Gestern“ (weltweit) vorbereitet:** Tagesspiele werden zusätzlich an eine Bestenliste je Wochentag gemeldet (`wd0`…`wd6`); der Zeitraum „Gestern“ erscheint, sobald die 7 IDs eingetragen sind. Anleitung in `docs/game-services.md`

@@ -121,7 +121,7 @@ function applyGoogleName(){const g=Games.signedIn&&Games.player&&Games.player.na
   inp.readOnly=!!g;inp.title=g?I18N.tr('Name aus deinem Google Play Games-Profil'):'';
   if(g&&g!==playerName){playerName=g.slice(0,24);try{localStorage.setItem('kippwerk_name',playerName);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(e){}}
   if(g)inp.value=playerName}
-Games.onChange=()=>{try{applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
+Games.onChange=()=>{try{if(Games.signedIn)setTimeout(()=>{try{Badges.resync()}catch(e){}},1500);applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
 $('setName').onchange=e=>{if(e.target.readOnly)return;const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
@@ -135,10 +135,10 @@ $('closeStreak').onclick=closeStreak;
 $('menuStreak').onclick=()=>openStreak();
 
 $('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
-$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection();return}setTheme(b.dataset.th);renderStreak()};
+$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection('badges');return}setTheme(b.dataset.th);renderStreak()};
 $('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
   if(ok&&ST.shields<MAX_SHIELDS){ST.shields++;ST.adDay=todayKey();saveStreak();toast('🛡 Serienschutz erhalten!')}renderStreak()};
 $('overOv').addEventListener('click',e=>{const b=e.target.closest('#applyMsTheme');if(b){setTheme(b.dataset.th);b.textContent='✓ angewendet'}});
-$('setTheme').onclick=()=>openCollection();
+$('setTheme').onclick=()=>openCollection('themes');
 $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
   saveSettings();Reminder.schedule()};

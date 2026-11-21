@@ -20,12 +20,12 @@
 <body>
 <div class="wrap">
   <header>
+    <button class="icon-btn backbtn" id="helpBtn" title="Zurück zum Hauptmenü" aria-label="Zurück zum Hauptmenü">←</button>
     <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
     <div class="icons">
       <button class="streakchip" id="streakBtn" title="Deine Serie"><span class="fl">🔥</span><span id="streakNum">0</span></button>
       <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
       <button class="icon-btn" id="settingsBtn" title="Einstellungen">⚙</button>
-      <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
     </div>
   </header>
   <div class="hud" id="hud">
@@ -44,6 +44,7 @@
       <div class="home-top">
         <div class="home-chips"><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
         <div class="home-icons">
+          <button class="icon-btn" id="menuColl" title="Sammlung">🎨<span class="dot" id="collDot" style="display:none"></span></button>
           <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
           <button class="icon-btn" id="menuSettings" title="Einstellungen">⚙</button>
         </div>
@@ -177,10 +178,12 @@
     </div>
     <div class="overlay hidden" id="collOv">
       <div class="card">
-        <h2>🎨 Sammlung <span class="pid" id="collCount"></span></h2>
-        <p class="hint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
-        <h3>Designs</h3><div class="ms-grid coll" id="collThemes"></div>
-        <h3>🪰 Kippi</h3><div class="kc-grid" id="collKippi"></div>
+        <h2>🎨 Sammlung <span class="pid" id="collCount" style="display:none"></span></h2>
+        <div class="tabs colltabs" id="collTabs"><button data-t="themes">🎨 Designs<small id="ctThemes"></small></button><button data-t="kippi">🪰 Kippi<small id="ctKippi"></small></button><button data-t="badges">🏅 Abzeichen<small id="ctBadges"></small></button></div>
+        <p class="hint" id="collHint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
+        <div class="coll-grid" id="collThemes"></div>
+        <div class="coll-grid" id="collKippi"></div>
+        <div id="collBadges"></div>
         <button class="btn" id="collClose">ZURÜCK</button>
       </div>
     </div>
@@ -303,7 +306,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.35.1 · Build 63 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.36.0 · Build 64 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

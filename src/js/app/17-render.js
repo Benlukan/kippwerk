@@ -95,6 +95,7 @@ function comboFx(n){
   if(n<2)return;const lv=TIER(n);
   banner(COMBOS[lv],'combo c'+lv,'COMBO ×'+n);sfx.combo(Math.min(lv,5));
   if(n>=3)try{Fly.react(n>=6?'ultra':n>=5?'monster':'combo')}catch(e){}
+  if(n>=6)try{Badges.earn('ultra')}catch(e){}
   if(lv>=4){boardEl.classList.remove('flash');void boardEl.offsetWidth;boardEl.classList.add('flash');setTimeout(()=>boardEl.classList.remove('flash'),500)}
   const fx=c=>{boardEl.classList.remove('jolt','quake','ultra');void boardEl.offsetWidth;boardEl.classList.add(c);setTimeout(()=>boardEl.classList.remove(c),820)};
   if(lv>=6)fx('ultra');else if(lv>=5)fx('quake');else if(lv>=4)fx('jolt');

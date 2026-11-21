@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.36.0','Neues Menü „Sammlung“ (🎨 im Hauptmenü) mit Designs, Kippi-Outfits und 12 Abzeichen samt Fortschritt. Im Spiel führt „←“ oben links zurück ins Hauptmenü'],
  ['1.35.1','„Meine Tage“ zeigt jetzt auch deine Endlos-Runden – nach Tagen sortiert, mit Feldgröße, Level, Combo, Zügen und Steinen'],
  ['1.35.0','Bestenliste: neuer Reiter „Meine Tage“ mit all deinen Tagesspielen, Tag für Tag. Vorbereitet: „Gestern“ weltweit im Tagesspiel'],
  ['1.34.0','Neu: „Was ist neu?“ in den Einstellungen – und nach jedem Update einmal automatisch mit allen Neuerungen seit deiner letzten Version'],

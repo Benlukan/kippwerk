@@ -75,6 +75,7 @@ const Unlocks=(()=>{
     check(silent){const neu=[];for(const r of REWARDS){if(r.id==='std'||r.id==='none'||have.has(key(r)))continue;let ok=false;try{ok=r.test()}catch(e){}
         if(ok){have.add(key(r));neu.push(r)}}
       if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – ⚙ '+I18N.tr('Sammlung')),i*1800))}
+      try{Badges.check(silent)}catch(e){}try{collBadge()}catch(e){}
       return neu},
     all:()=>[...have],merge(list){let ch=false;for(const x of list||[])if(typeof x==='string'&&!have.has(x)){have.add(x);ch=true}if(ch)save()},
     name};
@@ -83,22 +84,50 @@ const Unlocks=(()=>{
 // Kippi-Outfit anlegen
 function applyKippi(){const id=Unlocks.has('kippi',settings.kippi)?settings.kippi:'none';document.querySelectorAll('.fly-acc').forEach(g=>g.innerHTML=KIPPI_SVG[id]||'')}
 
-// ---------- Sammlung (Designs & Kippi) ----------
+// ---------- Sammlung: Designs · Kippi · Abzeichen (eigener Knopf 🎨 im Hauptmenü) ----------
 function kippiSvg(id){const s=document.querySelector('#fly svg');if(!s)return '';const c=s.cloneNode(true);const a=c.querySelector('.fly-acc');if(a)a.innerHTML=KIPPI_SVG[id]||'';
   c.querySelectorAll('.lid').forEach(l=>l.remove());return c.outerHTML}
-let collReturn=null;
+// „Neu“-Markierung: alles Freigeschaltete, das in der Sammlung noch nicht angesehen wurde
+const CollSeen=(()=>{const K='kippwerk_coll_seen';
+  const cur=()=>[...REWARDS.filter(r=>r.id!=='std'&&r.id!=='none'&&Unlocks.has(r.t,r.id)).map(r=>r.t+':'+r.id),...BADGES.filter(b=>Badges.has(b.id)).map(b=>'badge:'+b.id)];
+  let seen=null;try{seen=JSON.parse(localStorage.getItem(K)||'null')}catch(e){}
+  if(!Array.isArray(seen)){seen=cur();try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}   // erster Start: nichts als neu zählen
+  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':'badge:';
+    let ch=false;for(const k of cur())if(k.startsWith(pre)&&!seen.includes(k)){seen.push(k);ch=true}if(ch)try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}}})();
+function collBadge(){const n=CollSeen.fresh().length,d=$('collDot');if(!d)return;d.textContent=n>9?'9+':String(n);d.style.display=n?'':'none'}
+let collReturn=null,collTab='themes';
 function renderCollection(){
-  const cur=settings.theme||'std',ck=settings.kippi||'none';
-  $('collThemes').innerHTML=REWARDS.filter(r=>r.t==='theme').map(r=>{const un=Unlocks.has('theme',r.id);
-    return `<button class="ms${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><b>${un?'🎨':'🔒'}</b>${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${sw5(r.id)}</button>`}).join('');
-  $('collKippi').innerHTML=REWARDS.filter(r=>r.t==='kippi').map(r=>{const un=Unlocks.has('kippi',r.id);
-    return `<button class="kc${un?'':' lock'}${ck===r.id?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${I18N.tr(KIPPI_NAMES[r.id])}<small>${un?(ck===r.id?I18N.tr('aktiv'):I18N.tr('frei')):'🔒 '+I18N.tr(r.how)}</small></button>`}).join('');
-  const n=REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length;$('collCount').textContent=`${n} / ${REWARDS.length}`}
-function openCollection(){Unlocks.check(true);
+  const cur=settings.theme||'std',ck=settings.kippi||'none',nw=k=>CollSeen.isNew(k)?'<i class="new">● '+I18N.tr('neu')+'</i>':'';
+  const th=REWARDS.filter(r=>r.t==='theme'),kp=REWARDS.filter(r=>r.t==='kippi');
+  $('ctThemes').textContent=th.filter(r=>Unlocks.has('theme',r.id)).length+' / '+th.length;
+  $('ctKippi').textContent=kp.filter(r=>Unlocks.has('kippi',r.id)).length+' / '+kp.length;
+  $('ctBadges').textContent=BADGES.filter(b=>Badges.has(b.id)).length+' / '+BADGES.length;
+  $('collTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===collTab));
+  $('collThemes').style.display=collTab==='themes'?'':'none';$('collKippi').style.display=collTab==='kippi'?'':'none';$('collBadges').style.display=collTab==='badges'?'':'none';
+  $('collHint').style.display=collTab==='badges'?'none':'';
+  if(collTab==='themes')$('collThemes').innerHTML=th.map(r=>{const un=Unlocks.has('theme',r.id),sw=(THEME_SW[r.id]||THEME_SW.std).slice(0,4);
+    return `<button class="tcard${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><div class="mb">${sw.map(c=>`<i style="background:${c}"></i>`).join('')}</div>${un?'':'🔒 '}${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('theme:'+r.id):''}</button>`}).join('');
+  if(collTab==='kippi')$('collKippi').innerHTML=kp.map(r=>{const un=Unlocks.has('kippi',r.id);
+    return `<button class="tcard${un?'':' lock'}${ck===r.id?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${un?'':'🔒 '}${I18N.tr(KIPPI_NAMES[r.id])}<small>${un?(ck===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('kippi:'+r.id):''}</button>`}).join('');
+  if(collTab==='badges'){const done=BADGES.filter(b=>Badges.has(b.id)),pts=done.reduce((a,b)=>a+b.pts,0);
+    const fmt=v=>(+v).toLocaleString(LOC());
+    let h=`<p class="bsum">${done.length} / ${BADGES.length} · ${pts} ${I18N.tr('Punkte')}</p>`;
+    h+=[...BADGES].sort((a,b)=>(Badges.has(b.id)?1:0)-(Badges.has(a.id)?1:0)).map(b=>{const has=Badges.has(b.id);let v=0;try{v=+b.val()||0}catch(e){}
+      const d=Badges.date(b.id),dl=d?new Date(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10)).toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit'}):'';
+      const prog=!has&&b.goal>1?`<div class="pb"><i style="width:${Math.min(100,Math.round(v/b.goal*100))}%"></i></div><small>${fmt(Math.min(v,b.goal))} / ${fmt(b.goal)}${b.unit?' '+b.unit:''}</small>`:'';
+      return `<div class="bdg${has?'':' lock'}"><span class="be">${b.e}</span><div><b>${I18N.tr(b.n)}</b><small>${I18N.tr(b.d)}</small>${prog}${has?nw('badge:'+b.id):''}</div>${has?`<span class="bt">✓ ${dl}</span>`:''}</div>`}).join('');
+    // Platzierungen aus der weltweiten Rangliste (Tages-/Wochenplätze)
+    const aw=Awards.all(),keys=Object.keys(Awards.BADGE).filter(k=>aw[k]);
+    if(keys.length)h+=`<div class="bsec">${I18N.tr('Platzierungen')}</div>`+keys.map(k=>`<div class="bdg"><span class="be">${Awards.BADGE[k][0]}</span><div><b>${I18N.tr(Awards.BADGE[k][1])}</b></div><span class="bt">× ${aw[k]}</span></div>`).join('');
+    $('collBadges').innerHTML=h}
+  CollSeen.markTab(collTab);collBadge()}
+function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collTab=tab;
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
   ['settingsOv','streakOv','startOv'].forEach(i=>$(i).classList.add('hidden'));renderCollection();$('collOv').classList.remove('hidden');$('collOv').scrollTop=0}
-function closeCollection(){$('collOv').classList.add('hidden');
+function closeCollection(){$('collOv').classList.add('hidden');collBadge();
   if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else showMenu()}
+$('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
-$('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('happy')}catch(x){}};
+$('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};
 $('collClose').onclick=closeCollection;
+$('menuColl').onclick=()=>openCollection();

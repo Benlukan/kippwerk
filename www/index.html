@@ -66,6 +66,7 @@ h1 span{color:var(--c3)}
 @keyframes floatUp{to{transform:translate(-50%,-160%);opacity:0}}
 .banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:34px;font-weight:700;letter-spacing:.08em;
   pointer-events:none;text-shadow:0 0 24px var(--c3);animation:banner 1.1s ease-out forwards;z-index:6;white-space:nowrap}
+header .backbtn{flex:none;font-size:22px;font-weight:700}header h1{flex:1}
 /* Combo-Stufen: GOOD ×2 · SUPER ×3 · MEGA ×4 · MONSTER ×5+ */
 .banner small{display:block;font-size:.55em;letter-spacing:.2em;opacity:.9;margin-top:-2px}
 .banner.combo{text-align:center;line-height:1}
@@ -376,6 +377,20 @@ body.pad-off .pad{display:none!important}
 .kc.lock{opacity:.5;cursor:default}.kc.lock .kv{filter:grayscale(1)}
 .kc .kv svg{width:60px;height:55px;overflow:visible;display:block;margin:4px auto 2px}
 .kc .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.icon-btn{position:relative}.icon-btn .dot{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:#ff5d73;color:#fff;font:700 11px/18px "Space Grotesk",sans-serif;padding:0 5px;box-sizing:border-box;text-align:center}
+.colltabs{display:flex;gap:4px;margin:4px 0 10px}.colltabs button{flex:1;padding:8px 2px;font-size:13px}.colltabs small{display:block;font-size:10px;color:var(--muted);font-weight:500}
+.coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tcard{background:#0f1226;border:1px solid var(--line);border-radius:14px;padding:8px 4px;text-align:center;color:var(--text);font:600 12px "Space Grotesk",sans-serif;cursor:pointer}
+.tcard.on{border-color:var(--c2);box-shadow:0 0 12px #3ddc9744}.tcard.lock{opacity:.55;cursor:default}.tcard.lock .mb,.tcard.lock .kv{filter:grayscale(.9)}
+.tcard small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px;line-height:1.25}
+.tcard .mb{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:56px;margin:4px auto 6px}.tcard .mb i{height:24px;border-radius:6px;display:block}
+.tcard .kv svg{width:60px;height:55px;overflow:visible;display:block;margin:2px auto}.tcard .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.tcard i.new,.bdg i.new{font-style:normal;color:#ff5d73;font-size:10px;display:block}
+.bdg{display:flex;gap:12px;align-items:center;background:#0f1226;border:1px solid var(--line);border-radius:14px;padding:9px 12px;margin-bottom:8px;text-align:left}.bdg>div{flex:1;min-width:0}
+.bdg .be{font-size:26px;width:44px;height:44px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a3f6a,#161a33);display:flex;align-items:center;justify-content:center;border:2px solid #ffc145}
+.bdg.lock .be{filter:grayscale(1);border-color:#3a3f6a;opacity:.7}.bdg b{display:block;font-size:14px}.bdg small{color:var(--muted);font-size:12px}.bdg .bt{color:#3ddc97;font-size:12px;white-space:nowrap}
+.bdg .pb{height:6px;background:#22264a;border-radius:4px;margin:6px 0 2px;overflow:hidden}.bdg .pb i{display:block;height:100%;background:linear-gradient(90deg,#4cc9f0,#3ddc97)}
+.bsum{text-align:center;color:var(--muted);font-size:13px;margin:0 0 10px}.bsec{margin:14px 0 8px;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left}
 /* Feldgrößen */
 .board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}
 .sizepick{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -566,12 +581,12 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
 <body>
 <div class="wrap">
   <header>
+    <button class="icon-btn backbtn" id="helpBtn" title="Zurück zum Hauptmenü" aria-label="Zurück zum Hauptmenü">←</button>
     <h1>KIPP<span>WERK</span><small class="mode-tag" id="modeTag"></small></h1>
     <div class="icons">
       <button class="streakchip" id="streakBtn" title="Deine Serie"><span class="fl">🔥</span><span id="streakNum">0</span></button>
       <button class="icon-btn" id="scoresBtn" title="Bestenliste">🏆</button>
       <button class="icon-btn" id="settingsBtn" title="Einstellungen">⚙</button>
-      <button class="icon-btn" id="helpBtn" title="Menü / Pause">☰</button>
     </div>
   </header>
   <div class="hud" id="hud">
@@ -590,6 +605,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
       <div class="home-top">
         <div class="home-chips"><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
         <div class="home-icons">
+          <button class="icon-btn" id="menuColl" title="Sammlung">🎨<span class="dot" id="collDot" style="display:none"></span></button>
           <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
           <button class="icon-btn" id="menuSettings" title="Einstellungen">⚙</button>
         </div>
@@ -723,10 +739,12 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
     </div>
     <div class="overlay hidden" id="collOv">
       <div class="card">
-        <h2>🎨 Sammlung <span class="pid" id="collCount"></span></h2>
-        <p class="hint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
-        <h3>Designs</h3><div class="ms-grid coll" id="collThemes"></div>
-        <h3>🪰 Kippi</h3><div class="kc-grid" id="collKippi"></div>
+        <h2>🎨 Sammlung <span class="pid" id="collCount" style="display:none"></span></h2>
+        <div class="tabs colltabs" id="collTabs"><button data-t="themes">🎨 Designs<small id="ctThemes"></small></button><button data-t="kippi">🪰 Kippi<small id="ctKippi"></small></button><button data-t="badges">🏅 Abzeichen<small id="ctBadges"></small></button></div>
+        <p class="hint" id="collHint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
+        <div class="coll-grid" id="collThemes"></div>
+        <div class="coll-grid" id="collKippi"></div>
+        <div id="collBadges"></div>
         <button class="btn" id="collClose">ZURÜCK</button>
       </div>
     </div>
@@ -849,7 +867,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.35.1 · Build 63 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.36.0 · Build 64 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -929,7 +947,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'extra':'extra','weniger – du spielst weiter.':'fewer – you keep playing.','weniger – du spielst weiter':'fewer – you keep playing',
   'keine Combo':'no combo','🎁 Belohnung!':'🎁 Reward!',
   'Benachrichtigungen':'Notifications','Sprache':'Language','🌐 Sprache':'🌐 Language','Deutsch':'Deutsch','English':'English',
-  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','🗓 Meine Tage':'🗓 My days','Gestern':'Yesterday','Deine Tagesspiele, neueste zuerst':'Your daily games, newest first','Deine Spiele, neueste zuerst':'Your games, newest first','Noch kein Spiel gespielt.':'No games played yet.','Spieltage':'Days played','Spiele':'Games','Bestes Tagesspiel':'Best daily','Bestes Endlos':'Best Endless','Gestern hat niemand das Tagesspiel gewertet.':'Nobody scored yesterday’s daily game.','🆕 Was ist neu?':'🆕 What’s new?','Alle Versionen anzeigen':'Show all versions','aktuell':'current','Neues Design':'New theme','Neu für Kippi':'New for Kippi','Sammlung':'Collection','aktiv':'active','frei':'unlocked','immer':'always','Welt 1 geschafft':'World 1 complete','Welt 2 geschafft':'World 2 complete','Welt 3 geschafft':'World 3 complete','Welt 4 geschafft':'World 4 complete','Welt 5 geschafft':'World 5 complete','Welt 6 geschafft':'World 6 complete','Welt 7 geschafft':'World 7 complete','Welt 8 geschafft':'World 8 complete','Welt 9 geschafft':'World 9 complete','Welt 10 geschafft':'World 10 complete','3 Tage Serie':'3-day streak','7 Tage Serie':'7-day streak','14 Tage Serie':'14-day streak','30 Tage Serie':'30-day streak','50 Tage Serie':'50-day streak','100 Tage Serie':'100-day streak','Endlos Level 20':'Endless level 20','25 Tagesspiele':'25 daily games','im Dezember spielen':'play in December','an Silvester spielen':'play on New Year’s Eve','an Ostern spielen':'play at Easter','🎨 Sammlung':'🎨 Collection','Designs':'Themes','🪰 Kippi':'🪰 Kippi','🖌 Design & Kippi':'🖌 Theme & Kippi','Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.':'You unlock themes and Kippi outfits through stage worlds, your streak, Endless, daily games and on holidays.','Werkstatt':'Workshop','Retro 8-Bit':'Retro 8-Bit','Papier':'Paper','Wald':'Forest','Bonbon':'Candy','Kristall':'Crystal','Winter':'Winter','Feuerwerk':'Fireworks','Frühling':'Spring','Ohne':'None','Sonnenbrille':'Sunglasses','Kopfhörer':'Headphones','Bauhelm':'Hard hat','Zauberhut':'Wizard hat','Schal':'Scarf','Krone':'Crown','Partyhut':'Party hat','Hasenohren':'Bunny ears','Nur für dich sichtbar: Stell in der App „Google Play Spiele“ unter Profil → Einstellungen dein Profil auf „Für alle sichtbar“, dann erscheinst du in der weltweiten Liste.':'Only visible to you: in the “Google Play Games” app, set your profile to “Visible to everyone” under Profile → Settings, then you will appear in the worldwide list.','🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.':'🔒 Only visible to you – set your profile in “Google Play Games” to “Visible to everyone”.','Neuer Tag ab':'New day from','🏆 Top 5':'🏆 Top 5','Weltweit':'Worldwide','Diese Woche':'This week','Gesamt':'All time','🎮 Mit Google Play Games anmelden – weltweite Bestenliste':'🎮 Sign in with Google Play Games – worldwide leaderboard','⏳ Bestenliste wird geladen …':'⏳ Loading leaderboard …','Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.':'Worldwide leaderboard not reachable right now – showing results on this device.','Heute noch keine Einträge – hol dir Platz 1!':'No entries today yet – grab first place!','Diese Woche noch keine Einträge – hol dir Platz 1!':'No entries this week yet – grab first place!','Noch keine Einträge – hol dir Platz 1!':'No entries yet – grab first place!','Name aus deinem Google Play Games-Profil':'Name from your Google Play Games profile','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
+  '⌨ Pfeiltasten oder W A S D':'⌨ Arrow keys or W A S D','📳 Vibration testen':'📳 Test vibration','🌍 Ranglisten prüfen':'🌍 Check leaderboards','angemeldet':'signed in','nicht angemeldet':'not signed in','ausgeschaltet':'switched off','Warteschlange':'Queue','leer':'empty','dein Bestwert':'your best','Platz':'rank','kein Eintrag sichtbar':'no entry visible','Liste':'list','Liste leer':'list empty','Letzte Meldungen':'Last submissions','Zurück zum Hauptmenü':'Back to main menu','Neues Abzeichen':'New badge','neu':'new','Platzierungen':'Placements','Abzeichen':'Badges','ULTRA!':'ULTRA!','Welt 1':'World 1','Sternesammler':'Star Collector','Stammgast':'Regular','Tagessieger':'Daily Champion','Endlos-Profi':'Endless Pro','Erste ULTRA-Combo':'First ULTRA combo','Etappe 1-10 geschafft':'Stage 1-10 complete','100 Sterne in den Etappen':'100 stars in the stages','25 Tagesspiele gespielt':'25 daily games played','Platz 1 im weltweiten Tagesspiel':'Rank 1 in the worldwide daily game','10.000 Punkte in einer Endlos-Runde':'10,000 points in one Endless round','🗓 Meine Tage':'🗓 My days','Gestern':'Yesterday','Deine Tagesspiele, neueste zuerst':'Your daily games, newest first','Deine Spiele, neueste zuerst':'Your games, newest first','Noch kein Spiel gespielt.':'No games played yet.','Spieltage':'Days played','Spiele':'Games','Bestes Tagesspiel':'Best daily','Bestes Endlos':'Best Endless','Gestern hat niemand das Tagesspiel gewertet.':'Nobody scored yesterday’s daily game.','🆕 Was ist neu?':'🆕 What’s new?','Alle Versionen anzeigen':'Show all versions','aktuell':'current','Neues Design':'New theme','Neu für Kippi':'New for Kippi','Sammlung':'Collection','aktiv':'active','frei':'unlocked','immer':'always','Welt 1 geschafft':'World 1 complete','Welt 2 geschafft':'World 2 complete','Welt 3 geschafft':'World 3 complete','Welt 4 geschafft':'World 4 complete','Welt 5 geschafft':'World 5 complete','Welt 6 geschafft':'World 6 complete','Welt 7 geschafft':'World 7 complete','Welt 8 geschafft':'World 8 complete','Welt 9 geschafft':'World 9 complete','Welt 10 geschafft':'World 10 complete','3 Tage Serie':'3-day streak','7 Tage Serie':'7-day streak','14 Tage Serie':'14-day streak','30 Tage Serie':'30-day streak','50 Tage Serie':'50-day streak','100 Tage Serie':'100-day streak','Endlos Level 20':'Endless level 20','25 Tagesspiele':'25 daily games','im Dezember spielen':'play in December','an Silvester spielen':'play on New Year’s Eve','an Ostern spielen':'play at Easter','🎨 Sammlung':'🎨 Collection','Designs':'Themes','🪰 Kippi':'🪰 Kippi','🖌 Design & Kippi':'🖌 Theme & Kippi','Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.':'You unlock themes and Kippi outfits through stage worlds, your streak, Endless, daily games and on holidays.','Werkstatt':'Workshop','Retro 8-Bit':'Retro 8-Bit','Papier':'Paper','Wald':'Forest','Bonbon':'Candy','Kristall':'Crystal','Winter':'Winter','Feuerwerk':'Fireworks','Frühling':'Spring','Ohne':'None','Sonnenbrille':'Sunglasses','Kopfhörer':'Headphones','Bauhelm':'Hard hat','Zauberhut':'Wizard hat','Schal':'Scarf','Krone':'Crown','Partyhut':'Party hat','Hasenohren':'Bunny ears','Nur für dich sichtbar: Stell in der App „Google Play Spiele“ unter Profil → Einstellungen dein Profil auf „Für alle sichtbar“, dann erscheinst du in der weltweiten Liste.':'Only visible to you: in the “Google Play Games” app, set your profile to “Visible to everyone” under Profile → Settings, then you will appear in the worldwide list.','🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.':'🔒 Only visible to you – set your profile in “Google Play Games” to “Visible to everyone”.','Neuer Tag ab':'New day from','🏆 Top 5':'🏆 Top 5','Weltweit':'Worldwide','Diese Woche':'This week','Gesamt':'All time','🎮 Mit Google Play Games anmelden – weltweite Bestenliste':'🎮 Sign in with Google Play Games – worldwide leaderboard','⏳ Bestenliste wird geladen …':'⏳ Loading leaderboard …','Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.':'Worldwide leaderboard not reachable right now – showing results on this device.','Heute noch keine Einträge – hol dir Platz 1!':'No entries today yet – grab first place!','Diese Woche noch keine Einträge – hol dir Platz 1!':'No entries this week yet – grab first place!','Noch keine Einträge – hol dir Platz 1!':'No entries yet – grab first place!','Name aus deinem Google Play Games-Profil':'Name from your Google Play Games profile','Grund':'Reason','Anmeldefenster abgebrochen oder sofort geschlossen → meist Konto nicht als Tester eingetragen oder Fingerabdruck (SHA-1) passt nicht':'Sign-in window cancelled or closed at once → usually the account is not a tester or the fingerprint (SHA-1) does not match','Google meldet „nicht angemeldet“ → Tester-Konto bzw. Fingerabdruck prüfen':'Google reports “not signed in” → check tester account and fingerprint','Google Play-Dienste fehlen oder sind veraltet':'Google Play services missing or outdated','Fingerabdruck (SHA-1) oder Paketname passt nicht zu den Anmeldedaten in der Play Console':'Fingerprint (SHA-1) or package name does not match the credentials in the Play Console','gesendet':'sent','✓ Vibration angefordert (Browser)':'✓ Vibration requested (browser)','Dieser Browser kann nicht vibrieren':'This browser can’t vibrate','✓ Vibration gesendet':'✓ Vibration sent','Klingelmodus':'Ringer','lautlos':'silent','vibration':'vibrate','normal':'normal','ohne Stärkeregelung':'no strength control',
   'Bsss! Das neue Tagesspiel ist da – ich hab schon reingeschaut 👀':'Bzzz! The new daily game is here – I already took a peek 👀',
   'Kippi hier! Heute warten neue Steine auf dich – kommst du kippen? 🧩':'Kippi here! New stones are waiting for you today – coming to tilt? 🧩',
   'Bsss… ich sitz schon am Spielfeldrand. Fehlt nur noch du! 😉':'Bzzz… I’m already sitting on the board’s edge. Just missing you! 😉',
@@ -1085,7 +1103,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1398,7 +1416,9 @@ const Audit=(()=>{
 const GAMES_CONFIG={
   android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ',
       // Tagesspiel je Wochentag (Mo … So) – für „Gestern (weltweit)“; leer = aus
-      wd:['','','','','','','']},
+      wd:['','','','','','',''],
+      // Erfolge (Abzeichen) – IDs aus der Play Console, leer = nur in der App
+      ach:{funke:'',woche:'',zwei:'',monat:'',fuenfzig:'',hundert:'',ultra:'',welt1:'',sterne:'',stammgast:'',sieger:'',profi:''}},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 // Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
 // c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
@@ -1567,7 +1587,7 @@ function renderStreak(){
   $('stkMs').innerHTML=MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
     if(m.kippi)return `<button class="ms${un?'':' lock'}" data-coll="1" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>🪰 ${KIPPI_NAMES[m.kippi]}</button>`;
     return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('')+
-    `<button class="ms" data-coll="1"><b>🎨</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
+    `<button class="ms" data-coll="1"><b>🏅</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
   {const aw=Awards.all(),ks=Object.keys(Awards.BADGE).filter(k=>aw[k]);$('stkAwardsCard').style.display=ks.length||Games.available?'':'none';
    $('stkAwards').innerHTML=ks.length?ks.map(k=>`<div class="aw"><b>${Awards.BADGE[k][0]}</b><span>${aw[k]}×</span><small>${Awards.BADGE[k][1]}</small></div>`).join(''):'<p class="hint" style="margin:4px 0">Noch keine – landet im Tagesspiel vorne: Tagessieg +1 ❤ · Wochensieg +3 ❤ · Woche Top 3 +1 ❤</p>'}
   $('stkBest').textContent=`Längste Serie: ${ST.best} ${ST.best===1?'Tag':'Tage'}`;
@@ -1943,6 +1963,7 @@ function comboFx(n){
   if(n<2)return;const lv=TIER(n);
   banner(COMBOS[lv],'combo c'+lv,'COMBO ×'+n);sfx.combo(Math.min(lv,5));
   if(n>=3)try{Fly.react(n>=6?'ultra':n>=5?'monster':'combo')}catch(e){}
+  if(n>=6)try{Badges.earn('ultra')}catch(e){}
   if(lv>=4){boardEl.classList.remove('flash');void boardEl.offsetWidth;boardEl.classList.add('flash');setTimeout(()=>boardEl.classList.remove('flash'),500)}
   const fx=c=>{boardEl.classList.remove('jolt','quake','ultra');void boardEl.offsetWidth;boardEl.classList.add(c);setTimeout(()=>boardEl.classList.remove(c),820)};
   if(lv>=6)fx('ultra');else if(lv>=5)fx('quake');else if(lv>=4)fx('jolt');
@@ -2102,7 +2123,7 @@ function levelWin(){
   setTimeout(musicSync,0);try{Fly.react('win')}catch(e){}
   over=true;busy=false;started=false;countRound();
   const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
-  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();if(lvNo%10===0)setTimeout(()=>Unlocks.check(),900)}   // Welt geschafft → Belohnung
+  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();}setTimeout(()=>Unlocks.check(),900)   // Welt geschafft → Belohnung
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
   setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'ETAPPE '+stg(lvNo),stars:st,goalsProg:true,
@@ -2156,6 +2177,7 @@ function finishGame(reason){
     $('streakNote').style.display='none';
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
+    setTimeout(()=>Unlocks.check(),1200);   // Abzeichen/Designs (z. B. Endlos-Profi)
     if(score>0)History.add({d:todayKey(),t:'e',size:N,score,level,chain:bestChain,moves:history.length,cleared});
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
@@ -2320,7 +2342,7 @@ function applyGoogleName(){const g=Games.signedIn&&Games.player&&Games.player.na
   inp.readOnly=!!g;inp.title=g?I18N.tr('Name aus deinem Google Play Games-Profil'):'';
   if(g&&g!==playerName){playerName=g.slice(0,24);try{localStorage.setItem('kippwerk_name',playerName);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(e){}}
   if(g)inp.value=playerName}
-Games.onChange=()=>{try{applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
+Games.onChange=()=>{try{if(Games.signedIn)setTimeout(()=>{try{Badges.resync()}catch(e){}},1500);applyGoogleName();renderGamesRow();renderGamesBtn();if(!$('scoresOv').classList.contains('hidden'))renderScores();if(!$('startOv').classList.contains('hidden'))Top5.refresh()}catch(e){}};
 $('setName').onchange=e=>{if(e.target.readOnly)return;const n=e.target.value.trim().slice(0,12);if(!n)return;playerName=n;try{localStorage.setItem('kippwerk_name',n);localStorage.setItem('kippwerk_name_at',String(Date.now()))}catch(x){}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId)x.name=n;saveScores()};
 $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);$('pidText').textContent='✓ kopiert'}catch(e){$('pidText').textContent=playerId}
@@ -2334,16 +2356,17 @@ $('closeStreak').onclick=closeStreak;
 $('menuStreak').onclick=()=>openStreak();
 
 $('stkPlay').onclick=()=>{$('streakOv').classList.add('hidden');start('daily')};
-$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection();return}setTheme(b.dataset.th);renderStreak()};
+$('stkMs').onclick=e=>{const b=e.target.closest('.ms');if(!b||b.disabled)return;if(b.dataset.coll){openCollection('badges');return}setTheme(b.dataset.th);renderStreak()};
 $('stkAd').onclick=async()=>{const b=$('stkAd');b.disabled=true;b.textContent='VIDEO LÄDT …';const ok=await Ads.showReward();b.disabled=false;b.textContent='🎬 SCHUTZ PER VIDEO HOLEN';
   if(ok&&ST.shields<MAX_SHIELDS){ST.shields++;ST.adDay=todayKey();saveStreak();toast('🛡 Serienschutz erhalten!')}renderStreak()};
 $('overOv').addEventListener('click',e=>{const b=e.target.closest('#applyMsTheme');if(b){setTheme(b.dataset.th);b.textContent='✓ angewendet'}});
-$('setTheme').onclick=()=>openCollection();
+$('setTheme').onclick=()=>openCollection('themes');
 $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.enable();settings.remind=ok;e.target.checked=ok;if(!ok)toast('Benachrichtigungen sind für KIPPWERK nicht erlaubt (Handy-Einstellungen).')}else settings.remind=false;
   saveSettings();Reminder.schedule()};
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.36.0','Neues Menü „Sammlung“ (🎨 im Hauptmenü) mit Designs, Kippi-Outfits und 12 Abzeichen samt Fortschritt. Im Spiel führt „←“ oben links zurück ins Hauptmenü'],
  ['1.35.1','„Meine Tage“ zeigt jetzt auch deine Endlos-Runden – nach Tagen sortiert, mit Feldgröße, Level, Combo, Zügen und Steinen'],
  ['1.35.0','Bestenliste: neuer Reiter „Meine Tage“ mit all deinen Tagesspielen, Tag für Tag. Vorbereitet: „Gestern“ weltweit im Tagesspiel'],
  ['1.34.0','Neu: „Was ist neu?“ in den Einstellungen – und nach jedem Update einmal automatisch mit allen Neuerungen seit deiner letzten Version'],
@@ -2656,6 +2679,46 @@ const Awards=(()=>{
     return msgs}
   return{note,check,BADGE,all:()=>J(AK,{}),merge(o){const a=J(AK,{});for(const k in o||{})a[k]=Math.max(a[k]||0,o[k]||0);put(AK,a)}};
 })();
+// ---------- Abzeichen (Erfolge) – lokal, optional zusätzlich als Google-Play-Games-Erfolg ----------
+// Erreicht-Datum in kippwerk_badges {id: 'JJJJ-MM-TT'}. Google-IDs in GAMES_CONFIG.android.ach (leer = nur lokal).
+const bestEndlessScore=()=>{let m=0;try{for(const x of scores.endless)m=Math.max(m,+x.score||0);for(const x of History.all())m=Math.max(m,+x.score||0)}catch(e){}return m};
+const BADGES=[
+  {id:'funke',e:'✨',n:'Funke',d:'3 Tage Serie',pts:10,goal:3,val:()=>ST.best||0},
+  {id:'woche',e:'⚡',n:'Eine Woche',d:'7 Tage Serie',pts:20,goal:7,val:()=>ST.best||0},
+  {id:'zwei',e:'🌊',n:'Zwei Wochen',d:'14 Tage Serie',pts:40,goal:14,val:()=>ST.best||0},
+  {id:'monat',e:'🌋',n:'Ein Monat',d:'30 Tage Serie',pts:75,goal:30,val:()=>ST.best||0},
+  {id:'fuenfzig',e:'👑',n:'Fünfzig Tage',d:'50 Tage Serie',pts:100,goal:50,val:()=>ST.best||0},
+  {id:'hundert',e:'🌌',n:'Hundert Tage',d:'100 Tage Serie',pts:200,goal:100,val:()=>ST.best||0},
+  {id:'ultra',e:'💥',n:'ULTRA!',d:'Erste ULTRA-Combo',pts:15,goal:1,val:()=>0},
+  {id:'welt1',e:'🧩',n:'Welt 1',d:'Etappe 1-10 geschafft',pts:25,goal:1,val:()=>LP[10]?1:0},
+  {id:'sterne',e:'⭐',n:'Sternesammler',d:'100 Sterne in den Etappen',pts:50,goal:100,val:()=>totalStars(),unit:'★',inc:true},
+  {id:'stammgast',e:'📅',n:'Stammgast',d:'25 Tagesspiele gespielt',pts:50,goal:25,val:()=>dailyCount(),inc:true},
+  {id:'sieger',e:'🥇',n:'Tagessieger',d:'Platz 1 im weltweiten Tagesspiel',pts:100,goal:1,val:()=>(Awards.all().d1||0)>0?1:0},
+  {id:'profi',e:'🎯',n:'Endlos-Profi',d:'10.000 Punkte in einer Endlos-Runde',pts:50,goal:10000,val:()=>bestEndlessScore()}];
+const Badges=(()=>{
+  const K='kippwerk_badges';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};
+  let got=load();const save=()=>{try{localStorage.setItem(K,JSON.stringify(got))}catch(e){}};
+  const gid=id=>{try{return (GAMES_CONFIG.android.ach||{})[id]||''}catch(e){return ''}};
+  // Google: Standard-Erfolge freischalten, hochzählende mit Schritten (nur Android, nur mit ID, nur angemeldet)
+  function google(b,steps){const id=gid(b.id);if(!id||!Games.available||!Games.signedIn||!Games.plugin)return;
+    try{if(b.inc){const sent=+(localStorage.getItem('kippwerk_ach_'+b.id)||0),add=Math.min(b.goal,steps)-sent;
+        if(add>0)Games.plugin.incrementAchievement({id,steps:add}).then(()=>localStorage.setItem('kippwerk_ach_'+b.id,String(sent+add))).catch(()=>{})}
+      else Games.plugin.unlockAchievement({id}).catch(()=>{})}catch(e){}}
+  function check(silent){const neu=[];
+    for(const b of BADGES){let v=0;try{v=+b.val()||0}catch(e){}
+      if(b.inc)google(b,v);
+      if(got[b.id])continue;
+      if(v>=b.goal){got[b.id]=todayKey();neu.push(b);if(!b.inc)google(b,v)}}
+    if(neu.length){save();if(!silent)neu.slice(0,3).forEach((b,i)=>setTimeout(()=>{toast('🏅 '+I18N.tr('Neues Abzeichen')+': '+b.e+' '+I18N.tr(b.n));try{sfx.combo(4)}catch(e){}},400+i*1800));try{collBadge()}catch(e){}}
+    return neu}
+  function earn(id){const b=BADGES.find(x=>x.id===id);if(!b||got[id])return;got[id]=todayKey();save();google(b,b.goal);
+    toast('🏅 '+I18N.tr('Neues Abzeichen')+': '+b.e+' '+I18N.tr(b.n));try{collBadge()}catch(e){}}
+  // Bereits erreichte Google-Erfolge nachholen, sobald angemeldet
+  function resync(){for(const b of BADGES)if(got[b.id]&&!b.inc)google(b,b.goal);check(true)}
+  return{check,earn,resync,has:id=>!!got[id],date:id=>got[id]||'',all:()=>({...got}),
+    merge(o){let ch=false;for(const k in o||{})if(!got[k]){got[k]=o[k];ch=true}if(ch)save()}};
+})();
 // ---------- Freischaltungen: Designs & Kippi-Outfits ----------
 // Quellen: Welten (Etappen), Serie, Endlos-Level, Anzahl Tagesspiele und Feiertage (Dezember, Silvester, Ostern).
 // Einmal freigeschaltet bleibt freigeschaltet (kippwerk_unlocks, auch in der Cloud-Sicherung).
@@ -2733,6 +2796,7 @@ const Unlocks=(()=>{
     check(silent){const neu=[];for(const r of REWARDS){if(r.id==='std'||r.id==='none'||have.has(key(r)))continue;let ok=false;try{ok=r.test()}catch(e){}
         if(ok){have.add(key(r));neu.push(r)}}
       if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – ⚙ '+I18N.tr('Sammlung')),i*1800))}
+      try{Badges.check(silent)}catch(e){}try{collBadge()}catch(e){}
       return neu},
     all:()=>[...have],merge(list){let ch=false;for(const x of list||[])if(typeof x==='string'&&!have.has(x)){have.add(x);ch=true}if(ch)save()},
     name};
@@ -2741,25 +2805,53 @@ const Unlocks=(()=>{
 // Kippi-Outfit anlegen
 function applyKippi(){const id=Unlocks.has('kippi',settings.kippi)?settings.kippi:'none';document.querySelectorAll('.fly-acc').forEach(g=>g.innerHTML=KIPPI_SVG[id]||'')}
 
-// ---------- Sammlung (Designs & Kippi) ----------
+// ---------- Sammlung: Designs · Kippi · Abzeichen (eigener Knopf 🎨 im Hauptmenü) ----------
 function kippiSvg(id){const s=document.querySelector('#fly svg');if(!s)return '';const c=s.cloneNode(true);const a=c.querySelector('.fly-acc');if(a)a.innerHTML=KIPPI_SVG[id]||'';
   c.querySelectorAll('.lid').forEach(l=>l.remove());return c.outerHTML}
-let collReturn=null;
+// „Neu“-Markierung: alles Freigeschaltete, das in der Sammlung noch nicht angesehen wurde
+const CollSeen=(()=>{const K='kippwerk_coll_seen';
+  const cur=()=>[...REWARDS.filter(r=>r.id!=='std'&&r.id!=='none'&&Unlocks.has(r.t,r.id)).map(r=>r.t+':'+r.id),...BADGES.filter(b=>Badges.has(b.id)).map(b=>'badge:'+b.id)];
+  let seen=null;try{seen=JSON.parse(localStorage.getItem(K)||'null')}catch(e){}
+  if(!Array.isArray(seen)){seen=cur();try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}   // erster Start: nichts als neu zählen
+  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':'badge:';
+    let ch=false;for(const k of cur())if(k.startsWith(pre)&&!seen.includes(k)){seen.push(k);ch=true}if(ch)try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}}})();
+function collBadge(){const n=CollSeen.fresh().length,d=$('collDot');if(!d)return;d.textContent=n>9?'9+':String(n);d.style.display=n?'':'none'}
+let collReturn=null,collTab='themes';
 function renderCollection(){
-  const cur=settings.theme||'std',ck=settings.kippi||'none';
-  $('collThemes').innerHTML=REWARDS.filter(r=>r.t==='theme').map(r=>{const un=Unlocks.has('theme',r.id);
-    return `<button class="ms${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><b>${un?'🎨':'🔒'}</b>${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${sw5(r.id)}</button>`}).join('');
-  $('collKippi').innerHTML=REWARDS.filter(r=>r.t==='kippi').map(r=>{const un=Unlocks.has('kippi',r.id);
-    return `<button class="kc${un?'':' lock'}${ck===r.id?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${I18N.tr(KIPPI_NAMES[r.id])}<small>${un?(ck===r.id?I18N.tr('aktiv'):I18N.tr('frei')):'🔒 '+I18N.tr(r.how)}</small></button>`}).join('');
-  const n=REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length;$('collCount').textContent=`${n} / ${REWARDS.length}`}
-function openCollection(){Unlocks.check(true);
+  const cur=settings.theme||'std',ck=settings.kippi||'none',nw=k=>CollSeen.isNew(k)?'<i class="new">● '+I18N.tr('neu')+'</i>':'';
+  const th=REWARDS.filter(r=>r.t==='theme'),kp=REWARDS.filter(r=>r.t==='kippi');
+  $('ctThemes').textContent=th.filter(r=>Unlocks.has('theme',r.id)).length+' / '+th.length;
+  $('ctKippi').textContent=kp.filter(r=>Unlocks.has('kippi',r.id)).length+' / '+kp.length;
+  $('ctBadges').textContent=BADGES.filter(b=>Badges.has(b.id)).length+' / '+BADGES.length;
+  $('collTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===collTab));
+  $('collThemes').style.display=collTab==='themes'?'':'none';$('collKippi').style.display=collTab==='kippi'?'':'none';$('collBadges').style.display=collTab==='badges'?'':'none';
+  $('collHint').style.display=collTab==='badges'?'none':'';
+  if(collTab==='themes')$('collThemes').innerHTML=th.map(r=>{const un=Unlocks.has('theme',r.id),sw=(THEME_SW[r.id]||THEME_SW.std).slice(0,4);
+    return `<button class="tcard${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><div class="mb">${sw.map(c=>`<i style="background:${c}"></i>`).join('')}</div>${un?'':'🔒 '}${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('theme:'+r.id):''}</button>`}).join('');
+  if(collTab==='kippi')$('collKippi').innerHTML=kp.map(r=>{const un=Unlocks.has('kippi',r.id);
+    return `<button class="tcard${un?'':' lock'}${ck===r.id?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${un?'':'🔒 '}${I18N.tr(KIPPI_NAMES[r.id])}<small>${un?(ck===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('kippi:'+r.id):''}</button>`}).join('');
+  if(collTab==='badges'){const done=BADGES.filter(b=>Badges.has(b.id)),pts=done.reduce((a,b)=>a+b.pts,0);
+    const fmt=v=>(+v).toLocaleString(LOC());
+    let h=`<p class="bsum">${done.length} / ${BADGES.length} · ${pts} ${I18N.tr('Punkte')}</p>`;
+    h+=[...BADGES].sort((a,b)=>(Badges.has(b.id)?1:0)-(Badges.has(a.id)?1:0)).map(b=>{const has=Badges.has(b.id);let v=0;try{v=+b.val()||0}catch(e){}
+      const d=Badges.date(b.id),dl=d?new Date(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10)).toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit'}):'';
+      const prog=!has&&b.goal>1?`<div class="pb"><i style="width:${Math.min(100,Math.round(v/b.goal*100))}%"></i></div><small>${fmt(Math.min(v,b.goal))} / ${fmt(b.goal)}${b.unit?' '+b.unit:''}</small>`:'';
+      return `<div class="bdg${has?'':' lock'}"><span class="be">${b.e}</span><div><b>${I18N.tr(b.n)}</b><small>${I18N.tr(b.d)}</small>${prog}${has?nw('badge:'+b.id):''}</div>${has?`<span class="bt">✓ ${dl}</span>`:''}</div>`}).join('');
+    // Platzierungen aus der weltweiten Rangliste (Tages-/Wochenplätze)
+    const aw=Awards.all(),keys=Object.keys(Awards.BADGE).filter(k=>aw[k]);
+    if(keys.length)h+=`<div class="bsec">${I18N.tr('Platzierungen')}</div>`+keys.map(k=>`<div class="bdg"><span class="be">${Awards.BADGE[k][0]}</span><div><b>${I18N.tr(Awards.BADGE[k][1])}</b></div><span class="bt">× ${aw[k]}</span></div>`).join('');
+    $('collBadges').innerHTML=h}
+  CollSeen.markTab(collTab);collBadge()}
+function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collTab=tab;
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
   ['settingsOv','streakOv','startOv'].forEach(i=>$(i).classList.add('hidden'));renderCollection();$('collOv').classList.remove('hidden');$('collOv').scrollTop=0}
-function closeCollection(){$('collOv').classList.add('hidden');
+function closeCollection(){$('collOv').classList.add('hidden');collBadge();
   if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else showMenu()}
+$('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
-$('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('happy')}catch(x){}};
+$('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};
 $('collClose').onclick=closeCollection;
+$('menuColl').onclick=()=>openCollection();
 // ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
 // Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
 const Cloud=(()=>{
@@ -2775,7 +2867,7 @@ const Cloud=(()=>{
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -2796,7 +2888,7 @@ const Cloud=(()=>{
       set:setR?{...L.set,...R.set}:L.set,setAt:Math.max(L.setAt||0,R.setAt||0),levels:lv,scores:{endless,daily},daily:dk,
       streak:mergeStreak(L.streak,R.streak),
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
-      unlocks:uni(L.unlocks,R.unlocks),
+      unlocks:uni(L.unlocks,R.unlocks),badges:(()=>{const o={...(R.badges||{})};for(const k in L.badges||{})if(!o[k]||L.badges[k]<o[k])o[k]=L.badges[k];return o})(),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -2806,6 +2898,7 @@ const Cloud=(()=>{
     if(M.streak)lsSet('kippwerk_streak',JSON.stringify(M.streak));
     if(M.awards)lsSet('kippwerk_awards',JSON.stringify(M.awards));
     if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
+    if(M.badges&&typeof M.badges==='object')lsSet('kippwerk_badges',JSON.stringify(M.badges));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);
@@ -2994,8 +3087,8 @@ const Fly=(()=>{
  Ads.showInter=async(...a)=>{Music.hold(true);try{return await si(...a)}finally{Music.hold(false)}};}
 try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
 I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
-applyKippi();setTimeout(()=>{Unlocks.check();applyKippi()},2500);setTimeout(newsAfterUpdate,1200);   // Feiertage, Welten, Serie … (Toast bei Neuem)
-window.__kw={unlocks:Unlocks,openCollection,holiday:Holiday,fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+applyKippi();collBadge();setTimeout(()=>{Unlocks.check();applyKippi()},2500);setTimeout(newsAfterUpdate,1200);   // Feiertage, Welten, Serie … (Toast bei Neuem)
+window.__kw={unlocks:Unlocks,badges:Badges,openCollection,holiday:Holiday,fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

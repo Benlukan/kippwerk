@@ -38,6 +38,10 @@ Google speichert pro Spieler und Zeitraum nur den besten Wert; „Gestern“ gib
 - IDs in `src/js/app/10-play-games.js` → `GAMES_CONFIG.android.wd` (Reihenfolge Mo … So). Erst wenn alle 7 gesetzt sind, erscheint der Reiter „Gestern“.
 - Anzeige „Gestern“: Liste des gestrigen Wochentags, Zeitraum „Woche“, gefiltert auf das gestrige Datum im Score-Tag; leer → Zeitraum „Gesamt“, ebenfalls gefiltert.
 
+## Abzeichen / Erfolge (ab v1.36.0)
+- 12 Abzeichen in der Sammlung (🎨 → Abzeichen), lokal in `kippwerk_badges` (Datum), Cloud-Sicherung führt zusammen.
+- Optional als Google-Erfolge: IDs in `GAMES_CONFIG.android.ach` (Schlüssel funke, woche, zwei, monat, fuenfzig, hundert, ultra, welt1, sterne, stammgast, sieger, profi). Sterne (100 Schritte) und Stammgast (25 Schritte) zählen hoch, der Rest wird freigeschaltet. Vorlage: `docs/play-games-erfolge.md`. Bereits erreichte Abzeichen werden nach der Anmeldung nachgereicht.
+
 ## Top 5 im Hauptmenü
 - Liefert Google den eigenen Eintrag mit Platz ≤ 0 (leere öffentliche Liste), ist das Play-Games-Profil nicht öffentlich: Die App zeigt den Eintrag mit „–“ und den Hinweis „Nur für dich sichtbar“ (ab v1.31.1).
 - Ab v1.30.1 umschaltbar: **Tagesspiel** oder **Endlos N×N** (N = Endlos-Feld im Menü), jeweils Heute/Woche/Alle. „Ganze Rangliste“ öffnet dieselbe Liste in 🏆.

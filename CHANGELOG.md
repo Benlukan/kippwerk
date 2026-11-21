@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.36.0 (Build 64) – 21.11.2026
+- **Neues Menü „🎨 Sammlung“** mit eigenem Knopf im Hauptmenü (roter Punkt = Anzahl neu freigeschalteter Dinge). Drei Reiter mit Zähler: **Designs** (Mini-Vorschau mit 4 Steinen, tippen = anwenden), **Kippi** (Outfits), **Abzeichen**
+- **12 Abzeichen** mit Fortschrittsbalken und Datum: Serie 3/7/14/30/50/100 Tage, erste ULTRA-Combo, Welt 1, 100 Sterne, 25 Tagesspiele, Tagessieger, 10.000 Punkte Endlos – dazu die Platzierungen aus der weltweiten Rangliste. Einblendung „🏅 Neues Abzeichen“. Vorbereitet für Google-Play-Games-Erfolge (IDs in `GAMES_CONFIG.android.ach`)
+- ⚙ „Design & Kippi“ und 🔥-Fenster führen direkt in die Sammlung
+- **Zurück im Spiel:** klarer „←“-Knopf oben links (statt „☰“ rechts) – zurück ins Hauptmenü, die Runde bleibt als „Weiterspielen“ erhalten
 ## v1.35.1 (Build 63) – 21.11.2026
 - **„Meine Tage“ mit Endlos:** Tagesspiel und alle Endlos-Runden, nach Spieltag gruppiert (neueste zuerst), je Runde Feldgröße, Level, Combo, Züge, Steine; 🏆 markiert das beste Tagesspiel und die beste Endlos-Runde. Kennzahlen: Spieltage, Spiele, Bestes Tagesspiel, Bestes Endlos
 - Neuer Verlauf `kippwerk_history` (letzte 400 Endlos-Runden, nur auf diesem Gerät); ältere Endlos-Rekorde aus der Bestenliste werden einmalig mit angezeigt

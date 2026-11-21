@@ -81,7 +81,7 @@ function renderStreak(){
   $('stkMs').innerHTML=MILESTONES.map(m=>{const un=ST.ms.includes(m.d);
     if(m.kippi)return `<button class="ms${un?'':' lock'}" data-coll="1" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>🪰 ${KIPPI_NAMES[m.kippi]}</button>`;
     return `<button class="ms${un?'':' lock'}${cur===m.theme?' on':''}" data-th="${m.theme}" ${un?'':'disabled'}><b>${un?m.badge:'🔒'}</b>${m.d} Tage<br>${THEME_NAMES[m.theme]}${sw5(m.theme)}</button>`}).join('')+
-    `<button class="ms" data-coll="1"><b>🎨</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
+    `<button class="ms" data-coll="1"><b>🏅</b>Sammlung<br>${REWARDS.filter(r=>Unlocks.has(r.t,r.id)).length}/${REWARDS.length}</button>`;
   {const aw=Awards.all(),ks=Object.keys(Awards.BADGE).filter(k=>aw[k]);$('stkAwardsCard').style.display=ks.length||Games.available?'':'none';
    $('stkAwards').innerHTML=ks.length?ks.map(k=>`<div class="aw"><b>${Awards.BADGE[k][0]}</b><span>${aw[k]}×</span><small>${Awards.BADGE[k][1]}</small></div>`).join(''):'<p class="hint" style="margin:4px 0">Noch keine – landet im Tagesspiel vorne: Tagessieg +1 ❤ · Wochensieg +3 ❤ · Woche Top 3 +1 ❤</p>'}
   $('stkBest').textContent=`Längste Serie: ${ST.best} ${ST.best===1?'Tag':'Tage'}`;

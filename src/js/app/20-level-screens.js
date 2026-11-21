@@ -23,7 +23,7 @@ function levelWin(){
   setTimeout(musicSync,0);try{Fly.react('win')}catch(e){}
   over=true;busy=false;started=false;countRound();
   const st=movesLeft>=LV.stars[1]?3:movesLeft>=LV.stars[0]?2:1;
-  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();if(lvNo%10===0)setTimeout(()=>Unlocks.check(),900)}   // Welt geschafft → Belohnung
+  const prev=LP[lvNo]||0;if(st>prev){LP[lvNo]=st;saveLP();}setTimeout(()=>Unlocks.check(),900)   // Welt geschafft → Belohnung
   sfx.level();haptic('win');banner('GESCHAFFT!');
   const last=lvNo>=LEVELS.length;
   setTimeout(()=>showLvl({kicker:'GESCHAFFT!',title:'ETAPPE '+stg(lvNo),stars:st,goalsProg:true,
@@ -77,6 +77,7 @@ function finishGame(reason){
     $('streakNote').style.display='none';
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
+    setTimeout(()=>Unlocks.check(),1200);   // Abzeichen/Designs (z. B. Endlos-Profi)
     if(score>0)History.add({d:todayKey(),t:'e',size:N,score,level,chain:bestChain,moves:history.length,cleared});
     const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;

@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.35.0 (Build 62) – 21.11.2026
+- **🗓 Meine Tage:** dritter Reiter in der Bestenliste – alle eigenen Tagesspiele, neueste zuerst, mit Datum, Combo, Zügen und Steinen (🏆 = bester Tag) und Kennzahlen (Gespielt, Serie, Bester, Schnitt). Neue Tagesspiele speichern auch die abgeräumten Steine
+- **„Gestern“ (weltweit) vorbereitet:** Tagesspiele werden zusätzlich an eine Bestenliste je Wochentag gemeldet (`wd0`…`wd6`); der Zeitraum „Gestern“ erscheint, sobald die 7 IDs eingetragen sind. Anleitung in `docs/game-services.md`
+- Behoben (seit v1.34.0): Solange „Was ist neu?“ offen war, wurde ein Cloud-Spielstand erst nach dem Schließen übernommen
 ## v1.34.0 (Build 61) – 21.11.2026
 - **„🆕 Was ist neu?“** in ⚙ (Hilfe & Rechtliches) mit aktueller Versionsnummer: zeigt die letzten 5 Versionen, „Alle Versionen anzeigen“ für die komplette Liste (DE/EN)
 - **Nach einem Update einmal automatisch** im Hauptmenü – mit allen Neuerungen seit der zuletzt gesehenen Version (max. 8). Nicht bei Neuinstallation (dort kommt das Tutorial); gemerkt in `kippwerk_seenver`

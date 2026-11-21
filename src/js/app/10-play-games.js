@@ -2,7 +2,9 @@
 // Android: Projekt-ID 414239949537 (games-ids.xml). IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ'},
+  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ',
+      // Tagesspiel je Wochentag (Mo … So) – für „Gestern (weltweit)“; leer = aus
+      wd:['','','','','','','']},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 // Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
 // c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
@@ -24,6 +26,8 @@ const Games=(()=>{
       localStorage.setItem(LK,JSON.stringify(l.slice(0,8)))}catch(e){}};
   let ready=null,signedIn=false,why='',me=null;   // me = {id,name} aus dem Play-Games-Profil   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
+  // Schlüssel → ID: e5…e8, daily, wd0…wd6 (Wochentag Mo=0 … So=6)
+  const idOf=k=>/^wd[0-6]$/.test(k)?(Array.isArray(cfg.wd)&&cfg.wd[+k[2]])||'':cfg[k]||'';
   const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
   const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
       for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===sig(k,v.s,v.t))r[k]={s:v.s,t:v.t||''}}   // nur unveränderte, signierte Werte
@@ -39,7 +43,7 @@ const Games=(()=>{
   const takePlayer=r=>{const p=r&&r.player;if(p&&(p.displayName||p.playerId))me={id:p.playerId||'',name:String(p.displayName||'').trim()}};
   const afterSignIn=()=>{try{if(typeof Cloud!=='undefined')setTimeout(()=>Cloud.sync(),300)}catch(e){}};
   async function flush(){if(!signedIn)return;const o=pend();
-    for(const k of Object.keys(o)){const id=cfg[k];if(!id){delete o[k];continue}
+    for(const k of Object.keys(o)){const id=idOf(k);if(!id){delete o[k];continue}
       const x=o[k];try{await P.submitScore(x.t?{leaderboardId:id,score:x.s,scoreTag:x.t}:{leaderboardId:id,score:x.s});note(k,x.s,'ok');delete o[k]}catch(e){note(k,x.s,'⚠ '+(e&&e.message||e))}}
     savePend(o)}
   async function signIn(){if(!available)return false;await init();if(signedIn)return true;
@@ -67,10 +71,11 @@ const Games=(()=>{
   return{available,label,plugin:P,note,diag,get player(){return me},savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
     // tag = Details für die Anzeige (Combo, Züge, Steine, Level) – siehe ScoreTag
-    submit(key,score,tag){if(!available||!(score>0)||!cfg[key])return;const o=pend(),s=Math.round(score);
+    submit(key,score,tag){if(!available||!(score>0)||!idOf(key))return;const o=pend(),s=Math.round(score);
       if(!o[key]||s>=o[key].s)o[key]={s,t:tag||''};savePend(o);try{clearOnline()}catch(e){}
       flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
-    async top(key,span,n){if(!available||!signedIn||!cfg[key])throw new Error('n/a');return await P.loadTopScores({leaderboardId:cfg[key],timeSpan:span,maxResults:n||5})},
+    async top(key,span,n){if(!available||!signedIn||!idOf(key))throw new Error('n/a');return await P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:n||5})},
+    get hasWd(){return Array.isArray(cfg.wd)&&cfg.wd.length===7&&cfg.wd.every(Boolean)},
     async show(key){if(!available)return;if(!(await signIn()))return false;
       try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
 })();

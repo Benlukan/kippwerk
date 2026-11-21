@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.35.0','Bestenliste: neuer Reiter „Meine Tage“ mit all deinen Tagesspielen, Tag für Tag. Vorbereitet: „Gestern“ weltweit im Tagesspiel'],
  ['1.34.0','Neu: „Was ist neu?“ in den Einstellungen – und nach jedem Update einmal automatisch mit allen Neuerungen seit deiner letzten Version'],
  ['1.33.1','Design „Retro 8-Bit“: Auswahl-Knöpfe und Schalter jetzt gut erkennbar'],
  ['1.33.0','Neue Sammlung: 17 Designs und 8 Kippi-Outfits – freischaltbar über Welten, Serie, Endlos, Tagesspiele, Dezember, Silvester und Ostern. 6×6 bekommt ab Level 30 Felsen, die Musik wird je Feldgröße passend schneller'],
@@ -131,16 +132,21 @@ function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.availabl
 $('gamesBoard').onclick=async()=>{const b=$('gamesBoard');b.textContent='⏳';await Games.signIn();renderScores()};
 const onlineCache={};let onlineReq=0;
 function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
-const SPAN_TXT={day:'Heute',week:'Diese Woche',all:'Gesamt'};
+const SPAN_TXT={day:'Heute',yday:'Gestern',week:'Diese Woche',all:'Gesamt'};
+// „Gestern“: Liste des gestrigen Wochentags; nur Einträge mit gestrigem Datum (Score-Tag d…). Erst Woche, sonst Gesamt (Wochenwechsel)
+async function loadYesterday(){const yk=addDays(todayKey(),-1),k='wd'+wdOf(yk),d8=yk.replace(/-/g,'');
+  const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
+    const me=d&&d.me&&ScoreTag.dec(d.me.tag).day===d8?{...d.me,rank:(en.find(x=>x.playerId===d.me.playerId)||{}).rank||d.me.rank}:null;return{entries:en,me}};
+  let r=pick(await Games.top(k,'week',25));if(!r.entries.length&&!r.me)r=pick(await Games.top(k,'all',25));return r}
 function renderOnline(){
   const k=scoresTab==='endless'?'e'+scoresSize:'daily',sp=scoresTab==='endless'?endlessSpan:scoresPeriod,ck=k+'|'+sp;
   $('periodTabs').style.display='';$('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===sp));
   $('dailyStats').style.display='none';
-  const ds=sp==='day'&&googleDayStart();$('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp])+(ds?' · '+I18N.tr('Neuer Tag ab')+' '+ds:'');$('periodInfo').style.display='';
+  const ds=sp==='day'&&googleDayStart();$('periodInfo').textContent='🌍 '+I18N.tr('Weltweit')+' · '+I18N.tr(SPAN_TXT[sp])+(sp==='yday'?' · '+dayLabel(dailyNo()-1):'')+(ds?' · '+I18N.tr('Neuer Tag ab')+' '+ds:'');$('periodInfo').style.display='';
   const c=onlineCache[ck];
   if(c)drawOnline(c.d);else{$('scoresTable').innerHTML='';$('scoresEmpty').style.display='';$('scoresEmpty').textContent=I18N.tr('⏳ Bestenliste wird geladen …')}
   if(!c||Date.now()-c.t>30000){const my=++onlineReq;
-    Games.top(k,sp,25).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
+    (sp==='yday'?loadYesterday():Games.top(k,sp,25)).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
       .catch(()=>{if(my===onlineReq&&!c)renderLocal(I18N.tr('Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.'))})}}
 function drawOnline(d){
   const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
@@ -154,7 +160,7 @@ function drawOnline(d){
   $('scoresTable').innerHTML=h;
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';
-  $('scoresEmpty').textContent=I18N.tr(sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche noch keine Einträge – hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
+  $('scoresEmpty').textContent=I18N.tr(sp==='yday'?'Gestern hat niemand das Tagesspiel gewertet.':sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche noch keine Einträge – hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -166,11 +172,24 @@ function metaLine(x,lvl,date){const en=I18N.lang==='en',p=[];
   if(x.cleared>0)p.push(`${x.cleared} ${en?'stones':'Steine'}`);
   if(date)p.push(date);return p.join(' · ')}
 function renderScores(){
-  $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');
+  $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');$('tabMine').classList.toggle('on',scoresTab==='mine');
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
+  // „Gestern“ nur weltweit und nur, wenn die Wochentags-Listen eingerichtet sind
+  const yd=onlineOn()&&Games.hasWd;$('pYday').style.display=yd?'':'none';if(!yd&&scoresPeriod==='yday')scoresPeriod='day';
+  if(scoresTab==='mine'){renderMine();return}
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
   renderGamesBtn();
   if(onlineOn())renderOnline();else renderLocal()}
+// ---------- Meine Tage: eigene Tagesspiele, Tag für Tag (nur dieses Gerät / Cloud-Sicherung) ----------
+function renderMine(){
+  $('periodTabs').style.display='none';$('gamesBoard').style.display='none';
+  const mine=scores.daily.slice().sort((a,b)=>b.no-a.no);   // lokale Liste = nur eigene Tagesspiele (Gerät + Cloud)
+  const st=dailyStats(),esc=escH,best=mine.reduce((a,x)=>Math.max(a,x.score),0);
+  $('dailyStats').style.display='';
+  $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString(LOC())}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString(LOC())}</b><small>Schnitt</small></div>`;
+  $('periodInfo').textContent=I18N.tr('Deine Tagesspiele, neueste zuerst');$('periodInfo').style.display='';
+  $('scoresTable').innerHTML=mine.slice(0,60).map(x=>`<tr class="${x===lastEntry?'me':''}"><td class="rank">${x.score===best&&best>0?'🏆':'📅'}</td><td>${dayLabel(x.no)}<small class="sub">${metaLine(x,'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`).join('');
+  $('scoresEmpty').style.display=mine.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Tagesspiel gespielt.')}
 function renderLocal(note){
   const t=$('scoresTable'),esc=escH;
   $('periodTabs').style.display=scoresTab==='daily'?'':'none';
@@ -203,6 +222,7 @@ $('scoresBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidde
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
 $('tabDaily').onclick=()=>{scoresTab='daily';renderScores()};
+$('tabMine').onclick=()=>{scoresTab='mine';renderScores()};
 $('closeScores').onclick=()=>{$('scoresOv').classList.add('hidden');
   if(scoresReturn==='over')$('overOv').classList.remove('hidden');else if(scoresReturn==='start'||scoresReturn==='pause')showMenu()};
 $('helpBtn').onclick=()=>{if(over||busy)return;

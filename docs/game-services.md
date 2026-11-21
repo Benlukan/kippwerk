@@ -23,6 +23,21 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 ## Spieltag (ab v1.31.0)
 - `todayKey()` rechnet in **America/Los_Angeles** – das Tagesspiel, die Serie, „Heute“-Listen und Belohnungen wechseln damit weltweit gleichzeitig um Mitternacht Pazifikzeit (Deutschland: 9:00 Uhr) und passen zu Googles Zeitraum „Heute“. `nextDayStart()`/`dayStartTime()` liefern den nächsten Wechsel in Ortszeit (Menü „offen bis …“, Countdown nach dem Tagesspiel, Top 5).
 
+## Tagesspiel je Wochentag – „Gestern (weltweit)“ (ab v1.35.0)
+Google speichert pro Spieler und Zeitraum nur den besten Wert; „Gestern“ gibt es dort nicht. Deshalb zusätzlich **7 Bestenlisten**, eine je Wochentag. Jedes Tagesspiel geht an „Tagesspiel“ **und** an die Liste seines Wochentags (Spieltag, siehe `todayKey`).
+- In der Play Console anlegen (wie „Tagesspiel“: Zahl, 0 Dezimalstellen, höher ist besser, 1 – 100000, Manipulationsschutz an), Standardsprache Englisch:
+  | Nr. | Name (EN) | Name (DE) |
+  |---|---|---|
+  | 0 | Daily Monday | Tagesspiel Montag |
+  | 1 | Daily Tuesday | Tagesspiel Dienstag |
+  | 2 | Daily Wednesday | Tagesspiel Mittwoch |
+  | 3 | Daily Thursday | Tagesspiel Donnerstag |
+  | 4 | Daily Friday | Tagesspiel Freitag |
+  | 5 | Daily Saturday | Tagesspiel Samstag |
+  | 6 | Daily Sunday | Tagesspiel Sonntag |
+- IDs in `src/js/app/10-play-games.js` → `GAMES_CONFIG.android.wd` (Reihenfolge Mo … So). Erst wenn alle 7 gesetzt sind, erscheint der Reiter „Gestern“.
+- Anzeige „Gestern“: Liste des gestrigen Wochentags, Zeitraum „Woche“, gefiltert auf das gestrige Datum im Score-Tag; leer → Zeitraum „Gesamt“, ebenfalls gefiltert.
+
 ## Top 5 im Hauptmenü
 - Liefert Google den eigenen Eintrag mit Platz ≤ 0 (leere öffentliche Liste), ist das Play-Games-Profil nicht öffentlich: Die App zeigt den Eintrag mit „–“ und den Hinweis „Nur für dich sichtbar“ (ab v1.31.1).
 - Ab v1.30.1 umschaltbar: **Tagesspiel** oder **Endlos N×N** (N = Endlos-Feld im Menü), jeweils Heute/Woche/Alle. „Ganze Rangliste“ öffnet dieselbe Liste in 🏆.

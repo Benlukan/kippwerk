@@ -49,7 +49,7 @@ const Cloud=(()=>{
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);
     if(Date.now()-t<30000)return false;sessionStorage.setItem(k,String(Date.now()));
     lsSet('kippwerk_cloud_toast','1');location.reload();return true}
-  const idle=()=>!started&&!paused&&!$('startOv').classList.contains('hidden');
+  const idle=()=>!started&&!paused&&(!$('startOv').classList.contains('hidden')||!$('newsOv').classList.contains('hidden'));   // Menü oder „Was ist neu?“
   async function sync(){
     if(!Games.savesOn||!Games.signedIn)return;if(busy)return busy;
     busy=(async()=>{const P=Games.plugin;

@@ -14,6 +14,8 @@ function todayKey(){const n=now();try{const p={};for(const x of new Intl.DateTim
 // Beginn des nächsten Spieltags (Date) und dessen Uhrzeit in Ortszeit, z. B. „09:00“
 function nextDayStart(){const n=now();try{const pt=new Date(n.toLocaleString('en-US',{timeZone:DAY_TZ})),m=new Date(pt);m.setHours(24,0,0,0);
   const t=new Date(n.getTime()+(m-pt));if(t>n&&t-n<=26*36e5)return t}catch(e){}const t=new Date(n);t.setHours(24,0,0,0);return t}
+// Wochentag eines Spieltags (JJJJ-MM-TT) mit Mo=0 … So=6
+function wdOf(key){const p=String(key).split('-').map(Number);return (new Date(p[0],p[1]-1,p[2]).getDay()+6)%7}
 function dayStartTime(){return nextDayStart().toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'})}
 const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 function noDate(no){return new Date(2026,9,30+(no-1))}

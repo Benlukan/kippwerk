@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.40.3 (Build 72) – 22.11.2026
+- **Feldauswahl im Hauptmenü** im Stil des aktiven Designs: Hintergrund, Rahmen und Trennlinie aus den Design-Farben (statt fest dunkelblau), Beschriftung oben, normale Felder in der ersten Reihe, Felder mit Hindernissen 🪨 darunter, aktives Feld hervorgehoben
+- Alle Umschalter (Top 5, Einstellungen) nutzen ebenfalls die Design-Farben statt des festen dunkelblauen Hintergrunds
 ## v1.40.2 (Build 71) – 22.11.2026
 - Gesamt-Bestenlisten „Endlos 4x4“, „Endlos 9x9“, „Endlos 10x10“ eingetragen (`e4`, `e9`, `e10`) – damit sind alle 67 Ranglisten und 24 Erfolge verbunden
 ## v1.40.1 (Build 70) – 22.11.2026

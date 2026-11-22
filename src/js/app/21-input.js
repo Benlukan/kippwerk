@@ -69,7 +69,9 @@ $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 let settingsReturn=null,resetArm={};
 // Feldauswahl (Menü + Einstellungen): nur freigeschaltete Felder
 function renderSizeSegs(){const cur=curBoard();document.querySelectorAll('.seg[data-key="size"]').forEach(sg=>{const big=!!sg.closest('.home-size');
-  const h=BOARDS.filter(boardOpen).map(k=>`<button data-v="${k}"${k===cur?' class="on"':''}>${big?bLabel(k):bN(k)+(bH(k)?'🪨':'')}</button>`).join('');if(sg.innerHTML!==h)sg.innerHTML=h})}
+  const open=BOARDS.filter(boardOpen),btn=k=>`<button data-v="${k}"${k===cur?' class="on"':''}>${big?bLabel(k):bN(k)+(bH(k)?'🪨':'')}</button>`;
+  // Menü: normale Felder oben, Hindernis-Felder in eigener Reihe darunter
+  const h=big?open.filter(k=>!bH(k)).map(btn).join('')+(open.some(bH)?'<b class="sz-br"></b>'+open.filter(bH).map(btn).join(''):''):open.map(btn).join('');if(sg.innerHTML!==h)sg.innerHTML=h})}
 function renderSettings(){renderSizeSegs();
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('newsVer').textContent='v'+APP_VER;

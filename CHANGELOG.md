@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.40.1 (Build 70) – 22.11.2026
+- Google-IDs eingetragen: 12 Erfolge (Mini-Meister … Wochensieger), Bestenlisten „Endlos 6x6/7x7/8x8 Hindernisse“ (`e6h`, `e7h`, `e8h`) und je 7 Wochentags-Listen für 4×4, 9×9, 10×10 (`ewd[4|9|10]`)
+- Noch offen: Gesamt-Bestenlisten „Endlos 4x4“, „Endlos 9x9“, „Endlos 10x10“ (`e4`, `e9`, `e10`) – bis dahin zeigt die Bestenliste dieser Felder die Ergebnisse auf dem Gerät; Runden werden schon jetzt in die Wochentags-Listen eingetragen
 ## v1.40.0 (Build 69) – 22.11.2026
 - **Neue Felder zum Freischalten** (🎨 Sammlung → neuer Reiter „Felder“, mit Fortschrittsbalken; Auswahl im Menü und in ⚙ zeigt nur freigeschaltete Felder):
   - **4×4** – Endlos 5×5 bis Level 15 · immer 4 Farben, 1 neuer Stein pro Zug

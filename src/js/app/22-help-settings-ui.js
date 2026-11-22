@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.40.1','Neue Abzeichen jetzt auch als Erfolge in Google Play Spiele; weltweite Bestenlisten für die Felder mit Hindernissen'],
  ['1.40.0','Neue Felder zum Freischalten: 4×4, 9×9, 10×10 sowie 6×6/7×7/8×8 mit Hindernissen 🪨 – zu finden in 🎨 Sammlung → Felder. 12 neue Abzeichen. Extra-Leben auf 9×9 ab Combo ×7, auf 10×10 ab ×8'],
  ['1.39.0','Endlos jetzt auch mit Woche Montag–Sonntag (beste Runde der Woche) und „Gestern“ – für jede Feldgröße'],
  ['1.38.0','Tagesspiel-Woche jetzt von Montag bis Sonntag: Punkte aller Tagesspiele der Woche zusammengezählt (weltweit, mit gespielten Tagen und bestem Tag). Endlos bleibt bei der Google-Woche So–Sa. Erfolge in Google Play Spiele aktiv, „Gestern“ im Tagesspiel'],

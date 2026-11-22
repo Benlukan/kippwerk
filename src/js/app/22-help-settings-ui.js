@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.39.0','Endlos jetzt auch mit Woche Montag–Sonntag (beste Runde der Woche) und „Gestern“ – für jede Feldgröße'],
  ['1.38.0','Tagesspiel-Woche jetzt von Montag bis Sonntag: Punkte aller Tagesspiele der Woche zusammengezählt (weltweit, mit gespielten Tagen und bestem Tag). Endlos bleibt bei der Google-Woche So–Sa. Erfolge in Google Play Spiele aktiv, „Gestern“ im Tagesspiel'],
  ['1.37.0','Endlos-Bestenlisten jetzt auch nach Zeitraum: Heute, Woche (So–Sa) und Gesamt – weltweit und auf diesem Gerät'],
  ['1.36.1','Tageswechsel jetzt exakt wie bei Google: im Winter um 08:00 Uhr, im Sommer um 09:00 Uhr. „Woche“ heißt jetzt „Woche (So–Sa)“ – die Google-Woche beginnt sonntags'],
@@ -140,31 +141,34 @@ function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
 const SPAN_TXT={day:'Heute',yday:'Gestern',week:'Woche (So–Sa)',all:'Gesamt'};
 // Tagesspiel-Woche Mo–So weltweit: Google kennt nur So–Sa, daher aus den 7 Wochentags-Listen zusammengezählt
 // (je Tag die Liste dieses Wochentags, gefiltert auf das Datum im Score-Tag; Summe je Spieler)
-async function loadWeekMoSo(n){if(!Games.signedIn)throw new Error('n/a');
+// pre: 'wd' (Tagesspiel, Summe je Spieler) oder 'e6wd' usw. (Endlos, beste Runde der Woche)
+async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre=pre||'wd';const best=pre!=='wd';
   const t=todayKey(),mon=addDays(t,-wdOf(t)),gSun=addDays(t,-((wdOf(t)+1)%7)),days=[];
   for(let d=mon;d<=t;d=addDays(d,1))days.push(d);
   let fails=0;
-  const res=await Promise.all(days.map(async d=>{const k='wd'+wdOf(d),d8=d.replace(/-/g,''),ok=x=>!!x&&ScoreTag.dec(x.tag).day===d8;
+  const res=await Promise.all(days.map(async d=>{const k=pre+wdOf(d),d8=d.replace(/-/g,''),ok=x=>!!x&&ScoreTag.dec(x.tag).day===d8;
     const get=async sp=>{try{return await Games.top(k,sp,25)}catch(e){fails++;return null}};
     let r=await get(d>=gSun?'week':'all');
     if(d>=gSun&&!(r&&((r.entries||[]).some(ok)||ok(r.me))))r=await get('all')||r;
     return{entries:(r&&r.entries||[]).filter(ok),me:r&&ok(r.me)?r.me:null}}));
   if(fails>=days.length)throw new Error('n/a');
   const P={},add=(x,pub)=>{const p=P[x.playerId]=P[x.playerId]||{playerId:x.playerId,name:x.name,score:0,days:0,best:0,pub:false,ids:new Set()};
-    if(p.ids.has(x.d))return;p.ids.add(x.d);p.score+=+x.score||0;p.days++;p.best=Math.max(p.best,+x.score||0);if(pub)p.pub=true;if(x.name)p.name=x.name};
+    if(p.ids.has(x.d))return;p.ids.add(x.d);const v=+x.score||0;p.score+=v;p.days++;if(v>p.best){p.best=v;p.tag=x.tag}if(pub)p.pub=true;if(x.name)p.name=x.name};
   let meId=null,meHidden=false;
   res.forEach((r,i)=>{for(const x of r.entries)add({...x,d:days[i]},true);
     if(r.me){meId=r.me.playerId;if(!((r.me.rank|0)>0))meHidden=true;add({...r.me,d:days[i]},(r.me.rank|0)>0)}});
   const L=Object.values(P).filter(p=>p.pub||p.playerId===meId).sort((a,b)=>b.score-a.score);
-  const sub=p=>`${p.days}/7 ${I18N.lang==='en'?'days':'Tage'} · ${I18N.lang==='en'?'best day':'bester Tag'} ${p.best.toLocaleString(LOC())}`;
-  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:p.score,rank:i+1,sub:sub(p)}));
-  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:mp.score,rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
+  const val=p=>best?p.best:p.score;
+  if(best)L.sort((a,b)=>b.best-a.best);
+  const sub=p=>best?'':`${p.days}/7 ${I18N.lang==='en'?'days':'Tage'} · ${I18N.lang==='en'?'best day':'bester Tag'} ${p.best.toLocaleString(LOC())}`;
+  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:val(p),tag:best?p.tag:'',rank:i+1,sub:sub(p)}));
+  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:best?mp.tag:'',rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
   return{entries:pub.slice(0,n||25),me}}
 // Rangliste laden – beim Tagesspiel „Woche“ die eigene Woche Mo–So, sonst direkt von Google
-function boardTop(k,sp,n){return k==='daily'&&sp==='week'&&Games.hasWd?loadWeekMoSo(n):Games.top(k,sp,n)}
-const weekMonOf=k=>k==='daily'?dailyWeekMon():false;
+function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e[5-8]$/.test(k)&&Games.hasEwd)return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}
+const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwd;
 // „Gestern“: Liste des gestrigen Wochentags; nur Einträge mit gestrigem Datum (Score-Tag d…). Erst Woche, sonst Gesamt (Wochenwechsel)
-async function loadYesterday(){const yk=addDays(todayKey(),-1),k='wd'+wdOf(yk),d8=yk.replace(/-/g,'');
+async function loadYesterday(pre){const yk=addDays(todayKey(),-1),k=(pre||'wd')+wdOf(yk),d8=yk.replace(/-/g,'');
   const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
     const me=d&&d.me&&ScoreTag.dec(d.me.tag).day===d8?{...d.me,rank:(en.find(x=>x.playerId===d.me.playerId)||{}).rank||d.me.rank}:null;return{entries:en,me}};
   let r=pick(await Games.top(k,'week',25));if(!r.entries.length&&!r.me)r=pick(await Games.top(k,'all',25));return r}
@@ -176,7 +180,7 @@ function renderOnline(){
   const c=onlineCache[ck];
   if(c)drawOnline(c.d);else{$('scoresTable').innerHTML='';$('scoresEmpty').style.display='';$('scoresEmpty').textContent=I18N.tr('⏳ Bestenliste wird geladen …')}
   if(!c||Date.now()-c.t>30000){const my=++onlineReq;
-    (sp==='yday'?loadYesterday():boardTop(k,sp,25)).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
+    (sp==='yday'?loadYesterday(k==='daily'?'wd':k+'wd'):boardTop(k,sp,25)).then(d=>{onlineCache[ck]={t:Date.now(),d};if(my===onlineReq&&onlineOn())drawOnline(d)})
       .catch(()=>{if(my===onlineReq&&!c)renderLocal(I18N.tr('Weltweite Bestenliste gerade nicht erreichbar – hier die Ergebnisse auf diesem Gerät.'))})}}
 function drawOnline(d){
   const me=Games.player,mid=me&&me.id,en=d&&d.entries||[],esc=escH;
@@ -190,7 +194,7 @@ function drawOnline(d){
   $('scoresTable').innerHTML=h;
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';
-  $('scoresEmpty').textContent=I18N.tr(sp==='yday'?'Gestern hat niemand das Tagesspiel gewertet.':sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?(weekMonOf(scoresTab==='endless'?'e':'daily')?'Diese Woche (Mo–So) noch keine Einträge – hol dir Platz 1!':'Diese Woche (So–Sa) noch keine Einträge – die Google-Woche beginnt sonntags. Hol dir Platz 1!'):'Noch keine Einträge – hol dir Platz 1!')}
+  $('scoresEmpty').textContent=I18N.tr(sp==='yday'?(scoresTab==='endless'?'Gestern keine Endlos-Runden auf dieser Feldgröße.':'Gestern hat niemand das Tagesspiel gewertet.'):sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?(weekMonOf(scoresTab==='endless'?'e'+scoresSize:'daily')?'Diese Woche (Mo–So) noch keine Einträge – hol dir Platz 1!':'Diese Woche (So–Sa) noch keine Einträge – die Google-Woche beginnt sonntags. Hol dir Platz 1!'):'Noch keine Einträge – hol dir Platz 1!')}
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -205,8 +209,8 @@ function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');$('tabMine').classList.toggle('on',scoresTab==='mine');
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
   // „Gestern“ nur weltweit und nur, wenn die Wochentags-Listen eingerichtet sind
-  const yd=onlineOn()&&Games.hasWd&&scoresTab==='daily';$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(endlessSpan==='yday')endlessSpan='all';
-  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()?false:endlessWeekMon()):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
+  const yd=onlineOn()&&(scoresTab==='daily'?Games.hasWd:scoresTab==='endless'&&Games.hasEwd);$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(!(onlineOn()&&Games.hasEwd)&&endlessSpan==='yday')endlessSpan='all';
+  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()?Games.hasEwd:endlessWeekMon()):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
   if(scoresTab==='mine'){renderMine();return}
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
   renderGamesBtn();
@@ -242,6 +246,7 @@ function endlessLocal(n,sp){if(sp!=='day'&&sp!=='week')return sizeList(n);
   for(const x of sizeList(n)){const k=legacyKey(x.date);if(inSpan(k)&&!seen.has(k+'|'+x.score))out.push(x)}
   return out.sort((a,b)=>b.score-a.score)}
 function renderLocal(note){
+  if(scoresPeriod==='yday')scoresPeriod='day';if(endlessSpan==='yday')endlessSpan='day';   // „Gestern“ gibt es nur weltweit
   const t=$('scoresTable'),esc=escH;
   const lsp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('periodTabs').style.display='';

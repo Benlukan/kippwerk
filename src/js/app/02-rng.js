@@ -28,8 +28,8 @@ function dayLabel(no,long){const d=noDate(no);
 function weekOf(no,mon){const d=noDate(no),m=mon?(d.getDay()+6)%7:d.getDay();return no-m}   // erster Tag der Woche: Montag (mon) bzw. Sonntag (Google-Woche So–Sa)
 // Tagesspiel: Woche Mo–So, wenn sie aus den 7 Wochentags-Listen gebildet werden kann (oder ganz ohne Google); sonst Google-Woche So–Sa
 function dailyWeekMon(){try{return !Games.available||Games.hasWd}catch(e){return true}}
-// Endlos: Google kennt nur die Woche So–Sa – ohne Google-Dienste (Web) Mo–So
-function endlessWeekMon(){try{return !Games.available}catch(e){return true}}
+// Endlos: Mo–So mit den Endlos-Wochentags-Listen (oder ohne Google); sonst Google-Woche So–Sa
+function endlessWeekMon(){try{return !Games.available||Games.hasEwd}catch(e){return true}}
 const weekLbl=mon=>mon?'Woche (Mo–So)':'Woche (So–Sa)';
 function dailyNoOf(k){const[y,m,d]=String(k).split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 function dailyNo(){return dailyNoOf(todayKey())}

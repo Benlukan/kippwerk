@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.39.0 (Build 68) – 22.11.2026
+- **Endlos je Wochentag:** 28 neue Google-Ranglisten (5×5 … 8×8, Montag … Sonntag) eingetragen. Endlos-Runden melden jetzt zusätzlich das Datum im Score-Tag und gehen auch an die Liste des Wochentags
+- **Endlos-Woche Mo–So:** beste Runde je Spieler von Montag bis Sonntag (statt Google-Woche So–Sa), für Bestenliste und Top 5 im Menü; ohne Anmeldung ebenfalls Mo–So
+- **„Gestern“ auch bei Endlos** (weltweit, je Feldgröße)
+- Endlos-Runden vor v1.39.0 haben kein Datum und zählen nicht in die Mo–So-Woche; die erste vollständige Woche beginnt Montag, 23.11.2026
 ## v1.38.0 (Build 67) – 22.11.2026
 - **Google-Play-Games-IDs eingetragen:** 7 Wochentags-Ranglisten (Tagesspiel Montag … Sonntag) und 12 Erfolge (Funke … Endlos-Profi). Abzeichen werden jetzt auch als Erfolg in Google Play Spiele freigeschaltet (bereits verdiente beim nächsten Anmelden nachgereicht)
 - **Tagesspiel-Woche Mo–So:** „Woche (Mo–So)“ zählt die Punkte aller Tagesspiele von Montag bis Sonntag je Spieler zusammen – aus den 7 Wochentags-Listen (Datum aus dem Score-Tag), mit „x/7 Tage · bester Tag“. Gilt auch für die Top 5 im Menü und die Wochen-Belohnungen. Endlos bleibt bei der Google-Woche So–Sa (Google lässt den Wochenstart nicht ändern)

@@ -120,3 +120,9 @@ Datenschutzerklärung (`www/datenschutz.html`) und Datensicherheits-Angaben (`do
 - `loadWeekMoSo()`: je Tag Mo…heute die Liste `wd<Wochentag>`; Tage in der laufenden Google-Woche (ab Sonntag) mit `timeSpan:week`, ältere mit `all`; Einträge nach Datum im Score-Tag gefiltert, je Spieler summiert. Bis zu 7 Abrufe (je max. 25 Einträge), 30–60 s Cache.
 - Belohnungen „Woche“ nutzen dieselbe Woche (`weekOf(no, dailyWeekMon())`).
 - IDs: `wd` Mo…So = …QBg, QBw, QCA, QCQ, QCg, QCw, QDA; Erfolge `ach` = …QDQ … QGA.
+
+## Endlos je Wochentag (ab v1.39.0)
+
+- `GAMES_CONFIG.android.ewd[5..8]` = 7 IDs (Mo…So); Schlüssel `e<N>wd<0-6>`. Endlos-Tag enthält jetzt `d<JJJJMMTT>`.
+- Woche Mo–So: `loadWeekMoSo(n,'e6wd')` → beste Runde je Spieler; „Gestern“: `loadYesterday('e6wd')`.
+- Ranglisten gesamt: 5 + 7 + 28 = 40 (Limit 70).

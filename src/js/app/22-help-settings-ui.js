@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.2','„Als Nächstes“: Steine linksbündig'],
  ['2.0.1','„Als Nächstes“ zeigt jetzt alle Steine des nächsten Zugs – bei vielen Steinen in zwei Reihen'],
  ['2.0.0','KIPPWERK 2.0: Hinweis, wenn du überholt wirst (Platz 1, Top 3, Top 10) – Tagesspiel und alle Endlos-Felder. Aufgeräumtes Hauptmenü – Top 5 mit einem Umschalter (Liste und Zeitraum), Feldauswahl als Aufklappliste unter „Endlos“. Felder mit Hindernissen 7×7/8×8 schwerer (6. Farbe ab Level 30). Neu in ⚙: „Feedback geben“. Vorschau „Als Nächstes“ zeigt jetzt, wie viele Steine wirklich kommen (z. B. „+5“)'],
  ['1.40.3','Feldauswahl im Hauptmenü passt sich jetzt dem gewählten Design an – normale Felder oben, Felder mit Hindernissen darunter'],

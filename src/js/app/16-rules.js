@@ -3,7 +3,8 @@
 const BIG_ROCKS=30,BIG_COLOR6=40;
 // 4×4: immer 4 Farben · 10×10: 6. Farbe schon ab Level 30, Felsen ab Level 25
 const obst=()=>mode==='endless'&&bH(BK);
-const rocksFrom=()=>N>=10?25:BIG_ROCKS, color6From=()=>N>=10?30:BIG_COLOR6;
+// 10×10 und 7×7/8×8 mit Hindernissen: 6. Farbe schon ab Level 30
+const rocksFrom=()=>N>=10?25:BIG_ROCKS, color6From=()=>N>=10||obst()?30:BIG_COLOR6;
 const numColors=()=>mode==='level'?LV.colors:N<=4?4:(N>=7&&level>=color6From())?6:(N>=7||level>=3)?5:4;
 // Hindernis-Felder: Felsen von Anfang an (6×6 ab 6 %, 7×7/8×8 ab 10 %, steigend)
 const rockChance=()=>mode!=='endless'?0:obst()?(N>=7?Math.min(.18,.10+level*.002):Math.min(.15,.06+level*.003))
@@ -13,7 +14,8 @@ const lifeAt=()=>mode==='endless'&&N>=10?8:mode==='endless'&&N>=9?7:6;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}
-function fillQueue(){while(nextQ.length<3)nextQ.push(randColor())}
+// Vorschau-Schlange: mindestens so lang wie die Steine des nächsten Zugs (bis 8×8/9×9/10×10 mehr als 3)
+function fillQueue(){const n=Math.max(3,spawnCount());while(nextQ.length<n)nextQ.push(randColor())}
 const idx=(r,c)=>r*N+c;
 
 function slide(dir){

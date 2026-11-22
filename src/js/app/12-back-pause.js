@@ -2,6 +2,7 @@
 let backArmed=0;
 function pauseToMenu(){if(started&&!over){paused=true;started=false;showMenu();return true}return false}
 function handleBack(){
+  try{if(PopMenu.close())return}catch(e){}   // offenes Auswahlmenü zuerst schließen
   const open=id=>!$(id).classList.contains('hidden');
   if(open('rescueOv')){$('noRescueBtn').click();return}
   if(open('helpOv')){$('closeHelp').click();return}

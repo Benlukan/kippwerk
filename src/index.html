@@ -56,25 +56,24 @@
         <div class="hero-tag" id="heroTag">Kippen. Verbinden. Kettenreaktion.</div>
       </div>
       <div class="top5" id="homeTop5" style="display:none">
-        <div class="t5-head"><span>🏆 Top 5</span><div class="seg t5seg" id="top5Board"><button data-b="daily">Tagesspiel</button><button data-b="endless" id="top5Endless">Endlos</button></div></div>
-        <div class="t5-sub"><span id="top5Note"></span><div class="seg t5seg" id="top5Seg"><button data-p="day">Heute</button><button data-p="week">So–Sa</button><button data-p="all">Alle</button></div></div>
+        <div class="t5-head"><span>🏆 Top 5 · <button class="t5pick" id="top5Pick" aria-haspopup="menu"><b id="top5PickTxt">Tagesspiel heute</b> ▾</button></span><span id="top5Note"></span></div>
         <div id="top5List"></div>
         <button class="t5-more" id="top5More">Ganze Rangliste ›</button>
       </div>
       </div>
       <div class="hmenu" id="homeTiles">
-        <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyNoTxt"></small><small id="dailyHint"></small></div>
+        <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyHint"></small><small id="dailyNoTxt" hidden></small></div>
         <div class="hlogo">
           <button class="hst" id="dailyBtn" style="--c:var(--c0)" aria-label="Tagesspiel">●</button>
           <button class="hst" id="levelBtn" style="--c:var(--c1)" aria-label="Level">▲</button>
           <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
           <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
         </div>
-        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars"></small><span class="hbar"><i id="levelBar"></i></span></div>
-        <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSize"></small><small id="endlessSub"></small></div>
-        <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b><small>So geht’s</small></div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars" hidden></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSub"></small><button class="szchip" id="sizePick" aria-haspopup="menu"><span id="endlessSize"></span> ▾</button></div>
+        <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b></div>
       </div>
-      <div class="home-size"><small>Endlos-Feld</small><div class="seg" data-key="size"><button data-v="5">5×5</button><button data-v="6">6×6</button><button data-v="7">7×7</button><button data-v="8">8×8</button></div></div>
+      <div class="popmenu" id="popMenu" role="menu" hidden></div>
       <div class="home-foot">
         <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
         <div class="home-ver" id="homeVer"></div>
@@ -146,6 +145,7 @@
       </div>
       <div class="set-h">Darstellung</div>
       <div class="settings">
+        <div class="set"><span>🏁 Hinweis, wenn du überholt wirst</span><div class="seg" data-key="overtake"><button data-v="on">An</button><button data-v="off">Aus</button></div></div>
         <div class="set"><span>🌐 Sprache</span><div class="seg" data-key="lang"><button data-v="auto">Auto</button><button data-v="de">Deutsch</button><button data-v="en">English</button></div></div>
         <button class="set" id="setTheme"><span>🖌 Design &amp; Kippi</span><span class="pid" id="themeName">Standard</span></button>
         <div class="set"><span>🎨 Farben</span><div class="seg" data-key="palette"><button data-v="std">Standard</button><button data-v="cb">Farbschwäche</button></div></div>
@@ -155,6 +155,7 @@
       </div>
       <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
+        <a class="set" id="lnkFeedback" href="mailto:david.digital@web.de"><span>💬 Feedback geben</span><span class="pid">5 kurze Fragen</span></a>
         <button class="set" id="settingsNews"><span>🆕 Was ist neu?</span><span class="pid" id="newsVer"></span></button>
         <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
         <button class="set" id="privacyBtn2" style="display:none">🛡 Datenschutz-Einstellungen (Werbung)</button>
@@ -307,7 +308,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.40.3 · Build 72 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.0.0 · Build 73 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

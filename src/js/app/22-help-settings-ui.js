@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.0','KIPPWERK 2.0: Hinweis, wenn du überholt wirst (Platz 1, Top 3, Top 10) – Tagesspiel und alle Endlos-Felder. Aufgeräumtes Hauptmenü – Top 5 mit einem Umschalter (Liste und Zeitraum), Feldauswahl als Aufklappliste unter „Endlos“. Felder mit Hindernissen 7×7/8×8 schwerer (6. Farbe ab Level 30). Neu in ⚙: „Feedback geben“. Vorschau „Als Nächstes“ zeigt jetzt, wie viele Steine wirklich kommen (z. B. „+5“)'],
  ['1.40.3','Feldauswahl im Hauptmenü passt sich jetzt dem gewählten Design an – normale Felder oben, Felder mit Hindernissen darunter'],
  ['1.40.2','Weltweite Bestenlisten jetzt auch für 4×4, 9×9 und 10×10 – mit Woche Mo–So und „Gestern“'],
  ['1.40.1','Neue Abzeichen jetzt auch als Erfolge in Google Play Spiele; weltweite Bestenlisten für die Felder mit Hindernissen'],
@@ -84,6 +85,14 @@ function closeNews(){$('newsOv').classList.add('hidden');if(newsReturn==='settin
 $('newsAll').onclick=()=>{const r=newsReturn;openNews(null,true);newsReturn=r};
 $('newsClose').onclick=closeNews;
 $('settingsNews').onclick=()=>openNews();
+// Feedback: Google-Formular (FEEDBACK_URL) oder vorausgefüllte E-Mail mit den 5 Testfragen
+const FEEDBACK_URL='',FEEDBACK_MAIL='david.digital@web.de';
+function feedbackHref(){if(FEEDBACK_URL)return FEEDBACK_URL;const en=I18N.lang==='en';
+  const Q=en?['What was unclear or annoying in the first 3 minutes?','Which mode do you play most (Daily, Endless, Stages) – and why?','Did you understand the daily game and the leaderboard? Do you play it every day?','How annoying are the ads (not at all / a bit / very)?','What would have to improve for you to recommend KIPPWERK to friends?']
+    :['Was war in den ersten 3 Minuten unklar oder hat dich gestört?','Welchen Modus spielst du am meisten (Tagesspiel, Endlos, Etappen) – und warum?','Hast du das Tagesspiel und die Rangliste verstanden? Spielst du es jeden Tag?','Wie störend ist die Werbung (gar nicht / etwas / sehr)?','Was müsste besser werden, damit du KIPPWERK Freunden empfiehlst?'];
+  const body=Q.map((q,i)=>`${i+1}. ${q}\n\n`).join('')+`\n—\nKIPPWERK v${APP_VER} · ${playerName||''}`;
+  return 'mailto:'+FEEDBACK_MAIL+'?subject='+encodeURIComponent('KIPPWERK Feedback v'+APP_VER)+'&body='+encodeURIComponent(body)}
+$('lnkFeedback').onclick=()=>{$('lnkFeedback').href=feedbackHref()};
 // Nach einem Update einmal zeigen (nicht bei Neuinstallation – da kommt das Tutorial)
 function newsAfterUpdate(){let seen=null;try{seen=localStorage.getItem('kippwerk_seenver')}catch(e){}
   const known=WAS_KNOWN;

@@ -29,14 +29,17 @@ function render(){
   else $('best').textContent=Math.max(best,score).toLocaleString(LOC());
   if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
   else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%perLevel())/perLevel()*100)+'%'}
-  const nx=$('next');nx.innerHTML='';
-  nextQ.slice(0,spawnCount()).forEach(c=>{
+  const nx=$('next');nx.innerHTML='';fillQueue();
+  // bis 4 Steine alle zeigen, darüber die ersten 3 und „+n“ (Anzahl der Steine im nächsten Zug)
+  const sc=spawnCount(),shown=sc<=4?sc:3;nx.classList.toggle('four',sc===4);
+  nextQ.slice(0,shown).forEach(c=>{
     const m=document.createElement('div');m.className='mini';
     if(c===WILD){m.classList.add('w');m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c0))';m.textContent='✦';m.style.color='#fff'}
     else if(c===ROCK){m.style.background='repeating-linear-gradient(135deg,#5b6079 0 4px,#4a4e66 4px 8px)';m.textContent=''}
     else{m.style.background=COLORS[c];m.textContent=SYMBOLS[c]}
     nx.appendChild(m);
   });
+  if(sc>shown){const m=document.createElement('div');m.className='mini more';m.textContent='+'+(sc-shown);m.title=sc+' '+I18N.tr('Steine im nächsten Zug');nx.appendChild(m)}
   renderInfo();
 }
 const LEGEND='<div class="ib-legend"><span><i style="background:var(--line)"></i>nichts</span><span><i style="background:var(--c3)"></i>abgeräumt</span><span><i style="background:var(--c2)"></i>×2</span><span><i style="background:var(--c1)"></i>×3</span><span><i style="background:var(--c0)"></i>×4</span><span><i style="background:var(--c4)"></i>×5</span><span><i style="background:#fff"></i>×6+</span><span>· ❓</span></div>';

@@ -22,7 +22,23 @@ document.addEventListener('pointerup',e=>{
 });
 document.querySelectorAll('.pad button').forEach(b=>b.addEventListener('click',()=>move(b.dataset.d)));
 function start(m){mode=m;paused=false;['startOv','overOv','lvlOv','levelsOv'].forEach(i=>$(i).classList.add('hidden'));newGame();started=true;tone(660,.1,'triangle',.06);musicSync()}
-document.querySelectorAll('.hl[data-for]').forEach(l=>l.onclick=()=>$(l.dataset.for).click());
+document.querySelectorAll('.hl[data-for]').forEach(l=>l.onclick=e=>{if(e.target.closest('.szchip'))return;$(l.dataset.for).click()});
+// Kleines Auswahlmenü (Feld, Top 5): items=[{v,t,on,sep}] – schließt bei Auswahl, Tippen daneben oder Zurück
+const PopMenu=(()=>{let cb=null;const el=()=>$('popMenu');
+  function close(){const m=el();if(m&&!m.hidden){m.hidden=true;cb=null;return true}return false}
+  function open(anchor,items,onPick){const m=el();cb=onPick;
+    m.innerHTML=items.map(x=>x.sep?`<div class="pm-sep">${x.t||''}</div>`:`<button role="menuitem" data-v="${x.v}"${x.on?' class="on"':''}>${x.t}</button>`).join('');
+    m.hidden=false;const r=anchor.getBoundingClientRect(),w=m.offsetWidth,h=m.offsetHeight;
+    let x=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8),y=r.bottom+6;if(y+h>innerHeight-8)y=Math.max(8,r.top-h-6);
+    m.style.left=x+'px';m.style.top=y+'px'}
+  document.addEventListener('click',e=>{const m=el();if(!m||m.hidden)return;const b=e.target.closest('#popMenu button');
+    if(b){const f=cb;close();if(f)f(b.dataset.v);e.stopPropagation();return}if(!e.target.closest('#popMenu'))close()},true);
+  return{open,close,get isOpen(){const m=el();return !!m&&!m.hidden}}})();
+// Feldauswahl im Menü: Aufklappliste unter „Endlos“
+$('sizePick').onclick=e=>{e.stopPropagation();if(PopMenu.isOpen){PopMenu.close();return}const cur=curBoard(),open=BOARDS.filter(boardOpen);
+  const it=open.filter(k=>!bH(k)).map(k=>({v:k,t:bLabel(k),on:k===cur}));
+  if(open.some(bH))it.push({sep:1,t:'🪨 '+I18N.tr('Mit Hindernissen')},...open.filter(bH).map(k=>({v:k,t:bLabel(k),on:k===cur})));
+  PopMenu.open(e.currentTarget,it,v=>{settings.size=v;saveSettings();showMenu();try{Top5.refresh()}catch(x){}})};
 function showMenu(){
   if(tut)endTut();
   setTimeout(musicSync,0);
@@ -34,13 +50,13 @@ function showMenu(){
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
   $('levelTitle').textContent=all?'Etappen ✓':'Etappe '+stg(un);
-  $('levelSub').textContent=WORLDS[w-1]||'Welt '+w;$('levelStars').textContent='⭐ '+totalStars();
+  $('levelTitle').textContent=all?'Etappen ✓':'Etappe';$('levelSub').textContent=(all?'':stg(un)+' · ')+'⭐ '+totalStars();$('levelStars').textContent='';
   $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
   const sz=curBoard(),bs=bestFor(sz);renderSizeSegs();
   $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
-  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===sz));
+  try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},3000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');

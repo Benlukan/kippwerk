@@ -47,7 +47,8 @@ const Games=(()=>{
     return ready}
   let onChange=()=>{};
   const takePlayer=r=>{const p=r&&r.player;if(p&&(p.displayName||p.playerId))me={id:p.playerId||'',name:String(p.displayName||'').trim()}};
-  const afterSignIn=()=>{try{if(typeof Cloud!=='undefined')setTimeout(()=>Cloud.sync(),300)}catch(e){}};
+  const afterSignIn=()=>{try{if(typeof Cloud!=='undefined')setTimeout(()=>Cloud.sync(),300)}catch(e){}
+    setTimeout(()=>{try{RankWatch.check(true)}catch(e){}},4000)};   // Überholt-Hinweis nach der Anmeldung
   async function flush(){if(!signedIn)return;const o=pend();
     for(const k of Object.keys(o)){const id=idOf(k);if(!id){delete o[k];continue}
       const x=o[k];try{await P.submitScore(x.t?{leaderboardId:id,score:x.s,scoreTag:x.t}:{leaderboardId:id,score:x.s});note(k,x.s,'ok');delete o[k]}catch(e){note(k,x.s,'⚠ '+(e&&e.message||e))}}

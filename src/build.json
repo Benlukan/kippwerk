@@ -40,6 +40,7 @@
   "js/app/21-input.js",
   "js/app/22-help-settings-ui.js",
   "js/app/23-top5.js",
+  "js/app/23b-rankwatch.js",
   "js/app/24-rewards.js",
   "js/app/24c-badges.js",
   "js/app/24b-unlocks.js",

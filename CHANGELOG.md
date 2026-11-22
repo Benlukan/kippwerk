@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.0 (Build 73) – 22.11.2026
+- **Aufgeräumtes Hauptmenü (Entwurf A):**
+  - Top 5 mit **einem** Umschalter: Aufklappliste mit Tagesspiel bzw. Endlos (aktuelles Feld) × Heute / Woche / Gesamt; Hinweis „ab 08:00“ rechts
+  - Feldauswahl als **Aufklappliste** („6×6 ▾“) unter „Endlos“ statt Knopfreihe; Felder mit Hindernissen als eigene Gruppe
+  - Weniger Text an den Steinen: Tagesspiel nur Ergebnis bzw. „offen bis …“, Etappe kompakt „3-6 · ⭐ 55“, Hilfe ohne Untertitel
+  - Aufklapplisten schließen bei Auswahl, Tippen daneben und mit der Zurück-Taste
+- **7×7 / 8×8 mit Hindernissen schwerer:** 6. Farbe schon ab Level 30 (Bot-Simulation: Ø Level 25 bzw. 35 statt 43 ohne Hindernisse)
+- **Überholt-Hinweis:** Meldung „🏁 Überholt!“, wenn du Platz 1, die Top 3 oder die Top 10 verlierst – Tagesspiel (Heute, Woche) und jedes Endlos-Feld der letzten 14 Tage (Woche, Gesamt). Geprüft beim Öffnen der App, nach der Anmeldung, beim Zurückkehren und im Menü (höchstens alle 10 Minuten); abschaltbar in ⚙ („🏁 Hinweis, wenn du überholt wirst“). Echte Push-Nachrichten bei geschlossener App wären nur mit eigenem Server möglich
+- **Fehler behoben – Vorschau „Als Nächstes“:** zeigte immer nur 3 Steine, obwohl ab 6×6/Tagesspiel (Level 10: 4) und auf 7×7–10×10 (alle 6 Level +1, 9×9 Level 20: 8) mehr kommen. Die Vorschau-Schlange ist jetzt so lang wie der nächste Zug; bis 4 Steine werden alle gezeigt, darüber die ersten 3 und „+n“
+- **„💬 Feedback geben“** in ⚙: öffnet eine E-Mail an david.digital@web.de mit den 5 Testfragen (DE/EN) und der App-Version; optional Google-Formular über `FEEDBACK_URL`
 ## v1.40.3 (Build 72) – 22.11.2026
 - **Feldauswahl im Hauptmenü** im Stil des aktiven Designs: Hintergrund, Rahmen und Trennlinie aus den Design-Farben (statt fest dunkelblau), Beschriftung oben, normale Felder in der ersten Reihe, Felder mit Hindernissen 🪨 darunter, aktives Feld hervorgehoben
 - Alle Umschalter (Top 5, Einstellungen) nutzen ebenfalls die Design-Farben statt des festen dunkelblauen Hintergrunds

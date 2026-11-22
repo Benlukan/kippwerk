@@ -6,9 +6,10 @@ function now(){return new Date(Date.now()+(window.KW_DAY_OFFSET||0)*864e5)}
 function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dayDiff(a,b){const[x,y,z]=a.split('-').map(Number),[u,v,w]=b.split('-').map(Number);return Math.round((Date.UTC(u,v-1,w)-Date.UTC(x,y-1,z))/864e5)}
 function addDays(k,n){const[y,m,d]=k.split('-').map(Number);return dk(new Date(y,m-1,d+n))}
-// Der Spieltag richtet sich nach Google Play Games: neuer Tag um Mitternacht Pazifikzeit
-// (in Deutschland 9:00 Uhr) – weltweit für alle zur selben Zeit, passend zur Rangliste „Heute“.
-const DAY_TZ='America/Los_Angeles';
+// Der Spieltag richtet sich nach Google Play Games: neuer Tag ganzjährig um Mitternacht UTC-7
+// (ohne Zeitumstellung; Deutschland: 08:00 Uhr im Winter, 09:00 Uhr im Sommer) – weltweit für alle
+// zur selben Zeit, passend zur Rangliste „Heute“. Etc/GMT+7 bedeutet UTC-7 (Vorzeichen umgekehrt).
+const DAY_TZ='Etc/GMT+7';
 function todayKey(){const n=now();try{const p={};for(const x of new Intl.DateTimeFormat('en-US',{timeZone:DAY_TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(n))p[x.type]=x.value;
   if(p.year&&p.month&&p.day)return p.year+'-'+p.month+'-'+p.day}catch(e){}return dk(n)}
 // Beginn des nächsten Spieltags (Date) und dessen Uhrzeit in Ortszeit, z. B. „09:00“
@@ -24,7 +25,7 @@ function dayShort(no){const d=noDate(no);return I18N.lang==='en'?MON_EN[d.getMon
 function dayLabel(no,long){const d=noDate(no);
   if(I18N.lang==='en')return long?MON_EN[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear():WD_EN[d.getDay()]+', '+dayShort(no);
   return long?dayShort(no)+d.getFullYear():WD[d.getDay()]+', '+dayShort(no)}
-function weekOf(no){const d=noDate(no),m=(d.getDay()+6)%7;return no-m}   // Nummer des Montags dieser Woche
+function weekOf(no){const d=noDate(no),m=d.getDay();return no-m}   // Nummer des Sonntags dieser Woche (Google-Woche So–Sa)
 function dailyNoOf(k){const[y,m,d]=String(k).split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 function dailyNo(){return dailyNoOf(todayKey())}
 let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen

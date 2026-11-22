@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.36.1','Tageswechsel jetzt exakt wie bei Google: im Winter um 08:00 Uhr, im Sommer um 09:00 Uhr. „Woche“ heißt jetzt „Woche (So–Sa)“ – die Google-Woche beginnt sonntags'],
  ['1.36.0','Neues Menü „Sammlung“ (🎨 im Hauptmenü) mit Designs, Kippi-Outfits und 12 Abzeichen samt Fortschritt. Im Spiel führt „←“ oben links zurück ins Hauptmenü'],
  ['1.35.1','„Meine Tage“ zeigt jetzt auch deine Endlos-Runden – nach Tagen sortiert, mit Feldgröße, Level, Combo, Zügen und Steinen'],
  ['1.35.0','Bestenliste: neuer Reiter „Meine Tage“ mit all deinen Tagesspielen, Tag für Tag. Vorbereitet: „Gestern“ weltweit im Tagesspiel'],
@@ -134,7 +135,7 @@ function renderGamesBtn(){const b=$('gamesBoard');b.style.display=Games.availabl
 $('gamesBoard').onclick=async()=>{const b=$('gamesBoard');b.textContent='⏳';await Games.signIn();renderScores()};
 const onlineCache={};let onlineReq=0;
 function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
-const SPAN_TXT={day:'Heute',yday:'Gestern',week:'Diese Woche',all:'Gesamt'};
+const SPAN_TXT={day:'Heute',yday:'Gestern',week:'Woche (So–Sa)',all:'Gesamt'};
 // „Gestern“: Liste des gestrigen Wochentags; nur Einträge mit gestrigem Datum (Score-Tag d…). Erst Woche, sonst Gesamt (Wochenwechsel)
 async function loadYesterday(){const yk=addDays(todayKey(),-1),k='wd'+wdOf(yk),d8=yk.replace(/-/g,'');
   const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
@@ -162,7 +163,7 @@ function drawOnline(d){
   $('scoresTable').innerHTML=h;
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';
-  $('scoresEmpty').textContent=I18N.tr(sp==='yday'?'Gestern hat niemand das Tagesspiel gewertet.':sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche noch keine Einträge – hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
+  $('scoresEmpty').textContent=I18N.tr(sp==='yday'?'Gestern hat niemand das Tagesspiel gewertet.':sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?'Diese Woche (So–Sa) noch keine Einträge – die Google-Woche beginnt sonntags. Hol dir Platz 1!':'Noch keine Einträge – hol dir Platz 1!')}
 $('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));

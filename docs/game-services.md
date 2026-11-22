@@ -6,7 +6,7 @@ Ab v1.15.0 nutzt KIPPWERK statt eines eigenen Servers die Ranglisten von **Googl
 - Konfiguration in `src/js/app/10-play-games.js` → `GAMES_CONFIG` (danach `npm run build`). Steht dort `on:false`, ist alles ausgeblendet.
 - **Stand v1.29.0:** Android aktiv. Projekt-ID `414239949537`. Bestenlisten: Endless 5×5 `CgkI4YWAlYcMEAIQAQ`, 6×6 `CgkI4YWAlYcMEAIQAg`, 7×7 `CgkI4YWAlYcMEAIQAw`, 8×8 `CgkI4YWAlYcMEAIQBA`, Daily game `CgkI4YWAlYcMEAIQBQ`. Standardsprache der Bestenlisten in der Play Console: Englisch (en-US), deutsche Namen als Übersetzung. iOS noch aus.
 - Die Plattformen behalten pro Spieler automatisch den **Bestwert** und zeigen von sich aus **Heute / Woche / Gesamt**.
-  Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (Tageswechsel ca. 9:00 Uhr deutscher Zeit). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
+  Hinweis: Google rechnet „Heute“ und „Woche“ nach US-Westküstenzeit (fest UTC-7: Tageswechsel 08:00 Uhr im Winter, 09:00 Uhr im Sommer; Woche So–Sa, Reset Sonntag zur selben Uhrzeit, nicht änderbar). Die Woche zeigt dort das beste Tagesspiel der Woche, keine Summe. Die Wochensumme gibt es weiterhin in der lokalen Bestenliste.
 
 ## Fehlersuche (ab v1.29.2)
 Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund einer gescheiterten Anmeldung, Warteschlange, eigene Einträge je Bestenliste und die letzten Meldungen.
@@ -21,7 +21,7 @@ Einstellungen → **„🌍 Ranglisten prüfen“** zeigt Anmeldestatus, Grund e
 - Spielername kommt aus dem Play-Games-Profil (`Games.player.name`).
 
 ## Spieltag (ab v1.31.0)
-- `todayKey()` rechnet in **America/Los_Angeles** – das Tagesspiel, die Serie, „Heute“-Listen und Belohnungen wechseln damit weltweit gleichzeitig um Mitternacht Pazifikzeit (Deutschland: 9:00 Uhr) und passen zu Googles Zeitraum „Heute“. `nextDayStart()`/`dayStartTime()` liefern den nächsten Wechsel in Ortszeit (Menü „offen bis …“, Countdown nach dem Tagesspiel, Top 5).
+- `todayKey()` rechnet in **Etc/GMT+7** (= UTC-7, ab v1.36.1; vorher America/Los_Angeles) – das Tagesspiel, die Serie, „Heute“-Listen und Belohnungen wechseln damit weltweit gleichzeitig um Mitternacht UTC-7 (Deutschland: 08:00 Winter / 9:00 Uhr) und passen zu Googles Zeitraum „Heute“. `nextDayStart()`/`dayStartTime()` liefern den nächsten Wechsel in Ortszeit (Menü „offen bis …“, Countdown nach dem Tagesspiel, Top 5).
 
 ## Tagesspiel je Wochentag – „Gestern (weltweit)“ (ab v1.35.0)
 Google speichert pro Spieler und Zeitraum nur den besten Wert; „Gestern“ gibt es dort nicht. Deshalb zusätzlich **7 Bestenlisten**, eine je Wochentag. Jedes Tagesspiel geht an „Tagesspiel“ **und** an die Liste seines Wochentags (Spieltag, siehe `todayKey`).
@@ -45,7 +45,7 @@ Google speichert pro Spieler und Zeitraum nur den besten Wert; „Gestern“ gib
 ## Top 5 im Hauptmenü
 - Liefert Google den eigenen Eintrag mit Platz ≤ 0 (leere öffentliche Liste), ist das Play-Games-Profil nicht öffentlich: Die App zeigt den Eintrag mit „–“ und den Hinweis „Nur für dich sichtbar“ (ab v1.31.1).
 - Ab v1.30.1 umschaltbar: **Tagesspiel** oder **Endlos N×N** (N = Endlos-Feld im Menü), jeweils Heute/Woche/Alle. „Ganze Rangliste“ öffnet dieselbe Liste in 🏆.
-- Google-„Heute“ beginnt um Mitternacht Pazifikzeit (in Deutschland 9:00 Uhr, im Sommer ebenfalls 9:00 Uhr) – die App zeigt die lokale Uhrzeit dazu an („Neuer Tag ab …“).
+- Google-„Heute“ beginnt ganzjährig um Mitternacht UTC-7 (in Deutschland 08:00 Uhr im Winter, 09:00 Uhr im Sommer); die Google-Woche läuft Sonntag–Samstag – die App zeigt die lokale Uhrzeit dazu an („Neuer Tag ab …“).
  (ab v1.19.0)
 Lädt die besten 5 der Rangliste „Tagesspiel“ (Zeitraum Heute / Woche / Alle) plus die eigene Platzierung über `loadTopScores` – eine Erweiterung des Plugins per `patches/@idleflowgames+capacitor-play-games+0.3.3.patch` (wird bei `npm install` automatisch angewendet). Bei einem Plugin-Update den Patch prüfen.
 

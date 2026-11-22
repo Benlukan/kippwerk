@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.36.1 (Build 65) – 22.11.2026
+- **Tageswechsel exakt wie Google:** Spieltag jetzt fest nach UTC-7 (`Etc/GMT+7`) statt Pazifikzeit mit Zeitumstellung. Neuer Tag in Deutschland um **08:00 Uhr im Winter**, 09:00 Uhr im Sommer – vorher wechselte die App im Winter erst um 09:00, Google aber schon um 08:00
+- **„Woche (So–Sa)“:** Google setzt die Wochenliste in der Nacht Samstag→Sonntag (UTC-7) zurück und lässt sich nicht auf Montag umstellen. Reiter, Menü-Umschalter, Hinweise und Hilfe zeigen das jetzt an; die Wochenauswertung der App (Wochensumme, Wochen-Belohnungen) läuft ebenfalls So–Sa, damit sie zur Google-Liste passt
 ## v1.36.0 (Build 64) – 21.11.2026
 - **Neues Menü „🎨 Sammlung“** mit eigenem Knopf im Hauptmenü (roter Punkt = Anzahl neu freigeschalteter Dinge). Drei Reiter mit Zähler: **Designs** (Mini-Vorschau mit 4 Steinen, tippen = anwenden), **Kippi** (Outfits), **Abzeichen**
 - **12 Abzeichen** mit Fortschrittsbalken und Datum: Serie 3/7/14/30/50/100 Tage, erste ULTRA-Combo, Welt 1, 100 Sterne, 25 Tagesspiele, Tagessieger, 10.000 Punkte Endlos – dazu die Platzierungen aus der weltweiten Rangliste. Einblendung „🏅 Neues Abzeichen“. Vorbereitet für Google-Play-Games-Erfolge (IDs in `GAMES_CONFIG.android.ach`)

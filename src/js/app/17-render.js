@@ -30,8 +30,9 @@ function render(){
   if(mode!=='endless'){const tot=isLv?LV.moves:DAILY_MOVES;$('levelLabel').textContent='Züge';$('level').textContent=movesLeft;$('lvlbar').style.width=Math.min(100,movesLeft/tot*100)+'%'}
   else{$('levelLabel').textContent='Level';$('level').textContent=level;$('lvlbar').style.width=((cleared%perLevel())/perLevel()*100)+'%'}
   const nx=$('next');nx.innerHTML='';fillQueue();
-  // bis 4 Steine alle zeigen, darüber die ersten 3 und „+n“ (Anzahl der Steine im nächsten Zug)
-  const sc=spawnCount(),shown=sc<=4?sc:3;nx.classList.toggle('four',sc===4);
+  // alle Steine des nächsten Zugs zeigen: bis 4 in einer Reihe, 5–8 in zwei Reihen (kleiner), 9–12 in zwei Reihen à 6; mehr als 12 → 11 + „+n“
+  const sc=spawnCount(),shown=sc>12?11:sc;
+  nx.classList.toggle('four',sc===4);nx.classList.toggle('two',sc>=5&&sc<=8);nx.classList.toggle('many',sc>8);
   nextQ.slice(0,shown).forEach(c=>{
     const m=document.createElement('div');m.className='mini';
     if(c===WILD){m.classList.add('w');m.style.background='conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c0))';m.textContent='✦';m.style.color='#fff'}

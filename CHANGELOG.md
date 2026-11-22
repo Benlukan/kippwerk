@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.1 (Build 74) – 22.11.2026
+- **„Als Nächstes“ zeigt alle Steine des nächsten Zugs:** vorher ab 5 Steinen nur die ersten 3 und „+n“. Jetzt bis 4 in einer Reihe, 5–8 in zwei Reihen à 4, 9–12 in zwei Reihen à 6 (ab 13: 11 + „+n“). Die Anzahl selbst ist unverändert und gewollt: Start 1 (4×4/5×5), 2 (6×6), 3 (7×7), 4 (8×8), 5 (9×9), 6 (10×10); +1 ab Level 4 und 10, auf 7×7 bis 10×10 zusätzlich +1 alle 6 Level
+
 ## v2.0.0 (Build 73) – 22.11.2026
 - **Aufgeräumtes Hauptmenü (Entwurf A):**
   - Top 5 mit **einem** Umschalter: Aufklappliste mit Tagesspiel bzw. Endlos (aktuelles Feld) × Heute / Woche / Gesamt; Hinweis „ab 08:00“ rechts

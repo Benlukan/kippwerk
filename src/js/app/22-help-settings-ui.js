@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.37.0','Endlos-Bestenlisten jetzt auch nach Zeitraum: Heute, Woche (So–Sa) und Gesamt – weltweit und auf diesem Gerät'],
  ['1.36.1','Tageswechsel jetzt exakt wie bei Google: im Winter um 08:00 Uhr, im Sommer um 09:00 Uhr. „Woche“ heißt jetzt „Woche (So–Sa)“ – die Google-Woche beginnt sonntags'],
  ['1.36.0','Neues Menü „Sammlung“ (🎨 im Hauptmenü) mit Designs, Kippi-Outfits und 12 Abzeichen samt Fortschritt. Im Spiel führt „←“ oben links zurück ins Hauptmenü'],
  ['1.35.1','„Meine Tage“ zeigt jetzt auch deine Endlos-Runden – nach Tagen sortiert, mit Feldgröße, Level, Combo, Zügen und Steinen'],
@@ -178,7 +179,7 @@ function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');$('tabMine').classList.toggle('on',scoresTab==='mine');
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
   // „Gestern“ nur weltweit und nur, wenn die Wochentags-Listen eingerichtet sind
-  const yd=onlineOn()&&Games.hasWd;$('pYday').style.display=yd?'':'none';if(!yd&&scoresPeriod==='yday')scoresPeriod='day';
+  const yd=onlineOn()&&Games.hasWd&&scoresTab==='daily';$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(endlessSpan==='yday')endlessSpan='all';
   if(scoresTab==='mine'){renderMine();return}
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
   renderGamesBtn();
@@ -205,15 +206,24 @@ function renderMine(){
     return `<tr class="${x===lastEntry?'me':''}"><td class="rank">${top?'🏆':''}</td><td>${what}<small class="sub">${metaLine(x,x.t==='e'&&x.level?'Lvl '+x.level:'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`};
   $('scoresTable').innerHTML=list.slice(0,45).map(d=>`<tr class="dayhd"><td colspan="3">${dayLabel(dailyNoOf(d.k))}</td></tr>`+d.items.map(row).join('')).join('');
   $('scoresEmpty').style.display=list.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Spiel gespielt.')}
+// Endlos auf diesem Gerät nach Zeitraum: Heute / Woche (So–Sa) aus dem Verlauf, Gesamt = Rekordliste
+const ENDLESS_TXT={day:n=>`Endlos ${n}×${n} · `+dayLabel(dailyNo()),week:n=>`Endlos ${n}×${n} · Woche `+dayShort(weekOf(dailyNo()))+' – '+dayShort(weekOf(dailyNo())+6),all:n=>`Endlos ${n}×${n} · Gesamt`};
+function endlessLocal(n,sp){if(sp!=='day'&&sp!=='week')return sizeList(n);
+  const t=todayKey(),w0=dk(noDate(weekOf(dailyNo()))),w1=addDays(w0,6),hist=History.all(),seen=new Set(),out=[];
+  const inSpan=k=>k&&(sp==='day'?k===t:k>=w0&&k<=w1);
+  for(const x of hist)if(x.size===n&&inSpan(x.d)){out.push(x);seen.add(x.d+'|'+x.score)}
+  for(const x of sizeList(n)){const k=legacyKey(x.date);if(inSpan(k)&&!seen.has(k+'|'+x.score))out.push(x)}
+  return out.sort((a,b)=>b.score-a.score)}
 function renderLocal(note){
   const t=$('scoresTable'),esc=escH;
-  $('periodTabs').style.display=scoresTab==='daily'?'':'none';
-  $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===scoresPeriod));
+  const lsp=scoresTab==='endless'?endlessSpan:scoresPeriod;
+  $('periodTabs').style.display='';
+  $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===lsp));
   $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
   renderGamesBtn();
   const today=dailyNo(),wk=weekOf(today);
   const dl=scores.daily.filter(x=>scoresPeriod==='day'?x.no===today:scoresPeriod==='week'?x.no>=wk&&x.no<wk+7:true);
-  const list=(scoresTab==='endless'?sizeList(scoresSize):dl).slice(0,TOP);
+  const list=(scoresTab==='endless'?endlessLocal(scoresSize,endlessSpan):dl).slice(0,TOP);
   $('dailyStats').style.display=scoresTab==='daily'?'':'none';
   if(scoresTab==='daily'&&scoresPeriod==='week'){const sum=dl.reduce((a,x)=>a+x.score,0),bst=dl.reduce((a,x)=>Math.max(a,x.score),0);
     $('dailyStats').innerHTML=`<div><b>${sum.toLocaleString(LOC())}</b><small>Wochensumme</small></div><div><b>${dl.length}/7</b><small>Tage</small></div><div><b>${bst.toLocaleString(LOC())}</b><small>Bester Tag</small></div>`}
@@ -221,12 +231,12 @@ function renderLocal(note){
     $('dailyStats').innerHTML=`<div><b>${st.played}</b><small>Gespielt</small></div><div><b>${st.streak}🔥</b><small>Serie</small></div><div><b>${st.best.toLocaleString(LOC())}</b><small>Bester</small></div><div><b>${st.avg.toLocaleString(LOC())}</b><small>Schnitt</small></div>`}
   t.innerHTML=list.map((x,i)=>{const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
     return scoresTab==='endless'
-      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name)}${tag(x)}<small class="sub">${metaLine(x,x.level?'Lvl '+x.level:'',esc(x.date))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
+      ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,x.level?'Lvl '+x.level:'',x.d?dayLabel(dailyNoOf(x.d)):esc(x.date||''))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
       :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,'',dayLabel(x.no))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
-  $('scoresEmpty').textContent=scoresTab==='endless'?`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`:scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
-  $('periodInfo').textContent=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():'';$('periodInfo').style.display=scoresTab==='daily'?'':'none';
-  if(note){$('periodInfo').textContent=note+(scoresTab==='daily'?' · '+PERIOD_TXT[scoresPeriod]():'');$('periodInfo').style.display=''}
+  $('scoresEmpty').textContent=scoresTab==='endless'?(endlessSpan==='day'?`Heute noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:endlessSpan==='week'?`Diese Woche (So–Sa) noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`):scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?'Diese Woche noch kein Tagesspiel gespielt.':'Noch kein Tagesspiel gespielt.';
+  const pt=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():ENDLESS_TXT[endlessSpan](scoresSize);
+  $('periodInfo').textContent=note?note+' · '+I18N.tr(pt):pt;$('periodInfo').style.display='';
 }
 function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;

@@ -109,3 +109,8 @@ Game Center (iOS): je Rangliste **Wertebereich** 1–5 000 000 bzw. 1–100 000 
 
 ## Datenschutz
 Datenschutzerklärung (`www/datenschutz.html`) und Datensicherheits-Angaben (`docs/play-store.md`, Abschnitt 4d) sind angepasst.
+
+## Endlos nach Zeitraum (ab v1.37.0)
+
+- Die Endlos-Ranglisten (e5–e8) zeigen Heute / Woche (So–Sa) / Gesamt. Google erzeugt Tages- und Wochenversion jeder Rangliste automatisch – dieselben IDs, nur `timeSpan` unterscheidet sich.
+- Ohne Anmeldung: Heute/Woche aus `kippwerk_history` (letzte 400 Endlos-Runden), Gesamt aus der lokalen Rekordliste.

@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.37.0 (Build 66) – 22.11.2026
+- **Endlos-Bestenlisten nach Zeitraum:** Für jede Feldgröße (5×5 bis 8×8) jetzt **Heute**, **Woche (So–Sa)** und **Gesamt** – weltweit über Google Play Games (Google führt Tages- und Wochenwerte für jede Rangliste automatisch, keine neuen IDs nötig) und ohne Anmeldung auch auf diesem Gerät (aus dem Endlos-Verlauf)
+- „Gestern“ erscheint nur noch beim Tagesspiel
+- Hilfe und „Was ist neu?“ ergänzt (DE/EN)
 ## v1.36.1 (Build 65) – 22.11.2026
 - **Tageswechsel exakt wie Google:** Spieltag jetzt fest nach UTC-7 (`Etc/GMT+7`) statt Pazifikzeit mit Zeitumstellung. Neuer Tag in Deutschland um **08:00 Uhr im Winter**, 09:00 Uhr im Sommer – vorher wechselte die App im Winter erst um 09:00, Google aber schon um 08:00
 - **„Woche (So–Sa)“:** Google setzt die Wochenliste in der Nacht Samstag→Sonntag (UTC-7) zurück und lässt sich nicht auf Montag umstellen. Reiter, Menü-Umschalter, Hinweise und Hilfe zeigen das jetzt an; die Wochenauswertung der App (Wochensumme, Wochen-Belohnungen) läuft ebenfalls So–Sa, damit sie zur Google-Liste passt

@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.38.0 (Build 67) – 22.11.2026
+- **Google-Play-Games-IDs eingetragen:** 7 Wochentags-Ranglisten (Tagesspiel Montag … Sonntag) und 12 Erfolge (Funke … Endlos-Profi). Abzeichen werden jetzt auch als Erfolg in Google Play Spiele freigeschaltet (bereits verdiente beim nächsten Anmelden nachgereicht)
+- **Tagesspiel-Woche Mo–So:** „Woche (Mo–So)“ zählt die Punkte aller Tagesspiele von Montag bis Sonntag je Spieler zusammen – aus den 7 Wochentags-Listen (Datum aus dem Score-Tag), mit „x/7 Tage · bester Tag“. Gilt auch für die Top 5 im Menü und die Wochen-Belohnungen. Endlos bleibt bei der Google-Woche So–Sa (Google lässt den Wochenstart nicht ändern)
+- **„Gestern“** im Tagesspiel ist jetzt aktiv (weltweit, aus der Wochentags-Liste)
+- Einschränkung: Am Sonntag stammen Mo–Sa aus der Gesamt-Liste des jeweiligen Wochentags – hatte ein Spieler an einem früheren gleichen Wochentag mehr Punkte, fehlt dieser Tag in seiner Summe
 ## v1.37.0 (Build 66) – 22.11.2026
 - **Endlos-Bestenlisten nach Zeitraum:** Für jede Feldgröße (5×5 bis 8×8) jetzt **Heute**, **Woche (So–Sa)** und **Gesamt** – weltweit über Google Play Games (Google führt Tages- und Wochenwerte für jede Rangliste automatisch, keine neuen IDs nötig) und ohne Anmeldung auch auf diesem Gerät (aus dem Endlos-Verlauf)
 - „Gestern“ erscheint nur noch beim Tagesspiel

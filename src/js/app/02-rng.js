@@ -25,7 +25,12 @@ function dayShort(no){const d=noDate(no);return I18N.lang==='en'?MON_EN[d.getMon
 function dayLabel(no,long){const d=noDate(no);
   if(I18N.lang==='en')return long?MON_EN[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear():WD_EN[d.getDay()]+', '+dayShort(no);
   return long?dayShort(no)+d.getFullYear():WD[d.getDay()]+', '+dayShort(no)}
-function weekOf(no){const d=noDate(no),m=d.getDay();return no-m}   // Nummer des Sonntags dieser Woche (Google-Woche So–Sa)
+function weekOf(no,mon){const d=noDate(no),m=mon?(d.getDay()+6)%7:d.getDay();return no-m}   // erster Tag der Woche: Montag (mon) bzw. Sonntag (Google-Woche So–Sa)
+// Tagesspiel: Woche Mo–So, wenn sie aus den 7 Wochentags-Listen gebildet werden kann (oder ganz ohne Google); sonst Google-Woche So–Sa
+function dailyWeekMon(){try{return !Games.available||Games.hasWd}catch(e){return true}}
+// Endlos: Google kennt nur die Woche So–Sa – ohne Google-Dienste (Web) Mo–So
+function endlessWeekMon(){try{return !Games.available}catch(e){return true}}
+const weekLbl=mon=>mon?'Woche (Mo–So)':'Woche (So–Sa)';
 function dailyNoOf(k){const[y,m,d]=String(k).split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 function dailyNo(){return dailyNoOf(todayKey())}
 let rc=Math.random, rp=Math.random; // rc: Farben, rp: Positionen

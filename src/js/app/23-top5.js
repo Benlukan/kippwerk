@@ -5,14 +5,14 @@ const Top5=(()=>{
   const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
   const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
+  const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:()=>weekMonOf(key())?'Diese Woche (Mo–So) noch keine Ergebnisse.':'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
   const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3||!(r>0)?' class="m"':''}>${r>0?(['🥇','🥈','🥉'][r-1]||r+'.'):'–'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
   function draw(d){const L=$('top5List');
     if(!d){L.innerHTML='<div class="t5-msg">⏳ Lade Rangliste …</div>';return}
     if(d.err){L.innerHTML='<div class="t5-msg">📡 Rangliste gerade nicht erreichbar.</div>';return}
     const myId=d.me&&d.me.playerId,ent=d.entries||[];
-    if(!ent.length&&!d.me){L.innerHTML=`<div class="t5-msg">${EMPTY[span]}</div>`;return}
+    if(!ent.length&&!d.me){L.innerHTML=`<div class="t5-msg">${I18N.tr(typeof EMPTY[span]==='function'?EMPTY[span]():EMPTY[span])}</div>`;return}
     let h=ent.map(x=>row(x,myId&&x.playerId===myId)).join('');
     if(d.me&&!ent.some(x=>x.playerId===myId))h+=row({...d.me,name:playerName||'Du'},'extra');
     if(d.me&&!(d.me.rank>0))h+=`<div class="t5-msg">${'🔒 Nur für dich sichtbar – Profil in „Google Play Spiele“ auf „Für alle sichtbar“ stellen.'}</div>`;
@@ -22,14 +22,15 @@ const Top5=(()=>{
     box.style.display='';$('top5Seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===span));
     const n=+settings.size||6;$('top5Endless').textContent=I18N.tr('Endlos')+' '+n+'×'+n;
     $('top5Board').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.b===board));
+    {const wb=$('top5Seg').querySelector('[data-p=week]');if(wb)wb.textContent=weekMonOf(key())?'Woche':'So–Sa'}
     const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('Neuer Tag ab')+' '+t:'';
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
     const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
     if(!c)draw(null);else draw(c.d);
-    const want=span,wk=key(),daily=wk==='daily';let d;try{d=await Games.top(wk,want,5)}catch(e){d={err:1}}
+    const want=span,wk=key(),daily=wk==='daily';let d;try{d=await boardTop(wk,want,5)}catch(e){d={err:1}}
     if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
     // Auszeichnungen (Tagesspiel Heute/Woche) auch dann aktuell halten, wenn gerade Endlos angezeigt wird
-    for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))Games.top('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
+    for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))boardTop('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
   $('top5Seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();span=b.dataset.p;try{localStorage.setItem(SK,span)}catch(x){}refresh()};
   $('top5Board').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();board=b.dataset.b;try{localStorage.setItem(BK,board)}catch(x){}refresh()};
   // „Ganze Rangliste“ öffnet dieselbe Liste in 🏆 (gleiche Liste, gleicher Zeitraum)

@@ -5,7 +5,7 @@ const Awards=(()=>{
   const RK='kippwerk_rank',AK='kippwerk_awards';
   const J=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||'null')||d}catch(e){return d}};
   const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-  const dayKey=()=>todayKey(),weekKey=()=>String(weekOf(dailyNo()));
+  const dayKey=()=>todayKey(),weekKey=()=>String(weekOf(dailyNo(),dailyWeekMon()));
   // Belohnungen: [Leben, Abzeichen-Schlüssel]
   const RULES={day:[[1,1,'d1'],[3,0,'d3'],[10,0,'d10']],week:[[1,3,'w1'],[3,1,'w3'],[10,0,'w10']]};
   const BADGE={d1:['👑','Tagessieg'],d3:['🥈','Tag Top 3'],d10:['⭐','Tag Top 10'],w1:['🏆','Wochensieg'],w3:['🥇','Woche Top 3'],w10:['🎖','Woche Top 10']};

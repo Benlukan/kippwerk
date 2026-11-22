@@ -3,10 +3,10 @@
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
   android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ',
-      // Tagesspiel je Wochentag (Mo … So) – für „Gestern (weltweit)“; leer = aus
-      wd:['','','','','','',''],
+      // Tagesspiel je Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So; leer = aus
+      wd:['CgkI4YWAlYcMEAIQBg','CgkI4YWAlYcMEAIQBw','CgkI4YWAlYcMEAIQCA','CgkI4YWAlYcMEAIQCQ','CgkI4YWAlYcMEAIQCg','CgkI4YWAlYcMEAIQCw','CgkI4YWAlYcMEAIQDA'],
       // Erfolge (Abzeichen) – IDs aus der Play Console, leer = nur in der App
-      ach:{funke:'',woche:'',zwei:'',monat:'',fuenfzig:'',hundert:'',ultra:'',welt1:'',sterne:'',stammgast:'',sieger:'',profi:''}},
+      ach:{funke:'CgkI4YWAlYcMEAIQDQ',woche:'CgkI4YWAlYcMEAIQDg',zwei:'CgkI4YWAlYcMEAIQDw',monat:'CgkI4YWAlYcMEAIQEA',fuenfzig:'CgkI4YWAlYcMEAIQEQ',hundert:'CgkI4YWAlYcMEAIQEg',ultra:'CgkI4YWAlYcMEAIQEw',welt1:'CgkI4YWAlYcMEAIQFA',sterne:'CgkI4YWAlYcMEAIQFQ',stammgast:'CgkI4YWAlYcMEAIQFg',sieger:'CgkI4YWAlYcMEAIQFw',profi:'CgkI4YWAlYcMEAIQGA'}},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 // Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
 // c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)

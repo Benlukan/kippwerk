@@ -114,3 +114,9 @@ Datenschutzerklärung (`www/datenschutz.html`) und Datensicherheits-Angaben (`do
 
 - Die Endlos-Ranglisten (e5–e8) zeigen Heute / Woche (So–Sa) / Gesamt. Google erzeugt Tages- und Wochenversion jeder Rangliste automatisch – dieselben IDs, nur `timeSpan` unterscheidet sich.
 - Ohne Anmeldung: Heute/Woche aus `kippwerk_history` (letzte 400 Endlos-Runden), Gesamt aus der lokalen Rekordliste.
+
+## Woche Mo–So im Tagesspiel (ab v1.38.0)
+
+- `loadWeekMoSo()`: je Tag Mo…heute die Liste `wd<Wochentag>`; Tage in der laufenden Google-Woche (ab Sonntag) mit `timeSpan:week`, ältere mit `all`; Einträge nach Datum im Score-Tag gefiltert, je Spieler summiert. Bis zu 7 Abrufe (je max. 25 Einträge), 30–60 s Cache.
+- Belohnungen „Woche“ nutzen dieselbe Woche (`weekOf(no, dailyWeekMon())`).
+- IDs: `wd` Mo…So = …QBg, QBw, QCA, QCQ, QCg, QCw, QDA; Erfolge `ach` = …QDQ … QGA.

@@ -3,7 +3,7 @@
 const googleDayStart=()=>dayStartTime();
 const Top5=(()=>{
   const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
-  const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);
+  const key=()=>board==='daily'?'daily':'e'+curBoard();
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:()=>weekMonOf(key())?'Diese Woche (Mo–So) noch keine Ergebnisse.':'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
@@ -20,10 +20,11 @@ const Top5=(()=>{
   async function refresh(force){
     const box=$('homeTop5');if(!Games.available){box.style.display='none';return}
     box.style.display='';$('top5Seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===span));
-    const n=+settings.size||6;$('top5Endless').textContent=I18N.tr('Endlos')+' '+n+'×'+n;
+    $('top5Endless').textContent=I18N.tr('Endlos')+' '+bLabel(curBoard());
     $('top5Board').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.b===board));
     {const wb=$('top5Seg').querySelector('[data-p=week]');if(wb)wb.textContent=weekMonOf(key())?'Woche':'So–Sa'}
     const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('Neuer Tag ab')+' '+t:'';
+    if(board!=='daily'&&!Games.hasId(key())){$('top5List').innerHTML=`<div class="t5-msg">${I18N.tr('🌍 Für dieses Feld gibt es noch keine weltweite Rangliste.')}</div>`;return}
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
     const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
     if(!c)draw(null);else draw(c.d);
@@ -35,7 +36,7 @@ const Top5=(()=>{
   $('top5Board').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();board=b.dataset.b;try{localStorage.setItem(BK,board)}catch(x){}refresh()};
   // „Ganze Rangliste“ öffnet dieselbe Liste in 🏆 (gleiche Liste, gleicher Zeitraum)
   const open=async()=>{if(!Games.signedIn){if(await Games.signIn())refresh(true);return}
-    openScores(board==='daily'?'daily':'endless');if(board==='daily')scoresPeriod=span;else endlessSpan=span;scoresSize=+settings.size||6;renderScores()};
+    openScores(board==='daily'?'daily':'endless');if(board==='daily')scoresPeriod=span;else endlessSpan=span;scoresSize=curBoard();renderScores()};
   $('top5List').onclick=open;$('top5More').onclick=open;
   return{refresh,get span(){return span},clear(){for(const k in cache)delete cache[k]}};
 })();

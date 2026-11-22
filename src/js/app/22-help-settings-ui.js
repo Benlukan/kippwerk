@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.40.0','Neue Felder zum Freischalten: 4×4, 9×9, 10×10 sowie 6×6/7×7/8×8 mit Hindernissen 🪨 – zu finden in 🎨 Sammlung → Felder. 12 neue Abzeichen. Extra-Leben auf 9×9 ab Combo ×7, auf 10×10 ab ×8'],
  ['1.39.0','Endlos jetzt auch mit Woche Montag–Sonntag (beste Runde der Woche) und „Gestern“ – für jede Feldgröße'],
  ['1.38.0','Tagesspiel-Woche jetzt von Montag bis Sonntag: Punkte aller Tagesspiele der Woche zusammengezählt (weltweit, mit gespielten Tagen und bestem Tag). Endlos bleibt bei der Google-Woche So–Sa. Erfolge in Google Play Spiele aktiv, „Gestern“ im Tagesspiel'],
  ['1.37.0','Endlos-Bestenlisten jetzt auch nach Zeitraum: Heute, Woche (So–Sa) und Gesamt – weltweit und auf diesem Gerät'],
@@ -127,7 +128,7 @@ $('saveName').onclick=()=>{
   if(lastEntry){lastEntry.name=n;saveScores()}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
-let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
+let scoresTab='endless',scoresReturn=null,scoresSize='6',scoresPeriod='day';
 let endlessSpan='all';   // Zeitraum der weltweiten Endlos-Listen (Tagesspiel nutzt scoresPeriod)
 $('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(scoresTab==='endless')endlessSpan=b.dataset.p;else scoresPeriod=b.dataset.p;renderScores()};
 const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>{const w=weekOf(dailyNo(),dailyWeekMon());return 'Woche '+dayShort(w)+' – '+dayShort(w+6)},all:()=>'Beste Tagesspiele aller Zeiten'};
@@ -165,8 +166,8 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:best?mp.tag:'',rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
   return{entries:pub.slice(0,n||25),me}}
 // Rangliste laden – beim Tagesspiel „Woche“ die eigene Woche Mo–So, sonst direkt von Google
-function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e[5-8]$/.test(k)&&Games.hasEwd)return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}
-const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwd;
+function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e\d/.test(k)&&Games.hasEwdFor(k))return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}
+const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwdFor(k);
 // „Gestern“: Liste des gestrigen Wochentags; nur Einträge mit gestrigem Datum (Score-Tag d…). Erst Woche, sonst Gesamt (Wochenwechsel)
 async function loadYesterday(pre){const yk=addDays(todayKey(),-1),k=(pre||'wd')+wdOf(yk),d8=yk.replace(/-/g,'');
   const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
@@ -195,7 +196,10 @@ function drawOnline(d){
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';
   $('scoresEmpty').textContent=I18N.tr(sp==='yday'?(scoresTab==='endless'?'Gestern keine Endlos-Runden auf dieser Feldgröße.':'Gestern hat niemand das Tagesspiel gewertet.'):sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?(weekMonOf(scoresTab==='endless'?'e'+scoresSize:'daily')?'Diese Woche (Mo–So) noch keine Einträge – hol dir Platz 1!':'Diese Woche (So–Sa) noch keine Einträge – die Google-Woche beginnt sonntags. Hol dir Platz 1!'):'Noch keine Einträge – hol dir Platz 1!')}
-$('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
+$('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=b.dataset.n;renderScores()};
+// Feld-Reiter in der Bestenliste: alle freigeschalteten Felder
+function renderSizeTabs(){const h=BOARDS.filter(k=>boardOpen(k)||sizeList(k).length).map(k=>`<button data-n="${k}">${bLabel(k)}</button>`).join('');const t=$('sizeTabs');if(t.innerHTML!==h)t.innerHTML=h;
+  t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.n===String(scoresSize)))}
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // Zusatzzeile in der Bestenliste: Level · beste Combo · Züge · abgeräumte Steine · Datum
@@ -209,12 +213,12 @@ function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');$('tabMine').classList.toggle('on',scoresTab==='mine');
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
   // „Gestern“ nur weltweit und nur, wenn die Wochentags-Listen eingerichtet sind
-  const yd=onlineOn()&&(scoresTab==='daily'?Games.hasWd:scoresTab==='endless'&&Games.hasEwd);$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(!(onlineOn()&&Games.hasEwd)&&endlessSpan==='yday')endlessSpan='all';
-  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()?Games.hasEwd:endlessWeekMon()):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
+  const yd=onlineOn()&&(scoresTab==='daily'?Games.hasWd:scoresTab==='endless'&&Games.hasEwdFor('e'+scoresSize));$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(!(onlineOn()&&Games.hasEwdFor('e'+scoresSize))&&endlessSpan==='yday')endlessSpan='all';
+  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()&&Games.hasId('e'+scoresSize)?Games.hasEwdFor('e'+scoresSize):endlessWeekMon(scoresSize)):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
   if(scoresTab==='mine'){renderMine();return}
-  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderSizeTabs();
   renderGamesBtn();
-  if(onlineOn())renderOnline();else renderLocal()}
+  if(onlineOn()&&(scoresTab!=='endless'||Games.hasId('e'+scoresSize)))renderOnline();else renderLocal()}
 // ---------- Meine Tage: eigene Tagesspiele und Endlos-Runden, Tag für Tag ----------
 // Altes Datumsformat der Endlos-Bestenliste (21.11.26 bzw. 11/21/26) → JJJJ-MM-TT
 const legacyKey=s=>{let m=String(s||'').match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/),y,mo,d;
@@ -233,16 +237,16 @@ function renderMine(){
   $('dailyStats').innerHTML=`<div><b>${list.length}</b><small>Spieltage</small></div><div><b>${all.length}</b><small>Spiele</small></div><div><b>${bd.toLocaleString(LOC())}</b><small>Bestes Tagesspiel</small></div><div><b>${be.toLocaleString(LOC())}</b><small>Bestes Endlos</small></div>`;
   $('periodInfo').textContent=I18N.tr('Deine Spiele, neueste zuerst');$('periodInfo').style.display='';
   const row=x=>{const top=x.t==='d'?x.score===bd&&bd>0:x.score===be&&be>0;
-    const what=x.t==='d'?'📅 '+I18N.tr('Tagesspiel'):'∞ '+I18N.tr('Endlos')+' '+x.size+'×'+x.size;
+    const what=x.t==='d'?'📅 '+I18N.tr('Tagesspiel'):'∞ '+I18N.tr('Endlos')+' '+bLabel(keyOf(x));
     return `<tr class="${x===lastEntry?'me':''}"><td class="rank">${top?'🏆':''}</td><td>${what}<small class="sub">${metaLine(x,x.t==='e'&&x.level?'Lvl '+x.level:'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`};
   $('scoresTable').innerHTML=list.slice(0,45).map(d=>`<tr class="dayhd"><td colspan="3">${dayLabel(dailyNoOf(d.k))}</td></tr>`+d.items.map(row).join('')).join('');
   $('scoresEmpty').style.display=list.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Spiel gespielt.')}
 // Endlos auf diesem Gerät nach Zeitraum: Heute / Woche (So–Sa) aus dem Verlauf, Gesamt = Rekordliste
-const ENDLESS_TXT={day:n=>`Endlos ${n}×${n} · `+dayLabel(dailyNo()),week:n=>{const w=weekOf(dailyNo(),endlessWeekMon());return `Endlos ${n}×${n} · Woche `+dayShort(w)+' – '+dayShort(w+6)},all:n=>`Endlos ${n}×${n} · Gesamt`};
+const ENDLESS_TXT={day:n=>`Endlos ${bLabel(n)} · `+dayLabel(dailyNo()),week:n=>{const w=weekOf(dailyNo(),endlessWeekMon(n));return `Endlos ${bLabel(n)} · Woche `+dayShort(w)+' – '+dayShort(w+6)},all:n=>`Endlos ${bLabel(n)} · Gesamt`};
 function endlessLocal(n,sp){if(sp!=='day'&&sp!=='week')return sizeList(n);
-  const t=todayKey(),w0=dk(noDate(weekOf(dailyNo(),endlessWeekMon()))),w1=addDays(w0,6),hist=History.all(),seen=new Set(),out=[];
+  const t=todayKey(),w0=dk(noDate(weekOf(dailyNo(),endlessWeekMon(n)))),w1=addDays(w0,6),hist=History.all(),seen=new Set(),out=[];
   const inSpan=k=>k&&(sp==='day'?k===t:k>=w0&&k<=w1);
-  for(const x of hist)if(x.size===n&&inSpan(x.d)){out.push(x);seen.add(x.d+'|'+x.score)}
+  for(const x of hist)if(keyOf(x)===String(n)&&inSpan(x.d)){out.push(x);seen.add(x.d+'|'+x.score)}
   for(const x of sizeList(n)){const k=legacyKey(x.date);if(inSpan(k)&&!seen.has(k+'|'+x.score))out.push(x)}
   return out.sort((a,b)=>b.score-a.score)}
 function renderLocal(note){
@@ -251,7 +255,7 @@ function renderLocal(note){
   const lsp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('periodTabs').style.display='';
   $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===lsp));
-  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderSizeTabs();
   renderGamesBtn();
   const today=dailyNo(),wk=weekOf(today,dailyWeekMon());
   const dl=scores.daily.filter(x=>scoresPeriod==='day'?x.no===today:scoresPeriod==='week'?x.no>=wk&&x.no<wk+7:true);
@@ -266,7 +270,7 @@ function renderLocal(note){
       ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,x.level?'Lvl '+x.level:'',x.d?dayLabel(dailyNoOf(x.d)):esc(x.date||''))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
       :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,'',dayLabel(x.no))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
-  $('scoresEmpty').textContent=scoresTab==='endless'?(endlessSpan==='day'?`Heute noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:endlessSpan==='week'?`Diese ${weekLbl(endlessWeekMon())} noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`):scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?(dailyWeekMon()?'Diese Woche (Mo–So) noch kein Tagesspiel gespielt.':'Diese Woche (So–Sa) noch kein Tagesspiel gespielt.'):'Noch kein Tagesspiel gespielt.';
+  $('scoresEmpty').textContent=scoresTab==='endless'?(endlessSpan==='day'?`Heute noch keine Endlos-Runde auf ${bLabel(scoresSize)}.`:endlessSpan==='week'?`Diese ${weekLbl(endlessWeekMon(scoresSize))} noch keine Endlos-Runde auf ${bLabel(scoresSize)}.`:`Noch keine Einträge auf ${bLabel(scoresSize)} – spiel eine Runde Endlos!`):scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?(dailyWeekMon()?'Diese Woche (Mo–So) noch kein Tagesspiel gespielt.':'Diese Woche (So–Sa) noch kein Tagesspiel gespielt.'):'Noch kein Tagesspiel gespielt.';
   const pt=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():ENDLESS_TXT[endlessSpan](scoresSize);
   $('periodInfo').textContent=note?note+' · '+I18N.tr(pt):pt;$('periodInfo').style.display='';
 }
@@ -274,7 +278,7 @@ function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;
   if(started&&!over){paused=true;started=false;scoresReturn='pause'}
   $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
-  scoresTab=(tab==='level'?'endless':tab)||scoresTab;scoresSize=mode==='endless'?N:(+settings.size||6);renderScores();$('scoresOv').classList.remove('hidden')}
+  scoresTab=(tab==='level'?'endless':tab)||scoresTab;scoresSize=mode==='endless'?BK:curBoard();renderScores();$('scoresOv').classList.remove('hidden')}
 $('scoresBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidden)'))return;openScores(mode==='level'?'endless':mode)};
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};

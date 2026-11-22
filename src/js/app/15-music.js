@@ -78,7 +78,7 @@ const Music=(()=>{
 })();
 // Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
 // Ab welchem Endlos-Level die Musik eine Stufe schneller wird – je Feldgröße (aus Bot-Simulation, v1.32)
-const MUSIC_STEPS={5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32]};
+const MUSIC_STEPS={4:[3,5,7,10],5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32],9:[8,15,23,32],10:[8,15,23,32]};
 function musicSync(){
   const menu=!$('startOv').classList.contains('hidden')||!started||over;
   if(menu){Music.track('menu');Music.danger(false);return}

@@ -36,10 +36,24 @@ function dailyStats(){
   return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 
 function setSize(n){
-  N=n;const b=$('board');b.style.setProperty('--n',n);b.classList.remove('n5','n6','n7','n8');b.classList.add('n'+n);
+  N=n;const b=$('board');b.style.setProperty('--n',n);b.className=b.className.replace(/\bn\d+\b/g,'').trim();b.classList.add('n'+n);
   const c=$('cells');c.innerHTML='';for(let i=0;i<N*N;i++)c.appendChild(document.createElement('div'));
 }
 setSize(6);
-const START_TILES={5:6,6:8,7:10,8:14}, BASE_SPAWN={5:1,6:2,7:3,8:4};
+const START_TILES={4:4,5:6,6:8,7:10,8:14,9:18,10:22}, BASE_SPAWN={4:1,5:1,6:2,7:3,8:4,9:5,10:6};
+// ---------- Spielfelder (Endlos): Kürzel '4' … '10', dazu '6h' '7h' '8h' = mit Hindernissen ----------
+const BOARDS=['4','5','6','7','8','9','10','6h','7h','8h'],BOARDS_FREE=['5','6','7','8'];
+const bN=k=>parseInt(k,10)||6, bH=k=>/h$/.test(String(k));
+const bLabel=(k,long)=>{const n=bN(k);return n+'×'+n+(bH(k)?(long?' '+I18N.tr('mit Hindernissen'):' 🪨'):'')};
+let BK='6';   // aktuelles Endlos-Feld
+const boardOpen=k=>{if(BOARDS_FREE.includes(String(k)))return true;try{return Unlocks.has('board',String(k))}catch(e){return false}};   // Unlocks wird später geladen
+function curBoard(){const k=String(settings.size||'6');return BOARDS.includes(k)&&boardOpen(k)?k:'6'}
+// höchstes erreichtes Endlos-Level je Feld (für Freischaltungen und Abzeichen)
+const MaxLv=(()=>{const K='kippwerk_maxlv';let o={};try{const x=JSON.parse(localStorage.getItem(K)||'{}');if(x&&typeof x==='object')o=x}catch(e){}
+  const save=()=>{try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}};
+  return{get:k=>+o[String(k)]||0,note(k,l){k=String(k);if(l>(+o[k]||0)){o[k]=l;save()}},all:()=>({...o}),
+    merge(x){let c=false;for(const k in x||{})if(+x[k]>(+o[k]||0)){o[k]=+x[k];c=true}if(c)save()}}})();
+// höchste Level aus Bestenliste und Verlauf übernehmen (auch für Stände vor v1.40)
+try{for(const x of scores.endless)MaxLv.note(keyOf(x),+x.level||0);for(const x of History.all())if(x.t==='e')MaxLv.note(keyOf(x),+x.level||0)}catch(e){}
 const perLevel=()=>N===6?30:Math.round(30*N*N/36);
 

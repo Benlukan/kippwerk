@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.40.0 (Build 69) – 22.11.2026
+- **Neue Felder zum Freischalten** (🎨 Sammlung → neuer Reiter „Felder“, mit Fortschrittsbalken; Auswahl im Menü und in ⚙ zeigt nur freigeschaltete Felder):
+  - **4×4** – Endlos 5×5 bis Level 15 · immer 4 Farben, 1 neuer Stein pro Zug
+  - **9×9** – Welt 7 geschafft oder Endlos 8×8 bis Level 40 · 5 neue Steine pro Zug
+  - **10×10** – Welt 10 geschafft oder Endlos 9×9 bis Level 40 · 6 neue Steine, Felsen ab Level 25, 6. Farbe ab Level 30
+  - **6×6 / 7×7 / 8×8 mit Hindernissen 🪨** – Endlos auf dem jeweiligen Feld bis Level 30 · Start mit 2–3 Felsen, Felsen von Anfang an (6×6 ab 6 %, 7×7/8×8 ab 10 %, steigend)
+- **Extra-Leben:** auf 9×9 ab Combo ×7, auf 10×10 ab ×8 (sonst ×6)
+- **12 neue Abzeichen** (Mini-Meister, Felsbrecher, Steinbruch, Gipfelstürmer, Welt 7, Alle Welten, Weitblick, Großes Feld, Neuner-Profi, Zehner-Legende, ULTRA ×8, Wochensieger) – Google-Erfolge vorbereitet (`GAMES_CONFIG.android.ach`), Import-ZIP mit Icons in `docs/store/erfolge/`
+- Höchstes Level je Feld wird gespeichert (`kippwerk_maxlv`, auch in der Cloud-Sicherung; aus Bestenliste/Verlauf nachgetragen)
+- Bestenliste, Top 5 und „Meine Tage“ unterscheiden die Felder (Kürzel `4` … `10`, `6h` … `8h`); weltweite Listen für die neuen Felder folgen, sobald die IDs eingetragen sind (`e4`, `e9`, `e10`, `e6h`, `e7h`, `e8h` sowie Wochentage `ewd`)
+- Bot-Simulation (Ø erreichtes Level): 4×4 ≈ 37, 9×9 ≈ 44, 10×10 ≈ 48, 6×6 mit Hindernissen ≈ 39–47 (normal ≈ 75), 7×7 mit Hindernissen ≈ 37 (normal ≈ 43), 8×8 mit Hindernissen ≈ 44 (normal ≈ 43)
 ## v1.39.0 (Build 68) – 22.11.2026
 - **Endlos je Wochentag:** 28 neue Google-Ranglisten (5×5 … 8×8, Montag … Sonntag) eingetragen. Endlos-Runden melden jetzt zusätzlich das Datum im Score-Tag und gehen auch an die Liste des Wochentags
 - **Endlos-Woche Mo–So:** beste Runde je Spieler von Montag bis Sonntag (statt Google-Woche So–Sa), für Bestenliste und Top 5 im Menü; ohne Anmeldung ebenfalls Mo–So

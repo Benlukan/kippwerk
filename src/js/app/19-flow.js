@@ -26,8 +26,8 @@ async function resolve(dir,chain){
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level();try{Fly.react('level')}catch(e){}},chain>1?700:200)
-      if(N>=6&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
-      if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
+      if(N>=6&&!obst()&&lvBefore<rocksFrom()&&level>=rocksFrom())setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level '+rocksFrom()+' kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
+      if(N>=7&&lvBefore<color6From()&&level>=color6From())setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level '+color6From()+' gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
     await sleep(230);
     if(dir&&slide(dir)){render();await sleep(150)}
@@ -45,7 +45,7 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=6)gainLife();renderInfo();
+  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
@@ -76,7 +76,7 @@ function gameOver(reason){
     $('lifeBtn').style.display=canLife?'':'none';$('lifeBtn').textContent=`❤ LEBEN EINSETZEN (${lives} übrig)`;
     $('rescueBtn').style.display=canVideo?'':'none';
     $('rescueBtn').disabled=false;$('rescueBtn').textContent='🎬 VIDEO ANSEHEN & WEITER';
-    $('rescueHint').textContent=canVideo?'Video: einmal pro Runde · Leben: so viele du hast':'Extra-Leben gibt es für ULTRA-Combos (×6)';
+    $('rescueHint').textContent=canVideo?'Video: einmal pro Runde · Leben: so viele du hast':'Extra-Leben gibt es für Combos ab ×'+lifeAt();
     setTimeout(()=>$('rescueOv').classList.remove('hidden'),500);return;
   }
   endRound(reason);

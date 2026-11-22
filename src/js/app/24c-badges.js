@@ -13,7 +13,19 @@ const BADGES=[
   {id:'sterne',e:'⭐',n:'Sternesammler',d:'100 Sterne in den Etappen',pts:50,goal:100,val:()=>totalStars(),unit:'★',inc:true},
   {id:'stammgast',e:'📅',n:'Stammgast',d:'25 Tagesspiele gespielt',pts:50,goal:25,val:()=>dailyCount(),inc:true},
   {id:'sieger',e:'🥇',n:'Tagessieger',d:'Platz 1 im weltweiten Tagesspiel',pts:100,goal:1,val:()=>(Awards.all().d1||0)>0?1:0},
-  {id:'profi',e:'🎯',n:'Endlos-Profi',d:'10.000 Punkte in einer Endlos-Runde',pts:50,goal:10000,val:()=>bestEndlessScore()}];
+  {id:'profi',e:'🎯',n:'Endlos-Profi',d:'10.000 Punkte in einer Endlos-Runde',pts:50,goal:10000,val:()=>bestEndlessScore()},
+  {id:'mini',e:'🔷',n:'Mini-Meister',d:'Endlos 4×4 bis Level 20',pts:25,goal:20,val:()=>MaxLv.get('4')},
+  {id:'fels6',e:'🧱',n:'Felsbrecher',d:'6×6 mit Hindernissen bis Level 30',pts:40,goal:30,val:()=>MaxLv.get('6h')},
+  {id:'fels7',e:'🗿',n:'Steinbruch',d:'7×7 mit Hindernissen bis Level 30',pts:50,goal:30,val:()=>MaxLv.get('7h')},
+  {id:'fels8',e:'⛰️',n:'Gipfelstürmer',d:'8×8 mit Hindernissen bis Level 30',pts:75,goal:30,val:()=>MaxLv.get('8h')},
+  {id:'welt7',e:'🌍',n:'Welt 7',d:'Etappe 7-10 geschafft',pts:50,goal:1,val:()=>LP[70]?1:0},
+  {id:'welten',e:'🏆',n:'Alle Welten',d:'Etappe 10-10 geschafft',pts:150,goal:1,val:()=>LP[100]?1:0},
+  {id:'weitblick',e:'🔭',n:'Weitblick',d:'9×9 freigeschaltet',pts:50,goal:1,val:()=>boardOpen('9')?1:0},
+  {id:'gross',e:'🌌',n:'Großes Feld',d:'10×10 freigeschaltet',pts:100,goal:1,val:()=>boardOpen('10')?1:0},
+  {id:'neuner',e:'🏔️',n:'Neuner-Profi',d:'Endlos 9×9 bis Level 40',pts:100,goal:40,val:()=>MaxLv.get('9')},
+  {id:'zehner',e:'🪐',n:'Zehner-Legende',d:'Endlos 10×10 bis Level 40',pts:150,goal:40,val:()=>MaxLv.get('10')},
+  {id:'ultra8',e:'💎',n:'ULTRA ×8',d:'Combo ×8 oder mehr',pts:50,goal:1,val:()=>0},
+  {id:'wochensieger',e:'🗓️',n:'Wochensieger',d:'Platz 1 in der Tagesspiel-Woche (Mo–So)',pts:100,goal:1,val:()=>(Awards.all().w1||0)>0?1:0}];
 const Badges=(()=>{
   const K='kippwerk_badges';
   const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};

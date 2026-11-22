@@ -126,3 +126,17 @@ Datenschutzerklärung (`www/datenschutz.html`) und Datensicherheits-Angaben (`do
 - `GAMES_CONFIG.android.ewd[5..8]` = 7 IDs (Mo…So); Schlüssel `e<N>wd<0-6>`. Endlos-Tag enthält jetzt `d<JJJJMMTT>`.
 - Woche Mo–So: `loadWeekMoSo(n,'e6wd')` → beste Runde je Spieler; „Gestern“: `loadYesterday('e6wd')`.
 - Ranglisten gesamt: 5 + 7 + 28 = 40 (Limit 70).
+
+## Neue Felder (ab v1.40.0)
+
+| Feld | Schlüssel | Bestenliste | Wochentage (Mo…So) |
+|---|---|---|---|
+| 4×4 | `e4` | anlegen: „Endlos 4x4“ | „Endlos 4x4 - Montag“ … → `ewd[4]` |
+| 9×9 | `e9` | „Endlos 9x9“ | „Endlos 9x9 - Montag“ … → `ewd[9]` |
+| 10×10 | `e10` | „Endlos 10x10“ | „Endlos 10x10 - Montag“ … → `ewd[10]` |
+| 6×6 mit Hindernissen | `e6h` | „Endlos 6x6 Hindernisse“ | – (nur Gesamt/Woche So–Sa) |
+| 7×7 mit Hindernissen | `e7h` | „Endlos 7x7 Hindernisse“ | – |
+| 8×8 mit Hindernissen | `e8h` | „Endlos 8x8 Hindernisse“ | – |
+
+Ohne ID: Feld spielt normal, die Bestenliste zeigt die Ergebnisse auf dem Gerät, Top 5 im Menü weist darauf hin. Gesamt danach: 40 + 27 = 67 von 70 Ranglisten.
+Erfolge 13–24: `docs/store/erfolge/AchievementsMetadata.csv` + `AchievementsIconsMappings.csv` + Icons 13–24 (Import in der Play Console), danach IDs in `ach` eintragen (mini, fels6, fels7, fels8, welt7, welten, weitblick, gross, neuner, zehner, ultra8, wochensieger).

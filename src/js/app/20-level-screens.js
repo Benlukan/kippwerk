@@ -78,12 +78,13 @@ function finishGame(reason){
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
     setTimeout(()=>Unlocks.check(),1200);   // Abzeichen/Designs (z. B. Endlos-Profi)
-    if(score>0)History.add({d:todayKey(),t:'e',size:N,score,level,chain:bestChain,moves:history.length,cleared});
-    const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
+    MaxLv.note(BK,level);
+    if(score>0)History.add({d:todayKey(),t:'e',size:N,...(bH(BK)?{h:1}:{}),score,level,chain:bestChain,moves:history.length,cleared});
+    const sl=sizeList(BK);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(Audit.ok(score,cleared,history.length)){const tg=ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level,day:todayKey()});Games.submit('e'+N,score,tg);Games.submit('e'+N+'wd'+wdOf(todayKey()),score,tg)}else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}
-    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
-    best=bestFor(N);
+    if(Audit.ok(score,cleared,history.length)){const tg=ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level,day:todayKey()});Games.submit('e'+BK,score,tg);Games.submit('e'+BK+'wd'+wdOf(todayKey()),score,tg)}else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+BK,score,'⛔ '+Audit.reason)}
+    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N,...(bH(BK)?{h:1}:{})};addScore('endless',lastEntry);rank=sizeList(BK).indexOf(lastEntry)+1;}
+    best=bestFor(BK);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
     $('nameRow').style.display=rank&&!(Games.signedIn&&Games.player&&Games.player.name)?'':'none';
     $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
@@ -96,12 +97,13 @@ function newGame(){
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
   else if(tut){rc=mulberry32(20261117);rp=mulberry32(7);practice=false}
   else{rc=Math.random;rp=Math.random;practice=false}
-  setSize(mode==='endless'&&!tut?(+settings.size||6):6);
+  if(mode==='endless'&&!tut)BK=curBoard();
+  setSize(mode==='endless'&&!tut?bN(BK):6);
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;Audit.reset();
-  best=bestFor(N);
+  best=bestFor(mode==='endless'?BK:N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(BK!=='6'?bLabel(BK):'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   if(tut){   // feste Aufstellung für das Tutorial (6×6)
     nextQ=[1,3,0,2,1,3];
@@ -109,13 +111,15 @@ function newGame(){
     $('modeTag').textContent='Tutorial';render();return}
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
-  let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N>=7?5:4);
+  let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N<=4?4:N>=7?5:4);
   while(placed<startN){
     const i=Math.floor(rp()*N*N);if(grid[i])continue;
     grid[i]={id:++tileId,color:Math.floor(rc()*startC),r:Math.floor(i/N),c:i%N};
     if(findGroups().cells.length){grid[i]=null;continue}
     placed++;
   }
+  // Hindernis-Felder: Start mit Felsen (6×6: 2, 7×7/8×8: 3)
+  if(obst()){let k=N>=7?3:2;while(k>0){const i=Math.floor(rp()*N*N);if(grid[i])continue;grid[i]={id:++tileId,color:ROCK,r:Math.floor(i/N),c:i%N};k--}}
   render();
 }
 

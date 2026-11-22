@@ -1,8 +1,15 @@
 // ---------- Rules ----------
 // Endlos ab 6×6: ab Level 30 Felsen; große Felder (7×7, 8×8) zusätzlich ab Level 40 eine 6. Farbe (★ Orange)
 const BIG_ROCKS=30,BIG_COLOR6=40;
-const numColors=()=>mode==='level'?LV.colors:(N>=7&&level>=BIG_COLOR6)?6:(N>=7||level>=3)?5:4;
-const rockChance=()=>mode==='endless'&&N>=6&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
+// 4×4: immer 4 Farben · 10×10: 6. Farbe schon ab Level 30, Felsen ab Level 25
+const obst=()=>mode==='endless'&&bH(BK);
+const rocksFrom=()=>N>=10?25:BIG_ROCKS, color6From=()=>N>=10?30:BIG_COLOR6;
+const numColors=()=>mode==='level'?LV.colors:N<=4?4:(N>=7&&level>=color6From())?6:(N>=7||level>=3)?5:4;
+// Hindernis-Felder: Felsen von Anfang an (6×6 ab 6 %, 7×7/8×8 ab 10 %, steigend)
+const rockChance=()=>mode!=='endless'?0:obst()?(N>=7?Math.min(.18,.10+level*.002):Math.min(.15,.06+level*.003))
+  :N>=6&&level>=rocksFrom()?Math.min(.15,.06+(level-rocksFrom())*.005):0;
+// Extra-Leben ab Combo ×6, auf 9×9 ab ×7, auf 10×10 ab ×8
+const lifeAt=()=>mode==='endless'&&N>=10?8:mode==='endless'&&N>=9?7:6;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}

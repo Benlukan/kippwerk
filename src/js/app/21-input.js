@@ -37,15 +37,15 @@ function showMenu(){
   $('levelSub').textContent=WORLDS[w-1]||'Welt '+w;$('levelStars').textContent='⭐ '+totalStars();
   $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
-  const sz=+settings.size||6,bs=bestFor(sz);
-  $('endlessSize').textContent=sz+'×'+sz;
+  const sz=curBoard(),bs=bestFor(sz);renderSizeSegs();
+  $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
-  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
+  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===sz));
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
   $('startOv').classList.toggle('paused',!!paused);$('resumeBtn').style.display=paused?'':'none';
-  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString(LOC())} Punkte`);
+  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${bLabel(BK)} · ${score.toLocaleString(LOC())} Punkte`);
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
@@ -67,7 +67,10 @@ $('lvlRetry').onclick=()=>{maybeInter();start('level')};
 $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 // Einstellungen
 let settingsReturn=null,resetArm={};
-function renderSettings(){
+// Feldauswahl (Menü + Einstellungen): nur freigeschaltete Felder
+function renderSizeSegs(){const cur=curBoard();document.querySelectorAll('.seg[data-key="size"]').forEach(sg=>{const big=!!sg.closest('.home-size');
+  const h=BOARDS.filter(boardOpen).map(k=>`<button data-v="${k}"${k===cur?' class="on"':''}>${big?bLabel(k):bN(k)+(bH(k)?'🪨':'')}</button>`).join('');if(sg.innerHTML!==h)sg.innerHTML=h})}
+function renderSettings(){renderSizeSegs();
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('newsVer').textContent='v'+APP_VER;
   $('themeName').textContent=I18N.tr(THEME_NAMES[settings.theme]||'Standard')+(settings.kippi&&settings.kippi!=='none'?' · 🪰':'');

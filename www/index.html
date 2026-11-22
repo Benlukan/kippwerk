@@ -391,8 +391,16 @@ body.pad-off .pad{display:none!important}
 .bdg.lock .be{filter:grayscale(1);border-color:#3a3f6a;opacity:.7}.bdg b{display:block;font-size:14px}.bdg small{color:var(--muted);font-size:12px}.bdg .bt{color:#3ddc97;font-size:12px;white-space:nowrap}
 .bdg .pb{height:6px;background:#22264a;border-radius:4px;margin:6px 0 2px;overflow:hidden}.bdg .pb i{display:block;height:100%;background:linear-gradient(90deg,#4cc9f0,#3ddc97)}
 .bsum{text-align:center;color:var(--muted);font-size:13px;margin:0 0 10px}.bsec{margin:14px 0 8px;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left}
+/* Sammlung: Spielfelder */
+.tcard.bcard .bm{display:grid;grid-template-columns:repeat(var(--m),1fr);gap:2px;width:52px;margin:4px auto 6px}
+.tcard.bcard .bm i{aspect-ratio:1;border-radius:3px;background:var(--c3);opacity:.75;display:block}
+.tcard.bcard .bm i:nth-child(3n){background:var(--c1)}.tcard.bcard .bm i:nth-child(4n){background:var(--c2)}
+.tcard.bcard .bm i.rk{background:repeating-linear-gradient(45deg,#6b7088 0 3px,#4a4e63 3px 6px);opacity:1}
+.tcard.bcard.lock .bm{filter:grayscale(.9)}
+.tcard .pb{height:5px;border-radius:3px;background:#ffffff14;margin:5px 6px 2px;overflow:hidden}.tcard .pb i{display:block;height:100%;background:var(--c2)}
 /* Feldgrößen */
-.board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}
+.board.n4{--gap:10px;--radius:18px}.board.n7{--gap:6px;--radius:10px}.board.n8{--gap:5px;--radius:8px}.board.n9{--gap:4px;--radius:7px}.board.n10{--gap:3px;--radius:6px}
+.home-size .seg{flex-wrap:wrap;justify-content:center;max-width:340px}
 .sizepick{display:flex;flex-direction:column;align-items:center;gap:6px}
 .sizepick small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .seg.big button{padding:8px 12px;font-size:13px}
@@ -400,6 +408,9 @@ body.pad-off .pad{display:none!important}
 .subtabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 9px;font:700 12px "Space Grotesk",sans-serif;cursor:pointer}
 .subtabs button.on{border-color:var(--c3);color:var(--text)}
 .scores tr.gap td{color:var(--muted);text-align:center;padding:2px;border:0}
+/* Einstellungen: viele Felder → Auswahl in eigene Zeile */
+.set:has(> .seg[data-key="size"]){flex-wrap:wrap;gap:8px}
+.set > .seg[data-key="size"]{flex-wrap:wrap;max-width:100%}
 /* Hilfe */
 .help{width:min(100%,440px);text-align:left;display:flex;flex-direction:column;gap:10px}
 .help section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
@@ -740,11 +751,12 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
     <div class="overlay hidden" id="collOv">
       <div class="card">
         <h2>🎨 Sammlung <span class="pid" id="collCount" style="display:none"></span></h2>
-        <div class="tabs colltabs" id="collTabs"><button data-t="themes">🎨 Designs<small id="ctThemes"></small></button><button data-t="kippi">🪰 Kippi<small id="ctKippi"></small></button><button data-t="badges">🏅 Abzeichen<small id="ctBadges"></small></button></div>
+        <div class="tabs colltabs" id="collTabs"><button data-t="themes">🎨 Designs<small id="ctThemes"></small></button><button data-t="kippi">🪰 Kippi<small id="ctKippi"></small></button><button data-t="badges">🏅 Abzeichen<small id="ctBadges"></small></button><button data-t="boards">🔲 Felder<small id="ctBoards"></small></button></div>
         <p class="hint" id="collHint">Designs und Kippi-Outfits schaltest du frei durch Welten in den Etappen, deine Serie, Endlos, Tagesspiele und an Feiertagen.</p>
         <div class="coll-grid" id="collThemes"></div>
         <div class="coll-grid" id="collKippi"></div>
         <div id="collBadges"></div>
+        <div id="collBoards" class="coll-grid" style="display:none"></div>
         <button class="btn" id="collClose">ZURÜCK</button>
       </div>
     </div>
@@ -814,14 +826,14 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
           <div class="row"><span class="sw d" style="background:var(--c1)"></span><span><b>Gelb</b> (🟨) – Combo ×3 SUPER</span></div>
           <div class="row"><span class="sw d" style="background:var(--c0)"></span><span><b>Rot</b> (🟥) – Combo ×4 MEGA</span></div>
           <div class="row"><span class="sw d" style="background:var(--c4)"></span><span><b>Lila</b> (🟪) – Combo ×5 MONSTER</span></div>
-          <div class="row"><span class="sw d" style="background:#fff"></span><span><b>Weiß</b> (⬜) – Combo ×6 oder mehr: ULTRA (+1 ❤)</span></div>
+          <div class="row"><span class="sw d" style="background:#fff"></span><span><b>Weiß</b> (⬜) – Combo ×6 oder mehr: ULTRA (+1 ❤; auf 9×9 ab ×7, auf 10×10 ab ×8)</span></div>
           <p>Je bunter dein Raster, desto besser hast du gespielt.</p>
         </section>
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
             <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Der neue Tag beginnt weltweit gleichzeitig – wie bei Google um Mitternacht UTC-7, in Deutschland also um <b>08:00 Uhr</b> (Winter) bzw. <b>09:00 Uhr</b> (Sommer) – passend zur weltweiten Rangliste. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
             <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss.</li>
-            <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll.</li>
+            <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll. <b>Freischaltbar</b> (🎨 Sammlung → Felder): <b>4×4</b> (Endlos 5×5 bis Level 15), <b>9×9</b> (Welt 7 oder Endlos 8×8 bis Level 40), <b>10×10</b> (Welt 10 oder Endlos 9×9 bis Level 40) und <b>6×6 / 7×7 / 8×8 mit Hindernissen 🪨</b> (Endlos auf dem jeweiligen Feld bis Level 30) – dort liegen von Anfang an Felsen. Auf 9×9 gibt es ein Extra-Leben erst ab Combo ×7, auf 10×10 ab ×8.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße – wahlweise <b>Heute</b>, <b>Gestern</b> (weltweit), <b>Woche</b> (beste Runde von Montag bis Sonntag) oder <b>Gesamt</b>. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche (Mo–So)</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt, mit Anzahl der Tage und bestem Tag) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
           <p><b>🌍 Weltweit (App):</b> Bist du bei <b>Google Play Games</b> (Android) bzw. <b>Game Center</b> (iPhone) angemeldet, zeigt die Bestenliste direkt die <b>weltweite Rangliste</b> – mit Heute, Diese Woche und Gesamt, deinem Platz und Details wie Combo, Züge und Steine. Dein Spielername kommt dann aus deinem Profil. Deine besten Endlos-Runden je Feldgröße und dein gewertetes Tagesspiel werden automatisch eingetragen. Ohne Anmeldung (oder offline) siehst du die Ergebnisse auf diesem Gerät. Android und iPhone haben getrennte Ranglisten.</p>
@@ -867,7 +879,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v1.39.0 · Build 68 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v1.40.0 · Build 69 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -881,6 +893,7 @@ const I18N_EN=new Map(Object.entries(Object.assign({},I18N_NAMES,{
   'Abgeräumt':'Cleared','abgeräumt':'cleared','nichts':'nothing','Combo':'Combo','Combos':'Combos',
   'Good':'Good','Super':'Super','Mega':'Mega','Monster':'Monster','Ultra':'Ultra',
   'Abzeichen & Designs · tippen zum Anwenden':'Badges & themes · tap to apply',
+  'Felder':'Boards','mit Hindernissen':'with obstacles','Neues Feld':'New board','🌍 Für dieses Feld gibt es noch keine weltweite Rangliste.':'🌍 There is no worldwide leaderboard for this board yet.','Endlos 5×5 bis Level 15':'Endless 5×5 up to level 15','Endlos 6×6 bis Level 30':'Endless 6×6 up to level 30','Endlos 7×7 bis Level 30':'Endless 7×7 up to level 30','Endlos 8×8 bis Level 30':'Endless 8×8 up to level 30','Welt 7 geschafft oder Endlos 8×8 bis Level 40':'World 7 complete or Endless 8×8 up to level 40','Welt 10 geschafft oder Endlos 9×9 bis Level 40':'World 10 complete or Endless 9×9 up to level 40','Mini-Meister':'Mini Master','Endlos 4×4 bis Level 20':'Endless 4×4 up to level 20','Felsbrecher':'Rock Breaker','6×6 mit Hindernissen bis Level 30':'6×6 with obstacles up to level 30','Steinbruch':'Quarry','7×7 mit Hindernissen bis Level 30':'7×7 with obstacles up to level 30','Gipfelstürmer':'Summit Climber','8×8 mit Hindernissen bis Level 30':'8×8 with obstacles up to level 30','Welt 7':'World 7','Etappe 7-10 geschafft':'Stage 7-10 complete','Alle Welten':'All Worlds','Etappe 10-10 geschafft':'Stage 10-10 complete','Weitblick':'Far Sight','9×9 freigeschaltet':'9×9 unlocked','Großes Feld':'Big Board','10×10 freigeschaltet':'10×10 unlocked','Neuner-Profi':'Nine Pro','Endlos 9×9 bis Level 40':'Endless 9×9 up to level 40','Zehner-Legende':'Ten Legend','Endlos 10×10 bis Level 40':'Endless 10×10 up to level 40','Combo ×8 oder mehr':'Combo ×8 or more','Wochensieger':'Weekly winner','Platz 1 in der Tagesspiel-Woche (Mo–So)':'Rank 1 in the daily game week (Mon–Sun)',
   'All the best':'All-time best','Alle':'All','Als Nächstes':'Up next','An':'On','Aus':'Off','Auto':'Auto','Anmelden':'Sign in',
   'Beste Tagesspiele aller Zeiten':'Best daily games of all time','Bestenliste':'Leaderboard','Bester':'Best','Bester Tag':'Best day',
   'COMBO ×2':'COMBO ×2',
@@ -999,15 +1012,19 @@ const I18N_PATS=(()=>{
   [/^Welt (\d+) · (.+)$/,(m,w,n)=>`World ${w} · ${N(n)}`],
   [/^LEVEL (\d+)$/,'LEVEL $1'],[/^Lvl (\d+)$/,'Lvl $1'],
   [/^\+(\d+) ZÜGE$/,'+$1 MOVES'],
-  [/^Endlos (\d+)×(\d+) · ([\d.,]+) Punkte$/,(m,a,b,p)=>`Endless ${a}×${b} · ${num(p)} points`],
+  [/^Endlos (\d+×\d+(?: 🪨)?) · ([\d.,]+) Punkte$/,(m,a,p)=>`Endless ${a} · ${num(p)} points`],
   [/^Rekord ([\d.,]+)$/,(m,p)=>'Record '+num(p)],
-  [/^Heute noch keine Endlos-Runde auf (\d+)×(\d+)\.$/,'No Endless round on $1×$2 today yet.'],
-  [/^Diese Woche \(So–Sa\) noch keine Endlos-Runde auf (\d+)×(\d+)\.$/,'No Endless round on $1×$2 this week (Sun–Sat) yet.'],
-  [/^Diese Woche \(Mo–So\) noch keine Endlos-Runde auf (\d+)×(\d+)\.$/,'No Endless round on $1×$2 this week (Mon–Sun) yet.'],
-  [/^Endlos (\d+)×(\d+) · Woche (.+) – (.+)$/,'Endless $1×$2 · Week $3 – $4'],
-  [/^Endlos (\d+)×(\d+) · Gesamt$/,'Endless $1×$2 · All time'],
-  [/^Endlos (\d+)×(\d+) · (.+)$/,'Endless $1×$2 · $3'],
-  [/^Noch keine Einträge auf (\d+)×(\d+) – spiel eine Runde Endlos!$/,'No entries on $1×$2 yet – play a round of Endless!'],
+  [/^Heute noch keine Endlos-Runde auf (\d+×\d+(?: 🪨)?)\.$/,'No Endless round on $1 today yet.'],
+  [/^Diese Woche \(So–Sa\) noch keine Endlos-Runde auf (\d+×\d+(?: 🪨)?)\.$/,'No Endless round on $1 this week (Sun–Sat) yet.'],
+  [/^Diese Woche \(Mo–So\) noch keine Endlos-Runde auf (\d+×\d+(?: 🪨)?)\.$/,'No Endless round on $1 this week (Mon–Sun) yet.'],
+  [/^Endlos (\d+×\d+(?: 🪨)?) · Woche (.+) – (.+)$/,'Endless $1 · Week $2 – $3'],
+  [/^(\d+)×(\d+) mit Hindernissen$/,'$1×$2 with obstacles'],
+  [/^Extra-Leben gibt es für Combos ab ×(\d+)$/,'Extra lives for combos of ×$1 or more'],
+  [/^Ab Level (\d+) kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet\.$/,'From level $1 rocks appear – they break when a group right next to them clears.'],
+  [/^Ab Level (\d+) gibt es eine 6\. Farbe: Orange ★\.$/,'From level $1 there is a 6th color: orange ★.'],
+  [/^Endlos (\d+×\d+(?: 🪨)?) · Gesamt$/,'Endless $1 · All time'],
+  [/^Endlos (\d+×\d+(?: 🪨)?) · (.+)$/,'Endless $1 · $2'],
+  [/^Noch keine Einträge auf (\d+×\d+(?: 🪨)?) – spiel eine Runde Endlos!$/,'No entries on $1 yet – play a round of Endless!'],
   [/^Nächstes Tagesspiel in (\d+) h (\d+) min$/,'Next daily game in $1 h $2 min'],[/^Nächstes Tagesspiel in (\d+) h (\d+) min · um (.+)$/,'Next daily game in $1 h $2 min · at $3'],[/^offen bis (.+)$/,'open until $1'],
   [/^Noch (\d+) bis (\S+) (.+)$/,(m,n,b,x)=>`${n} more to ${b} ${N(x)}`],
   [/^([✨⚡🌊🌋👑🌌]) (.+)$/u,(m,b,x)=>I18N_NAMES[x]?`${b} ${N(x)}`:undefined],
@@ -1089,7 +1106,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <section id="hModi"><h3>Game modes</h3>
 <ul><li><b>📅 Daily game</b> – new every day, the same stones for every player, 40 moves. The new day starts worldwide at the same moment: <b>midnight UTC-7</b> all year (Germany: 8:00 in winter, 9:00 in summer) – matching the worldwide leaderboard. Your first round counts, the rest are practice. Share your result as a grid!</li>
 <li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss.</li>
-<li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster.</li></ul>
+<li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster. <b>Unlockable</b> (🎨 Collection → Boards): <b>4×4</b> (Endless 5×5 up to level 15), <b>9×9</b> (World 7 or Endless 8×8 up to level 40), <b>10×10</b> (World 10 or Endless 9×9 up to level 40) and <b>6×6 / 7×7 / 8×8 with obstacles 🪨</b> (Endless on that board up to level 30) – rocks lie on the board from the start. On 9×9 an extra life needs a ×7 combo, on 10×10 a ×8 combo.</li></ul>
 <p><b>🏆 Leaderboard:</b> Top 10 in Endless per board size – <b>Today</b>, <b>Yesterday</b> (worldwide), <b>Week</b> (best round Monday to Sunday) or <b>All time</b>. The <b>daily game</b> has three lists: <b>Today</b> (today's game), <b>Week (Mon–Sun)</b> (points from Monday to Sunday added up – every day played counts, with number of days and best day) and <b>All-time best</b> (the best daily games ever) – each with your <b>player name</b>. Your name and your unique <b>player ID</b> (e.g. KW-1A2B-3C4D) are in ⚙. The short code after the name (#1A2B) tells players with the same name apart.</p>
 <p><b>🌍 Worldwide (app):</b> When you are signed in to <b>Google Play Games</b> (Android) or <b>Game Center</b> (iPhone), the leaderboard shows the <b>worldwide ranking</b> right away – today, this week and all time, with your rank and details like combo, moves and stones. Your player name then comes from your profile. Your best Endless rounds per board size and your scored daily game are entered automatically. Without signing in (or offline) you see the results on this device. Android and iPhone have separate leaderboards.</p>
 <p><b>🏆 Top 5 in the menu (app):</b> When you're signed in to Google Play Games or Game Center, the main menu shows the top 5 of the daily game – switchable between Today, Week and All. If you're not in the top 5, your rank is shown below. Tap to open the full leaderboard. (On Google, “Today” resets at midnight UTC-7. For the daily game the week runs <b>Monday to Sunday</b> (sum of all days). For Endless the best round from Monday to Sunday counts.)</p>
@@ -1109,7 +1126,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1248,7 +1265,7 @@ function weekOf(no,mon){const d=noDate(no),m=mon?(d.getDay()+6)%7:d.getDay();ret
 // Tagesspiel: Woche Mo–So, wenn sie aus den 7 Wochentags-Listen gebildet werden kann (oder ganz ohne Google); sonst Google-Woche So–Sa
 function dailyWeekMon(){try{return !Games.available||Games.hasWd}catch(e){return true}}
 // Endlos: Mo–So mit den Endlos-Wochentags-Listen (oder ohne Google); sonst Google-Woche So–Sa
-function endlessWeekMon(){try{return !Games.available||Games.hasEwd}catch(e){return true}}
+function endlessWeekMon(k){try{return !Games.available||(k?Games.hasEwdFor('e'+k):Games.hasEwd)}catch(e){return true}}
 const weekLbl=mon=>mon?'Woche (Mo–So)':'Woche (So–Sa)';
 function dailyNoOf(k){const[y,m,d]=String(k).split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(2026,9,30))/864e5)+1}
 function dailyNo(){return dailyNoOf(todayKey())}
@@ -1426,13 +1443,14 @@ const Audit=(()=>{
 // Android: Projekt-ID 414239949537 (games-ids.xml). IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ',
+  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',e4:'',e9:'',e10:'',e6h:'',e7h:'',e8h:'',daily:'CgkI4YWAlYcMEAIQBQ',
       // Tagesspiel je Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So; leer = aus
       wd:['CgkI4YWAlYcMEAIQBg','CgkI4YWAlYcMEAIQBw','CgkI4YWAlYcMEAIQCA','CgkI4YWAlYcMEAIQCQ','CgkI4YWAlYcMEAIQCg','CgkI4YWAlYcMEAIQCw','CgkI4YWAlYcMEAIQDA'],
       // Endlos je Feldgröße und Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So (beste Runde)
       ewd:{5:['CgkI4YWAlYcMEAIQGQ','CgkI4YWAlYcMEAIQGg','CgkI4YWAlYcMEAIQGw','CgkI4YWAlYcMEAIQHA','CgkI4YWAlYcMEAIQHQ','CgkI4YWAlYcMEAIQHg','CgkI4YWAlYcMEAIQHw'],6:['CgkI4YWAlYcMEAIQIA','CgkI4YWAlYcMEAIQIQ','CgkI4YWAlYcMEAIQIg','CgkI4YWAlYcMEAIQIw','CgkI4YWAlYcMEAIQJA','CgkI4YWAlYcMEAIQJQ','CgkI4YWAlYcMEAIQJg'],7:['CgkI4YWAlYcMEAIQJw','CgkI4YWAlYcMEAIQKA','CgkI4YWAlYcMEAIQKQ','CgkI4YWAlYcMEAIQKg','CgkI4YWAlYcMEAIQKw','CgkI4YWAlYcMEAIQLA','CgkI4YWAlYcMEAIQLQ'],8:['CgkI4YWAlYcMEAIQLg','CgkI4YWAlYcMEAIQLw','CgkI4YWAlYcMEAIQMA','CgkI4YWAlYcMEAIQMQ','CgkI4YWAlYcMEAIQMg','CgkI4YWAlYcMEAIQMw','CgkI4YWAlYcMEAIQNA']},
       // Erfolge (Abzeichen) – IDs aus der Play Console, leer = nur in der App
-      ach:{funke:'CgkI4YWAlYcMEAIQDQ',woche:'CgkI4YWAlYcMEAIQDg',zwei:'CgkI4YWAlYcMEAIQDw',monat:'CgkI4YWAlYcMEAIQEA',fuenfzig:'CgkI4YWAlYcMEAIQEQ',hundert:'CgkI4YWAlYcMEAIQEg',ultra:'CgkI4YWAlYcMEAIQEw',welt1:'CgkI4YWAlYcMEAIQFA',sterne:'CgkI4YWAlYcMEAIQFQ',stammgast:'CgkI4YWAlYcMEAIQFg',sieger:'CgkI4YWAlYcMEAIQFw',profi:'CgkI4YWAlYcMEAIQGA'}},
+      ach:{funke:'CgkI4YWAlYcMEAIQDQ',woche:'CgkI4YWAlYcMEAIQDg',zwei:'CgkI4YWAlYcMEAIQDw',monat:'CgkI4YWAlYcMEAIQEA',fuenfzig:'CgkI4YWAlYcMEAIQEQ',hundert:'CgkI4YWAlYcMEAIQEg',ultra:'CgkI4YWAlYcMEAIQEw',welt1:'CgkI4YWAlYcMEAIQFA',sterne:'CgkI4YWAlYcMEAIQFQ',stammgast:'CgkI4YWAlYcMEAIQFg',sieger:'CgkI4YWAlYcMEAIQFw',profi:'CgkI4YWAlYcMEAIQGA',
+        mini:'',fels6:'',fels7:'',fels8:'',welt7:'',welten:'',weitblick:'',gross:'',neuner:'',zehner:'',ultra8:'',wochensieger:''}},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 // Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
 // c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
@@ -1456,7 +1474,7 @@ const Games=(()=>{
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
   // Schlüssel → ID: e5…e8, daily, wd0…wd6 (Tagesspiel je Wochentag Mo=0 … So=6), e5wd0…e8wd6 (Endlos je Wochentag)
   const idOf=k=>{let m=/^wd([0-6])$/.exec(k);if(m)return(Array.isArray(cfg.wd)&&cfg.wd[+m[1]])||'';
-    m=/^e([5-8])wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
+    m=/^e(\d+h?)wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
   const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
   const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
       for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===sig(k,v.s,v.t))r[k]={s:v.s,t:v.t||''}}   // nur unveränderte, signierte Werte
@@ -1505,6 +1523,9 @@ const Games=(()=>{
       flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
     async top(key,span,n){if(!available||!signedIn||!idOf(key))throw new Error('n/a');return await P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:n||5})},
     get hasWd(){return Array.isArray(cfg.wd)&&cfg.wd.length===7&&cfg.wd.every(Boolean)},
+    hasId:k=>!!idOf(k),
+    // Endlos-Wochentags-Listen für ein Feld ('e6', 'e9', 'e6h' …) vollständig?
+    hasEwdFor(k){const n=String(k).replace(/^e/,'');return !!cfg.ewd&&Array.isArray(cfg.ewd[n])&&cfg.ewd[n].length===7&&cfg.ewd[n].every(Boolean)},
     get hasEwd(){return !!cfg.ewd&&[5,6,7,8].every(n=>Array.isArray(cfg.ewd[n])&&cfg.ewd[n].length===7&&cfg.ewd[n].every(Boolean))},
     async show(key){if(!available)return;if(!(await signIn()))return false;
       try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
@@ -1513,8 +1534,9 @@ const Games=(()=>{
 {let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
 const fmtDate=()=>now().toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit',year:'2-digit'});
 scores.endless.forEach(x=>{if(!x.size)x.size=6});   // Migration: alte Einträge = 6×6
-const sizeList=n=>scores.endless.filter(x=>x.size===n);
-const bestFor=n=>{const l=sizeList(n);return l.length?l[0].score:0};
+const keyOf=x=>String(x.size)+(x.h?'h':'');   // Feld-Kürzel eines Eintrags
+const sizeList=k=>{k=String(k);return scores.endless.filter(x=>keyOf(x)===k)};
+const bestFor=k=>{const l=sizeList(k);return l.length?l[0].score:0};
 best=bestFor(6);
 function addScore(list,entry,key='score'){
   scores[list].push(entry);scores[list].sort((a,b)=>b[key]-a[key]);
@@ -1682,11 +1704,25 @@ function dailyStats(){
   return{played:keys.length,streak,best:sc.length?Math.max(...sc):0,avg:sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0}}
 
 function setSize(n){
-  N=n;const b=$('board');b.style.setProperty('--n',n);b.classList.remove('n5','n6','n7','n8');b.classList.add('n'+n);
+  N=n;const b=$('board');b.style.setProperty('--n',n);b.className=b.className.replace(/\bn\d+\b/g,'').trim();b.classList.add('n'+n);
   const c=$('cells');c.innerHTML='';for(let i=0;i<N*N;i++)c.appendChild(document.createElement('div'));
 }
 setSize(6);
-const START_TILES={5:6,6:8,7:10,8:14}, BASE_SPAWN={5:1,6:2,7:3,8:4};
+const START_TILES={4:4,5:6,6:8,7:10,8:14,9:18,10:22}, BASE_SPAWN={4:1,5:1,6:2,7:3,8:4,9:5,10:6};
+// ---------- Spielfelder (Endlos): Kürzel '4' … '10', dazu '6h' '7h' '8h' = mit Hindernissen ----------
+const BOARDS=['4','5','6','7','8','9','10','6h','7h','8h'],BOARDS_FREE=['5','6','7','8'];
+const bN=k=>parseInt(k,10)||6, bH=k=>/h$/.test(String(k));
+const bLabel=(k,long)=>{const n=bN(k);return n+'×'+n+(bH(k)?(long?' '+I18N.tr('mit Hindernissen'):' 🪨'):'')};
+let BK='6';   // aktuelles Endlos-Feld
+const boardOpen=k=>{if(BOARDS_FREE.includes(String(k)))return true;try{return Unlocks.has('board',String(k))}catch(e){return false}};   // Unlocks wird später geladen
+function curBoard(){const k=String(settings.size||'6');return BOARDS.includes(k)&&boardOpen(k)?k:'6'}
+// höchstes erreichtes Endlos-Level je Feld (für Freischaltungen und Abzeichen)
+const MaxLv=(()=>{const K='kippwerk_maxlv';let o={};try{const x=JSON.parse(localStorage.getItem(K)||'{}');if(x&&typeof x==='object')o=x}catch(e){}
+  const save=()=>{try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}};
+  return{get:k=>+o[String(k)]||0,note(k,l){k=String(k);if(l>(+o[k]||0)){o[k]=l;save()}},all:()=>({...o}),
+    merge(x){let c=false;for(const k in x||{})if(+x[k]>(+o[k]||0)){o[k]=+x[k];c=true}if(c)save()}}})();
+// höchste Level aus Bestenliste und Verlauf übernehmen (auch für Stände vor v1.40)
+try{for(const x of scores.endless)MaxLv.note(keyOf(x),+x.level||0);for(const x of History.all())if(x.t==='e')MaxLv.note(keyOf(x),+x.level||0)}catch(e){}
 const perLevel=()=>N===6?30:Math.round(30*N*N/36);
 
 // ---------- Audio ----------
@@ -1792,7 +1828,7 @@ const Music=(()=>{
 })();
 // Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
 // Ab welchem Endlos-Level die Musik eine Stufe schneller wird – je Feldgröße (aus Bot-Simulation, v1.32)
-const MUSIC_STEPS={5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32]};
+const MUSIC_STEPS={4:[3,5,7,10],5:[3,5,7,10],6:[5,10,16,22],7:[4,8,13,18],8:[8,15,23,32],9:[8,15,23,32],10:[8,15,23,32]};
 function musicSync(){
   const menu=!$('startOv').classList.contains('hidden')||!started||over;
   if(menu){Music.track('menu');Music.danger(false);return}
@@ -1810,8 +1846,15 @@ function musicSync(){
 // ---------- Rules ----------
 // Endlos ab 6×6: ab Level 30 Felsen; große Felder (7×7, 8×8) zusätzlich ab Level 40 eine 6. Farbe (★ Orange)
 const BIG_ROCKS=30,BIG_COLOR6=40;
-const numColors=()=>mode==='level'?LV.colors:(N>=7&&level>=BIG_COLOR6)?6:(N>=7||level>=3)?5:4;
-const rockChance=()=>mode==='endless'&&N>=6&&level>=BIG_ROCKS?Math.min(.15,.06+(level-BIG_ROCKS)*.005):0;
+// 4×4: immer 4 Farben · 10×10: 6. Farbe schon ab Level 30, Felsen ab Level 25
+const obst=()=>mode==='endless'&&bH(BK);
+const rocksFrom=()=>N>=10?25:BIG_ROCKS, color6From=()=>N>=10?30:BIG_COLOR6;
+const numColors=()=>mode==='level'?LV.colors:N<=4?4:(N>=7&&level>=color6From())?6:(N>=7||level>=3)?5:4;
+// Hindernis-Felder: Felsen von Anfang an (6×6 ab 6 %, 7×7/8×8 ab 10 %, steigend)
+const rockChance=()=>mode!=='endless'?0:obst()?(N>=7?Math.min(.18,.10+level*.002):Math.min(.15,.06+level*.003))
+  :N>=6&&level>=rocksFrom()?Math.min(.15,.06+(level-rocksFrom())*.005):0;
+// Extra-Leben ab Combo ×6, auf 9×9 ab ×7, auf 10×10 ab ×8
+const lifeAt=()=>mode==='endless'&&N>=10?8:mode==='endless'&&N>=9?7:6;
 const spawnCount=()=>mode==='level'?LV.spawn:BASE_SPAWN[N]+(level>=4?1:0)+(level>=10?1:0)+(N>=7?Math.floor((level-1)/6):0);
 const wildChance=()=>mode==='level'?(LV.wild||0):level>=2?.05:0;
 function randColor(){const w=rc(),c=rc();const rk=rockChance();if(rk&&rc()<rk)return ROCK;return w<wildChance()?WILD:Math.floor(c*numColors())}
@@ -2039,8 +2082,8 @@ async function resolve(dir,chain){
     for(const i of [...cells,...rocks]){const t=grid[i];const el=els.get(t.id);if(el){el.classList.add('pop');setTimeout(()=>el.remove(),230)}els.delete(t.id);grid[i]=null}
     comboFx(chain);
     if(mode==='endless'&&level>lvBefore){setTimeout(()=>{banner('LEVEL '+level);sfx.level();try{Fly.react('level')}catch(e){}},chain>1?700:200)
-      if(N>=6&&lvBefore<BIG_ROCKS&&level>=BIG_ROCKS)setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level 30 kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
-      if(N>=7&&lvBefore<BIG_COLOR6&&level>=BIG_COLOR6)setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level 40 gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
+      if(N>=6&&!obst()&&lvBefore<rocksFrom()&&level>=rocksFrom())setTimeout(()=>{banner('🪨 FELSEN!','combo c4','AB JETZT IM SPIEL');toast('Ab Level '+rocksFrom()+' kommen Felsen dazu – sie zerbrechen, wenn direkt daneben eine Gruppe verschwindet.')},chain>1?1900:1400);
+      if(N>=7&&lvBefore<color6From()&&level>=color6From())setTimeout(()=>{banner('★ NEUE FARBE','combo c4','ORANGE');toast('Ab Level '+color6From()+' gibt es eine 6. Farbe: Orange ★.')},chain>1?1900:1400)}
     render();
     await sleep(230);
     if(dir&&slide(dir)){render();await sleep(150)}
@@ -2058,7 +2101,7 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=6)gainLife();renderInfo();
+  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
@@ -2089,7 +2132,7 @@ function gameOver(reason){
     $('lifeBtn').style.display=canLife?'':'none';$('lifeBtn').textContent=`❤ LEBEN EINSETZEN (${lives} übrig)`;
     $('rescueBtn').style.display=canVideo?'':'none';
     $('rescueBtn').disabled=false;$('rescueBtn').textContent='🎬 VIDEO ANSEHEN & WEITER';
-    $('rescueHint').textContent=canVideo?'Video: einmal pro Runde · Leben: so viele du hast':'Extra-Leben gibt es für ULTRA-Combos (×6)';
+    $('rescueHint').textContent=canVideo?'Video: einmal pro Runde · Leben: so viele du hast':'Extra-Leben gibt es für Combos ab ×'+lifeAt();
     setTimeout(()=>$('rescueOv').classList.remove('hidden'),500);return;
   }
   endRound(reason);
@@ -2194,12 +2237,13 @@ function finishGame(reason){
     $('overTitle').textContent='FELD VOLL';
     const isBest=score>best;if(isBest)try{Fly.react('record')}catch(e){}
     setTimeout(()=>Unlocks.check(),1200);   // Abzeichen/Designs (z. B. Endlos-Profi)
-    if(score>0)History.add({d:todayKey(),t:'e',size:N,score,level,chain:bestChain,moves:history.length,cleared});
-    const sl=sizeList(N);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
+    MaxLv.note(BK,level);
+    if(score>0)History.add({d:todayKey(),t:'e',size:N,...(bH(BK)?{h:1}:{}),score,level,chain:bestChain,moves:history.length,cleared});
+    const sl=sizeList(BK);const qualifies=score>0&&(sl.length<TOP||score>sl[sl.length-1].score);
     let rank=0;lastEntry=null;
-    if(Audit.ok(score,cleared,history.length)){const tg=ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level,day:todayKey()});Games.submit('e'+N,score,tg);Games.submit('e'+N+'wd'+wdOf(todayKey()),score,tg)}else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+N,score,'⛔ '+Audit.reason)}
-    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N};addScore('endless',lastEntry);rank=sizeList(N).indexOf(lastEntry)+1;}
-    best=bestFor(N);
+    if(Audit.ok(score,cleared,history.length)){const tg=ScoreTag.enc({chain:bestChain,moves:history.length,cleared,level,day:todayKey()});Games.submit('e'+BK,score,tg);Games.submit('e'+BK+'wd'+wdOf(todayKey()),score,tg)}else{console.warn('Ergebnis nicht gemeldet:',Audit.reason);Games.note('e'+BK,score,'⛔ '+Audit.reason)}
+    if(qualifies){lastEntry={name:playerName||'Spieler',pid:playerId,score,level,chain:bestChain,moves:history.length,cleared,date:fmtDate(),size:N,...(bH(BK)?{h:1}:{})};addScore('endless',lastEntry);rank=sizeList(BK).indexOf(lastEntry)+1;}
+    best=bestFor(BK);
     $('overText').textContent=(isBest?'🏆 Neuer Rekord! ':rank?`Platz ${rank} in der Bestenliste! `:'')+'Level '+level+' · '+cleared+' Steine abgeräumt · '+comboSummary()+'.'+(!isBest?' Rekord: '+best.toLocaleString(LOC()):'');
     $('nameRow').style.display=rank&&!(Games.signedIn&&Games.player&&Games.player.name)?'':'none';
     $('nameInput').value=playerName;$('saveName').textContent='EINTRAGEN';
@@ -2212,12 +2256,13 @@ function newGame(){
   if(mode==='daily'){const s=hashStr('kippwerk-'+todayKey());rc=mulberry32(s);rp=mulberry32(s^0x9e3779b9);practice=!!loadDaily()}
   else if(tut){rc=mulberry32(20261117);rp=mulberry32(7);practice=false}
   else{rc=Math.random;rp=Math.random;practice=false}
-  setSize(mode==='endless'&&!tut?(+settings.size||6):6);
+  if(mode==='endless'&&!tut)BK=curBoard();
+  setSize(mode==='endless'&&!tut?bN(BK):6);
   grid=Array(N*N).fill(null);nextQ=[];score=0;cleared=0;level=1;busy=false;over=false;tileId=0;Audit.reset();
-  best=bestFor(N);
+  best=bestFor(mode==='endless'?BK:N);
   movesLeft=mode==='level'?LV.moves:DAILY_MOVES;history=[];bestChain=0;combos=[0,0,0,0,0,0,0];rescued=false;
   prog=mode==='level'?{color:[0,0,0,0,0],chain:0,rocks:0,clear:0}:null;
-  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(N!==6?N+'×'+N:'');
+  $('modeTag').textContent=mode==='daily'?(practice?'Übung ':'Tag ')+dayShort(dailyNo()):mode==='level'?'Etappe '+stg(lvNo):(BK!=='6'?bLabel(BK):'');
   if(mode==='level')for(const[r,c]of(LV.rocks||[]))grid[idx(r,c)]={id:++tileId,color:ROCK,r,c};
   if(tut){   // feste Aufstellung für das Tutorial (6×6)
     nextQ=[1,3,0,2,1,3];
@@ -2225,13 +2270,15 @@ function newGame(){
     $('modeTag').textContent='Tutorial';render();return}
   fillQueue();
   // Startaufstellung ohne fertige Gruppen
-  let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N>=7?5:4);
+  let placed=0;const startN=mode==='level'?(LV.start||8):START_TILES[N],startC=mode==='level'?LV.colors:(N<=4?4:N>=7?5:4);
   while(placed<startN){
     const i=Math.floor(rp()*N*N);if(grid[i])continue;
     grid[i]={id:++tileId,color:Math.floor(rc()*startC),r:Math.floor(i/N),c:i%N};
     if(findGroups().cells.length){grid[i]=null;continue}
     placed++;
   }
+  // Hindernis-Felder: Start mit Felsen (6×6: 2, 7×7/8×8: 3)
+  if(obst()){let k=N>=7?3:2;while(k>0){const i=Math.floor(rp()*N*N);if(grid[i])continue;grid[i]={id:++tileId,color:ROCK,r:Math.floor(i/N),c:i%N};k--}}
   render();
 }
 
@@ -2274,15 +2321,15 @@ function showMenu(){
   $('levelSub').textContent=WORLDS[w-1]||'Welt '+w;$('levelStars').textContent='⭐ '+totalStars();
   $('levelBar').style.width=Math.max(3,Object.keys(LP).length/LEVELS.length*100)+'%';
   // Endlos
-  const sz=+settings.size||6,bs=bestFor(sz);
-  $('endlessSize').textContent=sz+'×'+sz;
+  const sz=curBoard(),bs=bestFor(sz);renderSizeSegs();
+  $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
-  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===String(settings.size)));
+  document.querySelectorAll('.seg[data-key="size"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===sz));
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
   $('startOv').classList.toggle('paused',!!paused);$('resumeBtn').style.display=paused?'':'none';
-  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${N}×${N} · ${score.toLocaleString(LOC())} Punkte`);
+  if(paused)$('resumeInfo').textContent=(mode==='daily'?`Tagesspiel ${dayLabel(dailyNo())} · noch ${movesLeft} Züge`:mode==='level'?`Etappe ${stg(lvNo)} · noch ${movesLeft} Züge`:`Endlos ${bLabel(BK)} · ${score.toLocaleString(LOC())} Punkte`);
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
@@ -2304,7 +2351,10 @@ $('lvlRetry').onclick=()=>{maybeInter();start('level')};
 $('lvlMap').onclick=()=>{maybeInter();openLevels()};
 // Einstellungen
 let settingsReturn=null,resetArm={};
-function renderSettings(){
+// Feldauswahl (Menü + Einstellungen): nur freigeschaltete Felder
+function renderSizeSegs(){const cur=curBoard();document.querySelectorAll('.seg[data-key="size"]').forEach(sg=>{const big=!!sg.closest('.home-size');
+  const h=BOARDS.filter(boardOpen).map(k=>`<button data-v="${k}"${k===cur?' class="on"':''}>${big?bLabel(k):bN(k)+(bH(k)?'🪨':'')}</button>`).join('');if(sg.innerHTML!==h)sg.innerHTML=h})}
+function renderSettings(){renderSizeSegs();
   $('setName').value=playerName;$('pidText').textContent=shortId(playerId)+' '+myTag();
   $('newsVer').textContent='v'+APP_VER;
   $('themeName').textContent=I18N.tr(THEME_NAMES[settings.theme]||'Standard')+(settings.kippi&&settings.kippi!=='none'?' · 🪰':'');
@@ -2382,6 +2432,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['1.40.0','Neue Felder zum Freischalten: 4×4, 9×9, 10×10 sowie 6×6/7×7/8×8 mit Hindernissen 🪨 – zu finden in 🎨 Sammlung → Felder. 12 neue Abzeichen. Extra-Leben auf 9×9 ab Combo ×7, auf 10×10 ab ×8'],
  ['1.39.0','Endlos jetzt auch mit Woche Montag–Sonntag (beste Runde der Woche) und „Gestern“ – für jede Feldgröße'],
  ['1.38.0','Tagesspiel-Woche jetzt von Montag bis Sonntag: Punkte aller Tagesspiele der Woche zusammengezählt (weltweit, mit gespielten Tagen und bestem Tag). Endlos bleibt bei der Google-Woche So–Sa. Erfolge in Google Play Spiele aktiv, „Gestern“ im Tagesspiel'],
  ['1.37.0','Endlos-Bestenlisten jetzt auch nach Zeitraum: Heute, Woche (So–Sa) und Gesamt – weltweit und auf diesem Gerät'],
@@ -2508,7 +2559,7 @@ $('saveName').onclick=()=>{
   if(lastEntry){lastEntry.name=n;saveScores()}
   for(const l of [scores.endless,scores.daily])for(const x of l)if(x.pid===playerId&&(x.name==='Spieler'||!x.name))x.name=n;saveScores();
   $('nameInput').blur();$('saveName').textContent='✓ GESPEICHERT';try{$('setName').value=n}catch(e){}};
-let scoresTab='endless',scoresReturn=null,scoresSize=6,scoresPeriod='day';
+let scoresTab='endless',scoresReturn=null,scoresSize='6',scoresPeriod='day';
 let endlessSpan='all';   // Zeitraum der weltweiten Endlos-Listen (Tagesspiel nutzt scoresPeriod)
 $('periodTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(scoresTab==='endless')endlessSpan=b.dataset.p;else scoresPeriod=b.dataset.p;renderScores()};
 const PERIOD_TXT={day:()=>'Tagesspiel '+dayLabel(dailyNo()),week:()=>{const w=weekOf(dailyNo(),dailyWeekMon());return 'Woche '+dayShort(w)+' – '+dayShort(w+6)},all:()=>'Beste Tagesspiele aller Zeiten'};
@@ -2546,8 +2597,8 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:best?mp.tag:'',rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
   return{entries:pub.slice(0,n||25),me}}
 // Rangliste laden – beim Tagesspiel „Woche“ die eigene Woche Mo–So, sonst direkt von Google
-function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e[5-8]$/.test(k)&&Games.hasEwd)return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}
-const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwd;
+function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e\d/.test(k)&&Games.hasEwdFor(k))return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}
+const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwdFor(k);
 // „Gestern“: Liste des gestrigen Wochentags; nur Einträge mit gestrigem Datum (Score-Tag d…). Erst Woche, sonst Gesamt (Wochenwechsel)
 async function loadYesterday(pre){const yk=addDays(todayKey(),-1),k=(pre||'wd')+wdOf(yk),d8=yk.replace(/-/g,'');
   const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
@@ -2576,7 +2627,10 @@ function drawOnline(d){
   const sp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('scoresEmpty').style.display=h?'none':'';
   $('scoresEmpty').textContent=I18N.tr(sp==='yday'?(scoresTab==='endless'?'Gestern keine Endlos-Runden auf dieser Feldgröße.':'Gestern hat niemand das Tagesspiel gewertet.'):sp==='day'?'Heute noch keine Einträge – hol dir Platz 1!':sp==='week'?(weekMonOf(scoresTab==='endless'?'e'+scoresSize:'daily')?'Diese Woche (Mo–So) noch keine Einträge – hol dir Platz 1!':'Diese Woche (So–Sa) noch keine Einträge – die Google-Woche beginnt sonntags. Hol dir Platz 1!'):'Noch keine Einträge – hol dir Platz 1!')}
-$('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=+b.dataset.n;renderScores()};
+$('sizeTabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;scoresSize=b.dataset.n;renderScores()};
+// Feld-Reiter in der Bestenliste: alle freigeschalteten Felder
+function renderSizeTabs(){const h=BOARDS.filter(k=>boardOpen(k)||sizeList(k).length).map(k=>`<button data-n="${k}">${bLabel(k)}</button>`).join('');const t=$('sizeTabs');if(t.innerHTML!==h)t.innerHTML=h;
+  t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.n===String(scoresSize)))}
 const tag=x=>x.pid?`<small class="ptag">#${String(x.pid).replace(/-/g,'').slice(0,4).toUpperCase()}</small>`:'';
 const escH=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // Zusatzzeile in der Bestenliste: Level · beste Combo · Züge · abgeräumte Steine · Datum
@@ -2590,12 +2644,12 @@ function renderScores(){
   $('tabEndless').classList.toggle('on',scoresTab==='endless');$('tabDaily').classList.toggle('on',scoresTab==='daily');$('tabMine').classList.toggle('on',scoresTab==='mine');
   $('sizeTabs').style.display=scoresTab==='endless'?'':'none';
   // „Gestern“ nur weltweit und nur, wenn die Wochentags-Listen eingerichtet sind
-  const yd=onlineOn()&&(scoresTab==='daily'?Games.hasWd:scoresTab==='endless'&&Games.hasEwd);$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(!(onlineOn()&&Games.hasEwd)&&endlessSpan==='yday')endlessSpan='all';
-  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()?Games.hasEwd:endlessWeekMon()):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
+  const yd=onlineOn()&&(scoresTab==='daily'?Games.hasWd:scoresTab==='endless'&&Games.hasEwdFor('e'+scoresSize));$('pYday').style.display=yd?'':'none';if(!(onlineOn()&&Games.hasWd)&&scoresPeriod==='yday')scoresPeriod='day';if(!(onlineOn()&&Games.hasEwdFor('e'+scoresSize))&&endlessSpan==='yday')endlessSpan='all';
+  {const wb=$('periodTabs').querySelector('[data-p=week]');if(wb)wb.textContent=(scoresTab==='endless'?(onlineOn()&&Games.hasId('e'+scoresSize)?Games.hasEwdFor('e'+scoresSize):endlessWeekMon(scoresSize)):dailyWeekMon())?'Woche':'Woche (So–Sa)'}
   if(scoresTab==='mine'){renderMine();return}
-  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderSizeTabs();
   renderGamesBtn();
-  if(onlineOn())renderOnline();else renderLocal()}
+  if(onlineOn()&&(scoresTab!=='endless'||Games.hasId('e'+scoresSize)))renderOnline();else renderLocal()}
 // ---------- Meine Tage: eigene Tagesspiele und Endlos-Runden, Tag für Tag ----------
 // Altes Datumsformat der Endlos-Bestenliste (21.11.26 bzw. 11/21/26) → JJJJ-MM-TT
 const legacyKey=s=>{let m=String(s||'').match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/),y,mo,d;
@@ -2614,16 +2668,16 @@ function renderMine(){
   $('dailyStats').innerHTML=`<div><b>${list.length}</b><small>Spieltage</small></div><div><b>${all.length}</b><small>Spiele</small></div><div><b>${bd.toLocaleString(LOC())}</b><small>Bestes Tagesspiel</small></div><div><b>${be.toLocaleString(LOC())}</b><small>Bestes Endlos</small></div>`;
   $('periodInfo').textContent=I18N.tr('Deine Spiele, neueste zuerst');$('periodInfo').style.display='';
   const row=x=>{const top=x.t==='d'?x.score===bd&&bd>0:x.score===be&&be>0;
-    const what=x.t==='d'?'📅 '+I18N.tr('Tagesspiel'):'∞ '+I18N.tr('Endlos')+' '+x.size+'×'+x.size;
+    const what=x.t==='d'?'📅 '+I18N.tr('Tagesspiel'):'∞ '+I18N.tr('Endlos')+' '+bLabel(keyOf(x));
     return `<tr class="${x===lastEntry?'me':''}"><td class="rank">${top?'🏆':''}</td><td>${what}<small class="sub">${metaLine(x,x.t==='e'&&x.level?'Lvl '+x.level:'','')||'&nbsp;'}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`};
   $('scoresTable').innerHTML=list.slice(0,45).map(d=>`<tr class="dayhd"><td colspan="3">${dayLabel(dailyNoOf(d.k))}</td></tr>`+d.items.map(row).join('')).join('');
   $('scoresEmpty').style.display=list.length?'none':'';$('scoresEmpty').textContent=I18N.tr('Noch kein Spiel gespielt.')}
 // Endlos auf diesem Gerät nach Zeitraum: Heute / Woche (So–Sa) aus dem Verlauf, Gesamt = Rekordliste
-const ENDLESS_TXT={day:n=>`Endlos ${n}×${n} · `+dayLabel(dailyNo()),week:n=>{const w=weekOf(dailyNo(),endlessWeekMon());return `Endlos ${n}×${n} · Woche `+dayShort(w)+' – '+dayShort(w+6)},all:n=>`Endlos ${n}×${n} · Gesamt`};
+const ENDLESS_TXT={day:n=>`Endlos ${bLabel(n)} · `+dayLabel(dailyNo()),week:n=>{const w=weekOf(dailyNo(),endlessWeekMon(n));return `Endlos ${bLabel(n)} · Woche `+dayShort(w)+' – '+dayShort(w+6)},all:n=>`Endlos ${bLabel(n)} · Gesamt`};
 function endlessLocal(n,sp){if(sp!=='day'&&sp!=='week')return sizeList(n);
-  const t=todayKey(),w0=dk(noDate(weekOf(dailyNo(),endlessWeekMon()))),w1=addDays(w0,6),hist=History.all(),seen=new Set(),out=[];
+  const t=todayKey(),w0=dk(noDate(weekOf(dailyNo(),endlessWeekMon(n)))),w1=addDays(w0,6),hist=History.all(),seen=new Set(),out=[];
   const inSpan=k=>k&&(sp==='day'?k===t:k>=w0&&k<=w1);
-  for(const x of hist)if(x.size===n&&inSpan(x.d)){out.push(x);seen.add(x.d+'|'+x.score)}
+  for(const x of hist)if(keyOf(x)===String(n)&&inSpan(x.d)){out.push(x);seen.add(x.d+'|'+x.score)}
   for(const x of sizeList(n)){const k=legacyKey(x.date);if(inSpan(k)&&!seen.has(k+'|'+x.score))out.push(x)}
   return out.sort((a,b)=>b.score-a.score)}
 function renderLocal(note){
@@ -2632,7 +2686,7 @@ function renderLocal(note){
   const lsp=scoresTab==='endless'?endlessSpan:scoresPeriod;
   $('periodTabs').style.display='';
   $('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===lsp));
-  $('sizeTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.n===scoresSize));
+  renderSizeTabs();
   renderGamesBtn();
   const today=dailyNo(),wk=weekOf(today,dailyWeekMon());
   const dl=scores.daily.filter(x=>scoresPeriod==='day'?x.no===today:scoresPeriod==='week'?x.no>=wk&&x.no<wk+7:true);
@@ -2647,7 +2701,7 @@ function renderLocal(note){
       ?`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,x.level?'Lvl '+x.level:'',x.d?dayLabel(dailyNoOf(x.d)):esc(x.date||''))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`
       :`<tr class="${x===lastEntry?'me':''}"><td class="rank">${medal}</td><td>${esc(x.name||playerName||'Spieler')}${tag(x)}<small class="sub">${metaLine(x,'',dayLabel(x.no))}</small></td><td class="r">${x.score.toLocaleString(LOC())}</td></tr>`}).join('');
   $('scoresEmpty').style.display=list.length?'none':'';
-  $('scoresEmpty').textContent=scoresTab==='endless'?(endlessSpan==='day'?`Heute noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:endlessSpan==='week'?`Diese ${weekLbl(endlessWeekMon())} noch keine Endlos-Runde auf ${scoresSize}×${scoresSize}.`:`Noch keine Einträge auf ${scoresSize}×${scoresSize} – spiel eine Runde Endlos!`):scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?(dailyWeekMon()?'Diese Woche (Mo–So) noch kein Tagesspiel gespielt.':'Diese Woche (So–Sa) noch kein Tagesspiel gespielt.'):'Noch kein Tagesspiel gespielt.';
+  $('scoresEmpty').textContent=scoresTab==='endless'?(endlessSpan==='day'?`Heute noch keine Endlos-Runde auf ${bLabel(scoresSize)}.`:endlessSpan==='week'?`Diese ${weekLbl(endlessWeekMon(scoresSize))} noch keine Endlos-Runde auf ${bLabel(scoresSize)}.`:`Noch keine Einträge auf ${bLabel(scoresSize)} – spiel eine Runde Endlos!`):scoresPeriod==='day'?'Heute noch nicht gespielt – das Tagesspiel wartet!':scoresPeriod==='week'?(dailyWeekMon()?'Diese Woche (Mo–So) noch kein Tagesspiel gespielt.':'Diese Woche (So–Sa) noch kein Tagesspiel gespielt.'):'Noch kein Tagesspiel gespielt.';
   const pt=scoresTab==='daily'?PERIOD_TXT[scoresPeriod]():ENDLESS_TXT[endlessSpan](scoresSize);
   $('periodInfo').textContent=note?note+' · '+I18N.tr(pt):pt;$('periodInfo').style.display='';
 }
@@ -2655,7 +2709,7 @@ function openScores(tab){
   scoresReturn=!$('overOv').classList.contains('hidden')?'over':!$('startOv').classList.contains('hidden')?'start':null;
   if(started&&!over){paused=true;started=false;scoresReturn='pause'}
   $('overOv').classList.add('hidden');$('startOv').classList.add('hidden');
-  scoresTab=(tab==='level'?'endless':tab)||scoresTab;scoresSize=mode==='endless'?N:(+settings.size||6);renderScores();$('scoresOv').classList.remove('hidden')}
+  scoresTab=(tab==='level'?'endless':tab)||scoresTab;scoresSize=mode==='endless'?BK:curBoard();renderScores();$('scoresOv').classList.remove('hidden')}
 $('scoresBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidden)'))return;openScores(mode==='level'?'endless':mode)};
 $('overScoresBtn').onclick=()=>openScores(mode);
 $('tabEndless').onclick=()=>{scoresTab='endless';renderScores()};
@@ -2679,7 +2733,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ST){const
 const googleDayStart=()=>dayStartTime();
 const Top5=(()=>{
   const SK='kippwerk_top5span',BK='kippwerk_top5board',cache={};let span='day',board='daily';try{span=localStorage.getItem(SK)||'day';board=localStorage.getItem(BK)||'daily'}catch(e){}
-  const key=()=>board==='daily'?'daily':'e'+(+settings.size||6);
+  const key=()=>board==='daily'?'daily':'e'+curBoard();
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:()=>weekMonOf(key())?'Diese Woche (Mo–So) noch keine Ergebnisse.':'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
@@ -2696,10 +2750,11 @@ const Top5=(()=>{
   async function refresh(force){
     const box=$('homeTop5');if(!Games.available){box.style.display='none';return}
     box.style.display='';$('top5Seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===span));
-    const n=+settings.size||6;$('top5Endless').textContent=I18N.tr('Endlos')+' '+n+'×'+n;
+    $('top5Endless').textContent=I18N.tr('Endlos')+' '+bLabel(curBoard());
     $('top5Board').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.b===board));
     {const wb=$('top5Seg').querySelector('[data-p=week]');if(wb)wb.textContent=weekMonOf(key())?'Woche':'So–Sa'}
     const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('Neuer Tag ab')+' '+t:'';
+    if(board!=='daily'&&!Games.hasId(key())){$('top5List').innerHTML=`<div class="t5-msg">${I18N.tr('🌍 Für dieses Feld gibt es noch keine weltweite Rangliste.')}</div>`;return}
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
     const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
     if(!c)draw(null);else draw(c.d);
@@ -2711,7 +2766,7 @@ const Top5=(()=>{
   $('top5Board').onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();board=b.dataset.b;try{localStorage.setItem(BK,board)}catch(x){}refresh()};
   // „Ganze Rangliste“ öffnet dieselbe Liste in 🏆 (gleiche Liste, gleicher Zeitraum)
   const open=async()=>{if(!Games.signedIn){if(await Games.signIn())refresh(true);return}
-    openScores(board==='daily'?'daily':'endless');if(board==='daily')scoresPeriod=span;else endlessSpan=span;scoresSize=+settings.size||6;renderScores()};
+    openScores(board==='daily'?'daily':'endless');if(board==='daily')scoresPeriod=span;else endlessSpan=span;scoresSize=curBoard();renderScores()};
   $('top5List').onclick=open;$('top5More').onclick=open;
   return{refresh,get span(){return span},clear(){for(const k in cache)delete cache[k]}};
 })();
@@ -2754,7 +2809,19 @@ const BADGES=[
   {id:'sterne',e:'⭐',n:'Sternesammler',d:'100 Sterne in den Etappen',pts:50,goal:100,val:()=>totalStars(),unit:'★',inc:true},
   {id:'stammgast',e:'📅',n:'Stammgast',d:'25 Tagesspiele gespielt',pts:50,goal:25,val:()=>dailyCount(),inc:true},
   {id:'sieger',e:'🥇',n:'Tagessieger',d:'Platz 1 im weltweiten Tagesspiel',pts:100,goal:1,val:()=>(Awards.all().d1||0)>0?1:0},
-  {id:'profi',e:'🎯',n:'Endlos-Profi',d:'10.000 Punkte in einer Endlos-Runde',pts:50,goal:10000,val:()=>bestEndlessScore()}];
+  {id:'profi',e:'🎯',n:'Endlos-Profi',d:'10.000 Punkte in einer Endlos-Runde',pts:50,goal:10000,val:()=>bestEndlessScore()},
+  {id:'mini',e:'🔷',n:'Mini-Meister',d:'Endlos 4×4 bis Level 20',pts:25,goal:20,val:()=>MaxLv.get('4')},
+  {id:'fels6',e:'🧱',n:'Felsbrecher',d:'6×6 mit Hindernissen bis Level 30',pts:40,goal:30,val:()=>MaxLv.get('6h')},
+  {id:'fels7',e:'🗿',n:'Steinbruch',d:'7×7 mit Hindernissen bis Level 30',pts:50,goal:30,val:()=>MaxLv.get('7h')},
+  {id:'fels8',e:'⛰️',n:'Gipfelstürmer',d:'8×8 mit Hindernissen bis Level 30',pts:75,goal:30,val:()=>MaxLv.get('8h')},
+  {id:'welt7',e:'🌍',n:'Welt 7',d:'Etappe 7-10 geschafft',pts:50,goal:1,val:()=>LP[70]?1:0},
+  {id:'welten',e:'🏆',n:'Alle Welten',d:'Etappe 10-10 geschafft',pts:150,goal:1,val:()=>LP[100]?1:0},
+  {id:'weitblick',e:'🔭',n:'Weitblick',d:'9×9 freigeschaltet',pts:50,goal:1,val:()=>boardOpen('9')?1:0},
+  {id:'gross',e:'🌌',n:'Großes Feld',d:'10×10 freigeschaltet',pts:100,goal:1,val:()=>boardOpen('10')?1:0},
+  {id:'neuner',e:'🏔️',n:'Neuner-Profi',d:'Endlos 9×9 bis Level 40',pts:100,goal:40,val:()=>MaxLv.get('9')},
+  {id:'zehner',e:'🪐',n:'Zehner-Legende',d:'Endlos 10×10 bis Level 40',pts:150,goal:40,val:()=>MaxLv.get('10')},
+  {id:'ultra8',e:'💎',n:'ULTRA ×8',d:'Combo ×8 oder mehr',pts:50,goal:1,val:()=>0},
+  {id:'wochensieger',e:'🗓️',n:'Wochensieger',d:'Platz 1 in der Tagesspiel-Woche (Mo–So)',pts:100,goal:1,val:()=>(Awards.all().w1||0)>0?1:0}];
 const Badges=(()=>{
   const K='kippwerk_badges';
   const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};
@@ -2837,7 +2904,14 @@ const REWARDS=[
   {t:'kippi',id:'schal',how:'Welt 8 geschafft',test:()=>worldDone(8)},
   {t:'kippi',id:'krone',how:'Welt 10 geschafft',test:()=>worldDone(10)},
   {t:'kippi',id:'partyhut',how:'an Silvester spielen',test:()=>Holiday.silvester()},
-  {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()}];
+  {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()},
+  // Spielfelder (Endlos) – prog: [aktuell, Ziel] für den Fortschrittsbalken
+  {t:'board',id:'4',how:'Endlos 5×5 bis Level 15',test:()=>MaxLv.get('5')>=15,prog:()=>[MaxLv.get('5'),15]},
+  {t:'board',id:'6h',how:'Endlos 6×6 bis Level 30',test:()=>MaxLv.get('6')>=30,prog:()=>[MaxLv.get('6'),30]},
+  {t:'board',id:'7h',how:'Endlos 7×7 bis Level 30',test:()=>MaxLv.get('7')>=30,prog:()=>[MaxLv.get('7'),30]},
+  {t:'board',id:'8h',how:'Endlos 8×8 bis Level 30',test:()=>MaxLv.get('8')>=30,prog:()=>[MaxLv.get('8'),30]},
+  {t:'board',id:'9',how:'Welt 7 geschafft oder Endlos 8×8 bis Level 40',test:()=>worldDone(7)||MaxLv.get('8')>=40,prog:()=>[worldDone(7)?40:MaxLv.get('8'),40]},
+  {t:'board',id:'10',how:'Welt 10 geschafft oder Endlos 9×9 bis Level 40',test:()=>worldDone(10)||MaxLv.get('9')>=40,prog:()=>[worldDone(10)?40:MaxLv.get('9'),40]}];
 
 const Unlocks=(()=>{
   const K='kippwerk_unlocks';
@@ -2849,13 +2923,13 @@ const Unlocks=(()=>{
   if(!localStorage.getItem('kippwerk_unlocks_v2')){
     try{if(msHas(3))have.add('theme:neon');if(msHas(7))have.add('theme:pastell');if(msHas(14))have.add('theme:ozean');
       if(settings.theme&&settings.theme!=='std')have.add('theme:'+settings.theme);save();localStorage.setItem('kippwerk_unlocks_v2','1')}catch(e){}}
-  const name=r=>I18N.tr(r.t==='theme'?(THEME_NAMES[r.id]||r.id):KIPPI_NAMES[r.id]);
+  const name=r=>r.t==='board'?bLabel(r.id,true):I18N.tr(r.t==='theme'?(THEME_NAMES[r.id]||r.id):KIPPI_NAMES[r.id]);
   return{
     has(t,id){return id==='std'||id==='none'||have.has(t+':'+id)},
     // prüft alle Bedingungen; neue Freischaltungen melden (Toast), außer silent
     check(silent){const neu=[];for(const r of REWARDS){if(r.id==='std'||r.id==='none'||have.has(key(r)))continue;let ok=false;try{ok=r.test()}catch(e){}
         if(ok){have.add(key(r));neu.push(r)}}
-      if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – ⚙ '+I18N.tr('Sammlung')),i*1800))}
+      if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='board'?'🔓 '+I18N.tr('Neues Feld')+': ':r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – 🎨 '+I18N.tr('Sammlung')),i*1800))}
       try{Badges.check(silent)}catch(e){}try{collBadge()}catch(e){}
       return neu},
     all:()=>[...have],merge(list){let ch=false;for(const x of list||[])if(typeof x==='string'&&!have.has(x)){have.add(x);ch=true}if(ch)save()},
@@ -2873,7 +2947,7 @@ const CollSeen=(()=>{const K='kippwerk_coll_seen';
   const cur=()=>[...REWARDS.filter(r=>r.id!=='std'&&r.id!=='none'&&Unlocks.has(r.t,r.id)).map(r=>r.t+':'+r.id),...BADGES.filter(b=>Badges.has(b.id)).map(b=>'badge:'+b.id)];
   let seen=null;try{seen=JSON.parse(localStorage.getItem(K)||'null')}catch(e){}
   if(!Array.isArray(seen)){seen=cur();try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}   // erster Start: nichts als neu zählen
-  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':'badge:';
+  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':t==='boards'?'board:':'badge:';
     let ch=false;for(const k of cur())if(k.startsWith(pre)&&!seen.includes(k)){seen.push(k);ch=true}if(ch)try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}}})();
 function collBadge(){const n=CollSeen.fresh().length,d=$('collDot');if(!d)return;d.textContent=n>9?'9+':String(n);d.style.display=n?'':'none'}
 let collReturn=null,collTab='themes';
@@ -2883,9 +2957,11 @@ function renderCollection(){
   $('ctThemes').textContent=th.filter(r=>Unlocks.has('theme',r.id)).length+' / '+th.length;
   $('ctKippi').textContent=kp.filter(r=>Unlocks.has('kippi',r.id)).length+' / '+kp.length;
   $('ctBadges').textContent=BADGES.filter(b=>Badges.has(b.id)).length+' / '+BADGES.length;
+  $('ctBoards').textContent=BOARDS.filter(boardOpen).length+' / '+BOARDS.length;
+  $('collBoards').style.display=collTab==='boards'?'':'none';
   $('collTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===collTab));
   $('collThemes').style.display=collTab==='themes'?'':'none';$('collKippi').style.display=collTab==='kippi'?'':'none';$('collBadges').style.display=collTab==='badges'?'':'none';
-  $('collHint').style.display=collTab==='badges'?'none':'';
+  $('collHint').style.display=collTab==='badges'||collTab==='boards'?'none':'';
   if(collTab==='themes')$('collThemes').innerHTML=th.map(r=>{const un=Unlocks.has('theme',r.id),sw=(THEME_SW[r.id]||THEME_SW.std).slice(0,4);
     return `<button class="tcard${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><div class="mb">${sw.map(c=>`<i style="background:${c}"></i>`).join('')}</div>${un?'':'🔒 '}${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('theme:'+r.id):''}</button>`}).join('');
   if(collTab==='kippi')$('collKippi').innerHTML=kp.map(r=>{const un=Unlocks.has('kippi',r.id);
@@ -2901,6 +2977,11 @@ function renderCollection(){
     const aw=Awards.all(),keys=Object.keys(Awards.BADGE).filter(k=>aw[k]);
     if(keys.length)h+=`<div class="bsec">${I18N.tr('Platzierungen')}</div>`+keys.map(k=>`<div class="bdg"><span class="be">${Awards.BADGE[k][0]}</span><div><b>${I18N.tr(Awards.BADGE[k][1])}</b></div><span class="bt">× ${aw[k]}</span></div>`).join('');
     $('collBadges').innerHTML=h}
+  if(collTab==='boards'){const cur=curBoard();
+    $('collBoards').innerHTML=BOARDS.map(k=>{const un=boardOpen(k),r=REWARDS.find(x=>x.t==='board'&&x.id===k);let pr='';
+      if(!un&&r&&r.prog){const[v,g]=r.prog();pr=`<div class="pb"><i style="width:${Math.min(100,Math.round(v/g*100))}%"></i></div><small>Level ${Math.min(v,g)} / ${g}</small>`}
+      const n=bN(k),cells=Array.from({length:Math.min(n,5)*Math.min(n,5)},(_,i)=>`<i${bH(k)&&(i%7===3)?' class="rk"':''}></i>`).join('');
+      return `<button class="tcard bcard${un?'':' lock'}${cur===k?' on':''}" data-bd="${k}" ${un?'':'disabled'}><div class="bm" style="--m:${Math.min(n,5)}">${cells}</div>${un?'':'🔒 '}${bLabel(k,true)}<small>${un?(cur===k?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r?r.how:'')}</small>${pr}${un&&r?nw('board:'+k):''}</button>`}).join('')}
   CollSeen.markTab(collTab);collBadge()}
 function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collTab=tab;
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
@@ -2910,8 +2991,12 @@ function closeCollection(){$('collOv').classList.add('hidden');collBadge();
 $('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
 $('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};
+$('collBoards').onclick=e=>{const b=e.target.closest('button[data-bd]');if(!b||b.disabled)return;settings.size=b.dataset.bd;saveSettings();renderCollection()};
 $('collClose').onclick=closeCollection;
 $('menuColl').onclick=()=>openCollection();
+
+// Feldauswahl im Menü erst jetzt vollständig (Freischaltungen sind geladen)
+try{if(!$('startOv').classList.contains('hidden'))showMenu()}catch(e){}
 // ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
 // Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
 const Cloud=(()=>{
@@ -2927,7 +3012,7 @@ const Cloud=(()=>{
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),maxlv:J('kippwerk_maxlv',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -2937,8 +3022,8 @@ const Cloud=(()=>{
     const pid=R.pid||L.pid;const fix=x=>({...x,pid:pid});
     const lv={...R.levels};for(const k in L.levels)lv[k]=Math.max(lv[k]||0,L.levels[k]||0);
     const seen=new Set(),en=[];
-    for(const x of [...(L.scores.endless||[]),...(R.scores.endless||[])].map(fix)){const id=[x.size,x.score,x.level,x.date].join('|');if(!seen.has(id)){seen.add(id);en.push(x)}}
-    en.sort((a,b)=>b.score-a.score);const cnt={},endless=en.filter(x=>(cnt[x.size]=(cnt[x.size]||0)+1)<=TOP);
+    for(const x of [...(L.scores.endless||[]),...(R.scores.endless||[])].map(fix)){const id=[x.size+(x.h?'h':''),x.score,x.level,x.date].join('|');if(!seen.has(id)){seen.add(id);en.push(x)}}
+    en.sort((a,b)=>b.score-a.score);const cnt={},endless=en.filter(x=>{const z=x.size+(x.h?'h':'');return (cnt[z]=(cnt[z]||0)+1)<=TOP});
     const dm={};for(const x of [...(R.scores.daily||[]),...(L.scores.daily||[])].map(fix))if(!dm[x.no]||x.score>dm[x.no].score)dm[x.no]=x;
     const daily=Object.values(dm).sort((a,b)=>b.score-a.score);
     const dk={...R.daily};for(const k in L.daily)if(!dk[k]||(L.daily[k]&&dk[k]&&L.daily[k].score>=dk[k].score))dk[k]=L.daily[k];
@@ -2949,6 +3034,7 @@ const Cloud=(()=>{
       streak:mergeStreak(L.streak,R.streak),
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
       unlocks:uni(L.unlocks,R.unlocks),badges:(()=>{const o={...(R.badges||{})};for(const k in L.badges||{})if(!o[k]||L.badges[k]<o[k])o[k]=L.badges[k];return o})(),
+      maxlv:(()=>{const o={...(R.maxlv||{})};for(const k in L.maxlv||{})o[k]=Math.max(+o[k]||0,+L.maxlv[k]||0);return o})(),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -2959,6 +3045,7 @@ const Cloud=(()=>{
     if(M.awards)lsSet('kippwerk_awards',JSON.stringify(M.awards));
     if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
     if(M.badges&&typeof M.badges==='object')lsSet('kippwerk_badges',JSON.stringify(M.badges));
+    if(M.maxlv&&typeof M.maxlv==='object')lsSet('kippwerk_maxlv',JSON.stringify(M.maxlv));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);
@@ -3148,7 +3235,7 @@ const Fly=(()=>{
 try{if(localStorage.getItem('kippwerk_i18n_collect'))I18N.collect(true)}catch(e){}
 I18N.init(settings.lang,I18N_EN,I18N_PATS);applyLang(true);
 applyKippi();collBadge();setTimeout(()=>{Unlocks.check();applyKippi()},2500);setTimeout(newsAfterUpdate,1200);   // Feiertage, Welten, Serie … (Toast bei Neuem)
-window.__kw={unlocks:Unlocks,badges:Badges,openCollection,holiday:Holiday,fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
+window.__kw={unlocks:Unlocks,badges:Badges,openCollection,holiday:Holiday,fly:Fly,games:Games,i18n:I18N,auditOk:()=>Audit.ok(score,cleared,history.length),music:Music,startTutorial,burst,setLevel:n=>{level=n;render()},handleBack,move,LEVELS,comboFx,openHelp,get ST(){return ST},checkStreak,initStreak,get N(){return N},get rules(){return{BK,lifeAt:lifeAt(),colors:numColors(),rock:+rockChance().toFixed(3)}},get state(){return{combos,bestChain,score,level,over,busy,cleared,movesLeft,mode,lvNo,prog,LP,filled:grid.filter(Boolean).length,
   layout:grid.map(t=>t?t.color:'-').join(''),queue:nextQ.join('')}}};
 })();
 </script>

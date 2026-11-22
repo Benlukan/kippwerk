@@ -58,3 +58,10 @@ body.pad-off .pad{display:none!important}
 .bdg.lock .be{filter:grayscale(1);border-color:#3a3f6a;opacity:.7}.bdg b{display:block;font-size:14px}.bdg small{color:var(--muted);font-size:12px}.bdg .bt{color:#3ddc97;font-size:12px;white-space:nowrap}
 .bdg .pb{height:6px;background:#22264a;border-radius:4px;margin:6px 0 2px;overflow:hidden}.bdg .pb i{display:block;height:100%;background:linear-gradient(90deg,#4cc9f0,#3ddc97)}
 .bsum{text-align:center;color:var(--muted);font-size:13px;margin:0 0 10px}.bsec{margin:14px 0 8px;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left}
+/* Sammlung: Spielfelder */
+.tcard.bcard .bm{display:grid;grid-template-columns:repeat(var(--m),1fr);gap:2px;width:52px;margin:4px auto 6px}
+.tcard.bcard .bm i{aspect-ratio:1;border-radius:3px;background:var(--c3);opacity:.75;display:block}
+.tcard.bcard .bm i:nth-child(3n){background:var(--c1)}.tcard.bcard .bm i:nth-child(4n){background:var(--c2)}
+.tcard.bcard .bm i.rk{background:repeating-linear-gradient(45deg,#6b7088 0 3px,#4a4e63 3px 6px);opacity:1}
+.tcard.bcard.lock .bm{filter:grayscale(.9)}
+.tcard .pb{height:5px;border-radius:3px;background:#ffffff14;margin:5px 6px 2px;overflow:hidden}.tcard .pb i{display:block;height:100%;background:var(--c2)}

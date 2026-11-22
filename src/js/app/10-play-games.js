@@ -2,13 +2,14 @@
 // Android: Projekt-ID 414239949537 (games-ids.xml). IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',daily:'CgkI4YWAlYcMEAIQBQ',
+  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',e4:'',e9:'',e10:'',e6h:'',e7h:'',e8h:'',daily:'CgkI4YWAlYcMEAIQBQ',
       // Tagesspiel je Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So; leer = aus
       wd:['CgkI4YWAlYcMEAIQBg','CgkI4YWAlYcMEAIQBw','CgkI4YWAlYcMEAIQCA','CgkI4YWAlYcMEAIQCQ','CgkI4YWAlYcMEAIQCg','CgkI4YWAlYcMEAIQCw','CgkI4YWAlYcMEAIQDA'],
       // Endlos je Feldgröße und Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So (beste Runde)
       ewd:{5:['CgkI4YWAlYcMEAIQGQ','CgkI4YWAlYcMEAIQGg','CgkI4YWAlYcMEAIQGw','CgkI4YWAlYcMEAIQHA','CgkI4YWAlYcMEAIQHQ','CgkI4YWAlYcMEAIQHg','CgkI4YWAlYcMEAIQHw'],6:['CgkI4YWAlYcMEAIQIA','CgkI4YWAlYcMEAIQIQ','CgkI4YWAlYcMEAIQIg','CgkI4YWAlYcMEAIQIw','CgkI4YWAlYcMEAIQJA','CgkI4YWAlYcMEAIQJQ','CgkI4YWAlYcMEAIQJg'],7:['CgkI4YWAlYcMEAIQJw','CgkI4YWAlYcMEAIQKA','CgkI4YWAlYcMEAIQKQ','CgkI4YWAlYcMEAIQKg','CgkI4YWAlYcMEAIQKw','CgkI4YWAlYcMEAIQLA','CgkI4YWAlYcMEAIQLQ'],8:['CgkI4YWAlYcMEAIQLg','CgkI4YWAlYcMEAIQLw','CgkI4YWAlYcMEAIQMA','CgkI4YWAlYcMEAIQMQ','CgkI4YWAlYcMEAIQMg','CgkI4YWAlYcMEAIQMw','CgkI4YWAlYcMEAIQNA']},
       // Erfolge (Abzeichen) – IDs aus der Play Console, leer = nur in der App
-      ach:{funke:'CgkI4YWAlYcMEAIQDQ',woche:'CgkI4YWAlYcMEAIQDg',zwei:'CgkI4YWAlYcMEAIQDw',monat:'CgkI4YWAlYcMEAIQEA',fuenfzig:'CgkI4YWAlYcMEAIQEQ',hundert:'CgkI4YWAlYcMEAIQEg',ultra:'CgkI4YWAlYcMEAIQEw',welt1:'CgkI4YWAlYcMEAIQFA',sterne:'CgkI4YWAlYcMEAIQFQ',stammgast:'CgkI4YWAlYcMEAIQFg',sieger:'CgkI4YWAlYcMEAIQFw',profi:'CgkI4YWAlYcMEAIQGA'}},
+      ach:{funke:'CgkI4YWAlYcMEAIQDQ',woche:'CgkI4YWAlYcMEAIQDg',zwei:'CgkI4YWAlYcMEAIQDw',monat:'CgkI4YWAlYcMEAIQEA',fuenfzig:'CgkI4YWAlYcMEAIQEQ',hundert:'CgkI4YWAlYcMEAIQEg',ultra:'CgkI4YWAlYcMEAIQEw',welt1:'CgkI4YWAlYcMEAIQFA',sterne:'CgkI4YWAlYcMEAIQFQ',stammgast:'CgkI4YWAlYcMEAIQFg',sieger:'CgkI4YWAlYcMEAIQFw',profi:'CgkI4YWAlYcMEAIQGA',
+        mini:'',fels6:'',fels7:'',fels8:'',welt7:'',welten:'',weitblick:'',gross:'',neuner:'',zehner:'',ultra8:'',wochensieger:''}},
   ios:{on:false,saves:true,e5:'kippwerk.endlos.5x5',e6:'kippwerk.endlos.6x6',e7:'kippwerk.endlos.7x7',e8:'kippwerk.endlos.8x8',daily:'kippwerk.tagesspiel'}};
 // Details eines Ergebnisses als Score-Tag (Google erlaubt max. 64 URL-sichere Zeichen):
 // c=Combo m=Züge s=Steine l=Level d=Datum des Tagesspiels (JJJJMMTT)
@@ -32,7 +33,7 @@ const Games=(()=>{
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
   // Schlüssel → ID: e5…e8, daily, wd0…wd6 (Tagesspiel je Wochentag Mo=0 … So=6), e5wd0…e8wd6 (Endlos je Wochentag)
   const idOf=k=>{let m=/^wd([0-6])$/.exec(k);if(m)return(Array.isArray(cfg.wd)&&cfg.wd[+m[1]])||'';
-    m=/^e([5-8])wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
+    m=/^e(\d+h?)wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
   const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
   const pend=()=>{try{const o=JSON.parse(localStorage.getItem(PK)||'{}'),r={};
       for(const k in o){const v=o[k];if(v&&typeof v==='object'&&v.h===sig(k,v.s,v.t))r[k]={s:v.s,t:v.t||''}}   // nur unveränderte, signierte Werte
@@ -81,6 +82,9 @@ const Games=(()=>{
       flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
     async top(key,span,n){if(!available||!signedIn||!idOf(key))throw new Error('n/a');return await P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:n||5})},
     get hasWd(){return Array.isArray(cfg.wd)&&cfg.wd.length===7&&cfg.wd.every(Boolean)},
+    hasId:k=>!!idOf(k),
+    // Endlos-Wochentags-Listen für ein Feld ('e6', 'e9', 'e6h' …) vollständig?
+    hasEwdFor(k){const n=String(k).replace(/^e/,'');return !!cfg.ewd&&Array.isArray(cfg.ewd[n])&&cfg.ewd[n].length===7&&cfg.ewd[n].every(Boolean)},
     get hasEwd(){return !!cfg.ewd&&[5,6,7,8].every(n=>Array.isArray(cfg.ewd[n])&&cfg.ewd[n].length===7&&cfg.ewd[n].every(Boolean))},
     async show(key){if(!available)return;if(!(await signIn()))return false;
       try{if(key&&cfg[key])await P.showLeaderboard({leaderboardId:cfg[key]});else await P.showAllLeaderboards()}catch(e){}return true}};
@@ -89,8 +93,9 @@ const Games=(()=>{
 {let mig=false;for(const l of [scores.endless,scores.daily])for(const x of l){if(!x.pid||x.pid==='lokal'){x.pid=playerId;mig=true}if(!x.name){x.name=playerName||'Spieler';mig=true}}if(mig)saveScores()}
 const fmtDate=()=>now().toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit',year:'2-digit'});
 scores.endless.forEach(x=>{if(!x.size)x.size=6});   // Migration: alte Einträge = 6×6
-const sizeList=n=>scores.endless.filter(x=>x.size===n);
-const bestFor=n=>{const l=sizeList(n);return l.length?l[0].score:0};
+const keyOf=x=>String(x.size)+(x.h?'h':'');   // Feld-Kürzel eines Eintrags
+const sizeList=k=>{k=String(k);return scores.endless.filter(x=>keyOf(x)===k)};
+const bestFor=k=>{const l=sizeList(k);return l.length?l[0].score:0};
 best=bestFor(6);
 function addScore(list,entry,key='score'){
   scores[list].push(entry);scores[list].sort((a,b)=>b[key]-a[key]);

@@ -56,7 +56,14 @@ const REWARDS=[
   {t:'kippi',id:'schal',how:'Welt 8 geschafft',test:()=>worldDone(8)},
   {t:'kippi',id:'krone',how:'Welt 10 geschafft',test:()=>worldDone(10)},
   {t:'kippi',id:'partyhut',how:'an Silvester spielen',test:()=>Holiday.silvester()},
-  {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()}];
+  {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()},
+  // Spielfelder (Endlos) – prog: [aktuell, Ziel] für den Fortschrittsbalken
+  {t:'board',id:'4',how:'Endlos 5×5 bis Level 15',test:()=>MaxLv.get('5')>=15,prog:()=>[MaxLv.get('5'),15]},
+  {t:'board',id:'6h',how:'Endlos 6×6 bis Level 30',test:()=>MaxLv.get('6')>=30,prog:()=>[MaxLv.get('6'),30]},
+  {t:'board',id:'7h',how:'Endlos 7×7 bis Level 30',test:()=>MaxLv.get('7')>=30,prog:()=>[MaxLv.get('7'),30]},
+  {t:'board',id:'8h',how:'Endlos 8×8 bis Level 30',test:()=>MaxLv.get('8')>=30,prog:()=>[MaxLv.get('8'),30]},
+  {t:'board',id:'9',how:'Welt 7 geschafft oder Endlos 8×8 bis Level 40',test:()=>worldDone(7)||MaxLv.get('8')>=40,prog:()=>[worldDone(7)?40:MaxLv.get('8'),40]},
+  {t:'board',id:'10',how:'Welt 10 geschafft oder Endlos 9×9 bis Level 40',test:()=>worldDone(10)||MaxLv.get('9')>=40,prog:()=>[worldDone(10)?40:MaxLv.get('9'),40]}];
 
 const Unlocks=(()=>{
   const K='kippwerk_unlocks';
@@ -68,13 +75,13 @@ const Unlocks=(()=>{
   if(!localStorage.getItem('kippwerk_unlocks_v2')){
     try{if(msHas(3))have.add('theme:neon');if(msHas(7))have.add('theme:pastell');if(msHas(14))have.add('theme:ozean');
       if(settings.theme&&settings.theme!=='std')have.add('theme:'+settings.theme);save();localStorage.setItem('kippwerk_unlocks_v2','1')}catch(e){}}
-  const name=r=>I18N.tr(r.t==='theme'?(THEME_NAMES[r.id]||r.id):KIPPI_NAMES[r.id]);
+  const name=r=>r.t==='board'?bLabel(r.id,true):I18N.tr(r.t==='theme'?(THEME_NAMES[r.id]||r.id):KIPPI_NAMES[r.id]);
   return{
     has(t,id){return id==='std'||id==='none'||have.has(t+':'+id)},
     // prüft alle Bedingungen; neue Freischaltungen melden (Toast), außer silent
     check(silent){const neu=[];for(const r of REWARDS){if(r.id==='std'||r.id==='none'||have.has(key(r)))continue;let ok=false;try{ok=r.test()}catch(e){}
         if(ok){have.add(key(r));neu.push(r)}}
-      if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – ⚙ '+I18N.tr('Sammlung')),i*1800))}
+      if(neu.length){save();if(!silent)neu.slice(0,3).forEach((r,i)=>setTimeout(()=>toast((r.t==='board'?'🔓 '+I18N.tr('Neues Feld')+': ':r.t==='theme'?'🎨 '+I18N.tr('Neues Design')+': ':'🪰 '+I18N.tr('Neu für Kippi')+': ')+name(r)+' – 🎨 '+I18N.tr('Sammlung')),i*1800))}
       try{Badges.check(silent)}catch(e){}try{collBadge()}catch(e){}
       return neu},
     all:()=>[...have],merge(list){let ch=false;for(const x of list||[])if(typeof x==='string'&&!have.has(x)){have.add(x);ch=true}if(ch)save()},
@@ -92,7 +99,7 @@ const CollSeen=(()=>{const K='kippwerk_coll_seen';
   const cur=()=>[...REWARDS.filter(r=>r.id!=='std'&&r.id!=='none'&&Unlocks.has(r.t,r.id)).map(r=>r.t+':'+r.id),...BADGES.filter(b=>Badges.has(b.id)).map(b=>'badge:'+b.id)];
   let seen=null;try{seen=JSON.parse(localStorage.getItem(K)||'null')}catch(e){}
   if(!Array.isArray(seen)){seen=cur();try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}   // erster Start: nichts als neu zählen
-  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':'badge:';
+  return{fresh:()=>cur().filter(k=>!seen.includes(k)),isNew:k=>!/:(std|none)$/.test(k)&&!seen.includes(k),markTab(t){const pre=t==='themes'?'theme:':t==='kippi'?'kippi:':t==='boards'?'board:':'badge:';
     let ch=false;for(const k of cur())if(k.startsWith(pre)&&!seen.includes(k)){seen.push(k);ch=true}if(ch)try{localStorage.setItem(K,JSON.stringify(seen))}catch(e){}}}})();
 function collBadge(){const n=CollSeen.fresh().length,d=$('collDot');if(!d)return;d.textContent=n>9?'9+':String(n);d.style.display=n?'':'none'}
 let collReturn=null,collTab='themes';
@@ -102,9 +109,11 @@ function renderCollection(){
   $('ctThemes').textContent=th.filter(r=>Unlocks.has('theme',r.id)).length+' / '+th.length;
   $('ctKippi').textContent=kp.filter(r=>Unlocks.has('kippi',r.id)).length+' / '+kp.length;
   $('ctBadges').textContent=BADGES.filter(b=>Badges.has(b.id)).length+' / '+BADGES.length;
+  $('ctBoards').textContent=BOARDS.filter(boardOpen).length+' / '+BOARDS.length;
+  $('collBoards').style.display=collTab==='boards'?'':'none';
   $('collTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===collTab));
   $('collThemes').style.display=collTab==='themes'?'':'none';$('collKippi').style.display=collTab==='kippi'?'':'none';$('collBadges').style.display=collTab==='badges'?'':'none';
-  $('collHint').style.display=collTab==='badges'?'none':'';
+  $('collHint').style.display=collTab==='badges'||collTab==='boards'?'none':'';
   if(collTab==='themes')$('collThemes').innerHTML=th.map(r=>{const un=Unlocks.has('theme',r.id),sw=(THEME_SW[r.id]||THEME_SW.std).slice(0,4);
     return `<button class="tcard${un?'':' lock'}${cur===r.id?' on':''}" data-th="${r.id}" ${un?'':'disabled'}><div class="mb">${sw.map(c=>`<i style="background:${c}"></i>`).join('')}</div>${un?'':'🔒 '}${I18N.tr(THEME_NAMES[r.id])}<small>${un?(cur===r.id?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r.how)}</small>${un?nw('theme:'+r.id):''}</button>`}).join('');
   if(collTab==='kippi')$('collKippi').innerHTML=kp.map(r=>{const un=Unlocks.has('kippi',r.id);
@@ -120,6 +129,11 @@ function renderCollection(){
     const aw=Awards.all(),keys=Object.keys(Awards.BADGE).filter(k=>aw[k]);
     if(keys.length)h+=`<div class="bsec">${I18N.tr('Platzierungen')}</div>`+keys.map(k=>`<div class="bdg"><span class="be">${Awards.BADGE[k][0]}</span><div><b>${I18N.tr(Awards.BADGE[k][1])}</b></div><span class="bt">× ${aw[k]}</span></div>`).join('');
     $('collBadges').innerHTML=h}
+  if(collTab==='boards'){const cur=curBoard();
+    $('collBoards').innerHTML=BOARDS.map(k=>{const un=boardOpen(k),r=REWARDS.find(x=>x.t==='board'&&x.id===k);let pr='';
+      if(!un&&r&&r.prog){const[v,g]=r.prog();pr=`<div class="pb"><i style="width:${Math.min(100,Math.round(v/g*100))}%"></i></div><small>Level ${Math.min(v,g)} / ${g}</small>`}
+      const n=bN(k),cells=Array.from({length:Math.min(n,5)*Math.min(n,5)},(_,i)=>`<i${bH(k)&&(i%7===3)?' class="rk"':''}></i>`).join('');
+      return `<button class="tcard bcard${un?'':' lock'}${cur===k?' on':''}" data-bd="${k}" ${un?'':'disabled'}><div class="bm" style="--m:${Math.min(n,5)}">${cells}</div>${un?'':'🔒 '}${bLabel(k,true)}<small>${un?(cur===k?I18N.tr('aktiv'):I18N.tr('frei')):I18N.tr(r?r.how:'')}</small>${pr}${un&&r?nw('board:'+k):''}</button>`}).join('')}
   CollSeen.markTab(collTab);collBadge()}
 function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collTab=tab;
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
@@ -129,5 +143,9 @@ function closeCollection(){$('collOv').classList.add('hidden');collBadge();
 $('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
 $('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};
+$('collBoards').onclick=e=>{const b=e.target.closest('button[data-bd]');if(!b||b.disabled)return;settings.size=b.dataset.bd;saveSettings();renderCollection()};
 $('collClose').onclick=closeCollection;
 $('menuColl').onclick=()=>openCollection();
+
+// Feldauswahl im Menü erst jetzt vollständig (Freischaltungen sind geladen)
+try{if(!$('startOv').classList.contains('hidden'))showMenu()}catch(e){}

@@ -140,3 +140,5 @@ Datenschutzerklärung (`www/datenschutz.html`) und Datensicherheits-Angaben (`do
 
 Ohne ID: Feld spielt normal, die Bestenliste zeigt die Ergebnisse auf dem Gerät, Top 5 im Menü weist darauf hin. Gesamt danach: 40 + 27 = 67 von 70 Ranglisten.
 Erfolge 13–24: `docs/store/erfolge/AchievementsMetadata.csv` + `AchievementsIconsMappings.csv` + Icons 13–24 (Import in der Play Console), danach IDs in `ach` eintragen (mini, fels6, fels7, fels8, welt7, welten, weitblick, gross, neuner, zehner, ultra8, wochensieger).
+
+- Ab v1.40.2 alle IDs eingetragen: `e4` …QWQ, `e9` …QWg, `e10` …QWw, `e6h` …QVg, `e7h` …QVw, `e8h` …QWA; Erfolge 13–24 …QNQ … QQA.

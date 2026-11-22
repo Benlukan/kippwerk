@@ -2,7 +2,7 @@
 // Android: Projekt-ID 414239949537 (games-ids.xml). IDs aus der Play Console (Play Games-Dienste → Bestenlisten) bzw. App Store Connect (Game Center → Ranglisten).
 // on:false oder leere IDs = Funktion ausgeblendet. saves:true = Spielstand in der Cloud (Play Games „Gespeicherte Spiele“ / Game Center + iCloud). Web: nur lokal.
 const GAMES_CONFIG={
-  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',e4:'',e9:'',e10:'',e6h:'CgkI4YWAlYcMEAIQVg',e7h:'CgkI4YWAlYcMEAIQVw',e8h:'CgkI4YWAlYcMEAIQWA',daily:'CgkI4YWAlYcMEAIQBQ',
+  android:{on:true,saves:true,e5:'CgkI4YWAlYcMEAIQAQ',e6:'CgkI4YWAlYcMEAIQAg',e7:'CgkI4YWAlYcMEAIQAw',e8:'CgkI4YWAlYcMEAIQBA',e4:'CgkI4YWAlYcMEAIQWQ',e9:'CgkI4YWAlYcMEAIQWg',e10:'CgkI4YWAlYcMEAIQWw',e6h:'CgkI4YWAlYcMEAIQVg',e7h:'CgkI4YWAlYcMEAIQVw',e8h:'CgkI4YWAlYcMEAIQWA',daily:'CgkI4YWAlYcMEAIQBQ',
       // Tagesspiel je Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So; leer = aus
       wd:['CgkI4YWAlYcMEAIQBg','CgkI4YWAlYcMEAIQBw','CgkI4YWAlYcMEAIQCA','CgkI4YWAlYcMEAIQCQ','CgkI4YWAlYcMEAIQCg','CgkI4YWAlYcMEAIQCw','CgkI4YWAlYcMEAIQDA'],
       // Endlos je Feldgröße und Wochentag (Mo … So) – für „Gestern“ und die Woche Mo–So (beste Runde)

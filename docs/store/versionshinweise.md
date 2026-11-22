@@ -1,6 +1,6 @@
 # Versionshinweise (Play Console, max. 500 Zeichen je Sprache)
 
-## v2.0.2 (Build 75)
+## v2.0.3 (Build 76)
 
 <de-DE>
 KIPPWERK 2.0:
@@ -11,6 +11,7 @@ KIPPWERK 2.0:
 • 12 neue Abzeichen, auch als Google-Play-Erfolge
 • „Als Nächstes“ zeigt alle kommenden Steine
 • Feedback direkt aus den Einstellungen
+• Bestenlisten laden schneller
 </de-DE>
 <en-US>
 KIPPWERK 2.0:
@@ -21,4 +22,5 @@ KIPPWERK 2.0:
 • 12 new badges, also as Google Play achievements
 • “Next” shows all upcoming stones
 • Send feedback right from the settings
+• Leaderboards load faster
 </en-US>

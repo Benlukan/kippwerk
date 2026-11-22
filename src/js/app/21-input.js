@@ -56,7 +56,7 @@ function showMenu(){
   const sz=curBoard(),bs=bestFor(sz);renderSizeSegs();
   $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
-  try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},3000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
+  try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},8000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');

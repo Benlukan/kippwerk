@@ -7,6 +7,9 @@ const Top5=(()=>{
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:()=>weekMonOf(key())?'Diese Woche (Mo–So) noch keine Ergebnisse.':'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
+  const LK='kippwerk_top5last';let LAST={};try{LAST=JSON.parse(localStorage.getItem(LK)||'{}')||{}}catch(e){}
+  const lastOf=k=>LAST[k]&&LAST[k].p===todayKey()?{t:0,d:LAST[k].d}:null;
+  const saveLast=(k,d)=>{LAST[k]={p:todayKey(),d:{entries:d.entries||[],me:d.me||null}};try{localStorage.setItem(LK,JSON.stringify(LAST))}catch(e){}};
   const cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
   const SPANS={day:()=>'heute',week:k=>weekMonOf(k||key())?'Woche':'Woche (So–Sa)',all:()=>'gesamt'};
   const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3||!(r>0)?' class="m"':''}>${r>0?(['🥇','🥈','🥉'][r-1]||r+'.'):'–'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
@@ -25,13 +28,14 @@ const Top5=(()=>{
     $('top5PickTxt').textContent=(board==='daily'?I18N.tr('Tagesspiel'):I18N.tr('Endlos')+' '+bLabel(curBoard()))+' · '+cap(I18N.tr(SPANS[span]()));
     const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('ab')+' '+t:'';
     if(board!=='daily'&&!Games.hasId(key())){$('top5List').innerHTML=`<div class="t5-msg">${I18N.tr('🌍 Für dieses Feld gibt es noch keine weltweite Rangliste.')}</div>`;return}
+    if(!Games.signedIn&&lastOf(ck(span))){draw(lastOf(ck(span)).d);return}   // während der Anmeldung: letzte Liste von heute zeigen
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
     const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
-    if(!c)draw(null);else draw(c.d);
+    const last=c||lastOf(ck(span));if(!last)draw(null);else draw(last.d);   // zuletzt geladene Liste sofort, dann aktualisieren
     const want=span,wk=key(),daily=wk==='daily';let d;try{d=await boardTop(wk,want,5)}catch(e){d={err:1}}
-    if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
+    if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};saveLast(wk+'|'+want,d);if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
     // Auszeichnungen (Tagesspiel Heute/Woche) auch dann aktuell halten, wenn gerade Endlos angezeigt wird
-    for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))boardTop('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
+    setTimeout(()=>{for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))boardTop('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})},4000)}
   // ein Umschalter: Liste (Tagesspiel / Endlos-Feld) und Zeitraum zusammen
   $('top5Pick').onclick=e=>{e.stopPropagation();if(PopMenu.isOpen){PopMenu.close();return}const en=I18N.tr('Endlos')+' '+bLabel(curBoard()),it=[{sep:1,t:'📅 '+I18N.tr('Tagesspiel')}];
     for(const sp of ['day','week','all'])it.push({v:'daily|'+sp,t:cap(I18N.tr(SPANS[sp]('daily'))),on:board==='daily'&&span===sp});

@@ -32,6 +32,7 @@ const Games=(()=>{
   let ready=null,signedIn=false,why='',me=null;   // me = {id,name} aus dem Play-Games-Profil   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
   // Schlüssel → ID: e5…e8, daily, wd0…wd6 (Tagesspiel je Wochentag Mo=0 … So=6), e5wd0…e8wd6 (Endlos je Wochentag)
+  const TC={},TF={},TOP_TTL=60000;   // Zwischenspeicher Ranglisten
   const idOf=k=>{let m=/^wd([0-6])$/.exec(k);if(m)return(Array.isArray(cfg.wd)&&cfg.wd[+m[1]])||'';
     m=/^e(\d+h?)wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
   const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
@@ -78,10 +79,16 @@ const Games=(()=>{
   return{available,label,plugin:P,note,diag,get player(){return me},savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
     // tag = Details für die Anzeige (Combo, Züge, Steine, Level) – siehe ScoreTag
-    submit(key,score,tag){if(!available||!(score>0)||!idOf(key))return;const o=pend(),s=Math.round(score);
+    submit(key,score,tag){if(!available||!(score>0)||!idOf(key))return;{const id=idOf(key);for(const k in TC)if(k.startsWith(id+'|'))delete TC[k]}const o=pend(),s=Math.round(score);
       if(!o[key]||s>=o[key].s)o[key]={s,t:tag||''};savePend(o);try{clearOnline()}catch(e){}
       flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
-    async top(key,span,n){if(!available||!signedIn||!idOf(key))throw new Error('n/a');return await P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:n||5})},
+    // Ranglisten mit gemeinsamem Zwischenspeicher (60 s): immer 25 Einträge laden, gleiche Anfragen zusammenfassen
+    async top(key,span,n,force){if(!available||!signedIn||!idOf(key))throw new Error('n/a');
+      const ck=idOf(key)+'|'+span,c=TC[ck],cut=d=>({...d,entries:(d.entries||[]).slice(0,n||5)});
+      if(c&&!force&&Date.now()-c.t<TOP_TTL)return cut(c.d);
+      if(!TF[ck])TF[ck]=P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:25}).then(d=>{TC[ck]={t:Date.now(),d};return d}).finally(()=>{delete TF[ck]});
+      return cut(await TF[ck])},
+    dropTop(key){const id=idOf(key);for(const k in TC)if(!id||k.startsWith(id+'|'))delete TC[k]},
     get hasWd(){return Array.isArray(cfg.wd)&&cfg.wd.length===7&&cfg.wd.every(Boolean)},
     hasId:k=>!!idOf(k),
     // Endlos-Wochentags-Listen für ein Feld ('e6', 'e9', 'e6h' …) vollständig?

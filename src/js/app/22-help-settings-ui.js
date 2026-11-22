@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],
  ['2.0.2','„Als Nächstes“: Steine linksbündig'],
  ['2.0.1','„Als Nächstes“ zeigt jetzt alle Steine des nächsten Zugs – bei vielen Steinen in zwei Reihen'],
  ['2.0.0','KIPPWERK 2.0: Hinweis, wenn du überholt wirst (Platz 1, Top 3, Top 10) – Tagesspiel und alle Endlos-Felder. Aufgeräumtes Hauptmenü – Top 5 mit einem Umschalter (Liste und Zeitraum), Feldauswahl als Aufklappliste unter „Endlos“. Felder mit Hindernissen 7×7/8×8 schwerer (6. Farbe ab Level 30). Neu in ⚙: „Feedback geben“. Vorschau „Als Nächstes“ zeigt jetzt, wie viele Steine wirklich kommen (z. B. „+5“)'],
@@ -164,7 +165,6 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const res=await Promise.all(days.map(async d=>{const k=pre+wdOf(d),d8=d.replace(/-/g,''),ok=x=>!!x&&ScoreTag.dec(x.tag).day===d8;
     const get=async sp=>{try{return await Games.top(k,sp,25)}catch(e){fails++;return null}};
     let r=await get(d>=gSun?'week':'all');
-    if(d>=gSun&&!(r&&((r.entries||[]).some(ok)||ok(r.me))))r=await get('all')||r;
     return{entries:(r&&r.entries||[]).filter(ok),me:r&&ok(r.me)?r.me:null}}));
   if(fails>=days.length)throw new Error('n/a');
   const P={},add=(x,pub)=>{const p=P[x.playerId]=P[x.playerId]||{playerId:x.playerId,name:x.name,score:0,days:0,best:0,pub:false,ids:new Set()};

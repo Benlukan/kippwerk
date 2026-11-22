@@ -899,7 +899,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.0.2 · Build 75 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.0.3 · Build 76 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -1146,7 +1146,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'2.0.3':'Leaderboards load much faster: shared cache, fewer requests, Top 5 shown instantly at start','2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1493,6 +1493,7 @@ const Games=(()=>{
   let ready=null,signedIn=false,why='',me=null;   // me = {id,name} aus dem Play-Games-Profil   // why = letzter Grund/Fehler der Anmeldung (Diagnose)
   const errTxt=e=>{const c=e&&e.code,m=e&&(e.message||e.errorMessage)||String(e);return (c?c+': ':'')+m};
   // Schlüssel → ID: e5…e8, daily, wd0…wd6 (Tagesspiel je Wochentag Mo=0 … So=6), e5wd0…e8wd6 (Endlos je Wochentag)
+  const TC={},TF={},TOP_TTL=60000;   // Zwischenspeicher Ranglisten
   const idOf=k=>{let m=/^wd([0-6])$/.exec(k);if(m)return(Array.isArray(cfg.wd)&&cfg.wd[+m[1]])||'';
     m=/^e(\d+h?)wd([0-6])$/.exec(k);if(m)return(cfg.ewd&&Array.isArray(cfg.ewd[m[1]])&&cfg.ewd[m[1]][+m[2]])||'';return cfg[k]||''};
   const sig=(k,s,t)=>t?Audit.sign(k,s,playerId,t):Audit.sign(k,s,playerId);   // ohne Tag wie bis v1.29 → alte Warteschlange bleibt gültig
@@ -1539,10 +1540,16 @@ const Games=(()=>{
   return{available,label,plugin:P,note,diag,get player(){return me},savesOn:!!(available&&cfg.saves),get signedIn(){return signedIn},set onChange(f){onChange=f},init,signIn,
     // Ergebnis merken und senden (die Plattform behält automatisch den Bestwert)
     // tag = Details für die Anzeige (Combo, Züge, Steine, Level) – siehe ScoreTag
-    submit(key,score,tag){if(!available||!(score>0)||!idOf(key))return;const o=pend(),s=Math.round(score);
+    submit(key,score,tag){if(!available||!(score>0)||!idOf(key))return;{const id=idOf(key);for(const k in TC)if(k.startsWith(id+'|'))delete TC[k]}const o=pend(),s=Math.round(score);
       if(!o[key]||s>=o[key].s)o[key]={s,t:tag||''};savePend(o);try{clearOnline()}catch(e){}
       flush().then(()=>{try{clearOnline();if(key==='daily')Top5.clear()}catch(e){}})},
-    async top(key,span,n){if(!available||!signedIn||!idOf(key))throw new Error('n/a');return await P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:n||5})},
+    // Ranglisten mit gemeinsamem Zwischenspeicher (60 s): immer 25 Einträge laden, gleiche Anfragen zusammenfassen
+    async top(key,span,n,force){if(!available||!signedIn||!idOf(key))throw new Error('n/a');
+      const ck=idOf(key)+'|'+span,c=TC[ck],cut=d=>({...d,entries:(d.entries||[]).slice(0,n||5)});
+      if(c&&!force&&Date.now()-c.t<TOP_TTL)return cut(c.d);
+      if(!TF[ck])TF[ck]=P.loadTopScores({leaderboardId:idOf(key),timeSpan:span,maxResults:25}).then(d=>{TC[ck]={t:Date.now(),d};return d}).finally(()=>{delete TF[ck]});
+      return cut(await TF[ck])},
+    dropTop(key){const id=idOf(key);for(const k in TC)if(!id||k.startsWith(id+'|'))delete TC[k]},
     get hasWd(){return Array.isArray(cfg.wd)&&cfg.wd.length===7&&cfg.wd.every(Boolean)},
     hasId:k=>!!idOf(k),
     // Endlos-Wochentags-Listen für ein Feld ('e6', 'e9', 'e6h' …) vollständig?
@@ -2368,7 +2375,7 @@ function showMenu(){
   const sz=curBoard(),bs=bestFor(sz);renderSizeSegs();
   $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
-  try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},3000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
+  try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},8000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
@@ -2478,6 +2485,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],
  ['2.0.2','„Als Nächstes“: Steine linksbündig'],
  ['2.0.1','„Als Nächstes“ zeigt jetzt alle Steine des nächsten Zugs – bei vielen Steinen in zwei Reihen'],
  ['2.0.0','KIPPWERK 2.0: Hinweis, wenn du überholt wirst (Platz 1, Top 3, Top 10) – Tagesspiel und alle Endlos-Felder. Aufgeräumtes Hauptmenü – Top 5 mit einem Umschalter (Liste und Zeitraum), Feldauswahl als Aufklappliste unter „Endlos“. Felder mit Hindernissen 7×7/8×8 schwerer (6. Farbe ab Level 30). Neu in ⚙: „Feedback geben“. Vorschau „Als Nächstes“ zeigt jetzt, wie viele Steine wirklich kommen (z. B. „+5“)'],
@@ -2641,7 +2649,6 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const res=await Promise.all(days.map(async d=>{const k=pre+wdOf(d),d8=d.replace(/-/g,''),ok=x=>!!x&&ScoreTag.dec(x.tag).day===d8;
     const get=async sp=>{try{return await Games.top(k,sp,25)}catch(e){fails++;return null}};
     let r=await get(d>=gSun?'week':'all');
-    if(d>=gSun&&!(r&&((r.entries||[]).some(ok)||ok(r.me))))r=await get('all')||r;
     return{entries:(r&&r.entries||[]).filter(ok),me:r&&ok(r.me)?r.me:null}}));
   if(fails>=days.length)throw new Error('n/a');
   const P={},add=(x,pub)=>{const p=P[x.playerId]=P[x.playerId]||{playerId:x.playerId,name:x.name,score:0,days:0,best:0,pub:false,ids:new Set()};
@@ -2797,6 +2804,9 @@ const Top5=(()=>{
   const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const EMPTY={day:'Heute hat noch niemand gespielt – sei die/der Erste!',week:()=>weekMonOf(key())?'Diese Woche (Mo–So) noch keine Ergebnisse.':'Diese Woche (So–Sa) noch keine Ergebnisse.',all:'Noch keine Ergebnisse.'};
   const ck=sp=>key()+'|'+sp;
+  const LK='kippwerk_top5last';let LAST={};try{LAST=JSON.parse(localStorage.getItem(LK)||'{}')||{}}catch(e){}
+  const lastOf=k=>LAST[k]&&LAST[k].p===todayKey()?{t:0,d:LAST[k].d}:null;
+  const saveLast=(k,d)=>{LAST[k]={p:todayKey(),d:{entries:d.entries||[],me:d.me||null}};try{localStorage.setItem(LK,JSON.stringify(LAST))}catch(e){}};
   const cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
   const SPANS={day:()=>'heute',week:k=>weekMonOf(k||key())?'Woche':'Woche (So–Sa)',all:()=>'gesamt'};
   const row=(x,me)=>{const r=+x.rank;return `<div class="t5-row${me?' me':''}${me==='extra'?' t5-me':''}"><span${r>3||!(r>0)?' class="m"':''}>${r>0?(['🥇','🥈','🥉'][r-1]||r+'.'):'–'}</span><span class="n">${esc(x.name||'Spieler')}${me&&x.name!=='Du'?' (du)':''}${board==='daily'&&ScoreTag.date(x.tag)?' <small class="t5d">'+ScoreTag.date(x.tag)+'</small>':''}</span><span class="r">${(+x.score).toLocaleString(LOC())}</span></div>`};
@@ -2815,13 +2825,14 @@ const Top5=(()=>{
     $('top5PickTxt').textContent=(board==='daily'?I18N.tr('Tagesspiel'):I18N.tr('Endlos')+' '+bLabel(curBoard()))+' · '+cap(I18N.tr(SPANS[span]()));
     const t=span==='day'&&googleDayStart();$('top5Note').textContent=t?I18N.tr('ab')+' '+t:'';
     if(board!=='daily'&&!Games.hasId(key())){$('top5List').innerHTML=`<div class="t5-msg">${I18N.tr('🌍 Für dieses Feld gibt es noch keine weltweite Rangliste.')}</div>`;return}
+    if(!Games.signedIn&&lastOf(ck(span))){draw(lastOf(ck(span)).d);return}   // während der Anmeldung: letzte Liste von heute zeigen
     if(!Games.signedIn){$('top5List').innerHTML=`<div class="t5-msg">🎮 Bei ${Games.label} anmelden, um die Top 5 zu sehen ›</div>`;return}
     const c=cache[ck(span)];if(c&&!force&&Date.now()-c.t<60000){draw(c.d);return}
-    if(!c)draw(null);else draw(c.d);
+    const last=c||lastOf(ck(span));if(!last)draw(null);else draw(last.d);   // zuletzt geladene Liste sofort, dann aktualisieren
     const want=span,wk=key(),daily=wk==='daily';let d;try{d=await boardTop(wk,want,5)}catch(e){d={err:1}}
-    if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
+    if(!d.err){cache[wk+'|'+want]={t:Date.now(),d};saveLast(wk+'|'+want,d);if(daily)Awards.note(want,d.me)}if(want===span&&wk===key())draw(d);
     // Auszeichnungen (Tagesspiel Heute/Woche) auch dann aktuell halten, wenn gerade Endlos angezeigt wird
-    for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))boardTop('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})}
+    setTimeout(()=>{for(const other of ['day','week'])if(!(cache['daily|'+other]&&Date.now()-cache['daily|'+other].t<60000)&&!(daily&&other===want))boardTop('daily',other,5).then(o=>{cache['daily|'+other]={t:Date.now(),d:o};Awards.note(other,o.me)}).catch(()=>{})},4000)}
   // ein Umschalter: Liste (Tagesspiel / Endlos-Feld) und Zeitraum zusammen
   $('top5Pick').onclick=e=>{e.stopPropagation();if(PopMenu.isOpen){PopMenu.close();return}const en=I18N.tr('Endlos')+' '+bLabel(curBoard()),it=[{sep:1,t:'📅 '+I18N.tr('Tagesspiel')}];
     for(const sp of ['day','week','all'])it.push({v:'daily|'+sp,t:cap(I18N.tr(SPANS[sp]('daily'))),on:board==='daily'&&span===sp});
@@ -2841,16 +2852,16 @@ const RankWatch=(()=>{
   try{const x=JSON.parse(localStorage.getItem(K)||'{}');if(x&&typeof x==='object')st=x}catch(e){}
   const save=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}};
   const tierOf=r=>TIERS.find(t=>r>0&&r<=t)||0;
-  // zu prüfende Listen: Tagesspiel Heute + Woche, Endlos Woche + Gesamt für jedes Feld mit Runden in den letzten 14 Tagen
+  // zu prüfende Listen: Tagesspiel Heute + Woche, Endlos Gesamt für jedes Feld mit Runden in den letzten 14 Tagen
   function lists(){const L=[{k:'daily',sp:'day'},{k:'daily',sp:'week'}],since=addDays(todayKey(),-14),seen=new Set();
     try{for(const x of History.all())if(x.t==='e'&&x.d>=since)seen.add(keyOf(x))}catch(e){}
-    for(const b of seen)if(Games.hasId('e'+b)){L.push({k:'e'+b,sp:'week'},{k:'e'+b,sp:'all'})}return L}
+    for(const b of seen)if(Games.hasId('e'+b))L.push({k:'e'+b,sp:'all'});return L}   // Endlos: nur Gesamt (spart Abfragen)
   const period=(k,sp)=>sp==='day'?todayKey():sp==='week'?String(weekOf(dailyNo(),k==='daily'?dailyWeekMon():Games.hasEwdFor(k))):'all';
   const label=(k,sp)=>(k==='daily'?I18N.tr('Tagesspiel'):I18N.tr('Endlos')+' '+bLabel(k.slice(1)))+' · '+I18N.tr(sp==='day'?'heute':sp==='week'?'Woche':'gesamt');
   function msg(t){return t===1?I18N.tr('nicht mehr Platz 1'):t===3?I18N.tr('nicht mehr in den Top 3'):I18N.tr('nicht mehr in den Top 10')}
-  async function check(force){
+  async function check(force,fresh){
     if(busy||settings.overtake==='off'||!Games.available||!Games.signedIn)return[];if(!force&&Date.now()-last<GAP)return[];
-    busy=true;last=Date.now();const out=[];
+    busy=true;last=Date.now();const out=[];if(fresh)try{Games.dropTop()}catch(e){}   // auf Wunsch frisch laden (sonst Zwischenspeicher nutzen)
     try{for(const {k,sp} of lists()){let d;try{d=await boardTop(k,sp,10)}catch(e){continue}
         const me=d&&d.me,r=me&&(me.rank|0)>0?me.rank|0:0,id=k+'|'+sp,p=period(k,sp),o=st[id];
         if(!r){if(o&&o.p!==p)delete st[id];continue}               // nicht gewertet / nur für dich sichtbar

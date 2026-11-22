@@ -6,16 +6,16 @@ const RankWatch=(()=>{
   try{const x=JSON.parse(localStorage.getItem(K)||'{}');if(x&&typeof x==='object')st=x}catch(e){}
   const save=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}};
   const tierOf=r=>TIERS.find(t=>r>0&&r<=t)||0;
-  // zu prüfende Listen: Tagesspiel Heute + Woche, Endlos Woche + Gesamt für jedes Feld mit Runden in den letzten 14 Tagen
+  // zu prüfende Listen: Tagesspiel Heute + Woche, Endlos Gesamt für jedes Feld mit Runden in den letzten 14 Tagen
   function lists(){const L=[{k:'daily',sp:'day'},{k:'daily',sp:'week'}],since=addDays(todayKey(),-14),seen=new Set();
     try{for(const x of History.all())if(x.t==='e'&&x.d>=since)seen.add(keyOf(x))}catch(e){}
-    for(const b of seen)if(Games.hasId('e'+b)){L.push({k:'e'+b,sp:'week'},{k:'e'+b,sp:'all'})}return L}
+    for(const b of seen)if(Games.hasId('e'+b))L.push({k:'e'+b,sp:'all'});return L}   // Endlos: nur Gesamt (spart Abfragen)
   const period=(k,sp)=>sp==='day'?todayKey():sp==='week'?String(weekOf(dailyNo(),k==='daily'?dailyWeekMon():Games.hasEwdFor(k))):'all';
   const label=(k,sp)=>(k==='daily'?I18N.tr('Tagesspiel'):I18N.tr('Endlos')+' '+bLabel(k.slice(1)))+' · '+I18N.tr(sp==='day'?'heute':sp==='week'?'Woche':'gesamt');
   function msg(t){return t===1?I18N.tr('nicht mehr Platz 1'):t===3?I18N.tr('nicht mehr in den Top 3'):I18N.tr('nicht mehr in den Top 10')}
-  async function check(force){
+  async function check(force,fresh){
     if(busy||settings.overtake==='off'||!Games.available||!Games.signedIn)return[];if(!force&&Date.now()-last<GAP)return[];
-    busy=true;last=Date.now();const out=[];
+    busy=true;last=Date.now();const out=[];if(fresh)try{Games.dropTop()}catch(e){}   // auf Wunsch frisch laden (sonst Zwischenspeicher nutzen)
     try{for(const {k,sp} of lists()){let d;try{d=await boardTop(k,sp,10)}catch(e){continue}
         const me=d&&d.me,r=me&&(me.rank|0)>0?me.rank|0:0,id=k+'|'+sp,p=period(k,sp),o=st[id];
         if(!r){if(o&&o.p!==p)delete st[id];continue}               // nicht gewertet / nur für dich sichtbar

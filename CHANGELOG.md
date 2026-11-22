@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.3 (Build 76) – 22.11.2026
+- **Bestenlisten schneller:**
+  - Gemeinsamer Zwischenspeicher (60 s) für alle Ranglisten-Abfragen (Top 5, 🏆, Woche Mo–So, Überholt-Hinweis); gleiche Anfragen laufen nur einmal; es werden immer 25 Einträge geladen und je nach Anzeige gekürzt; nach eigenem Ergebnis wird die Liste neu geladen
+  - Woche Mo–So: keine zweite Abfrage mehr für Tage der laufenden Google-Woche
+  - Top 5: zuletzt geladene Liste von heute erscheint sofort beim Start (auch während der Anmeldung), danach wird aktualisiert; Nebenabfragen erst nach 4 s
+  - Überholt-Hinweis: erst 8 s nach dem Menü, bei Endlos nur die Gesamtliste
+  - Messung (Testumgebung, 400 ms pro Abfrage, nacheinander): Abfragen in den ersten 10 s 40 → 11; Top 5 beim zweiten Start 1,6 s → 0,1 s; Rangliste „Woche“ nach dem Menü 4,2 s → 0,4 s (sonntags ohne Zwischenspeicher bis 2,8 s, da 7 Wochentags-Listen)
+
 ## v2.0.2 (Build 75) – 22.11.2026
 - „Als Nächstes“: Steine linksbündig im Feld (auch bei zwei Reihen)
 

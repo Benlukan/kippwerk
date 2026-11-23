@@ -42,7 +42,7 @@ ENDLOS-MODUS MIT 10 FELDERN
 Spiele, bis das Feld voll ist – auf 4×4 bis 10×10 und auf Feldern mit Hindernissen. Mit jedem Level kommen neue Farben, Prisma-Joker, Felsen und mehr Tempo. Neue Felder schaltest du durch dein Können frei.
 
 DEIN PROFIL & TÄGLICHER BONUS
-Dein Profil zeigt deine Bestwerte, eine Vitrine mit deinen wertvollsten Abzeichen und deine besten Platzierungen. Hol dir jeden Tag deinen Bonus: Extraleben, Serienschutz, Rahmen, Titel und jede Woche ein neues Kippi-Outfit. Tag verpasst? Kein Problem – der Fortschritt pausiert nur.
+Dein Profil zeigt deine Bestwerte, eine Vitrine mit deinen wertvollsten Abzeichen und deine besten Platzierungen. Hol dir jeden Tag deinen Bonus: Extraleben, Serienschutz, Rahmen, Titel und Kippi-Outfits, die es nur hier gibt. Tag verpasst? Kein Problem – der Fortschritt pausiert nur.
 
 SAMMELN & ANPASSEN
 17 Designs, 12 Kippi-Outfits, dazu Rahmen, Titel und 24 Abzeichen. Alles rein optisch, freigeschaltet durch Welten, Serien, Abzeichen und den täglichen Bonus – kein Pay-to-win.
@@ -99,7 +99,7 @@ ENDLESS MODE WITH 10 BOARDS
 Play until the board is full – on 4×4 up to 10×10 and on boards with obstacles. Every level brings new colors, prism jokers, rocks and more pace. Unlock new boards through your skill.
 
 YOUR PROFILE & DAILY BONUS
-Your profile shows your best stats, a showcase of your most valuable badges and your best placements. Collect your bonus every day: extra lives, streak shields, frames, titles and a new Kippi outfit every week. Missed a day? No problem – your progress just pauses.
+Your profile shows your best stats, a showcase of your most valuable badges and your best placements. Collect your bonus every day: extra lives, streak shields, frames, titles and Kippi outfits you can only get here. Missed a day? No problem – your progress just pauses.
 
 COLLECT & CUSTOMIZE
 17 themes, 12 Kippi outfits, plus frames, titles and 24 badges. All purely cosmetic, unlocked through worlds, streaks, badges and the daily bonus – no pay-to-win.

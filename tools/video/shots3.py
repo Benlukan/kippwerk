@@ -32,7 +32,7 @@ async def fresh(b,lang,ls='',hash='',online=False):
         f"localStorage.setItem('kippwerk_seenver','{ver}');"
         f"localStorage.setItem('kippwerk_settings',JSON.stringify({{lang:'{lang}',musicVol:0,sfxVol:0,vibe:'off'}}));"
         f"const t={DAY};localStorage.setItem('kippwerk_streak',JSON.stringify({{cur:13,best:13,last:t,shields:1,prot:[],adDay:null,ms:[3,7],seen:[3,7]}}));"
-        "localStorage.setItem('kippwerk_lives','2');"+ls)
+        "localStorage.setItem('kippwerk_lives','2');"+f"localStorage.setItem('kippwerk_login_pop',{DAY});"+ls)
     await pg.reload(); await pg.wait_for_timeout(900)
     if await pg.is_visible('#newsOv'): await pg.evaluate("document.getElementById('newsOv').classList.add('hidden')")
     await pg.add_style_tag(content='.toast{display:none!important}')   # keine Abzeichen-Meldungen im Bild
@@ -86,5 +86,19 @@ async def main(lang):
         # 8 Etappen-Karte
         pg=await fresh(b,lang,f"localStorage.setItem('kippwerk_levels','{lp}')")
         await pg.click('#levelBtn'); await pg.wait_for_timeout(600); await pg.screenshot(path=out('levels'))
+        # 9 Profil
+        bd=json.dumps({k:'2026-11-01' for k in ['funke','woche','welt1','sterne','ultra','profi','mini','stammgast']})
+        prof=(f"localStorage.setItem('kippwerk_levels','{lp}');localStorage.setItem('kippwerk_badges',JSON.stringify({bd}));"
+              "localStorage.setItem('kippwerk_pstats',JSON.stringify({combo:7,rd:2,rw:4}));localStorage.setItem('kippwerk_awards',JSON.stringify({d1:3,w1:1,d3:5}));"
+              "localStorage.setItem('kippwerk_maxlv',JSON.stringify({'5':22,'6':34,'7':31,'8':41}));localStorage.setItem('kippwerk_unlocks',JSON.stringify(['kippi:brille','kippi:zylinder','board:4']));"
+              "localStorage.setItem('kippwerk_login',JSON.stringify({n:10,last:'2000-01-01',got:['frame:neon','title:frueh','kippi:zylinder']}));"
+              +SET({'frame':'regen','title':'sterne','kippi':'zylinder'}))
+        for i in range(30): prof+=f"localStorage.setItem('kippwerk_daily_2026-10-{i+1:02d}','{{}}');"
+        pg=await fresh(b,lang,prof,online=True); await pg.wait_for_timeout(1500)
+        await pg.click('#menuProfile'); await pg.wait_for_timeout(600); await pg.screenshot(path=out('profile'))
+        # 10 Täglicher Bonus (Woche 2, Tag 4)
+        await pg.click('#prBonus'); await pg.wait_for_timeout(600); await pg.screenshot(path=out('bonus'))
+        # 11 Profil anpassen (Rahmen)
+        await pg.click('#lgClose'); await pg.wait_for_timeout(400); await pg.click('#prEdit'); await pg.wait_for_timeout(500); await pg.screenshot(path=out('custom'))
         await b.close()
 for l in (sys.argv[1:] or ['de','en']): asyncio.run(main(l))

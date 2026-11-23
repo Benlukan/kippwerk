@@ -189,7 +189,7 @@ Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafü
 |---|---|---|
 | App-Symbol | 512×512 PNG | `www/icon-512.png` |
 | Feature-Grafik | 1024×500 PNG | `feature-graphic.png` |
-| Screenshots Smartphone (8) | 1080×1920 PNG | ab v2.0: `1-menu` (neues Menü mit Top 5) · `2-play` (MEGA-Combo) · `3-tutorial` (Kippi) · `4-daily` · `5-world` (weltweite Rangliste) · `6-boards` (Sammlung → Felder) · `7-10x10` · `8-levels` – erstellt mit `tools/video/shots3.py` + `store_shots.py` |
+| Screenshots Smartphone (8) | 1080×1920 PNG | ab v2.1.1: `1-menu` · `2-play` (MEGA-Combo) · `3-levels` (Etappen-Karte) · `4-profile` · `5-bonus` (täglicher Bonus) · `6-daily` · `7-world` (weltweite Rangliste) · `8-10x10` – erstellt mit `tools/video/shots3.py` + `store_shots.py` |
 
 Play Console → Haupteintrag: deutsche Dateien im deutschen Eintrag, englische in der Übersetzung **en-US** hochladen (Reihenfolge wie die Nummern).
 
@@ -214,6 +214,6 @@ Version + Build hochzählen in `www/index.html` (Footer), `package.json`, `andro
 
 ### Vorschauvideo (Google Play)
 - Google Play nimmt nur einen **YouTube-Link** (Store-Präsenz → Haupteintrag im Store → Grafiken → „Video“).
-- Dafür das **Querformat** hochladen – ab v2.0 das lange Video (84 s): `docs/store/de/KIPPWERK_Produktvideo_2.0_1920x1080_de.mp4` (EN: `docs/store/en/…_en.mp4`); das kurze 29-s-Video (`KIPPWERK_Produktvideo_1920x1080_*.mp4`) bleibt als Alternative. Hochformat unter 60 s wird bei YouTube zum Short – Shorts nimmt Google Play nicht an.
+- Dafür das **Querformat** hochladen – ab v2.1.1 das lange Video (101 s): `docs/store/de/KIPPWERK_Produktvideo_2.1_1920x1080_de.mp4` (EN: `docs/store/en/…_en.mp4`); das kurze 29-s-Video (`KIPPWERK_Produktvideo_1920x1080_*.mp4`) bleibt als Alternative. Hochformat unter 60 s wird bei YouTube zum Short – Shorts nimmt Google Play nicht an.
 - YouTube: Sichtbarkeit **Öffentlich** oder **Nicht gelistet**, **keine Werbung/Monetarisierung**, **Einbetten erlauben**, keine Altersbeschränkung. In die Play Console nur die reine Video-URL eintragen (ohne Playlist/Zeitmarke).
 - Die Vorstellungsgrafik (1024 × 500) dient als Vorschaubild des Videos.

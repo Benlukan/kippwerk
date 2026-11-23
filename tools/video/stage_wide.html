@@ -118,6 +118,7 @@ function loadGame(o={}){return new Promise(res=>{
   localStorage.setItem('kippwerk_coll_seen',JSON.stringify([...TH.map(t=>'theme:'+t),...KP.map(t=>'kippi:'+t),'board:4','board:9','board:10','board:6h','board:7h','board:8h']));
   localStorage.setItem('kippwerk_badges',JSON.stringify({funke:'2026-11-01',woche:'2026-11-07',zwei:'2026-11-10',welt1:'2026-11-05',sterne:'2026-11-08',profi:'2026-11-09',ultra:'2026-11-06',mini:'2026-11-09',fels6:'2026-11-10',weitblick:'2026-11-10',gross:'2026-11-10',stammgast:'2026-11-10'}));
   localStorage.setItem('kippwerk_maxlv',JSON.stringify({'4':22,'5':24,'6':41,'7':33,'8':42,'9':41,'10':12,'6h':31}));
+  localStorage.setItem('kippwerk_login_pop',new Date(Date.now()-7*36e5).toISOString().slice(0,10));
   if(o.ls)o.ls();
   $('game').onload=()=>{try{GD().head.insertAdjacentHTML('beforeend','<style>.toast{display:none!important}</style>')}catch(e){}
     try{const n=GD().getElementById('newsOv');if(n&&!n.classList.contains('hidden'))GD().getElementById('newsClose').click()}catch(e){}res()};$('game').src='/kippwerk/www/index.html#seed='+(o.seed||29)})}
@@ -127,11 +128,14 @@ function show(){$('phone').style.opacity=1;fadeIn()}
 const BOARD=(key,label,sub,seed,n)=>({d:3600,async prep(){await loadGame({set:{size:key},seed})},prepMs:n*260+1500,
   prepRun(){click('#endlessBtn');runMoves([...'LDRDLDRULDLDRDLURDLDRDLU'.repeat(3)].slice(0,n),300,240,false)},
   run(){show();cap(label,sub,T('Neue Felder','New boards'));runMoves([...'LDRU'],400,700,true);fadeOut(3600)}});
+const PROF=()=>{localStorage.setItem('kippwerk_pstats',JSON.stringify({combo:7,rd:2,rw:4}));localStorage.setItem('kippwerk_awards',JSON.stringify({d1:3,w1:1,d3:5}));
+  localStorage.setItem('kippwerk_login',JSON.stringify({n:10,last:'2000-01-01',got:['frame:neon','title:frueh','kippi:zylinder']}));
+  for(let i=1;i<=30;i++)localStorage.setItem('kippwerk_daily_2026-10-'+String(i).padStart(2,'0'),'{}')};
 const SCENES={
   1:{d:4200,run(){fadeIn();$('full').classList.add('on');['cta','small'].forEach(x=>$(x).style.display='none');
      document.querySelectorAll('.lt').forEach((t,i)=>at(150+i*140,()=>t.classList.add('in')));at(750,()=>$('kfly').classList.add('in'));at(1000,()=>$('word').classList.add('on'));at(1500,()=>$('tag').classList.add('on'));fadeOut(4200)}},
   2:{d:7500,async prep(){await loadGame()},prepMs:3000,prepRun(){},run(){show();
-     cap(T('Das neue<br><em>Hauptmenü</em>','The new<br><em>main menu</em>'),T('Top 5, Tagesspiel, Etappen und Endlos –<br>alles auf einen Blick','Top 5, daily game, stages and endless –<br>everything at a glance'),T('KIPPWERK 2.0','KIPPWERK 2.0'));
+     cap(T('Das neue<br><em>Hauptmenü</em>','The new<br><em>main menu</em>'),T('Top 5, Tagesspiel, Etappen und Endlos –<br>alles auf einen Blick','Top 5, daily game, stages and endless –<br>everything at a glance'),T('KIPPWERK 2.1','KIPPWERK 2.1'));
      at(300,()=>G().__kw.fly.visit());
      at(3600,()=>{click('#sizePick');cap(T('Dein <em>Feld</em><br>mit einem Tipp','Your <em>board</em><br>in one tap'),T('Von 4×4 bis 10×10 –<br>auch mit Hindernissen','From 4×4 to 10×10 –<br>also with obstacles'))});
      at(6400,()=>{try{G().document.body.click()}catch(e){}});fadeOut(7500)}},
@@ -152,9 +156,10 @@ const SCENES={
      cap(T('<em>Weltweite</em><br>Bestenlisten','<em>Worldwide</em><br>leaderboards'),T('Über Google Play Games – für jedes Feld','Via Google Play Games – for every board'),T('Wettbewerb','Compete'));
      at(2700,()=>click('#periodTabs [data-p=week]'));
      at(5000,()=>{click('#tabEndless');at(200,()=>click('#periodTabs [data-p=all]'));cap(T('Heute · Woche<br>· <em>Gesamt</em>','Today · week<br>· <em>all time</em>'),T('Und ein Hinweis, wenn dich<br>jemand überholt 🏁','Plus a notice when someone<br>overtakes you 🏁'))});fadeOut(8000)}},
-  7:{d:6000,async prep(){await loadGame()},run(){show();click('#levelBtn');
-     cap(T('<em>100 Etappen</em><br>in 10 Welten','<em>100 stages</em><br>in 10 worlds'),T('Ziele, Felsen, Bosse<br>und bis zu 3 Sterne','Goals, rocks, bosses<br>and up to 3 stars'),T('Etappen','Stages'));
-     at(2600,()=>{const s=GD().getElementById('lvScroll');if(s)s.scrollTo({top:s.scrollTop+420,behavior:'smooth'})});fadeOut(6000)}},
+  7:{d:7500,async prep(){await loadGame({set:{kippi:'brille'}})},run(){show();click('#levelBtn');
+     cap(T('Die neue<br><em>Etappen-Karte</em>','The new<br><em>stage map</em>'),T('Kippi sitzt auf deinem Level –<br>oben wartet das Tor','Kippi sits on your level –<br>the gate waits at the top'),T('Etappen','Stages'));
+     at(3600,()=>{click('#lvPrev');cap(T('<em>100 Etappen</em><br>in 10 Welten','<em>100 stages</em><br>in 10 worlds'),T('Ziele, Felsen, Bosse<br>und bis zu 3 Sterne','Goals, rocks, bosses<br>and up to 3 stars'))});
+     at(5600,()=>click('.mgate.open'));fadeOut(7500)}},
   8:BOARD('4',T('<em>4×4</em> – der<br>schnelle Mini','<em>4×4</em> – the<br>quick mini'),T('Freigeschaltet ab Endlos 5×5 Level 15','Unlocks at Endless 5×5 level 15'),5,14),
   9:BOARD('9',T('<em>9×9</em> und<br>mehr Steine','<em>9×9</em> and<br>more stones'),T('Für Profis: ab Welt 7','For pros: from world 7'),7,10),
   10:BOARD('10',T('<em>10×10</em> – das<br>große Feld','<em>10×10</em> – the<br>big board'),T('6. Farbe, Felsen, riesige Combos','6th color, rocks, huge combos'),11,12),
@@ -168,6 +173,15 @@ const SCENES={
      at(10000,()=>{click('#collTabs [data-t="boards"]');cap(T('Neue <em>Felder</em><br>freispielen','Unlock new<br><em>boards</em>'),T('Mit Fortschrittsbalken','With progress bars'))});fadeOut(12000)}},
   13:{d:4500,async prep(){await loadGame()},run(){show();click('#menuStreak');
      cap(T('Halte deine<br>🔥 <em>Serie</em>','Keep your<br>🔥 <em>streak</em>'),T('Belohnungen für Tage in Folge','Rewards for days in a row'),T('Jeden Tag','Every day'));fadeOut(4500)}},
+  15:{d:9000,async prep(){await loadGame({set:{frame:'regen',title:'sterne',kippi:'zylinder'},ls:PROF})},prepMs:1500,prepRun(){},run(){show();click('#menuProfile');
+     cap(T('Dein<br><em>Profil</em>','Your<br><em>profile</em>'),T('Bestwerte, Vitrine und<br>beste Platzierungen','Best stats, showcase<br>and top placements'),T('Neu in 2.1','New in 2.1'));
+     at(3800,()=>{click('#prEdit');cap(T('Kippi, Rahmen<br>und <em>Titel</em>','Kippi, frame<br>and <em>title</em>'),T('Rein optisch – freischalten über<br>Welten, Serie und Bonus','Purely cosmetic – unlock through<br>worlds, streak and bonus'))});
+     at(5000,()=>click('#cuGrid [data-fr="neon"]'));at(6000,()=>{click('#cuTabs [data-t="kippi"]');at(400,()=>click('#cuGrid [data-kp="krone"]'))});
+     at(7400,()=>{click('#cuTabs [data-t="title"]');at(400,()=>click('#cuGrid [data-ti="frueh"]'))});fadeOut(9000)}},
+  16:{d:6500,async prep(){await loadGame({set:{frame:'regen',kippi:'zylinder'},ls:PROF})},prepMs:1500,prepRun(){click('#menuProfile');click('#prBonus')},run(){show();
+     cap(T('Jeden Tag ein<br><em>Bonus</em> 🎁','A <em>bonus</em><br>every day 🎁'),T('Extraleben, Rahmen, Titel<br>und Kippi-Outfits','Extra lives, frames, titles<br>and Kippi outfits'),T('Neu in 2.1','New in 2.1'));
+     at(2600,()=>click('#lgClaim'));
+     at(3600,()=>cap(T('Tag verpasst?<br><em>Kein Problem</em>','Missed a day?<br><em>No problem</em>'),T('Dein Fortschritt pausiert nur','Your progress just pauses')));fadeOut(6500)}},
   14:{d:5000,run(){$('phone').style.opacity=0;$('cap').classList.add('out');$('step').style.opacity=0;fadeIn();$('full').classList.add('on');$('tag').style.display='none';
      document.querySelectorAll('.lt').forEach((t,i)=>at(i*90,()=>t.classList.add('in')));at(300,()=>$('kfly').classList.add('in'));at(350,()=>$('word').classList.add('on'));at(800,()=>$('cta').classList.add('on'));at(1200,()=>$('small').classList.add('on'))}}
 };

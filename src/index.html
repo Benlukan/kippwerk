@@ -74,6 +74,7 @@
         <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b></div>
       </div>
       <div class="popmenu" id="popMenu" role="menu" hidden></div>
+      <div class="updbar" id="updBar" hidden><span id="updTxt">Neue Version verfügbar</span><button class="btn lvl" id="updGo">Aktualisieren</button><button class="updno" id="updNo" aria-label="Später">✕</button></div>
       <div class="home-foot">
         <button class="linkbtn" id="privacyBtn" style="display:none">Datenschutz-Einstellungen (Werbung)</button>
         <div class="home-ver" id="homeVer"></div>
@@ -115,7 +116,8 @@
     <div class="overlay hidden" id="levelsOv">
       <h2>🗺 ETAPPEN</h2>
       <p id="levelsTotal"></p>
-      <div class="lvscroll" id="lvScroll"><div class="lvgrid" id="lvGrid"></div></div>
+      <div class="wsw"><button class="icon-btn" id="lvPrev" aria-label="Vorherige Welt">‹</button><div><b id="lvWorld">Welt 1</b><small id="lvWorldStars"></small></div><button class="icon-btn" id="lvNext" aria-label="Nächste Welt">›</button></div>
+      <div class="lvscroll" id="lvScroll"><div class="lvmap" id="lvGrid"></div></div>
       <button class="btn alt" id="closeLevels">ZURÜCK</button>
     </div>
     <div class="overlay hidden" id="lvlOv">
@@ -306,7 +308,7 @@
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
             <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Der neue Tag beginnt weltweit gleichzeitig – wie bei Google um Mitternacht UTC-7, in Deutschland also um <b>08:00 Uhr</b> (Winter) bzw. <b>09:00 Uhr</b> (Sommer) – passend zur weltweiten Rangliste. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
-            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss.</li>
+            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss. Die Karte zeigt jede Welt als Pfad – Kippi sitzt auf deinem aktuellen Level, oben wartet das Tor zur nächsten Welt (‹ › blättert durch die Welten).</li>
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll. <b>Freischaltbar</b> (🎨 Sammlung → Felder): <b>4×4</b> (Endlos 5×5 bis Level 15), <b>9×9</b> (Welt 7 oder Endlos 8×8 bis Level 40), <b>10×10</b> (Welt 10 oder Endlos 9×9 bis Level 40) und <b>6×6 / 7×7 / 8×8 mit Hindernissen 🪨</b> (Endlos auf dem jeweiligen Feld bis Level 30) – dort liegen von Anfang an Felsen. Auf 9×9 gibt es ein Extra-Leben erst ab Combo ×7, auf 10×10 ab ×8.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße – wahlweise <b>Heute</b>, <b>Gestern</b> (weltweit), <b>Woche</b> (beste Runde von Montag bis Sonntag) oder <b>Gesamt</b>. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche (Mo–So)</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt, mit Anzahl der Tage und bestem Tag) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
@@ -353,7 +355,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.1.0 · Build 79 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.1.1 · Build 80 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

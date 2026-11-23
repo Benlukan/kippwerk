@@ -58,6 +58,7 @@ Die CI („Apps bauen“) bricht ab, wenn `www/index.html` nicht zu `src/` passt
 | `23-top5` · `24-rewards` | Top 5 im Menü · Belohnungen für Tages-/Wochenplätze |
 | `24a-login` | Rahmen, Titel, Profil-Bestwerte (`kippwerk_pstats`), täglicher Login-Bonus (`kippwerk_login`) |
 | `24e-profile` | Profil-Fenster, Profil anpassen, Avatar im Menü |
+| `24f-appupdate` | Hinweis auf neue App-Version (Play In-App-Update, App-Store-Link) |
 | `25-cloud-save` | Spielstand in der Cloud |
 | `26-tutorial` | Geführtes Tutorial mit Kippi |
 | `27-menu-tilt` | Menü-Steine folgen der Handy-Neigung |

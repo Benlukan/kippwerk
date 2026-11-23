@@ -36,14 +36,47 @@ function levelFail(reason){
     text:reason==='moves'?'Keine Züge mehr übrig.':'Das Feld ist voll.',
     main:'↻ NOCHMAL',mainFn:()=>{maybeInter();start('level')},retry:false}),400);
 }
+// Etappen-Karte: eine Welt als geschwungener Pfad (Level 1 unten, Boss oben), Kippi sitzt auf dem aktuellen Level,
+// oben das Tor zur nächsten Welt. ‹ › blättert durch die Welten. Farben nur aus den Design-Variablen.
+let mapWorld=-1;
+const NWORLDS=()=>Math.ceil(LEVELS.length/10);
+function renderMap(){
+  const un=unlocked(),nw=NWORLDS(),curW=Math.min(nw-1,Math.floor((Math.min(un,LEVELS.length)-1)/10));
+  if(mapWorld<0||mapWorld>=nw)mapWorld=curW;
+  const w=mapWorld,first=w*10+1,last=Math.min(LEVELS.length,first+9),cnt=last-first+1;
+  const ws=Array.from({length:cnt},(_,j)=>LP[first+j]||0).reduce((a,b)=>a+b,0);
+  const STEP=78,TOP=150,H=TOP+cnt*STEP+40;
+  const X=j=>50+Math.sin(j*1.05+0.4)*30,Y=j=>H-60-j*STEP;            // x in %, y in px (j=0 unten)
+  let d=`M${X(0)} ${Y(0)}`;for(let j=1;j<cnt;j++){const my=(Y(j-1)+Y(j))/2;d+=` C${X(j-1)} ${my} ${X(j)} ${my} ${X(j)} ${Y(j)}`}
+  const gx=50,gy=64;d+=` C${X(cnt-1)} ${(Y(cnt-1)+gy)/2} ${gx} ${(Y(cnt-1)+gy)/2} ${gx} ${gy+34}`;
+  // gelaufener Teil des Pfads: bis zum aktuellen Level
+  const c=Array.from({length:cnt},(_,j)=>LP[first+j]?1:0).reduce((a,b)=>a+b,0),k=Math.min(c,cnt-1);
+  let dd='';if(c>0){dd=`M${X(0)} ${Y(0)}`;for(let j=1;j<=k;j++){const my=(Y(j-1)+Y(j))/2;dd+=` C${X(j-1)} ${my} ${X(j)} ${my} ${X(j)} ${Y(j)}`}}
+  let nodes='';
+  for(let j=0;j<cnt;j++){const n=first+j,s=LP[n]||0,lock=n>un,boss=n%10===0,cur=n===un&&!LP[n];
+    const st=lock?'':`<small>${'★'.repeat(s)}<span class="off">${'★'.repeat(3-s)}</span></small>`;
+    nodes+=`<button class="lvbtn mnode${lock?' locked':''}${boss?' boss':''}${cur?' cur':''}${s?' done':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''} style="left:${X(j)}%;top:${Y(j)}px" aria-label="Level ${stg(n)}">${lock?'🔒':(boss?'<i class="crown">👑</i>':'')+((n-1)%10+1)}${st}</button>`;
+    if(cur)nodes+=`<span class="mkippi" style="left:${X(j)}%;top:${Y(j)}px">${kippiSvg(Unlocks.has('kippi',settings.kippi)?settings.kippi:'none')}</span>`}
+  // Tor zur nächsten Welt
+  let gate;
+  if(w+1<nw){const open=un>last||!!LP[last];
+    gate=open?`<button class="mgate open" data-w="${w+1}"><b>${I18N.tr('Tor offen')}</b><small>${I18N.tr('Weiter zu Welt '+(w+2))} ›</small></button>`
+             :`<div class="mgate"><b>🔒 ${I18N.tr('Tor zu Welt '+(w+2))}</b><small>${I18N.tr('Level '+stg(last)+' bestehen')}</small></div>`}
+  else gate=`<div class="mgate${LP[last]?' open':''}"><b>${LP[last]?'🏆 '+I18N.tr('Alle Welten geschafft'):'🏁 '+I18N.tr('Letzte Welt')}</b><small>${I18N.tr('Neue Welten folgen per Update')}</small></div>`;
+  $('lvGrid').className='lvmap';$('lvGrid').style.height=H+'px';
+  $('lvGrid').innerHTML=`<svg class="mpath" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" class="pbase"/><path d="${d}" class="pdots"/>${dd?`<path d="${dd}" class="pdone"/>`:''}</svg>${gate.replace('class="mgate','style="top:'+gy+'px" class="mgate')}${nodes}`;
+  $('lvWorld').textContent=I18N.tr('Welt '+(w+1))+' · '+I18N.tr(WORLDS[w]||'');
+  $('lvWorldStars').textContent='⭐ '+ws+' / '+cnt*3;
+  $('lvPrev').disabled=w<=0;$('lvNext').disabled=w>=nw-1||un<first+10;
+  const cn=$('lvGrid').querySelector('.mnode.cur')||$('lvGrid').querySelector('.mnode:not(.locked):last-of-type');
+  requestAnimationFrame(()=>{const sc=$('lvScroll');sc.scrollTop=cn?Math.max(0,cn.offsetTop-sc.clientHeight/2):H})}
 function openLevels(){
-  const un=unlocked();$('levelsTotal').innerHTML=`⭐ ${totalStars()} / ${LEVELS.length*3} Sterne`+(LP[LEVELS.length]?'<br><small style="color:var(--muted)">Alle Welten geschafft – neue Welten folgen per Update</small>':'');
-  $('lvGrid').innerHTML=LEVELS.map((l,i)=>{const n=i+1,s=LP[n]||0,lock=n>un,boss=n%10===0;
-    let head='';if(i%10===0){const w=i/10,ws=LEVELS.slice(i,i+10).reduce((a,_,j)=>a+(LP[i+j+1]||0),0);head=`<div class="lvworld"><span>Welt ${w+1} · ${WORLDS[w]||''}</span><span>⭐ ${ws}/30</span></div>`}
-    return head+`<button class="lvbtn${lock?' locked':''}${boss?' boss':''}${n===un&&!s?' next':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''}>${lock?'🔒':(boss?'👑':'')+stg(n)}<small>${lock?'&nbsp;':'★'.repeat(s)+'<span class="off">'+'★'.repeat(3-s)+'</span>'}</small></button>`}).join('');
-  ['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');
-  const cur=$('lvGrid').querySelector(`[data-n="${Math.min(un,LEVELS.length)}"]`);if(cur)$('lvScroll').scrollTop=Math.max(0,cur.offsetTop-$('lvScroll').offsetTop-120);
+  $('levelsTotal').innerHTML=`⭐ ${totalStars()} / ${LEVELS.length*3} ${I18N.tr('Sterne')}`;
+  mapWorld=-1;['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');renderMap();
 }
+$('lvPrev').onclick=()=>{if(mapWorld>0){mapWorld--;renderMap()}};
+$('lvNext').onclick=()=>{mapWorld++;renderMap()};
+$('lvGrid').addEventListener('click',e=>{const g=e.target.closest('[data-w]');if(g){mapWorld=+g.dataset.w;renderMap()}});
 
 function finishGame(reason){
   setTimeout(musicSync,0);

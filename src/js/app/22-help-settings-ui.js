@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.1','Neue Etappen-Karte: jede Welt als geschwungener Pfad mit Kippi auf deinem Level und dem Tor zur nächsten Welt · Hinweis im Menü, wenn eine neue Version verfügbar ist'],
  ['2.1.0','Neu: Spielerprofil mit Werten, Vitrine und besten Platzierungen · Profil anpassen (Kippi-Outfit, Rahmen, Titel) · Täglicher Bonus mit Wochen- und Monatsbelohnungen'],
  ['2.0.5','Fehler behoben: Nach dem Rundenende konnte das Spiel hängen bleiben (kein Ende-Fenster, Zurück und ⚙ ohne Wirkung). Neu in ⚙: „Problem melden“ mit Fehlerprotokoll'],
  ['2.0.4','Englische Texte in der Sammlung ergänzt'],

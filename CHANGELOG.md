@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.1 (Build 80) – 23.11.2026
+- **Etappen-Karte:** Jede Welt ist jetzt ein geschwungener Pfad statt eines Rasters – Level 1 unten, Boss oben. Unter jedem Level die Sterne, Kippi (mit gewähltem Outfit) sitzt auf dem aktuellen Level, der bereits gelaufene Weg ist hervorgehoben. Oben wartet das Tor zur nächsten Welt (gesperrt mit Bedingung oder offen zum Weitergehen); ‹ › blättert durch die Welten. Alle Farben aus dem gewählten Design
+- **Update-Hinweis:** Gibt es bei Google Play eine neue Version, erscheint im Hauptmenü „Neue Version verfügbar – Aktualisieren“. Das Update lädt im Hintergrund (flexibles In-App-Update), danach „Neu starten“. Höchstens einmal pro Version, mit ✕ ausblendbar. iOS: Hinweis mit Link in den App Store, sobald die Apple-ID (`IOS_APP_ID` in `24f-appupdate.js`) eingetragen ist
+- Neues Plugin `@capawesome/capacitor-app-update` (8.x)
+
 ## v2.1.0 (Build 79) – 23.11.2026
 - **Spielerprofil** (Kippi oben links im Menü): Kippi im gewählten Rahmen, Name und Titel, sechs Werte (Etappe, Serie, Sterne, beste Kombo, Endlos-Rekord, Tagesspiele), Vitrine mit den drei wertvollsten Abzeichen, beste Platzierungen (Tag/Woche, Tages- und Wochensiege)
 - **Profil anpassen:** Kippi-Outfit, Rahmen (10) und Titel (12) wählen; gesperrte Teile zeigen, wie man sie freischaltet (Welt, Serie, Abzeichen, Login-Bonus, später Paket)

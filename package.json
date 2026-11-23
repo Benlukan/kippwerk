@@ -1,6 +1,6 @@
 {
   "name": "kippwerk",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": true,
   "description": "KIPPWERK – Kipp-Puzzle mit Tagesrätsel",
   "scripts": {
@@ -20,6 +20,7 @@
     "@capacitor/ios": "^8.6.0",
     "@capacitor/local-notifications": "^8.3.1",
     "@capacitor/share": "^8.0.3",
+    "@capawesome/capacitor-app-update": "^8.1.1",
     "@idleflowgames/capacitor-play-games": "0.3.3"
   },
   "devDependencies": {

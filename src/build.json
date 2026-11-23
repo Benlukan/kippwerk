@@ -48,6 +48,7 @@
   "js/app/24c-badges.js",
   "js/app/24b-unlocks.js",
   "js/app/24e-profile.js",
+  "js/app/24f-appupdate.js",
   "js/app/25-cloud-save.js",
   "js/app/26-tutorial.js",
   "js/app/27-menu-tilt.js",

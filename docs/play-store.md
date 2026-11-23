@@ -22,7 +22,7 @@
 **Kurzbeschreibung (max. 80):**
 `Kippe das Feld, verbinde Farben, löse Ketten aus – mit Tagesspiel und Kippi!`
 
-**Vollständige Beschreibung:**
+**Vollständige Beschreibung (Stand v2.1.1):**
 ```
 KIPPWERK ist ein Puzzle, das du in zehn Sekunden verstehst – und das dich nicht mehr loslässt.
 
@@ -33,22 +33,28 @@ JEDE BEWEGUNG ZÄHLT
 Neue Steine kommen immer von der Gegenseite. Wer nur nach Gefühl wischt, hat das Feld schnell voll. Wer vorausdenkt, baut riesige Ketten.
 
 100 ETAPPEN IN 10 WELTEN
-Knacke Etappen mit klaren Zielen – von entspannt bis knallhart, mit Boss am Ende jeder Welt: Punkte sammeln, Farben abräumen, Ketten auslösen und Felsen sprengen. Sammle bis zu drei Sterne pro Etappe.
+Folge dem Pfad über die Etappen-Karte – Kippi sitzt immer auf deinem aktuellen Level. Knacke Etappen mit klaren Zielen, von entspannt bis knallhart: Punkte sammeln, Farben abräumen, Ketten auslösen, Felsen sprengen. Bis zu drei Sterne pro Etappe, ein Boss am Ende jeder Welt – und oben wartet das Tor zur nächsten.
 
 TAGESSPIEL & SERIEN
-Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster und vergleiche dich mit Freunden. Halte deine 🔥 Serie am Leben, sammle Abzeichen und schalte neue Designs frei.
+Jeden Tag dieselben Steine für alle – 40 Züge, eine gewertete Runde. Teile dein Ergebnis als Emoji-Raster, miss dich in der weltweiten Tages- und Wochenwertung und halte deine 🔥 Serie am Leben.
+
+ENDLOS-MODUS MIT 10 FELDERN
+Spiele, bis das Feld voll ist – auf 4×4 bis 10×10 und auf Feldern mit Hindernissen. Mit jedem Level kommen neue Farben, Prisma-Joker, Felsen und mehr Tempo. Neue Felder schaltest du durch dein Können frei.
+
+DEIN PROFIL & TÄGLICHER BONUS
+Dein Profil zeigt deine Bestwerte, eine Vitrine mit deinen wertvollsten Abzeichen und deine besten Platzierungen. Hol dir jeden Tag deinen Bonus: Extraleben, Serienschutz, Rahmen, Titel und jede Woche ein neues Kippi-Outfit. Tag verpasst? Kein Problem – der Fortschritt pausiert nur.
+
+SAMMELN & ANPASSEN
+17 Designs, 12 Kippi-Outfits, dazu Rahmen, Titel und 24 Abzeichen. Alles rein optisch, freigeschaltet durch Welten, Serien, Abzeichen und den täglichen Bonus – kein Pay-to-win.
 
 MIT KIPPI 🪰
-Kippi, die kleine KIPPWERK-Fliege, begleitet dich: Sie zeigt dir am Anfang, wie alles geht, schaut beim Spielen vorbei, feiert deine Combos und erinnert dich ans Tagesspiel.
+Kippi, die kleine KIPPWERK-Fliege, begleitet dich: Sie zeigt dir am Anfang, wie alles geht, schaut beim Spielen vorbei und feiert deine Combos.
 
-ENDLOS-MODUS
-Spiele auf 5×5 bis 8×8 Feldern, bis das Feld voll ist. Mit jedem Level kommen neue Farben, Prisma-Joker, Felsen und mehr Tempo.
-
-• Weltweite Ranglisten und Cloud-Spielstand über Google Play Games (freiwillig)
-• Bestenliste mit bester Combo, Zügen und abgeräumten Steinen
+• Weltweite Ranglisten, Erfolge und Cloud-Spielstand über Google Play Games (freiwillig)
+• Hinweis, wenn dich jemand in der Rangliste überholt
 • Faire Werbung: freiwillige Videos für eine Rettung, nie mitten im Spiel
 • Kein Konto nötig, offline spielbar
-• Geführtes Tutorial mit Kippi, Musik, die mit dem Level schneller wird, satte Combo-Effekte
+• Geführtes Tutorial, Musik, die mit dem Level schneller wird, satte Combo-Effekte
 • Farbschema und Symbole für Spieler mit Farbsehschwäche
 • Deutsch und Englisch
 • Klein, schnell, akkuschonend
@@ -73,7 +79,7 @@ Play Console → Haupteintrag → *Übersetzungen verwalten* → **Englisch (USA
 **Short description (max. 80):**
 `Tilt the board, match colors, trigger chain reactions – daily game & Kippi!`
 
-**Full description:**
+**Full description (as of v2.1.1):**
 ```
 KIPPWERK is a puzzle you understand in ten seconds – and can't put down.
 
@@ -84,24 +90,31 @@ EVERY MOVE COUNTS
 New stones always arrive from the opposite side. Swipe on instinct and the board fills up fast. Think ahead and you build huge chains.
 
 100 STAGES IN 10 WORLDS
-Clear stages with clear goals – from relaxed to brutal, with a boss at the end of every world. Earn up to three stars per stage.
+Follow the path across the stage map – Kippi always sits on your current level. Clear stages with clear goals, from relaxed to brutal: score points, clear colors, trigger chains, blast rocks. Up to three stars per stage, a boss at the end of every world – and the gate to the next one waits at the top.
 
 DAILY GAME & STREAKS
-The same stones for everyone, every day – 40 moves, one counted round. Keep your 🔥 streak alive, collect badges, unlock themes and share your result as an emoji grid.
+The same stones for everyone, every day – 40 moves, one counted round. Share your result as an emoji grid, compete in the worldwide daily and weekly rankings and keep your 🔥 streak alive.
+
+ENDLESS MODE WITH 10 BOARDS
+Play until the board is full – on 4×4 up to 10×10 and on boards with obstacles. Every level brings new colors, prism jokers, rocks and more pace. Unlock new boards through your skill.
+
+YOUR PROFILE & DAILY BONUS
+Your profile shows your best stats, a showcase of your most valuable badges and your best placements. Collect your bonus every day: extra lives, streak shields, frames, titles and a new Kippi outfit every week. Missed a day? No problem – your progress just pauses.
+
+COLLECT & CUSTOMIZE
+17 themes, 12 Kippi outfits, plus frames, titles and 24 badges. All purely cosmetic, unlocked through worlds, streaks, badges and the daily bonus – no pay-to-win.
 
 WITH KIPPI 🪰
-Kippi, the little KIPPWERK fly, keeps you company: shows you the ropes, drops by while you play, cheers your combos and reminds you of the daily game.
+Kippi, the little KIPPWERK fly, keeps you company: shows you the ropes, drops by while you play and cheers your combos.
 
-ENDLESS MODE
-Play on 5×5 to 8×8 boards until the board is full. Every level brings new colors, prism jokers, rocks and more pace.
-
-• Global leaderboards and cloud save via Google Play Games (optional)
-• Leaderboard with best combo, moves and stones cleared
+• Global leaderboards, achievements and cloud save via Google Play Games (optional)
+• Notice when someone overtakes you on the leaderboard
 • Fair ads: optional videos for a rescue, never mid-game
 • No account needed, plays offline
-• Guided tutorial with Kippi, music that speeds up as you level, punchy combo effects
+• Guided tutorial, music that speeds up as you level, punchy combo effects
 • Color scheme and symbols for color-blind players
 • English and German
+• Small, fast, battery-friendly
 
 Made by david.digital · Legal notice: https://benlukan.github.io/kippwerk/legal-notice.html
 ```

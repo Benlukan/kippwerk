@@ -1,5 +1,28 @@
 # Versionshinweise (Play Console, max. 500 Zeichen je Sprache)
 
+## v2.1.1 (Build 80)
+
+<de-DE>
+Neu in KIPPWERK:
+• Etappen-Karte: jede Welt als Pfad, Kippi sitzt auf deinem Level
+• Dein Profil mit Bestwerten, Vitrine und Platzierungen
+• Profil anpassen: Kippi-Outfit, Rahmen und Titel
+• Täglicher Bonus mit Extraleben und neuen Kippi-Outfits
+• Hinweis im Menü, wenn ein Update bereitsteht
+• Fehler behoben: Spiel konnte nach dem Rundenende hängen
+• Problem melden direkt aus den Einstellungen
+</de-DE>
+<en-US>
+New in KIPPWERK:
+• Stage map: every world as a path, Kippi sits on your level
+• Your profile with best stats, showcase and placements
+• Customize your profile: Kippi outfit, frame and title
+• Daily bonus with extra lives and new Kippi outfits
+• Notice in the menu when an update is ready
+• Fixed: the game could get stuck after a round ended
+• Report a problem right from the settings
+</en-US>
+
 ## v2.0.3 (Build 76)
 
 <de-DE>

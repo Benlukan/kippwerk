@@ -18,6 +18,7 @@
  "app": [
   "js/app/00-core.js",
   "js/app/01-ads.js",
+  "js/app/01b-errlog.js",
   "js/app/02-rng.js",
   "js/app/03-settings.js",
   "js/app/04-i18n.js",

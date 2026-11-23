@@ -97,6 +97,12 @@
       </div>
       <p class="hint" id="countdown"></p>
     </div>
+    <div class="overlay hidden" id="bugOv">
+      <h2>🐞 Problem aufgetreten</h2>
+      <p>Im Spiel ist ein Fehler aufgetreten. Möchtest du David einen Bericht schicken? Er enthält nur das Fehlerprotokoll, die App-Version und dein Gerätemodell – keine persönlichen Daten.</p>
+      <a class="btn" id="bugSend" href="mailto:david.digital@web.de">BERICHT SENDEN</a>
+      <button class="btn alt" id="bugNo">NICHT JETZT</button>
+    </div>
     <div class="overlay hidden" id="rescueOv">
       <h2 id="rescueTitle">FELD VOLL</h2>
       <div class="big" id="rescueScore">0</div>
@@ -155,6 +161,7 @@
       </div>
       <div class="set-h">Hilfe &amp; Rechtliches</div>
       <div class="settings">
+        <a class="set" id="lnkBug" href="mailto:david.digital@web.de"><span>🐞 Problem melden</span><span class="pid">mit Fehlerprotokoll</span></a>
         <a class="set" id="lnkFeedback" href="mailto:david.digital@web.de"><span>💬 Feedback geben</span><span class="pid">5 kurze Fragen</span></a>
         <button class="set" id="settingsNews"><span>🆕 Was ist neu?</span><span class="pid" id="newsVer"></span></button>
         <button class="set" id="settingsHelp">❓ Hilfe &amp; Anleitung</button>
@@ -308,7 +315,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.0.4 · Build 77 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.0.5 · Build 78 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

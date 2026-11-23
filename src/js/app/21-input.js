@@ -57,6 +57,7 @@ function showMenu(){
   $('endlessSize').textContent=bLabel(sz);
   $('endlessSub').textContent=bs?'Rekord '+bs.toLocaleString(LOC()):'Rekord –';
   try{setTimeout(()=>{try{RankWatch.check()}catch(e){}},8000)}catch(e){}   // Überholt-Hinweis (gedrosselt)
+  try{if(ErrLog.fresh&&ErrLog.count)setTimeout(askBugReport,1200)}catch(e){}   // nach einem Fehler einmal fragen
   // Serie, Pause, Fußzeile
   $('menuLives').style.display=lives>0?'':'none';$('menuLivesNum').textContent=lives;
   renderStreakChip();$('menuStreakNum').textContent=cur;$('menuStreak').className='streakchip'+(ST&&ST.last===todayKey()?' done':cur>0?' open':'');
@@ -149,7 +150,7 @@ $('pidRow').onclick=async()=>{try{await navigator.clipboard.writeText(playerId);
   setTimeout(()=>$('pidText').textContent=shortId(playerId)+' '+myTag(),1800)};
 $('closeSettings').onclick=()=>{$('settingsOv').classList.add('hidden');
   if(settingsReturn==='play'){paused=false;started=true}else showMenu()};
-$('settingsBtn').onclick=()=>{if(busy||over||document.querySelector('.overlay:not(.hidden)'))return;openSettings('play')};
+$('settingsBtn').onclick=()=>{if(busy||document.querySelector('.overlay:not(.hidden)'))return;if(over)started=false;openSettings(over?'menu':'play')};
 $('menuSettings').onclick=()=>openSettings('menu');
 $('streakBtn').onclick=()=>{if(busy||!$('rescueOv').classList.contains('hidden'))return;openStreak()};
 $('closeStreak').onclick=closeStreak;

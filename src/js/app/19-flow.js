@@ -66,8 +66,8 @@ function countdown(){
 
 function gameOver(reason){
   over=true;busy=false;sfx.over();haptic('heavy');musicSync();try{Fly.react('over')}catch(e){}
-  const canVideo=!rescued&&Ads.canRescue,canLife=lives>0;
-  if(mode!=='daily'&&(canVideo||canLife)){
+  let canVideo=false,canLife=false;try{canVideo=!rescued&&!!Ads.canRescue;canLife=lives>0}catch(e){ErrLog.add('gameOver',e&&e.message,e&&e.stack)}
+  if(mode!=='daily'&&(canVideo||canLife))try{
     rescueKind=reason;
     $('rescueTitle').textContent=reason==='moves'?'KEINE ZÜGE MEHR':'FELD VOLL';
     $('rescueScore').textContent=mode==='level'?'ETAPPE '+stg(lvNo):score.toLocaleString(LOC());
@@ -78,13 +78,26 @@ function gameOver(reason){
     $('rescueBtn').disabled=false;$('rescueBtn').textContent='🎬 VIDEO ANSEHEN & WEITER';
     $('rescueHint').textContent=canVideo?'Video: einmal pro Runde · Leben: so viele du hast':'Extra-Leben gibt es für Combos ab ×'+lifeAt();
     setTimeout(()=>$('rescueOv').classList.remove('hidden'),500);return;
-  }
+  }catch(e){ErrLog.add('rescue',e&&e.message,e&&e.stack)}
   endRound(reason);
 }
-function endRound(reason){mode==='level'?levelFail(reason):finishGame(reason)}
+function endRound(reason){
+  try{mode==='level'?levelFail(reason):finishGame(reason)}
+  catch(e){ErrLog.add('endRound',e&&e.message,e&&e.stack);console.error(e);
+    // Notfall: Endbildschirm ohne Details zeigen, damit man nie im Spiel festhängt
+    try{$('overTitle').textContent=mode==='level'?'ETAPPE VORBEI':'RUNDE VORBEI';$('overText').textContent=I18N.tr('Ein Fehler ist aufgetreten – dein Spiel wurde beendet.');}catch(x){}
+    setTimeout(()=>$('overOv').classList.remove('hidden'),300)}}
+// Wächter: hängt eine Runde (vorbei, aber kein Fenster offen) oder bleibt ein Zug „beschäftigt“, geht es automatisch weiter
+let stuckTicks=0,busySince=0,busyMv=-1;
+setInterval(()=>{try{
+  if(busy&&started&&!over){const mv=history.length;if(busyMv!==mv||!busySince){busyMv=mv;busySince=Date.now()}
+    else if(Date.now()-busySince>15000){ErrLog.add('stuck','Zug hing länger als 15 s');busy=false;busySince=0;render()}}else busySince=0;
+  const anyOpen=!!document.querySelector('.overlay:not(.hidden)');
+  if(started&&over&&!busy&&!anyOpen&&!adBusy){if(++stuckTicks>=3){stuckTicks=0;ErrLog.add('stuck','Runde vorbei, aber kein Fenster offen');endRound(rescueKind||'full')}}else stuckTicks=0;
+}catch(e){}},1000);
 async function rescue(){
   $('rescueBtn').disabled=true;$('rescueBtn').textContent='VIDEO LÄDT …';
-  const earned=await Ads.showReward();
+  let earned=false;try{earned=await Promise.race([Ads.showReward(),new Promise(r=>setTimeout(()=>r(false),45000))])}catch(e){ErrLog.add('ad',e&&e.message,e&&e.stack)}
   $('rescueOv').classList.add('hidden');
   if(!earned)return endRound(rescueKind);
   rescued=true;applyRescue();

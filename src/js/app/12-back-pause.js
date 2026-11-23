@@ -4,6 +4,7 @@ function pauseToMenu(){if(started&&!over){paused=true;started=false;showMenu();r
 function handleBack(){
   try{if(PopMenu.close())return}catch(e){}   // offenes Auswahlmenü zuerst schließen
   const open=id=>!$(id).classList.contains('hidden');
+  if(open('bugOv')){$('bugNo').click();return}
   if(open('rescueOv')){$('noRescueBtn').click();return}
   if(open('helpOv')){$('closeHelp').click();return}
   if(open('streakOv')){closeStreak();return}
@@ -17,6 +18,7 @@ function handleBack(){
     if(Date.now()-backArmed<2200){const A=AppPlugin();if(A)A.exitApp();return}
     backArmed=Date.now();toast('Zum Beenden nochmal „Zurück“ drücken');return}
   if(busy){setTimeout(handleBack,250);return}                // Zug läuft noch → kurz warten
+  if(started&&over){started=false;showMenu();return}           // Runde vorbei, aber kein Fenster offen → ins Menü
   pauseToMenu();
 }
 const AppPlugin=()=>{const C=window.Capacitor;return C&&C.isNativePlatform&&C.isNativePlatform()?((C.Plugins&&C.Plugins.App)||(C.registerPlugin&&C.registerPlugin('App'))):null};

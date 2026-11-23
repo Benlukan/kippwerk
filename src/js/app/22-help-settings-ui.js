@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.5','Fehler behoben: Nach dem Rundenende konnte das Spiel hängen bleiben (kein Ende-Fenster, Zurück und ⚙ ohne Wirkung). Neu in ⚙: „Problem melden“ mit Fehlerprotokoll'],
  ['2.0.4','Englische Texte in der Sammlung ergänzt'],
  ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],
  ['2.0.2','„Als Nächstes“: Steine linksbündig'],
@@ -97,6 +98,12 @@ function feedbackHref(){if(FEEDBACK_URL)return FEEDBACK_URL;const en=I18N.lang==
   const body=Q.map((q,i)=>`${i+1}. ${q}\n\n`).join('')+`\n—\nKIPPWERK v${APP_VER} · ${playerName||''}`;
   return 'mailto:'+FEEDBACK_MAIL+'?subject='+encodeURIComponent('KIPPWERK Feedback v'+APP_VER)+'&body='+encodeURIComponent(body)}
 $('lnkFeedback').onclick=()=>{$('lnkFeedback').href=feedbackHref()};
+// Problembericht: E-Mail mit Fehlerprotokoll (der Spieler entscheidet und sendet selbst)
+const bugHref=()=>'mailto:'+FEEDBACK_MAIL+'?subject='+encodeURIComponent('KIPPWERK Problembericht v'+APP_VER)+'&body='+encodeURIComponent((I18N.lang==='en'?'What happened? (optional)\n\n\n':'Was ist passiert? (optional)\n\n\n')+ErrLog.text());
+$('lnkBug').onclick=()=>{$('lnkBug').href=bugHref();ErrLog.seen()};
+function askBugReport(){if(!ErrLog.fresh||document.querySelector('.overlay:not(.hidden):not(#startOv)'))return;ErrLog.seen();$('bugSend').href=bugHref();$('bugOv').classList.remove('hidden')}
+$('bugSend').onclick=()=>{$('bugSend').href=bugHref();setTimeout(()=>$('bugOv').classList.add('hidden'),300)};
+$('bugNo').onclick=()=>$('bugOv').classList.add('hidden');
 // Nach einem Update einmal zeigen (nicht bei Neuinstallation – da kommt das Tutorial)
 function newsAfterUpdate(){let seen=null;try{seen=localStorage.getItem('kippwerk_seenver')}catch(e){}
   const known=WAS_KNOWN;
@@ -126,7 +133,7 @@ $('infobar').addEventListener('click',e=>{const b=e.target.closest('[data-help]'
 try{if(!localStorage.getItem('kippwerk_helpseen')){localStorage.setItem('kippwerk_helpseen','1');setTimeout(()=>{if(!$('startOv').classList.contains('hidden'))startTutorial()},900)}}catch(e){}
 $('menuScores').onclick=()=>openScores('endless');
 $('rescueBtn').onclick=rescue;$('lifeBtn').onclick=useLife;
-$('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');finishGame('full')};
+$('noRescueBtn').onclick=()=>{$('rescueOv').classList.add('hidden');endRound(rescueKind||'full')};
 $('privacyBtn').onclick=()=>Ads.privacy();
 $('shareBtn').onclick=async()=>{
   const txt=$('shareBox').textContent,b=$('shareBtn');
@@ -301,7 +308,7 @@ $('tabDaily').onclick=()=>{scoresTab='daily';renderScores()};
 $('tabMine').onclick=()=>{scoresTab='mine';renderScores()};
 $('closeScores').onclick=()=>{$('scoresOv').classList.add('hidden');
   if(scoresReturn==='over')$('overOv').classList.remove('hidden');else if(scoresReturn==='start'||scoresReturn==='pause')showMenu()};
-$('helpBtn').onclick=()=>{if(over||busy)return;
+$('helpBtn').onclick=()=>{if(busy)return;if(over){if(!document.querySelector('.overlay:not(.hidden)')){started=false;showMenu()}return}
   if(started){paused=true;started=false}
   showMenu()};
 

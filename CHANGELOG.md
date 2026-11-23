@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.0.5 (Build 78) – 23.11.2026
+- **Fehler behoben: Spiel hing nach dem Rundenende** – Runde war intern vorbei, aber weder Ende-Fenster noch Rettungsangebot erschien; dadurch reagierten Wischen, Zurück und ⚙ nicht mehr (nur 🔥 und 🏆). Behebung:
+  - Rundenende und Rettungsangebot abgesichert: tritt dabei ein Fehler auf, wird er protokolliert und das Ende-Fenster trotzdem gezeigt
+  - Wächter: ist eine Runde vorbei und 3 s lang kein Fenster offen, wird das Rundenende nachgeholt; hängt derselbe Zug länger als 15 s, wird er gelöst
+  - Zurück-Knopf und Android-Zurück führen bei beendeter Runde ins Menü, ⚙ ist auch dann erreichbar
+  - Belohnungsvideo: wartet höchstens 45 s auf die Werbung
+  - Etappen: „Nein danke“ im Rettungsangebot beendet die Etappe als verloren (vorher fälschlich wie eine Endlos-Runde)
+- **Fehlerprotokoll & Problembericht:** JavaScript-Fehler und Hänger werden lokal gespeichert (letzte 40, nur auf dem Gerät). Nach einem Fehler fragt das Spiel einmal, ob ein Bericht per E-Mail an david.digital@web.de gehen soll (Protokoll, App-Version, Gerätemodell – keine persönlichen Daten); jederzeit auch über ⚙ → „🐞 Problem melden“
+
 ## v2.0.4 (Build 77) – 23.11.2026
 - Sammlung auf Englisch: Reiter „Abzeichen“ und „Felder“ übersetzt (Badges, Boards)
 - **Neue Store-Screenshots** (DE/EN, 1080×1920) in `docs/store/de|en`: Menü 2.0, Combo, Kippi, Tagesspiel, weltweite Rangliste, Felder, 10×10, Etappen

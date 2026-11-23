@@ -1,21 +1,21 @@
 import asyncio, urllib.parse, os
 from playwright.async_api import async_playwright
 S={'de':[('menu','Kippen. Verbinden.<br><em>Kettenreaktion.</em>','Das Puzzle mit Kippi, der kleinen Fliege'),
- ('tutorial','Kippi zeigt dir,<br>wie’s <em>geht</em>','Und schaut beim Spielen immer mal vorbei 🪰'),
  ('play','Combos bis<br><em>ULTRA ×6</em>','Nachrutschende Steine lösen Ketten aus'),
+ ('tutorial','Kippi zeigt dir,<br>wie’s <em>geht</em>','Und schaut beim Spielen immer mal vorbei 🪰'),
  ('daily','Jeden Tag ein neues<br><em>Tagesspiel</em>','Gleiche Steine für alle – teile dein Ergebnis'),
- ('levels','<em>100 Etappen</em><br>in 10 Welten','Ziele, Felsen, Bosse und bis zu 3 Sterne'),
- ('scores','Bestenliste mit<br><em>Combos</em> &amp; Zügen','Dazu weltweite Ranglisten über Google Play Games'),
- ('streak','Halte deine<br>🔥 <em>Serie</em>','Abzeichen, Belohnungen &amp; 6 Designs'),
- ('8x8','<em>Endlos</em> auf<br>5×5 bis 8×8','Felsen und eine 6. Farbe für Profis')],
+ ('world','<em>Weltweite</em><br>Bestenlisten','Tag, Woche und Gesamt – über Google Play Games'),
+ ('boards','<em>Neue Felder</em><br>freischalten','4×4 bis 10×10 und Felder mit Hindernissen'),
+ ('10x10','<em>Endlos</em> bis<br>10×10','Felsen, eine 6. Farbe und riesige Combos'),
+ ('levels','<em>100 Etappen</em><br>in 10 Welten','Ziele, Felsen, Bosse und bis zu 3 Sterne')],
 'en':[('menu','Tilt. Connect.<br><em>Chain reaction.</em>','The puzzle with Kippi, the little fly'),
- ('tutorial','Kippi shows you<br>the <em>ropes</em>','…and drops by while you play 🪰'),
  ('play','Combos up to<br><em>ULTRA ×6</em>','Sliding stones set off chain reactions'),
+ ('tutorial','Kippi shows you<br>the <em>ropes</em>','…and drops by while you play 🪰'),
  ('daily','A new <em>daily game</em><br>every day','Same stones for everyone – share your result'),
- ('levels','<em>100 stages</em><br>in 10 worlds','Goals, rocks, bosses and up to 3 stars'),
- ('scores','Leaderboards with<br><em>combos</em> &amp; moves','Plus global rankings via Google Play Games'),
- ('streak','Keep your<br>🔥 <em>streak</em> alive','Badges, rewards &amp; 6 themes'),
- ('8x8','<em>Endless</em> on<br>5×5 to 8×8','Rocks and a 6th color for pros')]}
+ ('world','<em>Worldwide</em><br>leaderboards','Day, week and all time – via Google Play Games'),
+ ('boards','Unlock<br><em>new boards</em>','4×4 to 10×10 and boards with obstacles'),
+ ('10x10','<em>Endless</em> up to<br>10×10','Rocks, a 6th color and huge combos'),
+ ('levels','<em>100 stages</em><br>in 10 worlds','Goals, rocks, bosses and up to 3 stars')]}
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={'width':1080,'height':1920})

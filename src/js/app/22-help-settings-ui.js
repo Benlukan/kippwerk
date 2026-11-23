@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.0.4','Englische Texte in der Sammlung ergänzt'],
  ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],
  ['2.0.2','„Als Nächstes“: Steine linksbündig'],
  ['2.0.1','„Als Nächstes“ zeigt jetzt alle Steine des nächsten Zugs – bei vielen Steinen in zwei Reihen'],

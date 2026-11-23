@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.4 (Build 77) – 23.11.2026
+- Sammlung auf Englisch: Reiter „Abzeichen“ und „Felder“ übersetzt (Badges, Boards)
+- **Neue Store-Screenshots** (DE/EN, 1080×1920) in `docs/store/de|en`: Menü 2.0, Combo, Kippi, Tagesspiel, weltweite Rangliste, Felder, 10×10, Etappen
+- Ideen-Liste `docs/ideen.md` angelegt (Neige-Steuerung)
+
 ## v2.0.3 (Build 76) – 22.11.2026
 - **Bestenlisten schneller:**
   - Gemeinsamer Zwischenspeicher (60 s) für alle Ranglisten-Abfragen (Top 5, 🏆, Woche Mo–So, Überholt-Hinweis); gleiche Anfragen laufen nur einmal; es werden immer 25 Einträge geladen und je nach Anzeige gekürzt; nach eigenem Ergebnis wird die Liste neu geladen

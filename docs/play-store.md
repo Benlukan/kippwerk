@@ -176,7 +176,7 @@ Einrichtung: [game-services.md](game-services.md). KIPPWERK selbst sammelt dafü
 |---|---|---|
 | App-Symbol | 512×512 PNG | `www/icon-512.png` |
 | Feature-Grafik | 1024×500 PNG | `feature-graphic.png` |
-| Screenshots Smartphone (8) | 1080×1920 PNG | `1-menu` · `2-tutorial` (Kippi) · `3-play` (MEGA-Combo) · `4-daily` · `5-levels` · `6-scores` · `7-streak` · `8-8x8` |
+| Screenshots Smartphone (8) | 1080×1920 PNG | ab v2.0: `1-menu` (neues Menü mit Top 5) · `2-play` (MEGA-Combo) · `3-tutorial` (Kippi) · `4-daily` · `5-world` (weltweite Rangliste) · `6-boards` (Sammlung → Felder) · `7-10x10` · `8-levels` – erstellt mit `tools/video/shots3.py` + `store_shots.py` |
 
 Play Console → Haupteintrag: deutsche Dateien im deutschen Eintrag, englische in der Übersetzung **en-US** hochladen (Reihenfolge wie die Nummern).
 

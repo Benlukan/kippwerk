@@ -1,7 +1,7 @@
 // ---------- Freischaltungen: Designs & Kippi-Outfits ----------
 // Quellen: Welten (Etappen), Serie, Endlos-Level, Anzahl Tagesspiele und Feiertage (Dezember, Silvester, Ostern).
 // Einmal freigeschaltet bleibt freigeschaltet (kippwerk_unlocks, auch in der Cloud-Sicherung).
-const KIPPI_NAMES={none:'Ohne',brille:'Sonnenbrille',kopfhoerer:'Kopfhörer',helm:'Bauhelm',zauberhut:'Zauberhut',schal:'Schal',krone:'Krone',partyhut:'Partyhut',hasen:'Hasenohren'};
+const KIPPI_NAMES={none:'Ohne',brille:'Sonnenbrille',kopfhoerer:'Kopfhörer',helm:'Bauhelm',zauberhut:'Zauberhut',schal:'Schal',krone:'Krone',partyhut:'Partyhut',hasen:'Hasenohren',zylinder:'Zylinder',muetze:'Wollmütze',fliege:'Fliege',sternreif:'Sternenreif',pirat:'Piratenhut'};
 const KIPPI_SVG={none:'',
   brille:'<rect x="17" y="18.5" width="13" height="8" rx="3" fill="#111"/><rect x="34" y="18.5" width="13" height="8" rx="3" fill="#111"/><path d="M30 21h4" stroke="#111" stroke-width="2"/><path d="M19 20h4" stroke="#fff6" stroke-width="1.4"/>',
   kopfhoerer:'<path d="M19 25q0-17 13-17t13 17" fill="none" stroke="#4cc9f0" stroke-width="3"/><rect x="15" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/><rect x="42" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/>',
@@ -10,6 +10,11 @@ const KIPPI_SVG={none:'',
   schal:'<path d="M19 33q13 7 26 0l1 4q-14 8-28 0z" fill="#ff5d73"/><path d="M38 36l4 10-5 1-3-10z" fill="#ff5d73"/><path d="M22 35l2 1M27 37l2 .5M33 37.5l2-.3M39 36l2-1" stroke="#fff8" stroke-width="1.2"/>',
   krone:'<path d="M20 15l2-11 6 6 4-8 4 8 6-6 2 11z" fill="#ffc145" stroke="#e0a52e" stroke-width="1"/><circle cx="32" cy="9" r="1.6" fill="#ff5d73"/><circle cx="25" cy="11" r="1.2" fill="#4cc9f0"/><circle cx="39" cy="11" r="1.2" fill="#3ddc97"/>',
   partyhut:'<path d="M24 15l8-18 8 18z" fill="#ff5d73"/><path d="M26.5 9.5l11 0M28.8 4.3l6.4 0" stroke="#ffd23f" stroke-width="2"/><circle cx="32" cy="-3" r="2.6" fill="#ffd23f"/><path d="M22 15h20" stroke="#4cc9f0" stroke-width="2.4" stroke-linecap="round"/>',
+  zylinder:'<rect x="23" y="-5" width="18" height="18" rx="2" fill="#1b1d2e"/><rect x="23" y="7" width="18" height="3.5" fill="#ff5d73"/><ellipse cx="32" cy="14" rx="14" ry="3" fill="#1b1d2e"/><path d="M26 -3v8" stroke="#fff3" stroke-width="2"/>',
+  muetze:'<path d="M19 16q0-14 13-14t13 14z" fill="#3ddc97"/><path d="M25 4l1 10M32 2v12M39 4l-1 10" stroke="#2bb07a" stroke-width="1.4"/><rect x="17.5" y="13" width="29" height="5.5" rx="2.7" fill="#2bb07a"/><circle cx="32" cy="1" r="3.8" fill="#f4f0ff"/>',
+  fliege:'<path d="M32 36.5l-9-4.5v9z" fill="#ff5d73"/><path d="M32 36.5l9-4.5v9z" fill="#ff5d73"/><circle cx="32" cy="36.5" r="2.4" fill="#d8405a"/><path d="M25 34.5l3 1.5M39 34.5l-3 1.5" stroke="#fff6" stroke-width="1.2"/>',
+  sternreif:'<path d="M19 15q13-7 26 0" stroke="#b57bff" stroke-width="2.6" fill="none"/><polygon points="23.0,5.4 24.0,7.7 26.4,7.9 24.5,9.5 25.1,11.9 23.0,10.6 20.9,11.9 21.5,9.5 19.6,7.9 22.0,7.7" fill="#ffc145"/><polygon points="32.0,0.4 33.2,3.3 36.4,3.6 34.0,5.6 34.7,8.7 32.0,7.1 29.3,8.7 30.0,5.6 27.6,3.6 30.8,3.3" fill="#ffc145"/><polygon points="41.0,5.4 42.0,7.7 44.4,7.9 42.5,9.5 43.1,11.9 41.0,10.6 38.9,11.9 39.5,9.5 37.6,7.9 40.0,7.7" fill="#ffc145"/>',
+  pirat:'<path d="M16 15q16-18 32 0z" fill="#1b1d2e"/><path d="M16 15h32" stroke="#ffc145" stroke-width="2"/><circle cx="32" cy="8" r="2.6" fill="#f4f0ff"/><path d="M29 11.5l6-2M29 9.5l6 2" stroke="#f4f0ff" stroke-width="1.2"/>',
   hasen:'<ellipse cx="24" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(-14 24 2)"/><ellipse cx="24" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(-14 24 3)"/><ellipse cx="40" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(14 40 2)"/><ellipse cx="40" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(14 40 3)"/>'};
 
 // Ostersonntag (Gauß/Meeus, gregorianisch)
@@ -57,6 +62,11 @@ const REWARDS=[
   {t:'kippi',id:'krone',how:'Welt 10 geschafft',test:()=>worldDone(10)},
   {t:'kippi',id:'partyhut',how:'an Silvester spielen',test:()=>Holiday.silvester()},
   {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()},
+  {t:'kippi',id:'zylinder',how:'Login-Bonus Woche 1 · Tag 7',test:()=>Login.has('kippi:zylinder')},
+  {t:'kippi',id:'muetze',how:'Login-Bonus Woche 2 · Tag 7',test:()=>Login.has('kippi:muetze')},
+  {t:'kippi',id:'fliege',how:'Login-Bonus Woche 3 · Tag 7',test:()=>Login.has('kippi:fliege')},
+  {t:'kippi',id:'sternreif',how:'Login-Bonus Woche 4 · Tag 7',test:()=>Login.has('kippi:sternreif')},
+  {t:'kippi',id:'pirat',how:'Paket „Abenteuer“ – bald',paket:true,test:()=>false},
   // Spielfelder (Endlos) – prog: [aktuell, Ziel] für den Fortschrittsbalken
   {t:'board',id:'4',how:'Endlos 5×5 bis Level 15',test:()=>MaxLv.get('5')>=15,prog:()=>[MaxLv.get('5'),15]},
   {t:'board',id:'6h',how:'Endlos 6×6 bis Level 30',test:()=>MaxLv.get('6')>=30,prog:()=>[MaxLv.get('6'),30]},
@@ -139,7 +149,7 @@ function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collT
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
   ['settingsOv','streakOv','startOv'].forEach(i=>$(i).classList.add('hidden'));renderCollection();$('collOv').classList.remove('hidden');$('collOv').scrollTop=0}
 function closeCollection(){$('collOv').classList.add('hidden');collBadge();
-  if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else showMenu()}
+  if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else if(collReturn==='profile')openProfile();else showMenu()}
 $('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
 $('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};

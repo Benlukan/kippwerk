@@ -7,6 +7,9 @@ document.addEventListener('keydown',e=>{
   if(!$('settingsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeSettings').click();return}
   if(!$('helpOv').classList.contains('hidden')){if(e.key==='Escape'||e.key==='Enter')$('closeHelp').click();return}
   if(!$('streakOv').classList.contains('hidden')){if(e.key==='Escape')closeStreak();return}
+  if(!$('loginOv').classList.contains('hidden')){if(e.key==='Escape')closeLogin();return}
+  if(!$('custOv').classList.contains('hidden')){if(e.key==='Escape')closeCustom();return}
+  if(!$('profOv').classList.contains('hidden')){if(e.key==='Escape')closeProfile();return}
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();e.target.id==='setName'?e.target.blur():$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(e.key==='Escape'&&started&&!over){e.preventDefault();handleBack();return}
@@ -66,7 +69,8 @@ function showMenu(){
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
-  ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  ['overOv','lvlOv','levelsOv','settingsOv','streakOv','loginOv','profOv','custOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  try{renderAvatarChip();maybeShowLogin()}catch(e){}
   try{Cloud.onMenu()}catch(e){}
   try{Top5.refresh()}catch(e){}
   try{Awards.check()}catch(e){}

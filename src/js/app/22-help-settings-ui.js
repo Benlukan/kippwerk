@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.0','Neu: Spielerprofil mit Werten, Vitrine und besten Platzierungen · Profil anpassen (Kippi-Outfit, Rahmen, Titel) · Täglicher Bonus mit Wochen- und Monatsbelohnungen'],
  ['2.0.5','Fehler behoben: Nach dem Rundenende konnte das Spiel hängen bleiben (kein Ende-Fenster, Zurück und ⚙ ohne Wirkung). Neu in ⚙: „Problem melden“ mit Fehlerprotokoll'],
  ['2.0.4','Englische Texte in der Sammlung ergänzt'],
  ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],

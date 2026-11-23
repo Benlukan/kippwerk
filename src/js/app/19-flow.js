@@ -45,7 +45,7 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
+  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);try{PStats.combo(total)}catch(e){}if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');

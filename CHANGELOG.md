@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0 (Build 79) – 23.11.2026
+- **Spielerprofil** (Kippi oben links im Menü): Kippi im gewählten Rahmen, Name und Titel, sechs Werte (Etappe, Serie, Sterne, beste Kombo, Endlos-Rekord, Tagesspiele), Vitrine mit den drei wertvollsten Abzeichen, beste Platzierungen (Tag/Woche, Tages- und Wochensiege)
+- **Profil anpassen:** Kippi-Outfit, Rahmen (10) und Titel (12) wählen; gesperrte Teile zeigen, wie man sie freischaltet (Welt, Serie, Abzeichen, Login-Bonus, später Paket)
+- **Täglicher Bonus:** einmal pro Spieltag, 7-Tage-Wochen (Extraleben, Serienschutz, Rahmen, Titel, Tag 7 Kippi-Outfit), Monatsleiste über 4 Wochen; verpasste Tage pausieren nur. Erscheint einmal täglich im Menü (nicht beim allerersten Start), jederzeit über das Profil. Doppelte Gegenstände im Folgemonat werden zu 2 Extraleben
+- **Neue Kippi-Outfits:** Zylinder, Wollmütze, Fliege, Sternenreif (Login-Bonus), Piratenhut (Paket – bald)
+- Alle neuen Fenster übernehmen die Farben des gewählten Designs
+- Beste Kombo und beste Platzierungen werden jetzt dauerhaft gespeichert; Profil, Rahmen, Titel und Login-Bonus sind Teil der Cloud-Sicherung
+
 ## v2.0.5 (Build 78) – 23.11.2026
 - **Fehler behoben: Spiel hing nach dem Rundenende** – Runde war intern vorbei, aber weder Ende-Fenster noch Rettungsangebot erschien; dadurch reagierten Wischen, Zurück und ⚙ nicht mehr (nur 🔥 und 🏆). Behebung:
   - Rundenende und Rettungsangebot abgesichert: tritt dabei ein Fehler auf, wird er protokolliert und das Ende-Fenster trotzdem gezeigt

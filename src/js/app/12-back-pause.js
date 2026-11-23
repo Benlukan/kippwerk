@@ -8,6 +8,9 @@ function handleBack(){
   if(open('rescueOv')){$('noRescueBtn').click();return}
   if(open('helpOv')){$('closeHelp').click();return}
   if(open('streakOv')){closeStreak();return}
+  if(open('loginOv')){closeLogin();return}
+  if(open('custOv')){closeCustom();return}
+  if(open('profOv')){closeProfile();return}
   if(open('scoresOv')){$('closeScores').click();return}
   if(open('settingsOv')){$('closeSettings').click();return}
   if(open('lvlOv')){$('lvlMap').style.display!=='none'?$('lvlMap').click():openLevels();return}

@@ -6,14 +6,14 @@ const Cloud=(()=>{
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
   const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
-  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi'];
+  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi','frame','title'];
   function local(){
     const daily={};const cut=addDays(todayKey(),-60);
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),maxlv:J('kippwerk_maxlv',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),maxlv:J('kippwerk_maxlv',{}),login:J('kippwerk_login',null),pstats:(o=>({combo:+o.combo||0,rd:+o.rd||0,rw:+o.rw||0}))(J('kippwerk_pstats',{})||{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -36,6 +36,10 @@ const Cloud=(()=>{
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
       unlocks:uni(L.unlocks,R.unlocks),badges:(()=>{const o={...(R.badges||{})};for(const k in L.badges||{})if(!o[k]||L.badges[k]<o[k])o[k]=L.badges[k];return o})(),
       maxlv:(()=>{const o={...(R.maxlv||{})};for(const k in L.maxlv||{})o[k]=Math.max(+o[k]||0,+L.maxlv[k]||0);return o})(),
+      login:(()=>{const a=L.login,b=R.login;if(!a)return b||null;if(!b)return a;const p=(+b.n||0)>(+a.n||0)||((+b.n||0)===(+a.n||0)&&(b.last||'')>(a.last||''))?b:a;
+        return{n:+p.n||0,last:p.last||'',got:uni(a.got,b.got)}})(),
+      pstats:(()=>{const a=L.pstats||{},b=R.pstats||{},bt=(x,y)=>x>0&&y>0?Math.min(x,y):(x>0?x:y>0?y:0);
+        return{combo:Math.max(+a.combo||0,+b.combo||0),rd:bt(+a.rd||0,+b.rd||0),rw:bt(+a.rw||0,+b.rw||0)}})(),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -47,6 +51,8 @@ const Cloud=(()=>{
     if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
     if(M.badges&&typeof M.badges==='object')lsSet('kippwerk_badges',JSON.stringify(M.badges));
     if(M.maxlv&&typeof M.maxlv==='object')lsSet('kippwerk_maxlv',JSON.stringify(M.maxlv));
+    if(M.login&&typeof M.login==='object')lsSet('kippwerk_login',JSON.stringify(M.login));
+    if(M.pstats&&typeof M.pstats==='object')lsSet('kippwerk_pstats',JSON.stringify(M.pstats));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);

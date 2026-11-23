@@ -42,7 +42,7 @@
     </div>
     <div class="overlay home" id="startOv">
       <div class="home-top">
-        <div class="home-chips"><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
+        <div class="home-chips"><button class="avachip" id="menuProfile" title="Profil" aria-label="Profil"></button><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
         <div class="home-icons">
           <button class="icon-btn" id="menuColl" title="Sammlung">🎨<span class="dot" id="collDot" style="display:none"></span></button>
           <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
@@ -196,6 +196,44 @@
         <button class="btn" id="collClose">ZURÜCK</button>
       </div>
     </div>
+    <div class="overlay hidden" id="loginOv">
+      <div class="card lg-card">
+        <p class="hint">Täglicher Bonus</p>
+        <h2 id="lgWeek">Woche 1 · Tag 1</h2>
+        <div class="lg-grid" id="lgGrid"></div>
+        <div class="lg-big" id="lgBig"></div>
+        <div class="lg-month"><small>Monat</small><div id="lgMonth"></div></div>
+        <button class="btn lvl" id="lgClaim">ABHOLEN</button>
+        <button class="btn alt" id="lgClose">SPÄTER</button>
+        <p class="hint">Tag verpasst? Kein Problem – dein Fortschritt pausiert nur und läuft beim nächsten Besuch weiter.</p>
+      </div>
+    </div>
+    <div class="overlay hidden" id="profOv">
+      <div class="card pr-card">
+        <div class="pr-head">
+          <div id="prAva"></div>
+          <div class="pr-who"><b id="prName">Spieler</b><span class="pr-title" id="prTitle">Neuling</span></div>
+          <button class="btn alt pr-edit" id="prEdit">✏ Anpassen</button>
+        </div>
+        <button class="pr-bonus" id="prBonus"><span>🎁 Täglicher Bonus</span><small id="prBonusTxt"></small></button>
+        <div class="pr-stats" id="prStats"></div>
+        <div class="pr-sec"><b>Vitrine</b><button class="linkbtn" id="prShelfCount"></button></div>
+        <div class="pr-shelf" id="prShelf"></div>
+        <div class="pr-sec"><b>Beste Platzierungen</b></div>
+        <div class="pr-ranks" id="prRanks"></div>
+        <button class="btn" id="prClose">ZURÜCK</button>
+      </div>
+    </div>
+    <div class="overlay hidden" id="custOv">
+      <div class="card pr-card">
+        <h2>Profil anpassen</h2>
+        <div class="cu-prev"><div id="cuAva"></div><b id="cuName">Spieler</b><span class="pr-title" id="cuTitle">Neuling</span></div>
+        <div class="tabs cu-tabs" id="cuTabs"><button data-t="kippi">🪰 Kippi</button><button data-t="frame">⭕ Rahmen</button><button data-t="title">🏷 Titel</button></div>
+        <div class="coll-grid" id="cuGrid"></div>
+        <p class="hint">Rahmen, Kippi-Outfits und Titel sind rein optisch. Freischalten über Welten, Serie, Abzeichen, den Login-Bonus – oder später ein Paket.</p>
+        <button class="btn" id="cuClose">ZURÜCK</button>
+      </div>
+    </div>
     <div class="overlay hidden" id="streakOv">
       <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
       <p id="stkSub">Tage in Folge</p>
@@ -281,7 +319,7 @@
         <section id="hSerie"><h3>🔥 Serie</h3>
           <p>Spiel jeden Tag das <b>Tagesspiel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
           <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
-          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 8 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 13 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p><p><b>👤 Profil</b> (Kippi oben links im Menü): deine Werte, eine Vitrine mit deinen drei wertvollsten Abzeichen und deine besten Platzierungen. Unter „✏ Anpassen“ wählst du Kippi-Outfit, Rahmen und Titel – gesperrte Teile zeigen, wie du sie freischaltest.</p><p><b>🎁 Täglicher Bonus:</b> einmal pro Spieltag abholen. Eine Woche hat 7 Tage (Extraleben, Serienschutz, ein Rahmen, ein Titel und an Tag 7 ein Kippi-Outfit), vier Wochen ergeben einen Monat. Verpasste Tage pausieren nur – es geht beim nächsten Besuch weiter.</p>
           <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
         </section>
         <section id="hTipps"><h3>Tipps</h3>
@@ -315,7 +353,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.0.5 · Build 78 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.1.0 · Build 79 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

@@ -10,7 +10,7 @@ const Awards=(()=>{
   const RULES={day:[[1,1,'d1'],[3,0,'d3'],[10,0,'d10']],week:[[1,3,'w1'],[3,1,'w3'],[10,0,'w10']]};
   const BADGE={d1:['👑','Tagessieg'],d3:['🥈','Tag Top 3'],d10:['⭐','Tag Top 10'],w1:['🏆','Wochensieg'],w3:['🥇','Woche Top 3'],w10:['🎖','Woche Top 10']};
   function note(span,me){if(!me||!(me.rank>0)||(span!=='day'&&span!=='week'))return;
-    const r=J(RK,{}),key=span==='day'?dayKey():weekKey();r[span]={key,rank:+me.rank,done:r[span]&&r[span].key===key?r[span].done:false};put(RK,r)}
+    try{PStats.rank(span,+me.rank)}catch(e){}const r=J(RK,{}),key=span==='day'?dayKey():weekKey();r[span]={key,rank:+me.rank,done:r[span]&&r[span].key===key?r[span].done:false};put(RK,r)}
   function check(){const r=J(RK,{}),aw=J(AK,{}),msgs=[];let won=0;
     for(const span of ['day','week']){const x=r[span];if(!x||x.done)continue;
       const cur=span==='day'?dayKey():weekKey();if(x.key===cur)continue;   // Zeitraum läuft noch

@@ -545,6 +545,77 @@ a.btn{text-decoration:none;display:inline-block;text-align:center}
 .pad{display:none;gap:8px}
 .pad button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;width:58px;height:46px;font-size:20px}
 @media (hover:none){.pad{display:flex}}
+/* ---------- Profil, Profil anpassen, Login-Bonus – Farben nur über Design-Variablen ---------- */
+.ava-ring{--ring:var(--line);display:inline-grid;place-items:center;border-radius:50%;background:var(--ring);padding:3px;box-sizing:border-box;flex:none}
+.ava-ring>span{width:100%;height:100%;border-radius:50%;background:var(--bg2,var(--panel));display:grid;place-items:center;overflow:hidden}
+.ava-ring svg{width:76%;height:auto;overflow:visible;display:block;margin-top:6%}
+.ava-ring .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.ava-ring.xs{width:100%;height:100%;padding:2px}
+.ava-ring.sm{width:30px;height:30px}
+.ava-ring.md{display:grid;width:54px;height:54px;padding:4px;margin:4px auto 6px}
+.ava-ring.lg{width:92px;height:92px;padding:5px}
+.avachip{position:relative;width:clamp(32px,9.5vw,38px);height:clamp(32px,9.5vw,38px);border-radius:50%;border:0;background:none;padding:0;cursor:pointer;flex:none}
+.avachip .dot{position:absolute;top:-7px;right:-9px;font-size:13px;line-height:1;background:none;filter:drop-shadow(0 1px 2px #0008);animation:pulseOpen 2s ease-in-out infinite}
+/* Karten */
+.pr-card,.lg-card{width:min(100%,420px);display:flex;flex-direction:column;gap:12px;text-align:left}
+.pr-card>.btn,.lg-card>.btn{align-self:stretch}
+.pr-card h2,.lg-card h2{text-align:center}
+.lg-card>.hint{text-align:center;margin:0 auto}
+.pr-head{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.pr-who{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.pr-who b{font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr-title{align-self:flex-start;display:inline-block;padding:3px 10px;border-radius:9px;background:color-mix(in srgb,var(--c1) 18%,transparent);color:var(--c1);font-size:13px;font-weight:700}
+.pr-edit{padding:8px 12px;font-size:13px}
+.pr-bonus{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);font:700 15px "Space Grotesk",sans-serif;cursor:pointer;text-align:left}
+.pr-bonus small{color:var(--muted);font-weight:500;font-size:12px}
+.pr-bonus.ready{border-color:var(--c1);box-shadow:0 0 16px color-mix(in srgb,var(--c1) 30%,transparent)}
+.pr-bonus.ready small{color:var(--c1);font-weight:700}
+.pr-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pr-stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 12px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.pr-stat small{color:var(--muted);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.pr-stat small+b+small,.pr-stat b+small{text-transform:none;letter-spacing:0;font-size:12px}
+.pr-stat b{font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-sec{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px}
+.pr-sec b{font-size:15px}
+.pr-shelf{display:flex;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 8px}
+.pr-shelf .hint{margin:0 auto}
+.pr-badge{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center}
+.pr-badge .be{font-size:28px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg2,var(--bg));border:2px solid var(--c1)}
+.pr-badge.empty .be{border-color:var(--line);color:var(--muted);font-size:20px}
+.pr-badge small{font-size:12px;color:var(--text)}
+.pr-ranks{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.pr-ranks .hint{margin:0}
+.pr-row{display:flex;justify-content:space-between;font-size:14px}.pr-row span{color:var(--muted)}.pr-row b{color:var(--c1)}
+/* Profil anpassen */
+.cu-prev{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cu-prev b{font-size:18px}.cu-prev .pr-title{align-self:center}
+.cu-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cu-tabs button.on{background:var(--c3);color:#06121a}
+#cuGrid .tcard{background:var(--panel)}
+#cuGrid .tcard.on{border-color:var(--c1);box-shadow:0 0 12px color-mix(in srgb,var(--c1) 35%,transparent)}
+#cuGrid.two{grid-template-columns:repeat(2,1fr)}
+#cuGrid .tcard.ttl{padding:12px 8px}#cuGrid .tcard.ttl b{font-size:14px}
+#cuGrid .tcard.lock .ava-ring{filter:none}
+/* Login-Bonus */
+.lg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:6px}
+.lg-day{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;min-height:108px;box-sizing:border-box;text-align:center}
+.lg-day small{color:var(--muted);font-weight:700;font-size:12px}
+.lg-day.done{opacity:.6}
+.lg-day.today{border:2px solid var(--c1);background:color-mix(in srgb,var(--c1) 10%,var(--panel));box-shadow:0 0 18px color-mix(in srgb,var(--c1) 30%,transparent)}
+.lg-lbl{font-size:11.5px;line-height:1.25;color:var(--text)}
+.lg-ic{font-size:24px;line-height:32px;height:32px}
+.lg-day .kv svg{width:40px;height:36px;overflow:visible}
+.lg-day .kv .wing,.lg-big .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.lg-tag{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--c1);color:#0d0f1a;font-size:10.5px;padding:2px 8px;border-radius:7px;white-space:nowrap}
+.lg-tag.next{background:var(--line);color:var(--text)}
+.lg-ok{position:absolute;top:-8px;right:-6px;width:22px;height:22px;border-radius:11px;background:var(--c2);color:#0d0f1a;font-size:13px;font-weight:700;display:grid;place-items:center}
+.lg-big{position:relative;display:flex;align-items:center;gap:14px;background:color-mix(in srgb,var(--c4) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--c4) 45%,var(--line));border-radius:16px;padding:10px 14px}
+.lg-big>div{flex:1;display:flex;flex-direction:column;gap:2px}.lg-big small{color:var(--muted);font-size:12px}.lg-big b{font-size:17px}
+.lg-big .kv svg{width:64px;height:58px;overflow:visible;display:block}
+.lg-big.today{border:2px solid var(--c1)}.lg-big.done{opacity:.6}
+.lg-month{display:flex;align-items:center;gap:8px}.lg-month small{color:var(--muted);font-size:12px}
+.lg-month>div{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.lg-month i{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--c2) var(--p),var(--line) var(--p))}
 /* ---- Info-Leiste: nutzt freie Fläche auf hohen Bildschirmen ---- */
 .infobar{width:var(--W);display:none;flex-direction:column;gap:8px}
 .ib-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -634,7 +705,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
     </div>
     <div class="overlay home" id="startOv">
       <div class="home-top">
-        <div class="home-chips"><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
+        <div class="home-chips"><button class="avachip" id="menuProfile" title="Profil" aria-label="Profil"></button><button class="streakchip" id="menuStreak" title="Deine Serie"><span class="fl">🔥</span><span id="menuStreakNum">0</span></button><span class="lifechip" id="menuLives" title="Extra-Leben (für ULTRA-Combos)" style="display:none">❤ <b id="menuLivesNum">0</b></span></div>
         <div class="home-icons">
           <button class="icon-btn" id="menuColl" title="Sammlung">🎨<span class="dot" id="collDot" style="display:none"></span></button>
           <button class="icon-btn" id="menuScores" title="Bestenliste">🏆</button>
@@ -788,6 +859,44 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <button class="btn" id="collClose">ZURÜCK</button>
       </div>
     </div>
+    <div class="overlay hidden" id="loginOv">
+      <div class="card lg-card">
+        <p class="hint">Täglicher Bonus</p>
+        <h2 id="lgWeek">Woche 1 · Tag 1</h2>
+        <div class="lg-grid" id="lgGrid"></div>
+        <div class="lg-big" id="lgBig"></div>
+        <div class="lg-month"><small>Monat</small><div id="lgMonth"></div></div>
+        <button class="btn lvl" id="lgClaim">ABHOLEN</button>
+        <button class="btn alt" id="lgClose">SPÄTER</button>
+        <p class="hint">Tag verpasst? Kein Problem – dein Fortschritt pausiert nur und läuft beim nächsten Besuch weiter.</p>
+      </div>
+    </div>
+    <div class="overlay hidden" id="profOv">
+      <div class="card pr-card">
+        <div class="pr-head">
+          <div id="prAva"></div>
+          <div class="pr-who"><b id="prName">Spieler</b><span class="pr-title" id="prTitle">Neuling</span></div>
+          <button class="btn alt pr-edit" id="prEdit">✏ Anpassen</button>
+        </div>
+        <button class="pr-bonus" id="prBonus"><span>🎁 Täglicher Bonus</span><small id="prBonusTxt"></small></button>
+        <div class="pr-stats" id="prStats"></div>
+        <div class="pr-sec"><b>Vitrine</b><button class="linkbtn" id="prShelfCount"></button></div>
+        <div class="pr-shelf" id="prShelf"></div>
+        <div class="pr-sec"><b>Beste Platzierungen</b></div>
+        <div class="pr-ranks" id="prRanks"></div>
+        <button class="btn" id="prClose">ZURÜCK</button>
+      </div>
+    </div>
+    <div class="overlay hidden" id="custOv">
+      <div class="card pr-card">
+        <h2>Profil anpassen</h2>
+        <div class="cu-prev"><div id="cuAva"></div><b id="cuName">Spieler</b><span class="pr-title" id="cuTitle">Neuling</span></div>
+        <div class="tabs cu-tabs" id="cuTabs"><button data-t="kippi">🪰 Kippi</button><button data-t="frame">⭕ Rahmen</button><button data-t="title">🏷 Titel</button></div>
+        <div class="coll-grid" id="cuGrid"></div>
+        <p class="hint">Rahmen, Kippi-Outfits und Titel sind rein optisch. Freischalten über Welten, Serie, Abzeichen, den Login-Bonus – oder später ein Paket.</p>
+        <button class="btn" id="cuClose">ZURÜCK</button>
+      </div>
+    </div>
     <div class="overlay hidden" id="streakOv">
       <div class="stk-big"><span class="fl">🔥</span> <span id="stkNum">0</span></div>
       <p id="stkSub">Tage in Folge</p>
@@ -873,7 +982,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <section id="hSerie"><h3>🔥 Serie</h3>
           <p>Spiel jeden Tag das <b>Tagesspiel</b> (die erste, gewertete Runde zählt) – dann wächst deine Serie um einen Tag. Die Flamme oben zeigt sie: farbig = heute gesichert, grau = heute noch offen.</p>
           <p><b>🛡 Serienschutz:</b> Verpasst du einen Tag, rettet ein Schutz die Serie automatisch. Alle 7 Serientage gibt es einen gratis, zusätzlich einen pro Tag per freiwilligem Video (höchstens 2 auf Vorrat).</p>
-          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 8 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p>
+          <p><b>Meilensteine:</b> Bei 3, 7, 14, 30, 50 und 100 Tagen gibt es ein Abzeichen und eine Belohnung (Pastell, Neon, Kopfhörer für Kippi, Lava, Gold, Kosmos) – rein optisch.</p><p><b>🎨 Sammlung</b> (⚙ → Design &amp; Kippi): 17 Designs und 13 Kippi-Outfits. Jede geschaffte Welt in den Etappen schaltet etwas frei, dazu Endlos Level 20, 25 Tagesspiele, der Dezember, Silvester und Ostern.</p><p><b>👤 Profil</b> (Kippi oben links im Menü): deine Werte, eine Vitrine mit deinen drei wertvollsten Abzeichen und deine besten Platzierungen. Unter „✏ Anpassen“ wählst du Kippi-Outfit, Rahmen und Titel – gesperrte Teile zeigen, wie du sie freischaltest.</p><p><b>🎁 Täglicher Bonus:</b> einmal pro Spieltag abholen. Eine Woche hat 7 Tage (Extraleben, Serienschutz, ein Rahmen, ein Titel und an Tag 7 ein Kippi-Outfit), vier Wochen ergeben einen Monat. Verpasste Tage pausieren nur – es geht beim nächsten Besuch weiter.</p>
           <p><b>🔔 Erinnerung:</b> In der App erinnert dich abends eine Benachrichtigung, falls die Serie noch offen ist (in ⚙ abschaltbar).</p>
         </section>
         <section id="hTipps"><h3>Tipps</h3>
@@ -907,7 +1016,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.0.5 · Build 78 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.1.0 · Build 79 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -1144,7 +1253,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <section id="hSerie"><h3>🔥 Streak</h3>
 <p>Play the <b>daily game</b> every day (the first, counted round) – and your streak grows by one day. The flame at the top shows it: colored = secured today, gray = still open today.</p>
 <p><b>🛡 Streak shield:</b> If you miss a day, a shield saves your streak automatically. You get one free every 7 streak days, plus one per day via an optional video (at most 2 in stock).</p>
-<p><b>Milestones:</b> At 3, 7, 14, 30, 50 and 100 days you get a badge and a reward (Pastel, Neon, headphones for Kippi, Lava, Gold, Cosmos) – purely cosmetic.</p><p><b>🎨 Collection</b> (⚙ → Theme &amp; Kippi): 17 themes and 8 Kippi outfits. Every completed stage world unlocks something, plus Endless level 20, 25 daily games, December, New Year’s Eve and Easter.</p>
+<p><b>Milestones:</b> At 3, 7, 14, 30, 50 and 100 days you get a badge and a reward (Pastel, Neon, headphones for Kippi, Lava, Gold, Cosmos) – purely cosmetic.</p><p><b>🎨 Collection</b> (⚙ → Theme &amp; Kippi): 17 themes and 13 Kippi outfits. Every completed stage world unlocks something, plus Endless level 20, 25 daily games, December, New Year’s Eve and Easter.</p><p><b>👤 Profile</b> (Kippi at the top left of the menu): your stats, a showcase with your three most valuable badges and your best placements. Under “✏ Customize” you choose Kippi’s outfit, frame and title – locked items show how to unlock them.</p><p><b>🎁 Daily bonus:</b> collect it once per game day. A week has 7 days (extra lives, streak shield, a frame, a title and a Kippi outfit on day 7); four weeks make a month. Missed days just pause – it continues on your next visit.</p>
 <p><b>🔔 Reminder:</b> In the app, a notification reminds you in the evening if your streak is still open (can be turned off in ⚙).</p></section>
 <section id="hTipps"><h3>Tips</h3>
 <ul><li>Tilt in the <b>same direction</b> more often – colors collect on one side and combos become more likely.</li>
@@ -1154,7 +1263,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'2.0.5':'Fixed: after a round ended the game could get stuck (no end screen, back and ⚙ not working). New in ⚙: “Report a problem” with error log','2.0.4':'Missing English texts in the collection added','2.0.3':'Leaderboards load much faster: shared cache, fewer requests, Top 5 shown instantly at start','2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'2.1.0':'New: player profile with stats, showcase and best placements · customize your profile (Kippi outfit, frame, title) · daily bonus with weekly and monthly rewards','2.0.5':'Fixed: after a round ended the game could get stuck (no end screen, back and ⚙ not working). New in ⚙: “Report a problem” with error log','2.0.4':'Missing English texts in the collection added','2.0.3':'Leaderboards load much faster: shared cache, fewer requests, Top 5 shown instantly at start','2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1183,6 +1292,32 @@ const CHANGES_EN={'2.0.5':'Fixed: after a round ended the game could get stuck (
  '1.7.0':'Combo tiers GOOD, SUPER, MEGA and MONSTER',
  '1.5.0':'100 levels in 10 worlds with boss levels','1.4.0':'Level mode, settings, vibration','1.2.0':'Leaderboard','1.1.0':'Shareable daily puzzle'};
 
+// ---------- 2.1: Profil, Profil anpassen, täglicher Login-Bonus ----------
+[['👤 Profil','👤 Profile'],['Profil','Profile'],['Täglicher Bonus','Daily bonus'],['🎁 Täglicher Bonus','🎁 Daily bonus'],['Bereit zum Abholen','Ready to collect'],['Morgen wieder','Again tomorrow'],
+ ['Vitrine','Showcase'],['Beste Platzierungen','Best placements'],['✏ Anpassen','✏ Customize'],['Profil anpassen','Customize profile'],['⭕ Rahmen','⭕ Frames'],['🏷 Titel','🏷 Titles'],
+ ['Rahmen','Frame'],['Titel','Title'],['Extraleben','Extra life'],['Serienschutz','Streak shield'],['Leben schon voll','lives already full'],['Schutz schon voll','shield already full'],['hast du schon','already owned'],
+ ['HEUTE','TODAY'],['MORGEN','TOMORROW'],['SPÄTER','LATER'],['abholen','collect'],['Monat','Month'],['Tag 7 · Wochenbelohnung','Day 7 · weekly reward'],['Nur über den Login-Bonus erhältlich','Only available through the daily bonus'],
+ ['Tag verpasst? Kein Problem – dein Fortschritt pausiert nur und läuft beim nächsten Besuch weiter.','Missed a day? No problem – your progress just pauses and continues on your next visit.'],
+ ['Rahmen, Kippi-Outfits und Titel sind rein optisch. Freischalten über Welten, Serie, Abzeichen, den Login-Bonus – oder später ein Paket.','Frames, Kippi outfits and titles are purely cosmetic. Unlock them through worlds, your streak, badges, the daily bonus – or later a pack.'],
+ ['Etappe','Stage'],['Sterne','Stars'],['Beste Kombo','Best combo'],['Endlos-Rekord','Endless record'],['Tagesspiele','Daily games'],['Serie','Streak'],['Tag','day'],['alle','all'],['Spieler','Player'],
+ ['Tagesspiel · Tag','Daily game · day'],['Tagesspiel · Woche','Daily game · week'],['Tagessiege','Daily wins'],['Wochensiege','Weekly wins'],
+ ['Noch keine Abzeichen – spiel einfach los!','No badges yet – just start playing!'],['Noch keine Platzierung – spiel das Tagesspiel mit Google Play Games.','No placement yet – play the daily game with Google Play Games.'],
+ ['Schlicht','Plain'],['Regenbogen','Rainbow'],['Minze','Mint'],['Sonne','Sun'],['Sternenstaub','Stardust'],['Smaragd','Emerald'],['Zielscheibe','Bullseye'],['Glut','Ember'],
+ ['Neuling','Newcomer'],['Serienheld','Streak Hero'],['Kombo-König','Combo King'],['Weitblick','Far Sight'],['Weltenbummler','Globetrotter'],['Frühaufsteher','Early Bird'],['Stammspieler','Regular Player'],['Bonusjäger','Bonus Hunter'],['Treue Seele','Faithful Soul'],['Feuerteufel','Fire Devil'],
+ ['Zylinder','Top hat'],['Wollmütze','Beanie'],['Fliege','Bow tie'],['Sternenreif','Star circlet'],['Piratenhut','Pirate hat'],
+ ['Abzeichen „Endlos-Profi“','“Endless Pro” badge'],['Abzeichen „Sternesammler“','“Star Collector” badge'],['Combo ×8 oder mehr','Combo ×8 or more'],['9×9 freigeschaltet','9×9 unlocked'],
+ ['Platz 1 im Tagesspiel','Rank 1 in the daily game'],['Alle Welten geschafft','All worlds complete'],['Paket „Feuer“ – bald','“Fire” pack – coming soon'],['Paket „Abenteuer“ – bald','“Adventure” pack – coming soon']
+].forEach(([k,v])=>I18N_EN.set(k,v));
+I18N_PATS.push(
+  [/^Login-Bonus Woche (\d) · Tag (\d)$/,(m,w,d)=>`Daily bonus week ${w} · day ${d}`],
+  [/^Woche (\d+) · Tag (\d+)$/,(m,w,d)=>`Week ${w} · Day ${d}`],
+  [/^Tag (\d+)$/,(m,d)=>`Day ${d}`],
+  [/^Welt (\d+)$/,(m,w)=>`World ${w}`],
+  [/^Platz (\d+)$/,(m,r)=>`Rank ${r}`],
+  [/^Morgen wieder · Woche (\d+)$/,(m,w)=>`Again tomorrow · week ${w}`],
+  [/^(\d+) Tage?$/,(m,n)=>n+(n==='1'?' day':' days')],
+  [/^(\d+) \/ (\d+) Abzeichen ›$/,(m,a,b)=>`${a} / ${b} badges ›`],
+  [/^(.+) abholen$/,(m,x)=>`Collect ${x}`]);
 </script>
 <script>
 (()=>{
@@ -1319,7 +1454,7 @@ function loadDaily(){try{const d=JSON.parse(localStorage.getItem('kippwerk_daily
 function saveDaily(r){try{localStorage.setItem('kippwerk_daily_'+todayKey(),JSON.stringify(r))}catch(e){}}
 
 // ---------- Einstellungen ----------
-const DEF_SETTINGS={fly:true,lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',kippi:'none',remind:true,overtake:'on'};
+const DEF_SETTINGS={fly:true,lang:'auto',sound:true,music:true,sfxVol:80,musicVol:70,tilt:true,vibe:'strong',palette:'std',symbols:true,pad:'auto',size:'6',theme:'std',kippi:'none',remind:true,overtake:'on',frame:'std',title:'neu'};
 let settings={...DEF_SETTINGS};
 try{settings={...DEF_SETTINGS,...JSON.parse(localStorage.getItem('kippwerk_settings')||'{}')};
   if(localStorage.getItem('kippwerk_sound')==='0'&&!localStorage.getItem('kippwerk_settings'))settings.sound=false}catch(e){}
@@ -1706,6 +1841,9 @@ function handleBack(){
   if(open('rescueOv')){$('noRescueBtn').click();return}
   if(open('helpOv')){$('closeHelp').click();return}
   if(open('streakOv')){closeStreak();return}
+  if(open('loginOv')){closeLogin();return}
+  if(open('custOv')){closeCustom();return}
+  if(open('profOv')){closeProfile();return}
   if(open('scoresOv')){$('closeScores').click();return}
   if(open('settingsOv')){$('closeSettings').click();return}
   if(open('lvlOv')){$('lvlMap').style.display!=='none'?$('lvlMap').click():openLevels();return}
@@ -2163,7 +2301,7 @@ async function move(dir){
   if(mode==='level'&&goalsMet())return levelWin();
   spawn(dir);render();await sleep(200);
   const total=await resolve(null,chain);
-  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
+  history.push(total);Audit.move();bestChain=Math.max(bestChain,total);try{PStats.combo(total)}catch(e){}if(total===1)combos[1]++;if(total>=2){combos[TIER(total)]++;combos[0]++;bumpCombo(TIER(total))}if(total>=lifeAt())gainLife();if(total>=8)try{Badges.earn('ultra8')}catch(e){}if(mode==='endless')MaxLv.note(BK,level);renderInfo();
   if(mode==='level'&&goalsMet())return levelWin();
   if(grid.every(Boolean))return gameOver('full');
   if(mode!=='endless'&&movesLeft<=0)return gameOver('moves');
@@ -2366,6 +2504,9 @@ document.addEventListener('keydown',e=>{
   if(!$('settingsOv').classList.contains('hidden')){if(e.key==='Escape')$('closeSettings').click();return}
   if(!$('helpOv').classList.contains('hidden')){if(e.key==='Escape'||e.key==='Enter')$('closeHelp').click();return}
   if(!$('streakOv').classList.contains('hidden')){if(e.key==='Escape')closeStreak();return}
+  if(!$('loginOv').classList.contains('hidden')){if(e.key==='Escape')closeLogin();return}
+  if(!$('custOv').classList.contains('hidden')){if(e.key==='Escape')closeCustom();return}
+  if(!$('profOv').classList.contains('hidden')){if(e.key==='Escape')closeProfile();return}
   if(e.target.tagName==='INPUT'){if(e.key==='Enter'){e.preventDefault();e.target.id==='setName'?e.target.blur():$('saveName').click()}return}
   if(!$('scoresOv').classList.contains('hidden')){if(e.key==='Escape')$('closeScores').click();return}
   if(e.key==='Escape'&&started&&!over){e.preventDefault();handleBack();return}
@@ -2425,7 +2566,8 @@ function showMenu(){
   $('heroTag').textContent=paused?'Pause':'Kippen. Verbinden. Kettenreaktion.';
   $('privacyBtn').style.display=Ads.privacyRequired?'':'none';
   $('homeVer').textContent=(document.querySelector('footer')||{}).textContent?.split('·').slice(0,2).join('·').trim()||'';
-  ['overOv','lvlOv','levelsOv','settingsOv','streakOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  ['overOv','lvlOv','levelsOv','settingsOv','streakOv','loginOv','profOv','custOv'].forEach(i=>$(i).classList.add('hidden'));$('startOv').classList.remove('hidden');
+  try{renderAvatarChip();maybeShowLogin()}catch(e){}
   try{Cloud.onMenu()}catch(e){}
   try{Top5.refresh()}catch(e){}
   try{Awards.check()}catch(e){}
@@ -2526,6 +2668,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.0','Neu: Spielerprofil mit Werten, Vitrine und besten Platzierungen · Profil anpassen (Kippi-Outfit, Rahmen, Titel) · Täglicher Bonus mit Wochen- und Monatsbelohnungen'],
  ['2.0.5','Fehler behoben: Nach dem Rundenende konnte das Spiel hängen bleiben (kein Ende-Fenster, Zurück und ⚙ ohne Wirkung). Neu in ⚙: „Problem melden“ mit Fehlerprotokoll'],
  ['2.0.4','Englische Texte in der Sammlung ergänzt'],
  ['2.0.3','Bestenlisten laden deutlich schneller: gemeinsamer Zwischenspeicher, weniger Abfragen, Top 5 sofort beim Start'],
@@ -2938,7 +3081,7 @@ const Awards=(()=>{
   const RULES={day:[[1,1,'d1'],[3,0,'d3'],[10,0,'d10']],week:[[1,3,'w1'],[3,1,'w3'],[10,0,'w10']]};
   const BADGE={d1:['👑','Tagessieg'],d3:['🥈','Tag Top 3'],d10:['⭐','Tag Top 10'],w1:['🏆','Wochensieg'],w3:['🥇','Woche Top 3'],w10:['🎖','Woche Top 10']};
   function note(span,me){if(!me||!(me.rank>0)||(span!=='day'&&span!=='week'))return;
-    const r=J(RK,{}),key=span==='day'?dayKey():weekKey();r[span]={key,rank:+me.rank,done:r[span]&&r[span].key===key?r[span].done:false};put(RK,r)}
+    try{PStats.rank(span,+me.rank)}catch(e){}const r=J(RK,{}),key=span==='day'?dayKey():weekKey();r[span]={key,rank:+me.rank,done:r[span]&&r[span].key===key?r[span].done:false};put(RK,r)}
   function check(){const r=J(RK,{}),aw=J(AK,{}),msgs=[];let won=0;
     for(const span of ['day','week']){const x=r[span];if(!x||x.done)continue;
       const cur=span==='day'?dayKey():weekKey();if(x.key===cur)continue;   // Zeitraum läuft noch
@@ -2950,6 +3093,125 @@ const Awards=(()=>{
     return msgs}
   return{note,check,BADGE,all:()=>J(AK,{}),merge(o){const a=J(AK,{});for(const k in o||{})a[k]=Math.max(a[k]||0,o[k]||0);put(AK,a)}};
 })();
+// ---------- Profil-Daten, Rahmen, Titel & täglicher Login-Bonus ----------
+// Rahmen und Titel sind rein optisch. Freischalten über Welten, Serie, Abzeichen, den Login-Bonus – oder später ein Paket.
+// Ring-Farben kommen aus den Design-Variablen (--c0 … --c5, --line), passen sich also jedem Design an.
+const FRAMES=[
+  {id:'std',n:'Schlicht',ring:'var(--line)',how:'immer',test:()=>true},
+  {id:'regen',n:'Regenbogen',ring:'conic-gradient(var(--c0),var(--c1),var(--c2),var(--c3),var(--c4),var(--c0))',how:'Welt 1 geschafft',test:()=>!!LP[10]},
+  {id:'neon',n:'Neon',ring:'repeating-conic-gradient(var(--c3) 0 20deg,var(--c4) 20deg 40deg)',how:'Login-Bonus Woche 1 · Tag 3',login:1},
+  {id:'mint',n:'Minze',ring:'conic-gradient(var(--c2),var(--c3),var(--c2))',how:'Login-Bonus Woche 2 · Tag 3',login:2},
+  {id:'sonne',n:'Sonne',ring:'conic-gradient(var(--c1),var(--c5,#ff8a3d),var(--c1))',how:'Login-Bonus Woche 3 · Tag 3',login:3},
+  {id:'sterne',n:'Sternenstaub',ring:'repeating-conic-gradient(var(--c4) 0 12deg,var(--c1) 12deg 18deg)',how:'Login-Bonus Woche 4 · Tag 3',login:4},
+  {id:'gold',n:'Gold',ring:'conic-gradient(#ffd86b,#b8860b,#ffe9a6,#b8860b,#ffd86b)',how:'30 Tage Serie',test:()=>!!(ST&&ST.ms&&ST.ms.includes(30))},
+  {id:'smaragd',n:'Smaragd',ring:'var(--c2)',how:'Welt 7 geschafft',test:()=>!!LP[70]},
+  {id:'profi',n:'Zielscheibe',ring:'repeating-radial-gradient(circle,var(--c0) 0 3px,var(--text) 3px 6px)',how:'Abzeichen „Endlos-Profi“',test:()=>Badges.has('profi')},
+  {id:'glut',n:'Glut',ring:'conic-gradient(var(--c0),var(--c5,#ff8a3d),var(--c1),var(--c0))',how:'Paket „Feuer“ – bald',paket:true}];
+const TITLES=[
+  {id:'neu',n:'Neuling',how:'immer',test:()=>true},
+  {id:'sterne',n:'Sternesammler',how:'Abzeichen „Sternesammler“',test:()=>Badges.has('sterne')},
+  {id:'serie',n:'Serienheld',how:'30 Tage Serie',test:()=>Badges.has('monat')},
+  {id:'kombo',n:'Kombo-König',how:'Combo ×8 oder mehr',test:()=>Badges.has('ultra8')},
+  {id:'weit',n:'Weitblick',how:'9×9 freigeschaltet',test:()=>Badges.has('weitblick')},
+  {id:'sieger',n:'Tagessieger',how:'Platz 1 im Tagesspiel',test:()=>Badges.has('sieger')},
+  {id:'welten',n:'Weltenbummler',how:'Alle Welten geschafft',test:()=>Badges.has('welten')},
+  {id:'frueh',n:'Frühaufsteher',how:'Login-Bonus Woche 1 · Tag 6',login:1},
+  {id:'stamm',n:'Stammspieler',how:'Login-Bonus Woche 2 · Tag 6',login:2},
+  {id:'jaeger',n:'Bonusjäger',how:'Login-Bonus Woche 3 · Tag 6',login:3},
+  {id:'treu',n:'Treue Seele',how:'Login-Bonus Woche 4 · Tag 6',login:4},
+  {id:'feuer',n:'Feuerteufel',how:'Paket „Feuer“ – bald',paket:true}];
+
+// Persönliche Bestwerte fürs Profil (beste Kombo, beste Platzierungen) – auch in der Cloud-Sicherung
+const PStats=(()=>{const K='kippwerk_pstats';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};
+  let s=load();const save=()=>{try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}};
+  const better=(a,b)=>a>0&&b>0?Math.min(a,b):(a>0?a:b>0?b:0);
+  return{get:()=>({...s}),
+    combo(n){if(n>(s.combo||0)){s.combo=n;save()}},
+    rank(span,r){const k=span==='day'?'rd':span==='week'?'rw':'';if(!k||!(r>0))return;const v=better(s[k]||0,+r);if(v!==s[k]){s[k]=v;save()}},
+    merge(o){if(!o||typeof o!=='object')return;s.combo=Math.max(s.combo||0,+o.combo||0);s.rd=better(s.rd||0,+o.rd||0);s.rw=better(s.rw||0,+o.rw||0);save()},
+    better};
+})();
+
+// Täglicher Login-Bonus: 7-Tage-Wochen, 4 Wochen = ein Monat, danach beginnt der Monat von vorn.
+// Ein Schritt pro Spieltag (todayKey). Verpasste Tage pausieren nur – es geht beim nächsten Besuch weiter.
+const LOGIN_PLAN=['life','life','frame','life','shield','title','kippi'];
+const LOGIN_KIPPI=['zylinder','muetze','fliege','sternreif'];
+const Login=(()=>{const K='kippwerk_login';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&typeof o==='object')return{n:Math.max(0,+o.n||0),last:typeof o.last==='string'?o.last:'',got:Array.isArray(o.got)?o.got.filter(x=>typeof x==='string'):[]}}catch(e){}return{n:0,last:'',got:[]}};
+  let L=load();const save=()=>{try{localStorage.setItem(K,JSON.stringify(L))}catch(e){}};
+  const can=()=>L.last!==todayKey();
+  // Belohnung eines Schritts (0 … 27)
+  function reward(step){const w=Math.floor(step/7)%4,t=LOGIN_PLAN[step%7];
+    if(t==='frame'){const f=FRAMES.find(x=>x.login===w+1);return{t,id:f.id,key:'frame:'+f.id}}
+    if(t==='title'){const x=TITLES.find(y=>y.login===w+1);return{t,id:x.id,key:'title:'+x.id}}
+    if(t==='kippi'){const id=LOGIN_KIPPI[w];return{t,id,key:'kippi:'+id}}
+    return{t}}
+  const EN=()=>I18N.tr('abholen')!=='abholen',q=x=>EN()?'“'+x+'”':'„'+x+'“';
+  function label(r){
+    if(r.t==='life')return'❤ '+I18N.tr('Extraleben');
+    if(r.t==='shield')return'🛡 '+I18N.tr('Serienschutz');
+    if(r.t==='frame')return I18N.tr('Rahmen')+' '+q(I18N.tr(FRAMES.find(f=>f.id===r.id).n));
+    if(r.t==='title')return I18N.tr('Titel')+' '+q(I18N.tr(TITLES.find(f=>f.id===r.id).n));
+    return'Kippi: '+I18N.tr(KIPPI_NAMES[r.id]||r.id)}
+  // Abholen: einmal pro Spieltag. Doppelte Gegenstände (zweiter Monat) werden zu 2 Extraleben.
+  function claim(){if(!can())return null;const step=L.n%28,r=reward(step);let msg=label(r);
+    const addLife=k=>{const a=Math.min(k,Math.max(0,9-lives));if(a>0){lives+=a;saveLives()}return a};
+    if(r.t==='life'){if(!addLife(1))msg+=' – '+I18N.tr('Leben schon voll')}
+    else if(r.t==='shield'){if(ST&&ST.shields<MAX_SHIELDS){ST.shields++;saveStreak()}else{addLife(1);msg='❤ '+I18N.tr('Extraleben')+' ('+I18N.tr('Schutz schon voll')+')'}}
+    else if(L.got.includes(r.key)){const a=addLife(2);msg='❤ ×'+(a||2)+' ('+label(r)+' '+I18N.tr('hast du schon')+')'}
+    else L.got.push(r.key);
+    L.n++;L.last=todayKey();save();
+    try{Unlocks.check(true)}catch(e){}try{Cloud.later()}catch(e){}
+    return{r,msg}}
+  return{can,claim,reward,label,collect:r=>EN()?'Collect '+label(r).replace(/^Frame/,'frame').replace(/^Title/,'title'):label(r)+' abholen',state:()=>({...L,got:[...L.got]}),has:k=>L.got.includes(k),
+    merge(o){if(!o||typeof o!=='object')return;const n=+o.n||0,last=typeof o.last==='string'?o.last:'';
+      if(n>L.n||(n===L.n&&last>L.last)){L.n=n;L.last=last}
+      for(const k of Array.isArray(o.got)?o.got:[])if(typeof k==='string'&&!L.got.includes(k))L.got.push(k);save()}};
+})();
+const frameOwned=f=>!f.paket&&(f.login?Login.has('frame:'+f.id):(()=>{try{return f.test()}catch(e){return false}})());
+const titleOwned=t=>!t.paket&&(t.login?Login.has('title:'+t.id):(()=>{try{return t.test()}catch(e){return false}})());
+const curFrame=()=>FRAMES.find(f=>f.id===settings.frame&&frameOwned(f))||FRAMES[0];
+const curTitle=()=>TITLES.find(t=>t.id===settings.title&&titleOwned(t))||TITLES[0];
+
+// ---------- Login-Bonus-Fenster ----------
+let loginReturn='start';
+function loginIcon(r,big){
+  if(r.t==='life')return'<span class="lg-ic">❤</span>';
+  if(r.t==='shield')return'<span class="lg-ic">🛡</span>';
+  if(r.t==='frame')return`<span class="ava-ring sm" style="--ring:${FRAMES.find(f=>f.id===r.id).ring}"><span></span></span>`;
+  if(r.t==='title')return'<span class="lg-ic">🏷</span>';
+  return`<span class="kv${big?' big':''}">${kippiSvg(r.id)}</span>`}
+function renderLogin(){const S=Login.state(),can=Login.can();
+  const step=can?S.n%28:(S.n-1+28)%28,w=Math.floor(step/7),d=step%7,base=w*7;
+  $('lgWeek').textContent=I18N.tr('Woche '+(w+1)+' · Tag '+(d+1));
+  let h='';for(let i=0;i<6;i++){const r=Login.reward(base+i),cls=i<d||(!can&&i===d)?'done':i===d?'today':'';
+    const tag=cls==='today'?`<b class="lg-tag">${I18N.tr('HEUTE')}</b>`:(!can&&i===d+1)?`<b class="lg-tag next">${I18N.tr('MORGEN')}</b>`:'';
+    h+=`<div class="lg-day ${cls}">${tag}${cls==='done'?'<span class="lg-ok">✓</span>':''}<small>${I18N.tr('Tag '+(i+1))}</small>${loginIcon(r)}<span class="lg-lbl">${Login.label(r)}</span></div>`}
+  $('lgGrid').innerHTML=h;
+  const r7=Login.reward(base+6),c7=6<d||(!can&&d===6)?'done':d===6&&can?'today':'';
+  $('lgBig').className='lg-big '+c7;
+  $('lgBig').innerHTML=`${loginIcon(r7,true)}<div><small>${I18N.tr('Tag 7 · Wochenbelohnung')}</small><b>${Login.label(r7)}</b><small>${I18N.tr('Nur über den Login-Bonus erhältlich')}</small></div>${c7==='done'?'<span class="lg-ok">✓</span>':''}`;
+  // Monatsleiste: 4 Wochen
+  const doneSteps=can?step:step+1;
+  $('lgMonth').innerHTML=[0,1,2,3].map(i=>`<i style="--p:${Math.max(0,Math.min(7,doneSteps-i*7))/7*100}%"></i>`).join('');
+  $('lgClaim').style.display=can?'':'none';
+  if(can)$('lgClaim').textContent=Login.collect(Login.reward(step));
+  $('lgClose').textContent=I18N.tr(can?'SPÄTER':'SCHLIESSEN')}
+function openLogin(from){loginReturn=from||(!$('profOv').classList.contains('hidden')?'profile':'start');
+  ['startOv','profOv'].forEach(i=>$(i).classList.add('hidden'));renderLogin();$('loginOv').classList.remove('hidden');$('loginOv').scrollTop=0}
+function closeLogin(){$('loginOv').classList.add('hidden');if(loginReturn==='profile')openProfile();else showMenu()}
+$('lgClaim').onclick=()=>{const res=Login.claim();if(!res)return;try{sfx.combo(4);haptic('win')}catch(e){}
+  toast('🎁 '+res.msg);renderLogin();try{renderAvatarChip()}catch(e){}};
+$('lgClose').onclick=closeLogin;
+// Automatisch einmal pro Spieltag im Menü zeigen – nicht beim allerersten Start und nicht über anderen Fenstern
+function maybeShowLogin(){try{
+  if(!Login.can()||paused||started)return;
+  const k='kippwerk_login_pop';if(localStorage.getItem(k)===todayKey())return;
+  const veteran=Object.keys(LP).length>0||dailyCount()>0||(scores&&scores.endless&&scores.endless.length>0);if(!veteran)return;
+  setTimeout(()=>{const open=id=>!$(id).classList.contains('hidden');
+    if(started||paused||!open('startOv')||open('newsOv')||open('bugOv')||!Login.can())return;
+    try{localStorage.setItem(k,todayKey())}catch(e){}openLogin('start')},900)}catch(e){}}
 // ---------- Abzeichen (Erfolge) – lokal, optional zusätzlich als Google-Play-Games-Erfolg ----------
 // Erreicht-Datum in kippwerk_badges {id: 'JJJJ-MM-TT'}. Google-IDs in GAMES_CONFIG.android.ach (leer = nur lokal).
 const bestEndlessScore=()=>{let m=0;try{for(const x of scores.endless)m=Math.max(m,+x.score||0);for(const x of History.all())m=Math.max(m,+x.score||0)}catch(e){}return m};
@@ -3005,7 +3267,7 @@ const Badges=(()=>{
 // ---------- Freischaltungen: Designs & Kippi-Outfits ----------
 // Quellen: Welten (Etappen), Serie, Endlos-Level, Anzahl Tagesspiele und Feiertage (Dezember, Silvester, Ostern).
 // Einmal freigeschaltet bleibt freigeschaltet (kippwerk_unlocks, auch in der Cloud-Sicherung).
-const KIPPI_NAMES={none:'Ohne',brille:'Sonnenbrille',kopfhoerer:'Kopfhörer',helm:'Bauhelm',zauberhut:'Zauberhut',schal:'Schal',krone:'Krone',partyhut:'Partyhut',hasen:'Hasenohren'};
+const KIPPI_NAMES={none:'Ohne',brille:'Sonnenbrille',kopfhoerer:'Kopfhörer',helm:'Bauhelm',zauberhut:'Zauberhut',schal:'Schal',krone:'Krone',partyhut:'Partyhut',hasen:'Hasenohren',zylinder:'Zylinder',muetze:'Wollmütze',fliege:'Fliege',sternreif:'Sternenreif',pirat:'Piratenhut'};
 const KIPPI_SVG={none:'',
   brille:'<rect x="17" y="18.5" width="13" height="8" rx="3" fill="#111"/><rect x="34" y="18.5" width="13" height="8" rx="3" fill="#111"/><path d="M30 21h4" stroke="#111" stroke-width="2"/><path d="M19 20h4" stroke="#fff6" stroke-width="1.4"/>',
   kopfhoerer:'<path d="M19 25q0-17 13-17t13 17" fill="none" stroke="#4cc9f0" stroke-width="3"/><rect x="15" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/><rect x="42" y="21" width="7" height="10" rx="3" fill="#4cc9f0"/>',
@@ -3014,6 +3276,11 @@ const KIPPI_SVG={none:'',
   schal:'<path d="M19 33q13 7 26 0l1 4q-14 8-28 0z" fill="#ff5d73"/><path d="M38 36l4 10-5 1-3-10z" fill="#ff5d73"/><path d="M22 35l2 1M27 37l2 .5M33 37.5l2-.3M39 36l2-1" stroke="#fff8" stroke-width="1.2"/>',
   krone:'<path d="M20 15l2-11 6 6 4-8 4 8 6-6 2 11z" fill="#ffc145" stroke="#e0a52e" stroke-width="1"/><circle cx="32" cy="9" r="1.6" fill="#ff5d73"/><circle cx="25" cy="11" r="1.2" fill="#4cc9f0"/><circle cx="39" cy="11" r="1.2" fill="#3ddc97"/>',
   partyhut:'<path d="M24 15l8-18 8 18z" fill="#ff5d73"/><path d="M26.5 9.5l11 0M28.8 4.3l6.4 0" stroke="#ffd23f" stroke-width="2"/><circle cx="32" cy="-3" r="2.6" fill="#ffd23f"/><path d="M22 15h20" stroke="#4cc9f0" stroke-width="2.4" stroke-linecap="round"/>',
+  zylinder:'<rect x="23" y="-5" width="18" height="18" rx="2" fill="#1b1d2e"/><rect x="23" y="7" width="18" height="3.5" fill="#ff5d73"/><ellipse cx="32" cy="14" rx="14" ry="3" fill="#1b1d2e"/><path d="M26 -3v8" stroke="#fff3" stroke-width="2"/>',
+  muetze:'<path d="M19 16q0-14 13-14t13 14z" fill="#3ddc97"/><path d="M25 4l1 10M32 2v12M39 4l-1 10" stroke="#2bb07a" stroke-width="1.4"/><rect x="17.5" y="13" width="29" height="5.5" rx="2.7" fill="#2bb07a"/><circle cx="32" cy="1" r="3.8" fill="#f4f0ff"/>',
+  fliege:'<path d="M32 36.5l-9-4.5v9z" fill="#ff5d73"/><path d="M32 36.5l9-4.5v9z" fill="#ff5d73"/><circle cx="32" cy="36.5" r="2.4" fill="#d8405a"/><path d="M25 34.5l3 1.5M39 34.5l-3 1.5" stroke="#fff6" stroke-width="1.2"/>',
+  sternreif:'<path d="M19 15q13-7 26 0" stroke="#b57bff" stroke-width="2.6" fill="none"/><polygon points="23.0,5.4 24.0,7.7 26.4,7.9 24.5,9.5 25.1,11.9 23.0,10.6 20.9,11.9 21.5,9.5 19.6,7.9 22.0,7.7" fill="#ffc145"/><polygon points="32.0,0.4 33.2,3.3 36.4,3.6 34.0,5.6 34.7,8.7 32.0,7.1 29.3,8.7 30.0,5.6 27.6,3.6 30.8,3.3" fill="#ffc145"/><polygon points="41.0,5.4 42.0,7.7 44.4,7.9 42.5,9.5 43.1,11.9 41.0,10.6 38.9,11.9 39.5,9.5 37.6,7.9 40.0,7.7" fill="#ffc145"/>',
+  pirat:'<path d="M16 15q16-18 32 0z" fill="#1b1d2e"/><path d="M16 15h32" stroke="#ffc145" stroke-width="2"/><circle cx="32" cy="8" r="2.6" fill="#f4f0ff"/><path d="M29 11.5l6-2M29 9.5l6 2" stroke="#f4f0ff" stroke-width="1.2"/>',
   hasen:'<ellipse cx="24" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(-14 24 2)"/><ellipse cx="24" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(-14 24 3)"/><ellipse cx="40" cy="2" rx="4.5" ry="12" fill="#f4f0ff" transform="rotate(14 40 2)"/><ellipse cx="40" cy="3" rx="2.2" ry="8.5" fill="#ffb3c8" transform="rotate(14 40 3)"/>'};
 
 // Ostersonntag (Gauß/Meeus, gregorianisch)
@@ -3061,6 +3328,11 @@ const REWARDS=[
   {t:'kippi',id:'krone',how:'Welt 10 geschafft',test:()=>worldDone(10)},
   {t:'kippi',id:'partyhut',how:'an Silvester spielen',test:()=>Holiday.silvester()},
   {t:'kippi',id:'hasen',how:'an Ostern spielen',test:()=>Holiday.easter()},
+  {t:'kippi',id:'zylinder',how:'Login-Bonus Woche 1 · Tag 7',test:()=>Login.has('kippi:zylinder')},
+  {t:'kippi',id:'muetze',how:'Login-Bonus Woche 2 · Tag 7',test:()=>Login.has('kippi:muetze')},
+  {t:'kippi',id:'fliege',how:'Login-Bonus Woche 3 · Tag 7',test:()=>Login.has('kippi:fliege')},
+  {t:'kippi',id:'sternreif',how:'Login-Bonus Woche 4 · Tag 7',test:()=>Login.has('kippi:sternreif')},
+  {t:'kippi',id:'pirat',how:'Paket „Abenteuer“ – bald',paket:true,test:()=>false},
   // Spielfelder (Endlos) – prog: [aktuell, Ziel] für den Fortschrittsbalken
   {t:'board',id:'4',how:'Endlos 5×5 bis Level 15',test:()=>MaxLv.get('5')>=15,prog:()=>[MaxLv.get('5'),15]},
   {t:'board',id:'6h',how:'Endlos 6×6 bis Level 30',test:()=>MaxLv.get('6')>=30,prog:()=>[MaxLv.get('6'),30]},
@@ -3143,7 +3415,7 @@ function openCollection(tab){Unlocks.check(true);Badges.check(true);if(tab)collT
   collReturn=!$('settingsOv').classList.contains('hidden')?'settings':!$('streakOv').classList.contains('hidden')?'streak':'start';
   ['settingsOv','streakOv','startOv'].forEach(i=>$(i).classList.add('hidden'));renderCollection();$('collOv').classList.remove('hidden');$('collOv').scrollTop=0}
 function closeCollection(){$('collOv').classList.add('hidden');collBadge();
-  if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else showMenu()}
+  if(collReturn==='settings'){renderSettings();$('settingsOv').classList.remove('hidden')}else if(collReturn==='streak')openStreak();else if(collReturn==='profile')openProfile();else showMenu()}
 $('collTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;collTab=b.dataset.t;renderCollection();$('collOv').scrollTop=0};
 $('collThemes').onclick=e=>{const b=e.target.closest('button[data-th]');if(!b||b.disabled)return;setTheme(b.dataset.th);renderCollection()};
 $('collKippi').onclick=e=>{const b=e.target.closest('button[data-kp]');if(!b||b.disabled)return;settings.kippi=b.dataset.kp;saveSettings();applyKippi();renderCollection();try{Fly.react&&Fly.react('record')}catch(x){}};
@@ -3153,6 +3425,81 @@ $('menuColl').onclick=()=>openCollection();
 
 // Feldauswahl im Menü erst jetzt vollständig (Freischaltungen sind geladen)
 try{if(!$('startOv').classList.contains('hidden'))showMenu()}catch(e){}
+// ---------- Spielerprofil & Profil anpassen ----------
+// Alle Farben über die Design-Variablen – das Profil sieht in jedem Design passend aus.
+function avatarHtml(cls){const f=curFrame(),k=Unlocks.has('kippi',settings.kippi)?settings.kippi:'none';
+  return`<span class="ava-ring ${cls||''}" style="--ring:${f.ring}"><span>${kippiSvg(k)}</span></span>`}
+function renderAvatarChip(){const b=$('menuProfile');if(!b)return;
+  b.innerHTML=avatarHtml('xs')+`<span class="dot" id="loginDot"${Login.can()?'':' style="display:none"'}>🎁</span>`}
+const profName=()=>{try{return (Games.signedIn&&Games.player&&Games.player.name)||playerName||I18N.tr('Spieler')}catch(e){return playerName||I18N.tr('Spieler')}};
+// Höchstes erreichtes Etappen-Level
+function profLevel(){const n=Math.max(0,...Object.keys(LP).map(Number).filter(x=>LP[x]));if(!n)return{t:'–',s:''};
+  return{t:LP[LEVELS.length]?I18N.tr('alle')+' ✓':stg(Math.min(n+1,LEVELS.length)),s:I18N.tr('Welt')+' '+Math.ceil(Math.min(n+1,LEVELS.length)/10)}}
+function profEndless(){let best=0,bk='';for(const k of BOARDS){const v=MaxLv.get(k)||0;if(v>best||(v===best&&v&&bN(k)>bN(bk||'5'))){best=v;bk=k}}
+  return best?{t:'Level '+best,s:bLabel(bk,true)}:{t:'–',s:''}}
+function openProfile(){Unlocks.check(true);Badges.check(true);
+  ['startOv','loginOv','custOv'].forEach(i=>$(i).classList.add('hidden'));
+  const P=PStats.get(),lv=profLevel(),en=profEndless(),cur=ST?ST.cur:0;
+  $('prAva').innerHTML=avatarHtml('lg');$('prName').textContent=profName();$('prTitle').textContent=I18N.tr(curTitle().n);
+  $('prBonus').classList.toggle('ready',Login.can());
+  $('prBonusTxt').textContent=Login.can()?I18N.tr('Bereit zum Abholen'):I18N.tr('Morgen wieder')+' · '+I18N.tr('Woche')+' '+(Math.floor(((Login.state().n-1+28)%28)/7)+1);
+  const tile=(c,l,v,s)=>`<div class="pr-stat"><small>${I18N.tr(l)}</small><b style="color:var(${c})">${v}</b>${s?`<small>${s}</small>`:''}</div>`;
+  $('prStats').innerHTML=
+    tile('--c3','Etappe',lv.t,lv.s)+
+    tile('--c5','Serie',cur+' '+I18N.tr(cur===1?'Tag':'Tage'),I18N.tr('Rekord')+' '+(ST?ST.best:0))+
+    tile('--c1','Sterne','⭐ '+totalStars(),'')+
+    tile('--c4','Beste Kombo',P.combo?'×'+P.combo:'–','')+
+    tile('--c2','Endlos-Rekord',en.t,en.s)+
+    tile('--text','Tagesspiele',String(dailyCount()),'');
+  // Vitrine: die drei wertvollsten erreichten Abzeichen
+  const got=BADGES.filter(b=>Badges.has(b.id)).sort((a,b)=>b.pts-a.pts||Badges.date(a.id).localeCompare(Badges.date(b.id))).slice(0,3);
+  $('prShelfCount').textContent=BADGES.filter(b=>Badges.has(b.id)).length+' / '+BADGES.length+' '+I18N.tr('Abzeichen')+' ›';
+  $('prShelf').innerHTML=got.length?got.map(b=>`<div class="pr-badge"><span class="be">${b.e}</span><small>${I18N.tr(b.n)}</small></div>`).join('')+
+    Array.from({length:3-got.length},()=>'<div class="pr-badge empty"><span class="be">?</span><small>–</small></div>').join('')
+    :`<p class="hint">${I18N.tr('Noch keine Abzeichen – spiel einfach los!')}</p>`;
+  // Beste Platzierungen (aus der weltweiten Rangliste, nur mit Google Play Games)
+  const aw=Awards.all(),rows=[];
+  if(P.rd)rows.push(['Tagesspiel · Tag',I18N.tr('Platz')+' '+P.rd]);
+  if(P.rw)rows.push(['Tagesspiel · Woche',I18N.tr('Platz')+' '+P.rw]);
+  if(aw.d1)rows.push(['Tagessiege','× '+aw.d1]);
+  if(aw.w1)rows.push(['Wochensiege','× '+aw.w1]);
+  $('prRanks').innerHTML=rows.length?rows.map(([l,v])=>`<div class="pr-row"><span>${I18N.tr(l)}</span><b>${v}</b></div>`).join('')
+    :`<p class="hint">${I18N.tr('Noch keine Platzierung – spiel das Tagesspiel mit Google Play Games.')}</p>`;
+  $('profOv').classList.remove('hidden');$('profOv').scrollTop=0}
+function closeProfile(){$('profOv').classList.add('hidden');showMenu()}
+$('menuProfile').onclick=()=>openProfile();
+$('prClose').onclick=closeProfile;
+$('prEdit').onclick=()=>openCustom();
+$('prBonus').onclick=()=>openLogin('profile');
+$('prShelfCount').onclick=()=>{$('profOv').classList.add('hidden');openCollection('badges');collReturn='profile'};
+
+// ---------- Profil anpassen: Kippi · Rahmen · Titel ----------
+let custTab='frame';
+function renderCustom(){
+  $('cuAva').innerHTML=avatarHtml('lg');$('cuName').textContent=profName();$('cuTitle').textContent=I18N.tr(curTitle().n);
+  $('cuTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===custTab));
+  const lockTxt=(how,pk)=>`<small>${pk?'🛍 ':''}${I18N.tr(how)}</small>`;
+  let h='';
+  if(custTab==='kippi'){const ck=settings.kippi||'none';
+    h=REWARDS.filter(r=>r.t==='kippi').map(r=>{const un=Unlocks.has('kippi',r.id);
+      return`<button class="tcard${un?'':' lock'}${ck===r.id&&un?' on':''}" data-kp="${r.id}" ${un?'':'disabled'}><span class="kv">${kippiSvg(r.id)}</span>${un?'':'🔒 '}${I18N.tr(KIPPI_NAMES[r.id])}${un?`<small>${I18N.tr(ck===r.id?'aktiv':'frei')}</small>`:lockTxt(r.how,r.paket)}</button>`}).join('')}
+  if(custTab==='frame'){const cf=curFrame().id;
+    h=FRAMES.map(f=>{const un=frameOwned(f);
+      return`<button class="tcard${un?'':' lock'}${cf===f.id?' on':''}" data-fr="${f.id}" ${un?'':'disabled'}><span class="ava-ring md" style="--ring:${f.ring}"><span></span></span>${un?'':'🔒 '}${I18N.tr(f.n)}${un?`<small>${I18N.tr(cf===f.id?'aktiv':'frei')}</small>`:lockTxt(f.how,f.paket)}</button>`}).join('')}
+  if(custTab==='title'){const ct=curTitle().id;
+    h=TITLES.map(t=>{const un=titleOwned(t);
+      return`<button class="tcard ttl${un?'':' lock'}${ct===t.id?' on':''}" data-ti="${t.id}" ${un?'':'disabled'}><b>${un?'':'🔒 '}${I18N.tr(t.n)}</b>${un?`<small>${I18N.tr(ct===t.id?'aktiv':'frei')}</small>`:lockTxt(t.how,t.paket)}</button>`}).join('')}
+  $('cuGrid').className='coll-grid'+(custTab==='title'?' two':'');$('cuGrid').innerHTML=h}
+function openCustom(){$('profOv').classList.add('hidden');renderCustom();$('custOv').classList.remove('hidden');$('custOv').scrollTop=0}
+function closeCustom(){$('custOv').classList.add('hidden');openProfile()}
+$('cuTabs').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;custTab=b.dataset.t;renderCustom()};
+$('cuGrid').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;
+  if(b.dataset.kp){settings.kippi=b.dataset.kp;applyKippi();try{Fly.react&&Fly.react('record')}catch(x){}}
+  else if(b.dataset.fr)settings.frame=b.dataset.fr;
+  else if(b.dataset.ti)settings.title=b.dataset.ti;
+  else return;
+  saveSettings();renderCustom()};
+$('cuClose').onclick=closeCustom;
 // ---------- Spielstand in der Cloud (geräteübergreifend, gleiche Plattform) ----------
 // Lesen → zusammenführen (es zählt jeweils das Bessere) → lokal übernehmen → zurückschreiben.
 const Cloud=(()=>{
@@ -3161,14 +3508,14 @@ const Cloud=(()=>{
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   const J=(k,d)=>{try{return JSON.parse(ls(k)||'null')??d}catch(e){return d}};
   const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
-  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi'];
+  const SET_KEYS=['sound','vibe','palette','symbols','size','theme','kippi','frame','title'];
   function local(){
     const daily={};const cut=addDays(todayKey(),-60);
     try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('kippwerk_daily_')&&k.slice(15)>=cut)daily[k.slice(15)]=J(k,null)}}catch(e){}
     const st=J('kippwerk_settings',{}),set={};SET_KEYS.forEach(k=>{if(k in st)set[k]=st[k]});
     return{v:1,pid:ls('kippwerk_pid')||'',name:ls('kippwerk_name')||'',nameAt:+(ls('kippwerk_name_at')||0),
       set,setAt:+(ls('kippwerk_settings_at')||0),levels:J('kippwerk_levels',{}),scores:J('kippwerk_scores',{endless:[],daily:[]}),
-      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),maxlv:J('kippwerk_maxlv',{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
+      daily,streak:J('kippwerk_streak',null),awards:J('kippwerk_awards',{}),unlocks:J('kippwerk_unlocks',[]),badges:J('kippwerk_badges',{}),maxlv:J('kippwerk_maxlv',{}),login:J('kippwerk_login',null),pstats:(o=>({combo:+o.combo||0,rd:+o.rd||0,rw:+o.rw||0}))(J('kippwerk_pstats',{})||{}),lives:+(ls('kippwerk_lives')||0),livesAt:+(ls('kippwerk_lives_at')||0)}}
   const uni=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   function mergeStreak(a,b){if(!a)return b;if(!b)return a;
     const la=a.last||'',lb=b.last||'';const p=la>lb||(la===lb&&(a.cur||0)>=(b.cur||0))?a:b,o=p===a?b:a;
@@ -3191,6 +3538,10 @@ const Cloud=(()=>{
       awards:(()=>{const a={...(R.awards||{})};for(const k in L.awards||{})a[k]=Math.max(a[k]||0,L.awards[k]||0);return a})(),
       unlocks:uni(L.unlocks,R.unlocks),badges:(()=>{const o={...(R.badges||{})};for(const k in L.badges||{})if(!o[k]||L.badges[k]<o[k])o[k]=L.badges[k];return o})(),
       maxlv:(()=>{const o={...(R.maxlv||{})};for(const k in L.maxlv||{})o[k]=Math.max(+o[k]||0,+L.maxlv[k]||0);return o})(),
+      login:(()=>{const a=L.login,b=R.login;if(!a)return b||null;if(!b)return a;const p=(+b.n||0)>(+a.n||0)||((+b.n||0)===(+a.n||0)&&(b.last||'')>(a.last||''))?b:a;
+        return{n:+p.n||0,last:p.last||'',got:uni(a.got,b.got)}})(),
+      pstats:(()=>{const a=L.pstats||{},b=R.pstats||{},bt=(x,y)=>x>0&&y>0?Math.min(x,y):(x>0?x:y>0?y:0);
+        return{combo:Math.max(+a.combo||0,+b.combo||0),rd:bt(+a.rd||0,+b.rd||0),rw:bt(+a.rw||0,+b.rw||0)}})(),
       lives:(R.livesAt||0)>(L.livesAt||0)?(R.lives||0):(L.lives||0),livesAt:Math.max(L.livesAt||0,R.livesAt||0)}}
   function apply(M){
     lsSet('kippwerk_pid',M.pid);if(M.name){lsSet('kippwerk_name',M.name);lsSet('kippwerk_name_at',String(M.nameAt||0))}
@@ -3202,6 +3553,8 @@ const Cloud=(()=>{
     if(Array.isArray(M.unlocks))lsSet('kippwerk_unlocks',JSON.stringify(M.unlocks));
     if(M.badges&&typeof M.badges==='object')lsSet('kippwerk_badges',JSON.stringify(M.badges));
     if(M.maxlv&&typeof M.maxlv==='object')lsSet('kippwerk_maxlv',JSON.stringify(M.maxlv));
+    if(M.login&&typeof M.login==='object')lsSet('kippwerk_login',JSON.stringify(M.login));
+    if(M.pstats&&typeof M.pstats==='object')lsSet('kippwerk_pstats',JSON.stringify(M.pstats));
     lsSet('kippwerk_lives',String(M.lives||0));lsSet('kippwerk_lives_at',String(M.livesAt||0))}
   let busy=null,pending=false,last='';
   function reloadSafe(){const k='kippwerk_cloud_reload',t=+(sessionStorage.getItem(k)||0);

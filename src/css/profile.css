@@ -1,0 +1,71 @@
+/* ---------- Profil, Profil anpassen, Login-Bonus – Farben nur über Design-Variablen ---------- */
+.ava-ring{--ring:var(--line);display:inline-grid;place-items:center;border-radius:50%;background:var(--ring);padding:3px;box-sizing:border-box;flex:none}
+.ava-ring>span{width:100%;height:100%;border-radius:50%;background:var(--bg2,var(--panel));display:grid;place-items:center;overflow:hidden}
+.ava-ring svg{width:76%;height:auto;overflow:visible;display:block;margin-top:6%}
+.ava-ring .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.ava-ring.xs{width:100%;height:100%;padding:2px}
+.ava-ring.sm{width:30px;height:30px}
+.ava-ring.md{display:grid;width:54px;height:54px;padding:4px;margin:4px auto 6px}
+.ava-ring.lg{width:92px;height:92px;padding:5px}
+.avachip{position:relative;width:clamp(32px,9.5vw,38px);height:clamp(32px,9.5vw,38px);border-radius:50%;border:0;background:none;padding:0;cursor:pointer;flex:none}
+.avachip .dot{position:absolute;top:-7px;right:-9px;font-size:13px;line-height:1;background:none;filter:drop-shadow(0 1px 2px #0008);animation:pulseOpen 2s ease-in-out infinite}
+/* Karten */
+.pr-card,.lg-card{width:min(100%,420px);display:flex;flex-direction:column;gap:12px;text-align:left}
+.pr-card>.btn,.lg-card>.btn{align-self:stretch}
+.pr-card h2,.lg-card h2{text-align:center}
+.lg-card>.hint{text-align:center;margin:0 auto}
+.pr-head{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.pr-who{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.pr-who b{font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr-title{align-self:flex-start;display:inline-block;padding:3px 10px;border-radius:9px;background:color-mix(in srgb,var(--c1) 18%,transparent);color:var(--c1);font-size:13px;font-weight:700}
+.pr-edit{padding:8px 12px;font-size:13px}
+.pr-bonus{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);font:700 15px "Space Grotesk",sans-serif;cursor:pointer;text-align:left}
+.pr-bonus small{color:var(--muted);font-weight:500;font-size:12px}
+.pr-bonus.ready{border-color:var(--c1);box-shadow:0 0 16px color-mix(in srgb,var(--c1) 30%,transparent)}
+.pr-bonus.ready small{color:var(--c1);font-weight:700}
+.pr-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pr-stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 12px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.pr-stat small{color:var(--muted);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.pr-stat small+b+small,.pr-stat b+small{text-transform:none;letter-spacing:0;font-size:12px}
+.pr-stat b{font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-sec{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px}
+.pr-sec b{font-size:15px}
+.pr-shelf{display:flex;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 8px}
+.pr-shelf .hint{margin:0 auto}
+.pr-badge{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center}
+.pr-badge .be{font-size:28px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg2,var(--bg));border:2px solid var(--c1)}
+.pr-badge.empty .be{border-color:var(--line);color:var(--muted);font-size:20px}
+.pr-badge small{font-size:12px;color:var(--text)}
+.pr-ranks{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.pr-ranks .hint{margin:0}
+.pr-row{display:flex;justify-content:space-between;font-size:14px}.pr-row span{color:var(--muted)}.pr-row b{color:var(--c1)}
+/* Profil anpassen */
+.cu-prev{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cu-prev b{font-size:18px}.cu-prev .pr-title{align-self:center}
+.cu-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cu-tabs button.on{background:var(--c3);color:#06121a}
+#cuGrid .tcard{background:var(--panel)}
+#cuGrid .tcard.on{border-color:var(--c1);box-shadow:0 0 12px color-mix(in srgb,var(--c1) 35%,transparent)}
+#cuGrid.two{grid-template-columns:repeat(2,1fr)}
+#cuGrid .tcard.ttl{padding:12px 8px}#cuGrid .tcard.ttl b{font-size:14px}
+#cuGrid .tcard.lock .ava-ring{filter:none}
+/* Login-Bonus */
+.lg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:6px}
+.lg-day{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;min-height:108px;box-sizing:border-box;text-align:center}
+.lg-day small{color:var(--muted);font-weight:700;font-size:12px}
+.lg-day.done{opacity:.6}
+.lg-day.today{border:2px solid var(--c1);background:color-mix(in srgb,var(--c1) 10%,var(--panel));box-shadow:0 0 18px color-mix(in srgb,var(--c1) 30%,transparent)}
+.lg-lbl{font-size:11.5px;line-height:1.25;color:var(--text)}
+.lg-ic{font-size:24px;line-height:32px;height:32px}
+.lg-day .kv svg{width:40px;height:36px;overflow:visible}
+.lg-day .kv .wing,.lg-big .kv .wing{fill:#cfefff;fill-opacity:.55;stroke:#e9f8ff;stroke-opacity:.8;stroke-width:1}
+.lg-tag{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--c1);color:#0d0f1a;font-size:10.5px;padding:2px 8px;border-radius:7px;white-space:nowrap}
+.lg-tag.next{background:var(--line);color:var(--text)}
+.lg-ok{position:absolute;top:-8px;right:-6px;width:22px;height:22px;border-radius:11px;background:var(--c2);color:#0d0f1a;font-size:13px;font-weight:700;display:grid;place-items:center}
+.lg-big{position:relative;display:flex;align-items:center;gap:14px;background:color-mix(in srgb,var(--c4) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--c4) 45%,var(--line));border-radius:16px;padding:10px 14px}
+.lg-big>div{flex:1;display:flex;flex-direction:column;gap:2px}.lg-big small{color:var(--muted);font-size:12px}.lg-big b{font-size:17px}
+.lg-big .kv svg{width:64px;height:58px;overflow:visible;display:block}
+.lg-big.today{border:2px solid var(--c1)}.lg-big.done{opacity:.6}
+.lg-month{display:flex;align-items:center;gap:8px}.lg-month small{color:var(--muted);font-size:12px}
+.lg-month>div{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.lg-month i{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--c2) var(--p),var(--line) var(--p))}

@@ -18,7 +18,7 @@ index 0fcbe5c..7533781 100644
  android {
      namespace = "com.idleflowgames.playgames"
 diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
-index 0e973d6..92eaa5b 100644
+index 0e973d6..3fd2eab 100644
 --- a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 +++ b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 @@ -1,7 +1,9 @@
@@ -66,7 +66,7 @@ index 0e973d6..92eaa5b 100644
 +                var total = -1L
 +                try {
 +                    data?.leaderboard?.variants?.firstOrNull { it.timeSpan == span && it.collection == LeaderboardVariant.COLLECTION_PUBLIC }
-+                        ?.let { total = it.numberOfScores }
++                        ?.let { total = it.numScores }
 +                } catch (_: Exception) {}
 +                try {
 +                    data?.scores?.forEach { s ->

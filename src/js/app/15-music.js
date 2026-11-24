@@ -73,7 +73,7 @@ const Music=(()=>{
     if(t===cur&&t==='game'&&st<stage)return;                        // innerhalb einer Partie wird es nie wieder langsamer
     if(t!==cur){cur=t;step=0;stage=st;if(g&&want())try{const v=level(),n=actx.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(Math.max(.0001,g.gain.value),n);g.gain.linearRampToValueAtTime(v*.25,n+.2);g.gain.linearRampToValueAtTime(v,n+1.2)}catch(e){}}
     else stage=st}                                                   // Stufe greift ab dem nächsten Takt
-  return{start(){on=true;sync()},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},
+  return{start(){on=true;sync()},resume(){try{if(actx&&actx.state==='suspended')actx.resume()}catch(e){}},stop(){on=false;sync()},volume(){if(want()&&g)try{fade(level(),.15)}catch(e){}},hold(b){hold=Math.max(0,hold+(b?1:-1));sync()},
     track:setTrack,danger(b){danger=!!b},get playing(){return want()},get state(){return{track:cur,stage,danger,bpm:Math.round(30/E)}}};
 })();
 // Welches Stück passt gerade? (Menü · Spiel mit Stufe · Boss) – aufgerufen bei Start, nach jedem Zug, bei Menü/Ende
@@ -91,5 +91,8 @@ function musicSync(){
   const dg=!!(grid&&grid.filter(Boolean).length>=N*N*.78);if(dg&&!musicSync.dg)try{Fly.react('danger')}catch(e){}
   musicSync.dg=dg;Music.danger(dg);
 }
-['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.musicVol>0&&!Music.playing)Music.start()},{passive:true}));
+// Start bei der ersten Berührung (Browser) – falls der Ton trotz Start noch gesperrt ist, hier freigeben
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(settings.musicVol>0){if(!Music.playing)Music.start();else Music.resume()}},{passive:true}));
+// In der App (Android/iOS) läuft die Musik direkt beim Start – mit sanftem Einblenden; Lautstärke 0 = still
+try{if(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())setTimeout(()=>{if(settings.musicVol>0&&!document.hidden&&!Music.playing)Music.start()},700)}catch(e){}
 

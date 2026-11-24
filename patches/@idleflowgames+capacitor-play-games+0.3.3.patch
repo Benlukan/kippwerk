@@ -18,7 +18,7 @@ index 0fcbe5c..7533781 100644
  android {
      namespace = "com.idleflowgames.playgames"
 diff --git a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
-index 0e973d6..ac46e1c 100644
+index 0e973d6..7daab94 100644
 --- a/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 +++ b/node_modules/@idleflowgames/capacitor-play-games/android/src/main/java/com/idleflowgames/playgames/LeaderboardsModule.kt
 @@ -1,7 +1,9 @@
@@ -44,7 +44,7 @@ index 0e973d6..ac46e1c 100644
      }
  
      fun show(call: PluginCall) {
-@@ -20,4 +26,46 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
+@@ -20,4 +26,53 @@ internal class LeaderboardsModule(plugin: PlayGamesPlugin) : PgsModule(plugin) {
      fun showAll(call: PluginCall) {
          plugin.launchUiIntent(client.allLeaderboardsIntent, call, "onLeaderboardUiResult")
      }
@@ -62,6 +62,12 @@ index 0e973d6..ac46e1c 100644
 +            .settle(call, "loadTopScores failed") { annotated ->
 +                val entries = JSArray()
 +                val data = annotated.get()
++                // KIPPWERK-Patch: Gesamtzahl der Einträge in diesem Zeitraum (z. B. „heute schon gespielt“), -1 = unbekannt
++                var total = -1L
++                try {
++                    data?.leaderboard?.variants?.firstOrNull { it.timeSpan == span && it.collection == LeaderboardVariant.COLLECTION_PUBLIC }
++                        ?.let { total = it.numRawScores }
++                } catch (_: Exception) {}
 +                try {
 +                    data?.scores?.forEach { s ->
 +                        entries.put(jsObject {
@@ -80,6 +86,7 @@ index 0e973d6..ac46e1c 100644
 +                        val me = if (t.isSuccessful) t.result?.get() else null
 +                        call.resolve(jsObject {
 +                            put("entries", entries)
++                            put("total", total)
 +                            if (me != null) put("me", jsObject {
 +                                put("rank", me.rank)
 +                                put("score", me.rawScore)

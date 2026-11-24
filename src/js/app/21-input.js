@@ -42,6 +42,12 @@ $('sizePick').onclick=e=>{e.stopPropagation();if(PopMenu.isOpen){PopMenu.close()
   const it=open.filter(k=>!bH(k)).map(k=>({v:k,t:bLabel(k),on:k===cur}));
   if(open.some(bH))it.push({sep:1,t:'🪨 '+I18N.tr('Mit Hindernissen')},...open.filter(bH).map(k=>({v:k,t:bLabel(k),on:k===cur})));
   PopMenu.open(e.currentTarget,it,v=>{settings.size=v;saveSettings();showMenu();try{Top5.refresh()}catch(x){}})};
+// „Heute schon gespielt“: Zahl der Spieler in der heutigen Google-Tagesliste (nur mit Play Games, erst ab 10 Spielern)
+const DP_MIN=10;
+async function showDailyPlayers(tries){const el=$('dailyPlayers');if(!el)return;
+  if(Games.available&&!Games.signedIn&&(tries|0)<4){setTimeout(()=>showDailyPlayers((tries|0)+1),3000);return}   // Anmeldung läuft noch
+  try{if(!Games.signedIn)throw 0;const d=await Games.top('daily','day',1);const n=+d.total;
+    if(n>=DP_MIN){el.textContent=I18N.tr('👥 '+n.toLocaleString('de-DE')+' heute');el.title=I18N.tr("Spieler haben heute schon das Tagesspiel gespielt");el.hidden=false}else el.hidden=true}catch(e){el.hidden=true}}
 function showMenu(){
   if(tut)endTut();
   setTimeout(musicSync,0);
@@ -50,6 +56,7 @@ function showMenu(){
   $('dailyNoTxt').textContent=dayLabel(dailyNo());
   $('dailyHint').textContent=done?`✓ ${done.score.toLocaleString(LOC())} Punkte`:'offen bis '+dayStartTime();
   $('dailyBtn').classList.toggle('open',!done);
+  setTimeout(()=>showDailyPlayers(0),1500);
   // Level
   const un=unlocked(),all=!!LP[LEVELS.length],w=Math.ceil(Math.min(un,LEVELS.length)/10);
   $('levelTitle').textContent=all?'Etappen ✓':'Etappe '+stg(un);

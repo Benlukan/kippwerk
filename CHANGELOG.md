@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.2 (Build 81) – 24.11.2026
+- **Musik direkt beim Start (Android/iOS):** Die WebView-Sperre für Ton vor dem ersten Tippen ist in der Android-App abgeschaltet (`MainActivity`: `setMediaPlaybackRequiresUserGesture(false)`); iOS erlaubt das in Capacitor bereits. Die Musik startet beim App-Start mit sanftem Einblenden, Lautstärke 0 bleibt still. Im Browser gilt weiter: Start mit dem ersten Tippen; ein trotz Start gesperrter Ton wird beim ersten Tippen freigegeben
+- **„Heute schon gespielt“:** Unter „Tagesspiel“ im Menü steht, wie viele Spieler heute schon das Tagesspiel beendet haben (z. B. „👥 123 heute“). Quelle: Gesamtzahl der heutigen Google-Play-Games-Tagesliste (Plugin-Patch liefert `total`). Nur mit Play Games, erst ab 10 Spielern, sonst ausgeblendet
+- Hilfe: korrekte Zahl „12 Kippi-Outfits“ (DE/EN)
+
 ## v2.1.1 (Build 80) – 23.11.2026
 - **Etappen-Karte:** Jede Welt ist jetzt ein geschwungener Pfad statt eines Rasters – Level 1 unten, Boss oben. Unter jedem Level die Sterne, Kippi (mit gewähltem Outfit) sitzt auf dem aktuellen Level, der bereits gelaufene Weg ist hervorgehoben. Oben wartet das Tor zur nächsten Welt (gesperrt mit Bedingung oder offen zum Weitergehen); ‹ › blättert durch die Welten. Alle Farben aus dem gewählten Design
 - **Update-Hinweis:** Gibt es bei Google Play eine neue Version, erscheint im Hauptmenü „Neue Version verfügbar – Aktualisieren“. Das Update lädt im Hintergrund (flexibles In-App-Update), danach „Neu starten“. Höchstens einmal pro Version, mit ✕ ausblendbar. iOS: Hinweis mit Link in den App Store, sobald die Apple-ID (`IOS_APP_ID` in `24f-appupdate.js`) eingetragen ist

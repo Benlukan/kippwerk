@@ -18,6 +18,8 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(KwVibePlugin.class);   // eigene, zuverlässigere Vibration
         super.onCreate(savedInstanceState);
+        // Musik darf direkt beim Start laufen (sonst blockiert die WebView Ton bis zum ersten Tippen)
+        try { getBridge().getWebView().getSettings().setMediaPlaybackRequiresUserGesture(false); } catch (Exception ignored) {}
         // Inhalt darf neben die Kamera-Aussparung (sonst bleibt dort ein Streifen)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             WindowManager.LayoutParams lp = getWindow().getAttributes();

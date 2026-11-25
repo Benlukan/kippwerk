@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.5 (Build 84) – 25.11.2026
+- Blase „Heute schon gespielt“ im Menü: Text jetzt „Heute gespielte Tagesspiele“ (EN: „Daily games played today“), darunter weiter groß die Zahl mit 👥
+
 ## v2.1.4 (Build 83) – 25.11.2026
 - **„Heute schon gespielt“ als Blase:** Über „Tagesspiel“ und den Kacheln steht eine runde Glibber-Blase (angelehnt an FLUMM) mit „Heute haben so viele das Tagesspiel gespielt“ und darunter groß „👥 Zahl“. Sie wechselt sanft durch die vier Kachelfarben des gewählten Designs (16 s), wabbelt leicht und hat ein Glanzlicht; bei „Bewegung reduzieren“ ruhig in der Tagesspiel-Farbe
 - Anzeige jetzt **ab dem ersten Spieler** (vorher ab 10); bei 0, ohne Play-Games-Anmeldung oder im Browser ausgeblendet. Eigene Zeile im Menü-Raster, die ohne Blase wegfällt

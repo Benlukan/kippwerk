@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.4 (Build 83) – 25.11.2026
+- **„Heute schon gespielt“ als Blase:** Über „Tagesspiel“ und den Kacheln steht eine runde Glibber-Blase (angelehnt an FLUMM) mit „Heute haben so viele das Tagesspiel gespielt“ und darunter groß „👥 Zahl“. Sie wechselt sanft durch die vier Kachelfarben des gewählten Designs (16 s), wabbelt leicht und hat ein Glanzlicht; bei „Bewegung reduzieren“ ruhig in der Tagesspiel-Farbe
+- Anzeige jetzt **ab dem ersten Spieler** (vorher ab 10); bei 0, ohne Play-Games-Anmeldung oder im Browser ausgeblendet. Eigene Zeile im Menü-Raster, die ohne Blase wegfällt
+
 ## v2.1.3 (Build 82) – 25.11.2026
 - **Tagesspiel-Bestenliste „Woche“ (Mo–So):** Gewertet wird jetzt das beste Tagesergebnis je Spieler statt der Summe aller Tage – wie bei den Endlos-Wochenlisten. Darunter steht „x/7 Tage gespielt“. Gilt auch für Top 5 „Woche“, Überholt-Hinweis, Wochen-Belohnungen und beste Wochenplatzierung im Profil
 - **Sammlung:** Fenster und Reiterleiste haben in allen vier Reitern (Designs, Kippi, Abzeichen, Felder) dieselbe Breite; die Reiter sind gleich breit

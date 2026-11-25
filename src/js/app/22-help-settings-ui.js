@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.4','Neu im Menü: eine Blase zeigt, wie viele heute schon das Tagesspiel gespielt haben – ab dem ersten Spieler'],
  ['2.1.3','Tagesspiel-Bestenliste „Woche“: es zählt jetzt dein bestes Ergebnis der Woche statt der Summe · Sammlung: alle Reiter gleich breit'],
  ['2.1.2','Musik läuft in der App direkt beim Start · Im Menü steht beim Tagesspiel, wie viele Spieler heute schon gespielt haben'],
  ['2.1.1','Neue Etappen-Karte: jede Welt als geschwungener Pfad mit Kippi auf deinem Level und dem Tor zur nächsten Welt · Hinweis im Menü, wenn eine neue Version verfügbar ist'],

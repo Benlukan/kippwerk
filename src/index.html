@@ -62,16 +62,17 @@
       </div>
       </div>
       <div class="hmenu" id="homeTiles">
-        <div class="hl l" data-for="dailyBtn" style="grid-row:1;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyHint"></small><small id="dailyPlayers" hidden></small><small id="dailyNoTxt" hidden></small></div>
+        <div class="dpchip" id="dailyPlayers" hidden><span id="dpTxt">Heute haben so viele das Tagesspiel gespielt</span><b id="dpNum">👥 0</b></div>
+        <div class="hl l" data-for="dailyBtn" style="grid-row:2;--c:var(--c0)"><b>Tagesspiel</b><small id="dailyHint"></small><small id="dailyNoTxt" hidden></small></div>
         <div class="hlogo">
           <button class="hst" id="dailyBtn" style="--c:var(--c0)" aria-label="Tagesspiel">●</button>
           <button class="hst" id="levelBtn" style="--c:var(--c1)" aria-label="Level">▲</button>
           <button class="hst" id="endlessBtn" style="--c:var(--c2)" aria-label="Endlos">■</button>
           <button class="hst" id="menuHelp" style="--c:var(--c3)" aria-label="Hilfe">◆</button>
         </div>
-        <div class="hl r" data-for="levelBtn" style="grid-row:1;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars" hidden></small><span class="hbar"><i id="levelBar"></i></span></div>
-        <div class="hl l" data-for="endlessBtn" style="grid-row:2"><b>Endlos</b><small id="endlessSub"></small><button class="szchip" id="sizePick" aria-haspopup="menu"><span id="endlessSize"></span> ▾</button></div>
-        <div class="hl r" data-for="menuHelp" style="grid-row:2"><b>Hilfe</b></div>
+        <div class="hl r" data-for="levelBtn" style="grid-row:2;--c:var(--c2)"><b id="levelTitle">Etappe</b><small id="levelSub"></small><small id="levelStars" hidden></small><span class="hbar"><i id="levelBar"></i></span></div>
+        <div class="hl l" data-for="endlessBtn" style="grid-row:3"><b>Endlos</b><small id="endlessSub"></small><button class="szchip" id="sizePick" aria-haspopup="menu"><span id="endlessSize"></span> ▾</button></div>
+        <div class="hl r" data-for="menuHelp" style="grid-row:3"><b>Hilfe</b></div>
       </div>
       <div class="popmenu" id="popMenu" role="menu" hidden></div>
       <div class="updbar" id="updBar" hidden><span id="updTxt">Neue Version verfügbar</span><button class="btn lvl" id="updGo">Aktualisieren</button><button class="updno" id="updNo" aria-label="Später">✕</button></div>
@@ -355,7 +356,7 @@
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.1.3 · Build 82 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.1.4 · Build 83 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 <!-- @include i18n -->

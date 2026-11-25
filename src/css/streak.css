@@ -65,3 +65,9 @@ body.pad-off .pad{display:none!important}
 .tcard.bcard .bm i.rk{background:repeating-linear-gradient(45deg,#6b7088 0 3px,#4a4e63 3px 6px);opacity:1}
 .tcard.bcard.lock .bm{filter:grayscale(.9)}
 .tcard .pb{height:5px;border-radius:3px;background:#ffffff14;margin:5px 6px 2px;overflow:hidden}.tcard .pb i{display:block;height:100%;background:var(--c2)}
+/* Sammlung: alle Reiter gleich breit, unabhängig vom Inhalt */
+#collOv .card{width:min(100%,460px);box-sizing:border-box}
+#collOv .colltabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;box-sizing:border-box}
+#collOv .colltabs button{min-width:0;padding-left:2px;padding-right:2px;white-space:nowrap;font-size:12px;letter-spacing:0}
+#collOv .coll-grid{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))}
+#collOv #collHint{max-width:none}

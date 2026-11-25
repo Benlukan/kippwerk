@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.3','Tagesspiel-Bestenliste „Woche“: es zählt jetzt dein bestes Ergebnis der Woche statt der Summe · Sammlung: alle Reiter gleich breit'],
  ['2.1.2','Musik läuft in der App direkt beim Start · Im Menü steht beim Tagesspiel, wie viele Spieler heute schon gespielt haben'],
  ['2.1.1','Neue Etappen-Karte: jede Welt als geschwungener Pfad mit Kippi auf deinem Level und dem Tor zur nächsten Welt · Hinweis im Menü, wenn eine neue Version verfügbar ist'],
  ['2.1.0','Neu: Spielerprofil mit Werten, Vitrine und besten Platzierungen · Profil anpassen (Kippi-Outfit, Rahmen, Titel) · Täglicher Bonus mit Wochen- und Monatsbelohnungen'],
@@ -167,9 +168,9 @@ const onlineCache={};let onlineReq=0;
 function clearOnline(){for(const k in onlineCache)delete onlineCache[k]}
 const SPAN_TXT={day:'Heute',yday:'Gestern',week:'Woche (So–Sa)',all:'Gesamt'};
 // Tagesspiel-Woche Mo–So weltweit: Google kennt nur So–Sa, daher aus den 7 Wochentags-Listen zusammengezählt
-// (je Tag die Liste dieses Wochentags, gefiltert auf das Datum im Score-Tag; Summe je Spieler)
-// pre: 'wd' (Tagesspiel, Summe je Spieler) oder 'e6wd' usw. (Endlos, beste Runde der Woche)
-async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre=pre||'wd';const best=pre!=='wd';
+// (je Tag die Liste dieses Wochentags, gefiltert auf das Datum im Score-Tag; je Spieler zählt das beste Ergebnis der Woche)
+// pre: 'wd' (Tagesspiel, bester Tag der Woche) oder 'e6wd' usw. (Endlos, beste Runde der Woche)
+async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre=pre||'wd';const best=true,isDaily=pre==='wd';
   const t=todayKey(),mon=addDays(t,-wdOf(t)),gSun=addDays(t,-((wdOf(t)+1)%7)),days=[];
   for(let d=mon;d<=t;d=addDays(d,1))days.push(d);
   let fails=0;
@@ -186,9 +187,9 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const L=Object.values(P).filter(p=>p.pub||p.playerId===meId).sort((a,b)=>b.score-a.score);
   const val=p=>best?p.best:p.score;
   if(best)L.sort((a,b)=>b.best-a.best);
-  const sub=p=>best?'':`${p.days}/7 ${I18N.lang==='en'?'days':'Tage'} · ${I18N.lang==='en'?'best day':'bester Tag'} ${p.best.toLocaleString(LOC())}`;
-  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:val(p),tag:best?p.tag:'',rank:i+1,sub:sub(p)}));
-  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:best?mp.tag:'',rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
+  const sub=p=>isDaily?`${p.days}/7 ${I18N.lang==='en'?(p.days===1?'day played':'days played'):(p.days===1?'Tag gespielt':'Tage gespielt')}`:'';
+  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:val(p),tag:isDaily?'':p.tag,rank:i+1,sub:sub(p)}));
+  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:isDaily?'':mp.tag,rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
   return{entries:pub.slice(0,n||25),me}}
 // Rangliste laden – beim Tagesspiel „Woche“ die eigene Woche Mo–So, sonst direkt von Google
 function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e\d/.test(k)&&Games.hasEwdFor(k))return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}

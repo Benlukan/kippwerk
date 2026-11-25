@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.3 (Build 82) – 25.11.2026
+- **Tagesspiel-Bestenliste „Woche“ (Mo–So):** Gewertet wird jetzt das beste Tagesergebnis je Spieler statt der Summe aller Tage – wie bei den Endlos-Wochenlisten. Darunter steht „x/7 Tage gespielt“. Gilt auch für Top 5 „Woche“, Überholt-Hinweis, Wochen-Belohnungen und beste Wochenplatzierung im Profil
+- **Sammlung:** Fenster und Reiterleiste haben in allen vier Reitern (Designs, Kippi, Abzeichen, Felder) dieselbe Breite; die Reiter sind gleich breit
+- Hilfe DE/EN angepasst
+
 ## v2.1.2 (Build 81) – 24.11.2026
 - **Musik direkt beim Start (Android/iOS):** Die WebView-Sperre für Ton vor dem ersten Tippen ist in der Android-App abgeschaltet (`MainActivity`: `setMediaPlaybackRequiresUserGesture(false)`); iOS erlaubt das in Capacitor bereits. Die Musik startet beim App-Start mit sanftem Einblenden, Lautstärke 0 bleibt still. Im Browser gilt weiter: Start mit dem ersten Tippen; ein trotz Start gesperrter Ton wird beim ersten Tippen freigegeben
 - **„Heute schon gespielt“:** Unter „Tagesspiel“ im Menü steht, wie viele Spieler heute schon das Tagesspiel beendet haben (z. B. „👥 123 heute“). Quelle: Gesamtzahl der heutigen Google-Play-Games-Tagesliste (Plugin-Patch liefert `total` aus `LeaderboardVariant.getNumScores()`). Nur mit Play Games, erst ab 10 Spielern, sonst ausgeblendet

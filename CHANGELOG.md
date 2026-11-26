@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.8 (Build 87) – 26.11.2026
+- **Fehler behoben – Bestenliste „Woche“ und „Gestern“ (Tagesspiel und Endlos):** Diese Ansichten lasen bisher nur die Wochentags-Listen (Mo…So). Spieler, deren App dort nicht meldet (z. B. ältere Versionen), fehlten deshalb, obwohl sie in „Heute“ und in der Top 5 standen. Jetzt werden zusätzlich die Hauptlisten (heute und Google-Woche bzw. Gesamt, gefiltert aufs Datum) eingelesen und je Spieler zusammengeführt. Gewertet wird weiter das beste Ergebnis der Woche
+
 ## v2.1.7 (Build 86) – 26.11.2026
 - Zähler „Heute schon gespielt“: startet beim Öffnen des Menüs beim Tagesspiel und blättert dann **fortlaufend** alle 3 s weiter (vorher: ein Durchlauf, dann Stopp beim Tagesspiel). Antippen blättert sofort weiter, der 3-s-Takt beginnt neu
 - Wechselt man im Hauptmenü die Endlos-Feldgröße, springt der Zähler sofort zu diesem Feld (z. B. „Endlos 8×8“) und läuft von dort weiter

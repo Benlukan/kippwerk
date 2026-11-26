@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.8','Fehler behoben: In den Bestenlisten „Woche“ und „Gestern“ fehlten Spieler, deren App nicht in die Wochentags-Listen meldet'],
  ['2.1.7','Zähler „Heute schon gespielt“ blättert jetzt fortlaufend weiter · Nach dem Wechsel der Endlos-Feldgröße im Menü zeigt er sofort dieses Feld'],
  ['2.1.6','Neuer Zähler „Heute schon gespielt“ zwischen Bestenliste und Kacheln: zeigt fürs Tagesspiel und jedes Endlos-Feld, wie viele heute schon gespielt haben'],
  ['2.1.5','Blase im Menü: neuer Text „Heute gespielte Tagesspiele“'],
@@ -182,12 +183,22 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
     const get=async sp=>{try{return await Games.top(k,sp,25)}catch(e){fails++;return null}};
     let r=await get(d>=gSun?'week':'all');
     return{entries:(r&&r.entries||[]).filter(ok),me:r&&ok(r.me)?r.me:null}}));
-  if(fails>=days.length)throw new Error('n/a');
+  // Zusätzlich die Hauptliste (Tagesspiel bzw. Endlos-Feld) lesen: „heute“ und Google-Woche. So fehlen auch Spieler nicht,
+  // deren App (noch) nicht in die Wochentags-Listen meldet – z. B. ältere Versionen. Einträge ohne Datum zählen nur fürs beste Ergebnis.
+  const base=pre==='wd'?'daily':pre.replace(/wd$/,''),inWeek=d8=>{const d=d8&&d8.length===8?d8.slice(0,4)+'-'+d8.slice(4,6)+'-'+d8.slice(6):'';return d&&d>=mon&&d<=t};
+  const extra=[];
+  await Promise.all([['day',x=>t],['week',x=>{const d8=ScoreTag.dec(x.tag).day;return d8?(inWeek(d8)?d8.slice(0,4)+'-'+d8.slice(4,6)+'-'+d8.slice(6):null):'?'}]].map(async([sp,dayOf])=>{
+    try{const r=await Games.top(base,sp,25);for(const x of r.entries||[]){const d=dayOf(x);if(d)extra.push({x,d,pub:true})}
+      if(r.me){const d=dayOf(r.me);if(d)extra.push({x:r.me,d,pub:(r.me.rank|0)>0,me:true})}}catch(e){}}));
+  if(fails>=days.length&&!extra.length)throw new Error('n/a');
   const P={},add=(x,pub)=>{const p=P[x.playerId]=P[x.playerId]||{playerId:x.playerId,name:x.name,score:0,days:0,best:0,pub:false,ids:new Set()};
-    if(p.ids.has(x.d))return;p.ids.add(x.d);const v=+x.score||0;p.score+=v;p.days++;if(v>p.best){p.best=v;p.tag=x.tag}if(pub)p.pub=true;if(x.name)p.name=x.name};
+    const v=+x.score||0;if(v>p.best){p.best=v;p.tag=x.tag}if(pub)p.pub=true;if(x.name)p.name=x.name;
+    if(x.d==='?'||p.ids.has(x.d))return;p.ids.add(x.d);p.score+=v;p.days++};
   let meId=null,meHidden=false;
   res.forEach((r,i)=>{for(const x of r.entries)add({...x,d:days[i]},true);
     if(r.me){meId=r.me.playerId;if(!((r.me.rank|0)>0))meHidden=true;add({...r.me,d:days[i]},(r.me.rank|0)>0)}});
+  for(const e of extra){if(e.me&&!meId)meId=e.x.playerId;add({...e.x,d:e.d},e.pub)}
+  for(const p of Object.values(P))if(!p.days)p.days=1;
   const L=Object.values(P).filter(p=>p.pub||p.playerId===meId).sort((a,b)=>b.score-a.score);
   const val=p=>best?p.best:p.score;
   if(best)L.sort((a,b)=>b.best-a.best);
@@ -202,7 +213,13 @@ const weekMonOf=k=>k==='daily'?dailyWeekMon():Games.hasEwdFor(k);
 async function loadYesterday(pre){const yk=addDays(todayKey(),-1),k=(pre||'wd')+wdOf(yk),d8=yk.replace(/-/g,'');
   const pick=d=>{const en=(d&&d.entries||[]).filter(x=>ScoreTag.dec(x.tag).day===d8).map((x,i)=>({...x,rank:i+1}));
     const me=d&&d.me&&ScoreTag.dec(d.me.tag).day===d8?{...d.me,rank:(en.find(x=>x.playerId===d.me.playerId)||{}).rank||d.me.rank}:null;return{entries:en,me}};
-  let r=pick(await Games.top(k,'week',25));if(!r.entries.length&&!r.me)r=pick(await Games.top(k,'all',25));return r}
+  let r=pick(await Games.top(k,'week',25));if(!r.entries.length&&!r.me)r=pick(await Games.top(k,'all',25));
+  // ergänzen aus der Hauptliste (Spieler, deren App nicht in die Wochentags-Listen meldet)
+  try{const base=(pre||'wd')==='wd'?'daily':pre.replace(/wd$/,'');const seen=new Set(r.entries.map(x=>x.playerId));let add=[];
+    for(const sp of ['week','all']){const b=pick(await Games.top(base,sp,25));for(const x of b.entries)if(!seen.has(x.playerId)){seen.add(x.playerId);add.push(x)}if(!r.me&&b.me)r.me=b.me}
+    if(add.length){const en=r.entries.concat(add).sort((a,b)=>(+b.score||0)-(+a.score||0)).map((x,i)=>({...x,rank:i+1}));
+      r={entries:en,me:r.me?{...r.me,rank:(en.find(x=>x.playerId===r.me.playerId)||{}).rank||r.me.rank}:null}}}catch(e){}
+  return r}
 function renderOnline(){
   const k=scoresTab==='endless'?'e'+scoresSize:'daily',sp=scoresTab==='endless'?endlessSpan:scoresPeriod,ck=k+'|'+sp;
   $('periodTabs').style.display='';$('periodTabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.p===sp));

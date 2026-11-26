@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.6','Neuer Zähler „Heute schon gespielt“ zwischen Bestenliste und Kacheln: zeigt fürs Tagesspiel und jedes Endlos-Feld, wie viele heute schon gespielt haben'],
  ['2.1.5','Blase im Menü: neuer Text „Heute gespielte Tagesspiele“'],
  ['2.1.4','Neu im Menü: eine Blase zeigt, wie viele heute schon das Tagesspiel gespielt haben – ab dem ersten Spieler'],
  ['2.1.3','Tagesspiel-Bestenliste „Woche“: es zählt jetzt dein bestes Ergebnis der Woche statt der Summe · Sammlung: alle Reiter gleich breit'],

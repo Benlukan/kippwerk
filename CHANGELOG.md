@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.6 (Build 85) – 26.11.2026
+- **Zähler „Heute schon gespielt“** ersetzt die Blase: mittig zwischen Bestenliste (Top 5) und Kacheln eine Leiste „✓ Heute schon gespielt“ und darunter eine Tafel „Tagesspiel: 3“ bzw. „Endlos 6×6: 5“ usw. – je Seite die Zahl der Spieler in der heutigen Google-Tagesliste (Tagesspiel, Endlos 4×4–10×10, 6×6/7×7/8×8 mit Hindernissen; 0 wird angezeigt)
+- Standardansicht ist das Tagesspiel: beim Öffnen des Menüs blättert der Zähler alle 3 s einmal durch alle Felder und bleibt dann wieder beim Tagesspiel stehen. Antippen blättert weiter; nach 6 s läuft er zurück zum Tagesspiel. Punkte darunter zeigen die Seite
+- Leiste und Rahmen in der Hauptfarbe des gewählten Designs (wie „WERK“ und die Knöpfe), Zahl gelb; Zahlen werden erst geladen, wenn ihre Seite drankommt (die nächste wird vorgeladen)
+- Nur mit Google Play Games sichtbar; im Browser und ohne Anmeldung bleibt er weg
+
 ## v2.1.5 (Build 84) – 25.11.2026
 - Blase „Heute schon gespielt“ im Menü: Text jetzt „Heute gespielte Tagesspiele“ (EN: „Daily games played today“), darunter weiter groß die Zahl mit 👥
 

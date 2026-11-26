@@ -41,10 +41,10 @@ const PopMenu=(()=>{let cb=null;const el=()=>$('popMenu');
 $('sizePick').onclick=e=>{e.stopPropagation();if(PopMenu.isOpen){PopMenu.close();return}const cur=curBoard(),open=BOARDS.filter(boardOpen);
   const it=open.filter(k=>!bH(k)).map(k=>({v:k,t:bLabel(k),on:k===cur}));
   if(open.some(bH))it.push({sep:1,t:'🪨 '+I18N.tr('Mit Hindernissen')},...open.filter(bH).map(k=>({v:k,t:bLabel(k),on:k===cur})));
-  PopMenu.open(e.currentTarget,it,v=>{settings.size=v;saveSettings();showMenu();try{Top5.refresh()}catch(x){}})};
+  PopMenu.open(e.currentTarget,it,v=>{settings.size=v;saveSettings();DPC.want='e'+v;showMenu();dpcJump('e'+v);try{Top5.refresh()}catch(x){}})};
 // „Heute schon gespielt“-Zähler: blättert alle 3 s durch Tagesspiel und alle Endlos-Felder und zeigt,
 // wie viele Spieler heute in der jeweiligen Google-Tagesliste stehen (nur mit Play Games). Zahlen werden erst geladen, wenn die Seite drankommt.
-const DPC={i:0,pages:[],n:{},t:null};
+const DPC={i:0,pages:[],n:{},t:null,want:null};
 function dpcPages(){return [{k:'daily',l:I18N.tr('Tagesspiel')}].concat(BOARDS.map(b=>({k:'e'+b,l:I18N.tr('Endlos')+' '+bLabel(b)}))).filter(p=>Games.hasId(p.k))}
 async function dpcCount(k){if(DPC.n[k]!=null)return DPC.n[k];try{const d=await Games.top(k,'day',1);DPC.n[k]=Math.max(0,+d.total||0)}catch(e){DPC.n[k]=null}return DPC.n[k]}
 async function dpcShow(i,anim){const P=DPC.pages;if(!P.length)return;DPC.i=(i+P.length)%P.length;const p=P[DPC.i];
@@ -59,11 +59,14 @@ async function showDailyPlayers(tries){const el=$('dailyPlayers');if(!el)return;
   if(!Games.signedIn){el.hidden=true;dpcStop();return}
   DPC.pages=dpcPages();DPC.n={};if(!DPC.pages.length){el.hidden=true;return}
   $('dpcDots').innerHTML=DPC.pages.map(()=>'<i></i>').join('');
-  await dpcShow(0,false);el.hidden=false;dpcRun()}
-// Standardansicht ist das Tagesspiel: einmal durch alle Felder blättern, dann wieder beim Tagesspiel stehen bleiben. Antippen blättert erneut.
+  const w=DPC.want?DPC.pages.findIndex(p=>p.k===DPC.want):-1;DPC.want=null;   // nach Feldwechsel im Menü: gleich dieses Feld zeigen
+  await dpcShow(w>0?w:0,false);el.hidden=false;dpcRun()}
+// Sofort zum gewählten Feld springen (wenn der Zähler schon läuft) und von dort weiterblättern
+function dpcJump(k){const w=DPC.pages.findIndex(p=>p.k===k);if(w<0||$('dailyPlayers').hidden)return;dpcShow(w,true);dpcRun()}
+// Standardansicht ist das Tagesspiel; danach blättert der Zähler fortlaufend alle 3 s weiter. Antippen blättert sofort (Takt beginnt neu).
 function dpcRun(){dpcStop();
-  DPC.t=setInterval(()=>{if(document.hidden||$('startOv').classList.contains('hidden'))return;const nx=(DPC.i+1)%DPC.pages.length;dpcShow(nx,true);if(nx===0)dpcStop()},3000)}
-$('dailyPlayers').onclick=()=>{dpcShow(DPC.i+1,true);dpcStop();DPC.t=setTimeout(()=>{if(DPC.i!==0)dpcRun()},6000)};
+  DPC.t=setInterval(()=>{if(document.hidden||$('startOv').classList.contains('hidden'))return;dpcShow(DPC.i+1,true)},3000)}
+$('dailyPlayers').onclick=()=>{dpcShow(DPC.i+1,true);dpcRun()};
 function showMenu(){
   if(tut)endTut();
   setTimeout(musicSync,0);

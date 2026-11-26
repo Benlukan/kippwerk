@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.7 (Build 86) – 26.11.2026
+- Zähler „Heute schon gespielt“: startet beim Öffnen des Menüs beim Tagesspiel und blättert dann **fortlaufend** alle 3 s weiter (vorher: ein Durchlauf, dann Stopp beim Tagesspiel). Antippen blättert sofort weiter, der 3-s-Takt beginnt neu
+- Wechselt man im Hauptmenü die Endlos-Feldgröße, springt der Zähler sofort zu diesem Feld (z. B. „Endlos 8×8“) und läuft von dort weiter
+
 ## v2.1.6 (Build 85) – 26.11.2026
 - **Zähler „Heute schon gespielt“** ersetzt die Blase: mittig zwischen Bestenliste (Top 5) und Kacheln eine Leiste „✓ Heute schon gespielt“ und darunter eine Tafel „Tagesspiel: 3“ bzw. „Endlos 6×6: 5“ usw. – je Seite die Zahl der Spieler in der heutigen Google-Tagesliste (Tagesspiel, Endlos 4×4–10×10, 6×6/7×7/8×8 mit Hindernissen; 0 wird angezeigt)
 - Standardansicht ist das Tagesspiel: beim Öffnen des Menüs blättert der Zähler alle 3 s einmal durch alle Felder und bleibt dann wieder beim Tagesspiel stehen. Antippen blättert weiter; nach 6 s läuft er zurück zum Tagesspiel. Punkte darunter zeigen die Seite

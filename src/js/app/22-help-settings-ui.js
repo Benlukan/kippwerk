@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.1.9','Tagesspiel-Bestenliste „Woche“: unter jedem Namen stehen jetzt Datum und Details des besten Tages (wie bei Endlos)'],
  ['2.1.8','Fehler behoben: In den Bestenlisten „Woche“ und „Gestern“ fehlten Spieler, deren App nicht in die Wochentags-Listen meldet'],
  ['2.1.7','Zähler „Heute schon gespielt“ blättert jetzt fortlaufend weiter · Nach dem Wechsel der Endlos-Feldgröße im Menü zeigt er sofort dieses Feld'],
  ['2.1.6','Neuer Zähler „Heute schon gespielt“ zwischen Bestenliste und Kacheln: zeigt fürs Tagesspiel und jedes Endlos-Feld, wie viele heute schon gespielt haben'],
@@ -202,9 +203,9 @@ async function loadWeekMoSo(n,pre){if(!Games.signedIn)throw new Error('n/a');pre
   const L=Object.values(P).filter(p=>p.pub||p.playerId===meId).sort((a,b)=>b.score-a.score);
   const val=p=>best?p.best:p.score;
   if(best)L.sort((a,b)=>b.best-a.best);
-  const sub=p=>isDaily?`${p.days}/7 ${I18N.lang==='en'?(p.days===1?'day played':'days played'):(p.days===1?'Tag gespielt':'Tage gespielt')}`:'';
-  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:val(p),tag:isDaily?'':p.tag,rank:i+1,sub:sub(p)}));
-  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:isDaily?'':mp.tag,rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
+  const sub=p=>'';   // wie Endlos: Details des besten Ergebnisses (Datum, Combo, Züge, Steine) statt „x/7 Tage“
+  const pub=L.filter(p=>!(p.playerId===meId&&meHidden)).map((p,i)=>({playerId:p.playerId,name:p.name,score:val(p),tag:p.tag,rank:i+1,sub:sub(p)}));
+  const mp=meId&&P[meId],me=mp?{playerId:meId,name:mp.name,score:val(mp),tag:mp.tag,rank:meHidden?0:(pub.find(x=>x.playerId===meId)||{}).rank||0,sub:sub(mp)}:null;
   return{entries:pub.slice(0,n||25),me}}
 // Rangliste laden – beim Tagesspiel „Woche“ die eigene Woche Mo–So, sonst direkt von Google
 function boardTop(k,sp,n){if(sp==='week'){if(k==='daily'&&Games.hasWd)return loadWeekMoSo(n);if(/^e\d/.test(k)&&Games.hasEwdFor(k))return loadWeekMoSo(n,k+'wd')}return Games.top(k,sp,n)}

@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.9 (Build 88) – 26.11.2026
+- Tagesspiel-Bestenliste „Woche“ (und Top 5 „Woche“): statt „x/7 Tage gespielt“ stehen unter jedem Namen – wie bei Endlos und „Gestern“ – Datum und Details des besten Tages der Woche (z. B. „Mi., 25.11. · Combo ×4 · 40 Züge · 85 Steine“)
+
 ## v2.1.8 (Build 87) – 26.11.2026
 - **Fehler behoben – Bestenliste „Woche“ und „Gestern“ (Tagesspiel und Endlos):** Diese Ansichten lasen bisher nur die Wochentags-Listen (Mo…So). Spieler, deren App dort nicht meldet (z. B. ältere Versionen), fehlten deshalb, obwohl sie in „Heute“ und in der Top 5 standen. Jetzt werden zusätzlich die Hauptlisten (heute und Google-Woche bzw. Gesamt, gefiltert aufs Datum) eingelesen und je Spieler zusammengeführt. Gewertet wird weiter das beste Ergebnis der Woche
 

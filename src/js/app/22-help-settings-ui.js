@@ -1,6 +1,7 @@
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.2.0','Etappen-Karte neu: ein durchgehender Pfad von 1-1 bis 10-10, jede Welt in ihrer eigenen Farbe mit Landschaft und weichen Übergängen · Schilder am Eingang jeder Welt · über 10-10 der Hinweis „Bald verfügbar“'],
  ['2.1.9','Tagesspiel-Bestenliste „Woche“: unter jedem Namen stehen jetzt Datum und Details des besten Tages (wie bei Endlos)'],
  ['2.1.8','Fehler behoben: In den Bestenlisten „Woche“ und „Gestern“ fehlten Spieler, deren App nicht in die Wochentags-Listen meldet'],
  ['2.1.7','Zähler „Heute schon gespielt“ blättert jetzt fortlaufend weiter · Nach dem Wechsel der Endlos-Feldgröße im Menü zeigt er sofort dieses Feld'],

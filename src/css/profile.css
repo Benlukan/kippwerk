@@ -80,18 +80,20 @@
 .wsw>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}.wsw b{font-size:17px}.wsw small{color:var(--muted);font-size:12px}
 .wsw .icon-btn{font-size:22px;width:44px;height:44px;color:var(--text)}.wsw .icon-btn:disabled{opacity:.3}
 .lvmap{position:relative;width:100%;min-width:280px;margin:0 auto}
+.lvmap{overflow:hidden}
+.lvmap .mbg{position:absolute;left:0;width:100%;pointer-events:none}.lvmap .mbg svg{display:block;width:100%;height:100%;overflow:visible}
 .lvmap .mpath{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .lvmap .mpath path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
 .lvmap .pbase{stroke:var(--line);stroke-width:16}
 .lvmap .pdots{stroke:var(--muted);stroke-opacity:.35;stroke-width:3;stroke-dasharray:2 12}
-.lvmap .pdone{stroke:var(--c3);stroke-opacity:.45;stroke-width:6}
+.lvmap .pdone{stroke-opacity:.55;stroke-width:6}
 .lvmap .mnode{position:absolute;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;border-radius:18px;display:grid;place-items:center;font:700 20px "Space Grotesk",sans-serif;
   background:var(--panel);border:2px solid var(--line);color:var(--muted);box-sizing:border-box;z-index:2}
 .lvmap .mnode small{position:absolute;top:calc(100% + 3px);left:50%;transform:translateX(-50%);font-size:15px;white-space:nowrap}
-.lvmap .mnode.done{background:var(--c3);border-color:transparent;color:#0d0f1a;box-shadow:inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
-.lvmap .mnode.s3{background:color-mix(in srgb,var(--c3) 75%,var(--c1))}
+.lvmap .mnode.done{background:var(--wc,var(--c3));border-color:transparent;color:#0d0f1a;box-shadow:inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
+.lvmap .mnode.s3{background:color-mix(in srgb,var(--wc,var(--c3)) 78%,#fff)}
 .lvmap .mnode.boss{width:66px;height:66px;border-radius:22px}
-.lvmap .mnode.boss.done{background:var(--c4)}
+.lvmap .mnode.boss.done{background:var(--wc,var(--c4));box-shadow:0 0 0 4px color-mix(in srgb,var(--wc,var(--c4)) 35%,transparent),inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
 .lvmap .mnode .crown{position:absolute;top:-17px;font-style:normal;font-size:18px}
 .lvmap .mnode.cur{width:70px;height:70px;border-radius:22px;background:var(--c1);border-color:transparent;color:#0d0f1a;font-size:24px;
   box-shadow:0 0 0 5px color-mix(in srgb,var(--c1) 28%,transparent),0 0 26px color-mix(in srgb,var(--c1) 45%,transparent),inset 0 -6px 0 #0003,inset 0 2px 0 #fff6}
@@ -102,6 +104,8 @@
 .lvmap .mkippi .lid{display:none}
 .lvmap .mgate{position:absolute;left:50%;transform:translate(-50%,-50%);min-width:170px;padding:10px 14px;border-radius:16px;background:var(--panel);border:2px dashed var(--line);
   display:flex;flex-direction:column;align-items:center;gap:2px;z-index:2;color:var(--text);font:inherit;text-align:center}
-.lvmap .mgate b{font-size:14px}.lvmap .mgate small{font-size:12px;color:var(--muted)}
-.lvmap .mgate.open{border:2px solid var(--c2);cursor:pointer;box-shadow:0 0 16px color-mix(in srgb,var(--c2) 30%,transparent)}
-.lvmap .mgate.open small{color:var(--c2);font-weight:700}
+.lvmap .mgate b{font-size:14px;white-space:nowrap}.lvmap .mgate small{font-size:12px;color:var(--muted)}
+.lvmap .mgate.open{border:2px solid var(--wc,var(--c2));box-shadow:0 0 16px color-mix(in srgb,var(--wc,var(--c2)) 30%,transparent)}
+.lvmap .mgate.open small{color:var(--wc,var(--c2));font-weight:700}
+.lvmap .mgate.soon{border:2px dashed var(--muted)}
+#levelsOv .wsw b{color:var(--wc,var(--text));transition:color .4s}

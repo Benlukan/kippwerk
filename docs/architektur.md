@@ -52,7 +52,7 @@ Die CI („Apps bauen“) bricht ab, wenn `www/index.html` nicht zu `src/` passt
 | `17-render` | Spielfeld und Anzeigen zeichnen, Partikel, Combo-Effekte |
 | `18-level-goals` | Etappen-Ziele und Sterne |
 | `19-flow` | Spielablauf: Zug, Auflösen, Punkte, Spielende, Rettung |
-| `20-level-screens` | Etappen-Karte, Start-/Ergebnis-Bildschirme |
+| `20-level-screens` | Etappen-Karte (ein durchgehender Pfad 1-1 bis 10-10, Weltton je Welt aus den Design-Farben, Hintergrund als Block je Welt), Start-/Ergebnis-Bildschirme |
 | `21-input` | Wischen, Tasten, Steuerkreuz |
 | `22-help-settings-ui` | Hilfe, Einstellungen, Bestenliste, Teilen, Hauptmenü |
 | `23-top5` · `24-rewards` | Top 5 im Menü · Belohnungen für Tages-/Wochenplätze |

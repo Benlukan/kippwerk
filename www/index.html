@@ -652,18 +652,20 @@ a.btn{text-decoration:none;display:inline-block;text-align:center}
 .wsw>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}.wsw b{font-size:17px}.wsw small{color:var(--muted);font-size:12px}
 .wsw .icon-btn{font-size:22px;width:44px;height:44px;color:var(--text)}.wsw .icon-btn:disabled{opacity:.3}
 .lvmap{position:relative;width:100%;min-width:280px;margin:0 auto}
+.lvmap{overflow:hidden}
+.lvmap .mbg{position:absolute;left:0;width:100%;pointer-events:none}.lvmap .mbg svg{display:block;width:100%;height:100%;overflow:visible}
 .lvmap .mpath{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .lvmap .mpath path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
 .lvmap .pbase{stroke:var(--line);stroke-width:16}
 .lvmap .pdots{stroke:var(--muted);stroke-opacity:.35;stroke-width:3;stroke-dasharray:2 12}
-.lvmap .pdone{stroke:var(--c3);stroke-opacity:.45;stroke-width:6}
+.lvmap .pdone{stroke-opacity:.55;stroke-width:6}
 .lvmap .mnode{position:absolute;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;border-radius:18px;display:grid;place-items:center;font:700 20px "Space Grotesk",sans-serif;
   background:var(--panel);border:2px solid var(--line);color:var(--muted);box-sizing:border-box;z-index:2}
 .lvmap .mnode small{position:absolute;top:calc(100% + 3px);left:50%;transform:translateX(-50%);font-size:15px;white-space:nowrap}
-.lvmap .mnode.done{background:var(--c3);border-color:transparent;color:#0d0f1a;box-shadow:inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
-.lvmap .mnode.s3{background:color-mix(in srgb,var(--c3) 75%,var(--c1))}
+.lvmap .mnode.done{background:var(--wc,var(--c3));border-color:transparent;color:#0d0f1a;box-shadow:inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
+.lvmap .mnode.s3{background:color-mix(in srgb,var(--wc,var(--c3)) 78%,#fff)}
 .lvmap .mnode.boss{width:66px;height:66px;border-radius:22px}
-.lvmap .mnode.boss.done{background:var(--c4)}
+.lvmap .mnode.boss.done{background:var(--wc,var(--c4));box-shadow:0 0 0 4px color-mix(in srgb,var(--wc,var(--c4)) 35%,transparent),inset 0 -5px 0 #0003,inset 0 2px 0 #fff5}
 .lvmap .mnode .crown{position:absolute;top:-17px;font-style:normal;font-size:18px}
 .lvmap .mnode.cur{width:70px;height:70px;border-radius:22px;background:var(--c1);border-color:transparent;color:#0d0f1a;font-size:24px;
   box-shadow:0 0 0 5px color-mix(in srgb,var(--c1) 28%,transparent),0 0 26px color-mix(in srgb,var(--c1) 45%,transparent),inset 0 -6px 0 #0003,inset 0 2px 0 #fff6}
@@ -674,9 +676,11 @@ a.btn{text-decoration:none;display:inline-block;text-align:center}
 .lvmap .mkippi .lid{display:none}
 .lvmap .mgate{position:absolute;left:50%;transform:translate(-50%,-50%);min-width:170px;padding:10px 14px;border-radius:16px;background:var(--panel);border:2px dashed var(--line);
   display:flex;flex-direction:column;align-items:center;gap:2px;z-index:2;color:var(--text);font:inherit;text-align:center}
-.lvmap .mgate b{font-size:14px}.lvmap .mgate small{font-size:12px;color:var(--muted)}
-.lvmap .mgate.open{border:2px solid var(--c2);cursor:pointer;box-shadow:0 0 16px color-mix(in srgb,var(--c2) 30%,transparent)}
-.lvmap .mgate.open small{color:var(--c2);font-weight:700}
+.lvmap .mgate b{font-size:14px;white-space:nowrap}.lvmap .mgate small{font-size:12px;color:var(--muted)}
+.lvmap .mgate.open{border:2px solid var(--wc,var(--c2));box-shadow:0 0 16px color-mix(in srgb,var(--wc,var(--c2)) 30%,transparent)}
+.lvmap .mgate.open small{color:var(--wc,var(--c2));font-weight:700}
+.lvmap .mgate.soon{border:2px dashed var(--muted)}
+#levelsOv .wsw b{color:var(--wc,var(--text));transition:color .4s}
 /* ---- Info-Leiste: nutzt freie Fläche auf hohen Bildschirmen ---- */
 .infobar{width:var(--W);display:none;flex-direction:column;gap:8px}
 .ib-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -1034,7 +1038,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
         <section id="hModi"><h3>Spielmodi</h3>
           <ul>
             <li><b>📅 Tagesspiel</b> – jeden Tag neu, für alle Spieler dieselben Steine, 40 Züge. Der neue Tag beginnt weltweit gleichzeitig – wie bei Google um Mitternacht UTC-7, in Deutschland also um <b>08:00 Uhr</b> (Winter) bzw. <b>09:00 Uhr</b> (Sommer) – passend zur weltweiten Rangliste. Die erste Runde zählt, weitere sind Übung. Ergebnis als Raster teilen!</li>
-            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss. Die Karte zeigt jede Welt als Pfad – Kippi sitzt auf deinem aktuellen Level, oben wartet das Tor zur nächsten Welt (‹ › blättert durch die Welten).</li>
+            <li><b>🗺 Etappen</b> – 100 Etappen in 10 Welten (neue Welten folgen per Update) mit Zielen (Punkte, Farben, Steine, Combos, Felsen). „Etappe 2-3“ heißt Welt 2, dritte Etappe. 1–3 Sterne je nach übrigen Zügen. Die 10. Etappe jeder Welt ist ein 👑 Boss. Die Karte ist ein durchgehender Pfad von 1-1 bis 10-10 – jede Welt in ihrer eigenen Farbe mit Landschaft. Kippi sitzt auf deinem aktuellen Level, Schilder markieren den Eingang jeder Welt (‹ › springt zur vorherigen bzw. nächsten Welt).</li>
             <li><b>∞ Endlos</b> – ohne Ende: so lange, bis das Feld voll ist. Alle paar Steine steigt das Level: mehr Farben, mehr neue Steine. Feldgröße 5×5 bis 8×8 wählbar – größere Felder haben mehr Farben und werden schneller voll. <b>Freischaltbar</b> (🎨 Sammlung → Felder): <b>4×4</b> (Endlos 5×5 bis Level 15), <b>9×9</b> (Welt 7 oder Endlos 8×8 bis Level 40), <b>10×10</b> (Welt 10 oder Endlos 9×9 bis Level 40) und <b>6×6 / 7×7 / 8×8 mit Hindernissen 🪨</b> (Endlos auf dem jeweiligen Feld bis Level 30) – dort liegen von Anfang an Felsen. Auf 9×9 gibt es ein Extra-Leben erst ab Combo ×7, auf 10×10 ab ×8.</li>
           </ul>
           <p><b>🏆 Bestenliste:</b> Top 10 im Endlos-Modus je Feldgröße – wahlweise <b>Heute</b>, <b>Gestern</b> (weltweit), <b>Woche</b> (beste Runde von Montag bis Sonntag) oder <b>Gesamt</b>. Beim <b>Tagesspiel</b> gibt es drei Listen: <b>Heute</b> (das Spiel des Tages), <b>Woche (Mo–So)</b> (Punkte von Montag bis Sonntag zusammengezählt – jeder gespielte Tag zählt, mit Anzahl der Tage und bestem Tag) und <b>All the best</b> (die besten Tagesspiele aller Zeiten) – jeweils mit deinem <b>Spielernamen</b>. Name und deine einmalige <b>Spieler-ID</b> (z. B. KW-1A2B-3C4D) findest du in ⚙. Die Kurzkennung hinter dem Namen (#1A2B) unterscheidet Spieler mit gleichem Namen.</p>
@@ -1081,7 +1085,7 @@ footer{margin-top:auto;color:var(--muted);font-size:clamp(9px,2.7vw,11px);opacit
   <div class="pad">
     <button data-d="L">⇦</button><button data-d="U">⇧</button><button data-d="D">⇩</button><button data-d="R">⇨</button>
   </div>
-  <footer>KIPPWERK v2.1.9 · Build 88 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
+  <footer>KIPPWERK v2.2.0 · Build 89 · david.digital · <a href="datenschutz.html" style="color:inherit">Datenschutz</a> · <a href="impressum.html" style="color:inherit">Impressum</a></footer>
 </div>
 <script>
 /* ===== Englische Übersetzung: deutscher Originaltext → Englisch ===== */
@@ -1307,7 +1311,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <p>The more colorful your grid, the better you played.</p></section>
 <section id="hModi"><h3>Game modes</h3>
 <ul><li><b>📅 Daily game</b> – new every day, the same stones for every player, 40 moves. The new day starts worldwide at the same moment: <b>midnight UTC-7</b> all year (Germany: 8:00 in winter, 9:00 in summer) – matching the worldwide leaderboard. Your first round counts, the rest are practice. Share your result as a grid!</li>
-<li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss. The map shows each world as a path – Kippi sits on your current level, and the gate to the next world waits at the top (‹ › flips through the worlds).</li>
+<li><b>🗺 Stages</b> – 100 stages in 10 worlds (more worlds coming in updates) with goals (points, colors, stones, combos, rocks). “Stage 2-3” means world 2, third stage. 1–3 stars depending on moves left. The 10th stage of each world is a 👑 boss. The map is one continuous path from 1-1 to 10-10 – each world in its own color with its own landscape. Kippi sits on your current level, and signs mark the entrance to each world (‹ › jumps to the previous or next world).</li>
 <li><b>∞ Endless</b> – no end: play until the board is full. Every few stones the level rises: more colors, more new stones. Board size 5×5 to 8×8 – bigger boards have more colors and fill up faster. <b>Unlockable</b> (🎨 Collection → Boards): <b>4×4</b> (Endless 5×5 up to level 15), <b>9×9</b> (World 7 or Endless 8×8 up to level 40), <b>10×10</b> (World 10 or Endless 9×9 up to level 40) and <b>6×6 / 7×7 / 8×8 with obstacles 🪨</b> (Endless on that board up to level 30) – rocks lie on the board from the start. On 9×9 an extra life needs a ×7 combo, on 10×10 a ×8 combo.</li></ul>
 <p><b>🏆 Leaderboard:</b> Top 10 in Endless per board size – <b>Today</b>, <b>Yesterday</b> (worldwide), <b>Week</b> (best round Monday to Sunday) or <b>All time</b>. The <b>daily game</b> has three lists: <b>Today</b> (today's game), <b>Week (Mon–Sun)</b> (points from Monday to Sunday added up – every day played counts, with number of days and best day) and <b>All-time best</b> (the best daily games ever) – each with your <b>player name</b>. Your name and your unique <b>player ID</b> (e.g. KW-1A2B-3C4D) are in ⚙. The short code after the name (#1A2B) tells players with the same name apart.</p>
 <p><b>🌍 Worldwide (app):</b> When you are signed in to <b>Google Play Games</b> (Android) or <b>Game Center</b> (iPhone), the leaderboard shows the <b>worldwide ranking</b> right away – today, this week and all time, with your rank and details like combo, moves and stones. Your player name then comes from your profile. Your best Endless rounds per board size and your scored daily game are entered automatically. Without signing in (or offline) you see the results on this device. Android and iPhone have separate leaderboards.</p>
@@ -1328,7 +1332,7 @@ const HELP_EN=`<div class="toc"><button data-s="hGrund">How to play</button><but
 <li>🪰 <b>Kippi</b>, the KIPPWERK fly, is your companion: drops by now and then, cheers your combos, reminds you of the daily game – and never gets in the way. Turn off in ⚙.</li>
 <li>🎵 The music speeds up as the game gets harder – boss stages have their own track.</li></ul></section>
 <section id="hNeu"><h3>What's new</h3><div id="helpChangelog"></div></section>`;
-const CHANGES_EN={'2.1.9':'Daily game leaderboard “Week”: each row now shows the date and details of the best day (like endless)','2.1.8':'Fixed: the “Week” and “Yesterday” leaderboards were missing players whose app does not report to the weekday lists','2.1.7':'“Played today” counter now keeps cycling · After changing the endless board size in the menu it jumps straight to that board','2.1.6':'New “Played today” counter between leaderboard and tiles: shows how many have played today for the daily game and every endless board','2.1.5':'Menu bubble: new text “Daily games played today”','2.1.4':'New in the menu: a bubble shows how many have already played today’s daily game – from the first player','2.1.3':'Daily game leaderboard “Week”: your best result of the week now counts instead of the sum · Collection: all tabs have the same width','2.1.2':'Music now starts right away when you open the app · The menu shows how many players have already played today’s daily game','2.1.1':'New stage map: each world as a winding path with Kippi on your level and the gate to the next world · notice in the menu when a new version is available','2.1.0':'New: player profile with stats, showcase and best placements · customize your profile (Kippi outfit, frame, title) · daily bonus with weekly and monthly rewards','2.0.5':'Fixed: after a round ended the game could get stuck (no end screen, back and ⚙ not working). New in ⚙: “Report a problem” with error log','2.0.4':'Missing English texts in the collection added','2.0.3':'Leaderboards load much faster: shared cache, fewer requests, Top 5 shown instantly at start','2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
+const CHANGES_EN={'2.2.0':'New stage map: one continuous path from 1-1 to 10-10, each world in its own color with its own landscape and soft transitions · signs at the entrance of each world · “Coming soon” above 10-10','2.1.9':'Daily game leaderboard “Week”: each row now shows the date and details of the best day (like endless)','2.1.8':'Fixed: the “Week” and “Yesterday” leaderboards were missing players whose app does not report to the weekday lists','2.1.7':'“Played today” counter now keeps cycling · After changing the endless board size in the menu it jumps straight to that board','2.1.6':'New “Played today” counter between leaderboard and tiles: shows how many have played today for the daily game and every endless board','2.1.5':'Menu bubble: new text “Daily games played today”','2.1.4':'New in the menu: a bubble shows how many have already played today’s daily game – from the first player','2.1.3':'Daily game leaderboard “Week”: your best result of the week now counts instead of the sum · Collection: all tabs have the same width','2.1.2':'Music now starts right away when you open the app · The menu shows how many players have already played today’s daily game','2.1.1':'New stage map: each world as a winding path with Kippi on your level and the gate to the next world · notice in the menu when a new version is available','2.1.0':'New: player profile with stats, showcase and best placements · customize your profile (Kippi outfit, frame, title) · daily bonus with weekly and monthly rewards','2.0.5':'Fixed: after a round ended the game could get stuck (no end screen, back and ⚙ not working). New in ⚙: “Report a problem” with error log','2.0.4':'Missing English texts in the collection added','2.0.3':'Leaderboards load much faster: shared cache, fewer requests, Top 5 shown instantly at start','2.0.2':'“Next”: stones left-aligned','2.0.1':'“Next” now shows all stones of the next move – in two rows when there are many','2.0.0':'KIPPWERK 2.0: notice when you are overtaken (rank 1, top 3, top 10) – daily game and all Endless boards. Tidier main menu – Top 5 with one picker (list and period), board choice as a drop-down under “Endless”. Boards with obstacles 7×7/8×8 harder (6th color from level 30). New in ⚙: “Send feedback”. “Next” preview now shows how many stones really come (e.g. “+5”)','1.40.3':'Board picker in the main menu now matches the selected theme – normal boards on top, boards with obstacles below','1.40.2':'Worldwide leaderboards now also for 4×4, 9×9 and 10×10 – with Mon–Sun week and “Yesterday”','1.40.1':'New badges now also as achievements in Google Play Games; worldwide leaderboards for the boards with obstacles','1.40.0':'New boards to unlock: 4×4, 9×9, 10×10 and 6×6/7×7/8×8 with obstacles 🪨 – see 🎨 Collection → Boards. 12 new badges. Extra life on 9×9 from combo ×7, on 10×10 from ×8','1.39.0':'Endless now also has a Monday–Sunday week (best round of the week) and “Yesterday” – for every board size','1.38.0':'Daily game week now runs Monday to Sunday: points of all daily games of the week added up (worldwide, with days played and best day). Endless keeps the Google week Sun–Sat. Achievements active in Google Play Games, “Yesterday” for the daily game','1.37.0':'Endless leaderboards now also by period: Today, Week (Sun–Sat) and All time – worldwide and on this device','1.36.1':'Day change now exactly like Google: 8:00 in winter, 9:00 in summer (German time). “Week” is now “Week (Sun–Sat)” – the Google week starts on Sunday','1.36.0':'New “Collection” menu (🎨 in the main menu) with themes, Kippi outfits and 12 badges with progress. In the game, “←” at the top left takes you back to the main menu','1.35.1':'“My days” now also shows your Endless rounds – grouped by day, with board size, level, combo, moves and stones','1.35.0':'Leaderboard: new tab “My days” with all your daily games, day by day. Prepared: worldwide “Yesterday” for the daily game','1.34.0':'New: “What’s new?” in the settings – and once after every update, showing everything new since your last version','1.33.1':'Theme “Retro 8-Bit”: selected buttons and switches now clearly visible','1.33.0':'New collection: 17 themes and 8 Kippi outfits – unlocked through worlds, streak, Endless, daily games, December, New Year’s Eve and Easter. 6×6 gets rocks from level 30, the music speeds up to suit each board size','1.32.0':'The KIPPWERK theme: a melody of its own to hum along in the menu and the game. The tempo rises with the level and never slows down again during a round','1.31.1':'Your own result now also shows in the Top 5 and the leaderboard when Google does not rank it publicly – with a note on how to become visible','1.31.0':'The daily game now changes worldwide at the same moment, midnight Pacific Time (matching the Google “Today” leaderboard) – the menu shows “open until …”','1.30.2':'Worldwide daily game list and Top 5 now show the date of each daily game','1.30.1':'Top 5 in the main menu now also for Endless (board size as in the menu) – plus a note when a new day starts at Google','1.30.0':'One leaderboard: with Google Play Games you see the worldwide ranking right away (today/week/all time) with your rank, combo, moves and stones – your name comes from your profile','1.29.3':'“Check leaderboards” now also shows why signing in to Google Play Games fails','1.29.2':'Settings → “Check leaderboards”: shows whether your results reached Google Play Games','1.29.1':'Also installable from Google Play on tablets, Chromebooks and PC','1.29.0':'Worldwide leaderboards via Google Play Games: Endless 5×5 to 8×8 and daily game, plus cloud save of your progress','1.28.1':'Kippi only lands where it covers nothing – board, displays and buttons always stay clear','1.28.0':'Source code reorganized into modules (no visible changes) – groundwork for future updates','1.27.1':'Vibration on Android fixed (own driver) + “Test vibration” button in settings','1.27.0':'The fly is called Kippi: hosts the tutorial, speaks in your reminders and has its own notification icon','1.26.0':'New mascot: the KIPPWERK fly · music speeds up with the level, boss stages have their own track · protection against cheated leaderboard entries','1.25.2':'English: menu date and streak weekdays translated; small display fixes','1.25.1':'Speed option removed – the game always runs at normal speed','1.25.0':'Volume sliders for effects and music, vibration off/soft/strong (much more noticeable), leaderboard shows best combo, moves and stones cleared, settings reorganized','1.24.1':'Symbols on the stones slightly larger','1.24.0':'Guided tutorial on first launch, music, particles and stronger combo effects, menu stones follow your phone’s tilt','1.23.0':'English language (follows system language, switchable in ⚙), more robust saves, tablet layout fixed, updated privacy policy',
  '1.22.0':'Endless on 7×7 and 8×8: rocks from level 30, a 6th color from level 40 (★ Orange)',
  '1.21.0':'Rewards for daily and weekly ranks (extra lives, badges) – leaderboard achievements on the streak page',
  '1.20.2':'History: MONSTER (×5, purple) and ULTRA (×6+, white) have their own colors; Endless shows “last 40 moves” again',
@@ -1385,7 +1389,7 @@ I18N_PATS.push(
   [/^(.+) abholen$/,(m,x)=>`Collect ${x}`]);
 [['Neue Version verfügbar','New version available'],['Aktualisieren','Update'],['Neu starten','Restart'],['Update wird geladen …','Downloading update …'],
  ['Update geladen – bereit zum Neustart','Update downloaded – ready to restart'],['Update geladen – tippe im Menü auf „Neu starten“','Update downloaded – tap “Restart” in the menu'],['Später','Later']].forEach(([k,v])=>I18N_EN.set(k,v));
-[['Tor offen','Gate open'],['Weiter zu Welt','On to world'],['Tor zu Welt','Gate to world'],['bestehen','to pass'],['Letzte Welt','Last world'],['Neue Welten folgen per Update','New worlds will follow in an update'],['Vorherige Welt','Previous world'],['Nächste Welt','Next world'],['Level','Level']].forEach(([k,v])=>I18N_EN.set(k,v));
+[['Tor offen','Gate open'],['Weiter zu Welt','On to world'],['Tor zu Welt','Gate to world'],['bestehen','to pass'],['Letzte Welt','Last world'],['Bald verfügbar','Coming soon'],['Neue Welten folgen per Update','New worlds will follow in an update'],['Vorherige Welt','Previous world'],['Nächste Welt','Next world'],['Level','Level']].forEach(([k,v])=>I18N_EN.set(k,v));
 I18N_PATS.push([/^Weiter zu Welt (\d+)$/,(m,w)=>`On to world ${w}`],[/^Tor zu Welt (\d+)$/,(m,w)=>`Gate to world ${w}`],[/^Level (\d+-\d+) bestehen$/,(m,l)=>`Pass level ${l}`]);
 I18N_EN.set('Heute schon gespielt','Played today');
 </script>
@@ -2481,47 +2485,87 @@ function levelFail(reason){
     text:reason==='moves'?'Keine Züge mehr übrig.':'Das Feld ist voll.',
     main:'↻ NOCHMAL',mainFn:()=>{maybeInter();start('level')},retry:false}),400);
 }
-// Etappen-Karte: eine Welt als geschwungener Pfad (Level 1 unten, Boss oben), Kippi sitzt auf dem aktuellen Level,
-// oben das Tor zur nächsten Welt. ‹ › blättert durch die Welten. Farben nur aus den Design-Variablen.
-let mapWorld=-1;
+// Etappen-Karte: alle Welten als ein durchgehender Pfad (1-1 unten … 10-10 oben, darüber „Bald verfügbar“).
+// Jede Welt hat einen eigenen Weltton (aus den Design-Farben) mit weichen Hügeln und einem Motiv am Rand;
+// die Töne gehen fließend ineinander über. Kopfzeile folgt beim Scrollen der Welt im Blick, ‹ › springt zur Nachbarwelt.
+const WTONE=['var(--c2)','color-mix(in srgb,var(--c1) 70%,var(--c0))','var(--c0)','var(--c3)','color-mix(in srgb,var(--c1) 50%,var(--muted))',
+  'var(--c4)','color-mix(in srgb,var(--c3) 55%,var(--c4))','color-mix(in srgb,var(--c3) 50%,var(--c2))','color-mix(in srgb,var(--c0) 55%,var(--c4))','var(--c1)'];
+const wTone=w=>WTONE[w%WTONE.length];
+const tint=(w,p)=>`color-mix(in srgb,${wTone(w)} ${p}%,var(--bg))`;
 const NWORLDS=()=>Math.ceil(LEVELS.length/10);
+const MAP={STEP:78,GAP:150,BOT:150,TOP:190,H:0,wy:[]};
+let mapWorld=0;
+function mapMotif(w,x,y,s,f){            // kleines Weltmotiv (Busch, Fels, Farbpunkte, Zahnrad, Blöcke, Prisma, Wolke, Blasen, Stern, Raute)
+  const t=`translate(${x} ${y}) scale(${s})`;
+  switch(w%10){
+    case 0:return `<g transform="${t}" style="fill:${f}"><circle cx="-7" cy="2" r="7"/><circle cx="4" cy="-2" r="9"/><circle cx="12" cy="4" r="6"/></g>`;
+    case 1:return `<g transform="${t}" style="fill:${f}"><path d="M-14 8 L-9 -6 L2 -10 L12 -3 L14 8 Z"/></g>`;
+    case 2:return `<g transform="${t}">${[0,1,2,3,4].map(k=>`<circle cx="${(k-2)*7}" cy="${(k%2)*6-3}" r="4" style="fill:color-mix(in srgb,var(--c${k}) 45%,var(--bg))"/>`).join('')}</g>`;
+    case 3:return `<g transform="${t}" style="fill:none;stroke:${f}"><circle r="10" stroke-width="6" stroke-dasharray="4 3.85"/><circle r="5" stroke-width="3"/></g>`;
+    case 4:return `<g transform="${t}" style="fill:${f}"><rect x="-14" y="0" width="13" height="9" rx="3"/><rect x="1" y="0" width="13" height="9" rx="3"/><rect x="-6" y="-11" width="13" height="9" rx="3"/></g>`;
+    case 5:return `<g transform="${t}" style="fill:${f}"><path d="M0 -12 L11 8 L-11 8 Z" stroke-linejoin="round" style="stroke:${f}" stroke-width="3"/></g>`;
+    case 6:return `<g transform="${t}" style="fill:${f}"><rect x="-15" y="-2" width="30" height="10" rx="5"/><circle cx="-3" cy="-3" r="7"/><circle cx="6" cy="-1" r="5"/></g>`;
+    case 7:return `<g transform="${t}" style="fill:none;stroke:${f}" stroke-width="2.5"><circle r="7"/><circle cx="11" cy="-9" r="4"/><circle cx="-9" cy="-12" r="3"/></g>`;
+    case 8:return `<g transform="${t}" style="fill:${f}"><path d="M0 -11 L3 -3 L11 -3 L5 2 L7 10 L0 5 L-7 10 L-5 2 L-11 -3 L-3 -3 Z"/></g>`;
+    default:return `<g transform="${t}" style="fill:${f}"><rect x="-6" y="-6" width="12" height="12" rx="2" transform="rotate(45)"/><rect x="10" y="4" width="6" height="6" rx="1" transform="rotate(45 13 7)"/></g>`}}
 function renderMap(){
-  const un=unlocked(),nw=NWORLDS(),curW=Math.min(nw-1,Math.floor((Math.min(un,LEVELS.length)-1)/10));
-  if(mapWorld<0||mapWorld>=nw)mapWorld=curW;
-  const w=mapWorld,first=w*10+1,last=Math.min(LEVELS.length,first+9),cnt=last-first+1;
-  const ws=Array.from({length:cnt},(_,j)=>LP[first+j]||0).reduce((a,b)=>a+b,0);
-  const STEP=78,TOP=150,H=TOP+cnt*STEP+40;
-  const X=j=>50+Math.sin(j*1.05+0.4)*30,Y=j=>H-60-j*STEP;            // x in %, y in px (j=0 unten)
-  let d=`M${X(0)} ${Y(0)}`;for(let j=1;j<cnt;j++){const my=(Y(j-1)+Y(j))/2;d+=` C${X(j-1)} ${my} ${X(j)} ${my} ${X(j)} ${Y(j)}`}
-  const gx=50,gy=64;d+=` C${X(cnt-1)} ${(Y(cnt-1)+gy)/2} ${gx} ${(Y(cnt-1)+gy)/2} ${gx} ${gy+34}`;
-  // gelaufener Teil des Pfads: bis zum aktuellen Level
-  const c=Array.from({length:cnt},(_,j)=>LP[first+j]?1:0).reduce((a,b)=>a+b,0),k=Math.min(c,cnt-1);
-  let dd='';if(c>0){dd=`M${X(0)} ${Y(0)}`;for(let j=1;j<=k;j++){const my=(Y(j-1)+Y(j))/2;dd+=` C${X(j-1)} ${my} ${X(j)} ${my} ${X(j)} ${Y(j)}`}}
+  const un=unlocked(),nw=NWORLDS(),N=LEVELS.length,{STEP,GAP,BOT,TOP}=MAP;
+  const H=MAP.H=BOT+(N-1)*STEP+(nw-1)*GAP+TOP;
+  const X=i=>50+Math.sin(i*1.05+0.4)*30,Y=i=>H-BOT-i*STEP-Math.floor(i/10)*GAP;   // x in %, y in px (i=0 = 1-1 unten)
+  const W=Math.max(280,Math.min(390,$('lvScroll').clientWidth||360)),px=x=>x*W/100;
+  const seg=(i)=>{const my=(Y(i-1)+Y(i))/2;return ` C${X(i-1)} ${my} ${X(i)} ${my} ${X(i)} ${Y(i)}`};
+  let d=`M${X(0)} ${Y(0)+70}L${X(0)} ${Y(0)}`;for(let i=1;i<N;i++)d+=seg(i);
+  d+=` C${X(N-1)} ${Y(N-1)-50} 50 ${Y(N-1)-60} 50 ${Y(N-1)-110}`;
+  let done='';for(let i=1;i<N;i++)if(LP[i]&&LP[i+1])done+=`<path d="M${X(i-1)} ${Y(i-1)}${seg(i)}" class="pdone" style="stroke:${wTone(Math.floor(i/10))}"/>`;
+  // Hintergrund je Welt ein eigener Block (sehr hohe SVGs werden von WebViews abgeschnitten):
+  // Weltton flächig, an den Grenzen weicher Übergang zum Nachbarton, dazu Hügel und Motive (px-Koordinaten im Block)
+  MAP.wy=[];let bg='';
+  const mid=(w,v)=>`color-mix(in srgb,${tint(w,9)} 50%,${tint(v,9)})`;
+  for(let w=0;w<nw;w++){
+    const yb=Y(w*10)+70,yt=Y(Math.min(N-1,w*10+9))-70;MAP.wy.push([yt,yb]);
+    const B0=w===0?H:(Y(w*10-1)+Y(w*10))/2,T0=w===nw-1?0:(Y(w*10+9)+Y(w*10+10))/2,bh=B0-T0;
+    const r=k=>((Math.sin((w+1)*12.9898+k*78.233)*43758.5453)%1+1)%1;          // fester Zufall je Welt
+    let g='';
+    for(let k=0;k<3;k++){const left=(k+w)%2===0,hy=(yb-T0)-k*(yb-yt)/3-r(k)*60,rx=90+r(k+3)*60,ry=60+r(k+6)*40;
+      g+=`<ellipse cx="${left?-20+r(k+9)*30:W+20-r(k+9)*30}" cy="${hy}" rx="${rx}" ry="${ry}" style="fill:${tint(w,16)}"/>`
+        +`<ellipse cx="${left?-40+r(k+12)*20:W+40-r(k+12)*20}" cy="${hy+ry*.45}" rx="${rx*.8}" ry="${ry*.6}" style="fill:${tint(w,22)}"/>`;
+      g+=mapMotif(w,left?px(9):px(91),hy-ry*.55,1.1,tint(w,50))}
+    for(let k=0;k<2;k++){const left=(k+w)%2===1,my=(yb-T0)-(k+.5)*(yb-yt)/2+r(k+20)*40;g+=mapMotif(w,left?px(8):px(92),my,.8,tint(w,38))}
+    const top=w<nw-1?mid(w,w+1):tint(w,9),bot=w>0?mid(w,w-1):tint(w,9);
+    bg+=`<div class="mbg" style="top:${T0}px;height:${bh}px;background:linear-gradient(to bottom,${top},${tint(w,9)} 140px,${tint(w,9)} calc(100% - 140px),${bot})"><svg width="${W}" height="${bh}" viewBox="0 0 ${W} ${bh}" aria-hidden="true">${g}</svg></div>`}
+  // Knoten
   let nodes='';
-  for(let j=0;j<cnt;j++){const n=first+j,s=LP[n]||0,lock=n>un,boss=n%10===0,cur=n===un&&!LP[n];
+  for(let i=0;i<N;i++){const n=i+1,s=LP[n]||0,lock=n>un,boss=n%10===0,cur=n===un&&!LP[n],w=Math.floor(i/10);
     const st=lock?'':`<small>${'★'.repeat(s)}<span class="off">${'★'.repeat(3-s)}</span></small>`;
-    nodes+=`<button class="lvbtn mnode${lock?' locked':''}${boss?' boss':''}${cur?' cur':''}${s?' done':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''} style="left:${X(j)}%;top:${Y(j)}px" aria-label="Level ${stg(n)}">${lock?'🔒':(boss?'<i class="crown">👑</i>':'')+((n-1)%10+1)}${st}</button>`;
-    if(cur)nodes+=`<span class="mkippi" style="left:${X(j)}%;top:${Y(j)}px">${kippiSvg(Unlocks.has('kippi',settings.kippi)?settings.kippi:'none')}</span>`}
-  // Tor zur nächsten Welt
-  let gate;
-  if(w+1<nw){const open=un>last||!!LP[last];
-    gate=open?`<button class="mgate open" data-w="${w+1}"><b>${I18N.tr('Tor offen')}</b><small>${I18N.tr('Weiter zu Welt '+(w+2))} ›</small></button>`
-             :`<div class="mgate"><b>🔒 ${I18N.tr('Tor zu Welt '+(w+2))}</b><small>${I18N.tr('Level '+stg(last)+' bestehen')}</small></div>`}
-  else gate=`<div class="mgate${LP[last]?' open':''}"><b>${LP[last]?'🏆 '+I18N.tr('Alle Welten geschafft'):'🏁 '+I18N.tr('Letzte Welt')}</b><small>${I18N.tr('Neue Welten folgen per Update')}</small></div>`;
-  $('lvGrid').className='lvmap';$('lvGrid').style.height=H+'px';
-  $('lvGrid').innerHTML=`<svg class="mpath" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" class="pbase"/><path d="${d}" class="pdots"/>${dd?`<path d="${dd}" class="pdone"/>`:''}</svg>${gate.replace('class="mgate','style="top:'+gy+'px" class="mgate')}${nodes}`;
+    nodes+=`<button class="lvbtn mnode${lock?' locked':''}${boss?' boss':''}${cur?' cur':''}${s?' done':''}${s===3?' s3':''}" data-n="${n}" ${lock?'disabled':''} style="left:${X(i)}%;top:${Y(i)}px;--wc:${wTone(w)}" aria-label="Level ${stg(n)}">${lock?'🔒':(boss?'<i class="crown">👑</i>':'')+((n-1)%10+1)}${st}</button>`;
+    if(cur)nodes+=`<span class="mkippi" style="left:${X(i)}%;top:${Y(i)}px">${kippiSvg(Unlocks.has('kippi',settings.kippi)?settings.kippi:'none')}</span>`}
+  // Weltschilder: unten Welt 1, zwischen den Welten der Eingang zur nächsten, oben „Bald verfügbar“
+  const wStars=w=>{let a=0;for(let n=w*10+1;n<=Math.min(N,w*10+10);n++)a+=LP[n]||0;return a};
+  let signs='';
+  for(let w=0;w<nw;w++){const first=w*10+1,open=first<=un;
+    const y=w===0?Y(0)+95:(Y(w*10-1)+Y(w*10))/2,x=w===0?X(0):Math.max(32,Math.min(68,(X(w*10-1)+X(w*10))/2));
+    signs+=`<div class="mgate${open?' open':''}" style="top:${y}px;left:${x}%;--wc:${wTone(w)}"><b>${open?'':'🔒 '}${I18N.tr('Welt '+(w+1))} · ${I18N.tr(WORLDS[w]||'')}</b><small>${open?'⭐ '+wStars(w)+' / 30':I18N.tr('Level '+stg(first-1)+' bestehen')}</small></div>`}
+  signs+=`<div class="mgate soon" style="top:${Y(N-1)-120}px;left:50%"><b>🔜 ${I18N.tr('Bald verfügbar')}</b><small>${I18N.tr('Neue Welten folgen per Update')}</small></div>`;
+  const g=$('lvGrid');g.className='lvmap';g.style.height=H+'px';
+  g.innerHTML=`${bg}<svg class="mpath" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" class="pbase"/><path d="${d}" class="pdots"/>${done}</svg>${signs}${nodes}`;
+  const cn=g.querySelector('.mnode.cur')||[...g.querySelectorAll('.mnode:not(.locked)')].pop();
+  requestAnimationFrame(()=>{const sc=$('lvScroll');sc.scrollTop=cn?Math.max(0,cn.offsetTop-sc.clientHeight/2):H;mapSync()})}
+function mapSync(){                      // Kopfzeile = Welt in der Bildmitte
+  const sc=$('lvScroll'),c=sc.scrollTop+sc.clientHeight/2,nw=MAP.wy.length;if(!nw)return;
+  let w=0;for(let k=0;k<nw;k++)if(c<=MAP.wy[k][1]+MAP.GAP/2)w=k;
+  if(w===mapWorld&&$('lvWorld').dataset.w==w)return;mapWorld=w;$('lvWorld').dataset.w=w;
+  let a=0;for(let n=w*10+1;n<=Math.min(LEVELS.length,w*10+10);n++)a+=LP[n]||0;
   $('lvWorld').textContent=I18N.tr('Welt '+(w+1))+' · '+I18N.tr(WORLDS[w]||'');
-  $('lvWorldStars').textContent='⭐ '+ws+' / '+cnt*3;
-  $('lvPrev').disabled=w<=0;$('lvNext').disabled=w>=nw-1||un<first+10;
-  const cn=$('lvGrid').querySelector('.mnode.cur')||$('lvGrid').querySelector('.mnode:not(.locked):last-of-type');
-  requestAnimationFrame(()=>{const sc=$('lvScroll');sc.scrollTop=cn?Math.max(0,cn.offsetTop-sc.clientHeight/2):H})}
+  $('lvWorldStars').textContent='⭐ '+a+' / 30';$('levelsOv').style.setProperty('--wc',wTone(w));
+  $('lvPrev').disabled=w<=0;$('lvNext').disabled=w>=nw-1||unlocked()<(w+1)*10+1}
+function mapGo(w){const sc=$('lvScroll'),[yt,yb]=MAP.wy[w]||[0,0];sc.scrollTo({top:Math.max(0,(yt+yb)/2-sc.clientHeight/2),behavior:'smooth'})}
 function openLevels(){
   $('levelsTotal').innerHTML=`⭐ ${totalStars()} / ${LEVELS.length*3} ${I18N.tr('Sterne')}`;
-  mapWorld=-1;['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');renderMap();
+  ['startOv','overOv','lvlOv'].forEach(i=>$(i).classList.add('hidden'));$('levelsOv').classList.remove('hidden');renderMap();
 }
-$('lvPrev').onclick=()=>{if(mapWorld>0){mapWorld--;renderMap()}};
-$('lvNext').onclick=()=>{mapWorld++;renderMap()};
-$('lvGrid').addEventListener('click',e=>{const g=e.target.closest('[data-w]');if(g){mapWorld=+g.dataset.w;renderMap()}});
+$('lvPrev').onclick=()=>{if(mapWorld>0)mapGo(mapWorld-1)};
+$('lvNext').onclick=()=>{if(mapWorld<NWORLDS()-1)mapGo(mapWorld+1)};
+$('lvScroll').addEventListener('scroll',()=>mapSync(),{passive:true});
 
 function finishGame(reason){
   setTimeout(musicSync,0);
@@ -2800,6 +2844,7 @@ $('setRemind').onchange=async e=>{if(e.target.checked){const ok=await Reminder.e
 // ---------- Hilfe ----------
 const COLOR_NAMES=['Rot','Gelb','Grün','Blau','Lila','Orange'];
 const CHANGES=[
+ ['2.2.0','Etappen-Karte neu: ein durchgehender Pfad von 1-1 bis 10-10, jede Welt in ihrer eigenen Farbe mit Landschaft und weichen Übergängen · Schilder am Eingang jeder Welt · über 10-10 der Hinweis „Bald verfügbar“'],
  ['2.1.9','Tagesspiel-Bestenliste „Woche“: unter jedem Namen stehen jetzt Datum und Details des besten Tages (wie bei Endlos)'],
  ['2.1.8','Fehler behoben: In den Bestenlisten „Woche“ und „Gestern“ fehlten Spieler, deren App nicht in die Wochentags-Listen meldet'],
  ['2.1.7','Zähler „Heute schon gespielt“ blättert jetzt fortlaufend weiter · Nach dem Wechsel der Endlos-Feldgröße im Menü zeigt er sofort dieses Feld'],

@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.2.0 (Build 89) – 27.11.2026
+- **Etappen-Karte neu – durchgehend:** statt einer Welt pro Seite ein einziger Pfad von 1-1 (unten) bis 10-10 (oben), einfach scrollen. Beim Öffnen steht die Karte auf deinem aktuellen Level (Kippi)
+- **Jede Welt in ihrer Farbe:** Hintergrund, weiche Hügel, gelaufener Pfad und fertige Kacheln im Weltton (Erste Schritte grün, Felsenfeld orange, Farbrausch rot, Kettenwerk blau, Steinbruch sand, Prismental lila, Sturmzone indigo, Tiefenwerk türkis, Meisterklasse magenta, Finale gold). Die Töne kommen aus den Design-Farben und passen sich dem gewählten Design an; an den Weltgrenzen gehen sie weich ineinander über
+- Kleine Motive je Welt am Rand (Büsche, Felsen, Farbpunkte, Zahnräder, Ziegel, Prismen, Wolken, Blasen, Sterne, Rauten)
+- Schild am Eingang jeder Welt mit Name und Sternen bzw. „🔒 Level x-10 bestehen“; über 10-10 der Hinweis „🔜 Bald verfügbar – Neue Welten folgen per Update“
+- Kopfzeile zeigt beim Scrollen automatisch die Welt in der Bildmitte (Name im Weltton, Sterne); ‹ › springt weich zur vorherigen/nächsten Welt
+- Hintergrund je Welt als eigener Block (sehr hohe Grafiken werden von WebViews sonst abgeschnitten)
+
 ## v2.1.9 (Build 88) – 26.11.2026
 - Tagesspiel-Bestenliste „Woche“ (und Top 5 „Woche“): statt „x/7 Tage gespielt“ stehen unter jedem Namen – wie bei Endlos und „Gestern“ – Datum und Details des besten Tages der Woche (z. B. „Mi., 25.11. · Combo ×4 · 40 Züge · 85 Steine“)
 

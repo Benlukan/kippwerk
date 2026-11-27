@@ -9,7 +9,7 @@ async def render(scene, out=None, probe=None):
         b=await p.chromium.launch(); ctx=await b.new_context(viewport={'width':1080,'height':1920})
         await ctx.add_init_script(TW); await ctx.add_init_script(SEED_JS)
         pg=await ctx.new_page(); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto('http://127.0.0.1:8123/video/stage.html?lang='+LANG); await pg.wait_for_timeout(600)
+        await pg.goto('http://127.0.0.1:8123/video/'+os.environ.get('STAGE','stage.html')+'?lang='+LANG+'&ver='+os.environ.get('VER','')+('&still=1' if os.environ.get('STILL') else '')); await pg.wait_for_timeout(600)
         await pg.evaluate("document.fonts.ready")
         d=await pg.evaluate(f"SCENES[{scene}].d")
         if await pg.evaluate(f"!!SCENES[{scene}].prep"):
@@ -25,7 +25,7 @@ async def render(scene, out=None, probe=None):
             t=0
             for ms in probe:
                 while t<ms-1: await pg.evaluate(f"__vtAdvance({1000/FPS})"); t+=1000/FPS
-                await pg.screenshot(path=f'/home/claude/video/probe_s{scene}_{ms}.jpg',type='jpeg',quality=92)
+                await pg.screenshot(path=f'/home/claude/video/probe_s{scene}_{ms}'+('_'+LANG if os.environ.get('STILL') else '')+('.png' if os.environ.get('STILL') else '.jpg'),**({} if os.environ.get('STILL') else {'type':'jpeg','quality':92}))
         else:
             tmp=out+'.part.mp4'
             ff=subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','image2pipe','-framerate',str(FPS),'-c:v','mjpeg','-i','-',
@@ -40,4 +40,4 @@ async def render(scene, out=None, probe=None):
 if __name__=='__main__':
     sc=int(sys.argv[1])
     if len(sys.argv)>2 and sys.argv[2]=='probe': asyncio.run(render(sc,probe=[int(x) for x in sys.argv[3].split(',')]))
-    else: asyncio.run(render(sc,out=f'/home/claude/video/s{sc}_{LANG}.mp4'))
+    else: asyncio.run(render(sc,out=f'/home/claude/video/s{sc}_{LANG}.mp4'))  # STAGE=stage_teaser.html für die Teaser
